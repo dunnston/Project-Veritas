@@ -1,0 +1,90 @@
+[gd_scene load_steps=17 format=3 uid="uid://dpj46qxmn3byf"]
+
+[ext_resource type="Script" path="res://scripts/player/PlayerCharacter3D.gd" id="1_s8qm7"]
+[ext_resource type="PackedScene" path="res://3d Assets/POLYGON_Prototype_SourceFiles_v4/SourceFiles/Characters/SK_Character_Dummy_Male_01.fbx" id="2_k1mvx"]
+[ext_resource type="PackedScene" path="res://3d Assets/ANIMATION_Base_Locomotion_SourceFiles_v3/SourceFiles/Animations/Polygon/Masculine/Idle/A_Idle_Standing_Masc.fbx" id="3_idle"]
+[ext_resource type="PackedScene" path="res://3d Assets/ANIMATION_Base_Locomotion_SourceFiles_v3/SourceFiles/Animations/Polygon/Masculine/Locomotion/Walk/A_Walk_FwdStrafeF_Masc.fbx" id="4_walk"]
+[ext_resource type="PackedScene" path="res://3d Assets/ANIMATION_Base_Locomotion_SourceFiles_v3/SourceFiles/Animations/Polygon/Masculine/Locomotion/Run/A_Run_FwdStrafeF_Masc.fbx" id="5_run"]
+[ext_resource type="PackedScene" path="res://3d Assets/ANIMATION_Base_Locomotion_SourceFiles_v3/SourceFiles/Animations/Polygon/Masculine/InAir/A_Jump_Idle_Masc.fbx" id="6_jump"]
+[ext_resource type="PackedScene" path="res://3d Assets/ANIMATION_Base_Locomotion_SourceFiles_v3/SourceFiles/Animations/Polygon/Masculine/InAir/A_InAir_FallShort_Masc.fbx" id="7_fall"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5"]
+animation = &"fall"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_1"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_1")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_2")
+blend_point_1/pos = 0.5
+blend_point_2/node = SubResource("AnimationNodeAnimation_3")
+blend_point_2/pos = 1.0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_1"]
+states/End/position = Vector2(800, 100)
+states/Start/position = Vector2(200, 100)
+states/ground_locomotion/node = SubResource("AnimationNodeBlendSpace1D_1")
+states/ground_locomotion/position = Vector2(400, 100)
+states/jump/node = SubResource("AnimationNodeAnimation_4")
+states/jump/position = Vector2(400, 250)
+states/fall/node = SubResource("AnimationNodeAnimation_5")
+states/fall/position = Vector2(600, 250)
+transitions = ["Start", "ground_locomotion", SubResource("AnimationNodeStateMachineTransition_1"), "ground_locomotion", "jump", SubResource("AnimationNodeStateMachineTransition_2"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_3"), "fall", "ground_locomotion", SubResource("AnimationNodeStateMachineTransition_4")]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_1"]
+
+[node name="PlayerCharacter" type="CharacterBody3D"]
+script = ExtResource("1_s8qm7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_1")
+
+[node name="CharacterModel" parent="." instance=ExtResource("2_k1mvx")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterModel"]
+libraries = {
+"animations": ExtResource("3_idle")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="CharacterModel"]
+tree_root = SubResource("AnimationNodeStateMachine_1")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_1")
+parameters/ground_locomotion/blend_position = 0.0
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
+spring_length = 5.0
+margin = 0.2
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+fov = 75.0

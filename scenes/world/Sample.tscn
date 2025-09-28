@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://d24c0r3qj5eq7"]
+
+[ext_resource type="PackedScene" uid="uid://du4cs0msh0ns2" path="res://3d Assets/PolygonFantasyRivals/Models/Medusa_Snakes.fbx" id="1_l88sd"]
+
+[node name="Sample" type="Node2D"]
+
+[node name="Medusa_Snakes" parent="." instance=ExtResource("1_l88sd")]

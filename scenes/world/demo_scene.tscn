@@ -1,0 +1,152 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7xvh2m4qgtjk"]
+
+[ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_8gvxm"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxywg"]
+sky_top_color = Color(0.0862745, 0.0392157, 0.117647, 1)
+sky_horizon_color = Color(0.301961, 0.0862745, 0.286275, 1)
+ground_bottom_color = Color(0.0313726, 0.00784314, 0.0313726, 1)
+ground_horizon_color = Color(0.301961, 0.0862745, 0.286275, 1)
+ground_curve = 0.1
+
+[sub_resource type="Sky" id="Sky_1d7tg"]
+sky_material = SubResource("ProceduralSkyMaterial_vxywg")
+
+[sub_resource type="Environment" id="Environment_qvfmy"]
+background_mode = 2
+sky = SubResource("Sky_1d7tg")
+ambient_light_source = 3
+ambient_light_color = Color(0.607843, 0.290196, 0.858824, 1)
+ambient_light_energy = 0.3
+tonemap_mode = 2
+glow_enabled = true
+glow_strength = 1.15
+glow_bloom = 0.1
+glow_blend_mode = 0
+fog_enabled = true
+fog_light_color = Color(0.517647, 0.254902, 0.627451, 1)
+fog_density = 0.005
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.8, 0.4, 1, 1)
+volumetric_fog_emission = Color(0.301961, 0.0862745, 0.427451, 1)
+volumetric_fog_emission_energy = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_7iyfv"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qe3jh"]
+albedo_color = Color(0.156863, 0.0784314, 0.235294, 1)
+metallic = 0.8
+roughness = 0.4
+emission_enabled = true
+emission = Color(0.501961, 0, 0.752941, 1)
+emission_energy_multiplier = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hjomk"]
+size = Vector3(100, 1, 100)
+
+[node name="DemoScene" type="Node3D"]
+
+[node name="PlayerMixamo" parent="." instance=ExtResource("1_8gvxm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 10, 0)
+light_color = Color(1, 0.686275, 0.960784, 1)
+light_energy = 0.8
+shadow_enabled = true
+shadow_blur = 1.5
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_qvfmy")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_7iyfv")
+surface_material_override/0 = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_hjomk")
+
+[node name="TestGeometry" type="Node3D" parent="."]
+
+[node name="Platform1" type="CSGBox3D" parent="TestGeometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, 0)
+use_collision = true
+size = Vector3(5, 4, 5)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Platform2" type="CSGBox3D" parent="TestGeometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, -10)
+use_collision = true
+size = Vector3(8, 6, 8)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Ramp" type="CSGPolygon3D" parent="TestGeometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+use_collision = true
+polygon = PackedVector2Array(0, 0, 8, 0, 8, 3, 0, 0)
+depth = 4.0
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Wall1" type="CSGBox3D" parent="TestGeometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 3, 5)
+use_collision = true
+size = Vector3(1, 6, 10)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Wall2" type="CSGBox3D" parent="TestGeometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 3, -5)
+use_collision = true
+size = Vector3(1, 6, 15)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Stairs" type="Node3D" parent="TestGeometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
+
+[node name="Step1" type="CSGBox3D" parent="TestGeometry/Stairs"]
+use_collision = true
+size = Vector3(4, 0.5, 2)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Step2" type="CSGBox3D" parent="TestGeometry/Stairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1)
+use_collision = true
+size = Vector3(4, 0.5, 2)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Step3" type="CSGBox3D" parent="TestGeometry/Stairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
+use_collision = true
+size = Vector3(4, 0.5, 2)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Step4" type="CSGBox3D" parent="TestGeometry/Stairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3)
+use_collision = true
+size = Vector3(4, 0.5, 2)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="NeonLights" type="Node3D" parent="."]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="NeonLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 5)
+light_color = Color(0, 1, 1, 1)
+light_energy = 2.0
+omni_range = 15.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="NeonLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 5, -5)
+light_color = Color(1, 0, 1, 1)
+light_energy = 2.0
+omni_range = 15.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="NeonLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 4, -10)
+light_color = Color(1, 1, 0, 1)
+light_energy = 1.5
+omni_range = 10.0

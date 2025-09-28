@@ -1,0 +1,75 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+*.tmp
+
+# Godot-specific ignores
+.import/
+export.cfg
+export_presets.cfg
+
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+# Mono-specific ignores
+.mono/
+data_*/
+mono_crash.*.json
+
+# System/Editor ignores
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# 3D Assets folder - exclude all purchased/large asset files
+/3d Assets/
+/3D Assets/
+/3d_assets/
+/3D_assets/
+
+# Other large asset folders that might be added later
+/raw_assets/
+/source_assets/
+/purchased_assets/
+
+# Build outputs
+/builds/
+/export/
+/dist/
+
+# Debug files
+*.log
+
+# Temporary files
+*.temp
+*.bak
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+
+# Backup files
+*.backup
+*.backup[0-9]
+*.backup[0-9][0-9]
+
+# Auto-generated Godot files
+*.import
+
+# Keep important configuration files
+!.gitignore
+!README.md
+!LICENSE
