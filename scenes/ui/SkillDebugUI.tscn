@@ -1,0 +1,140 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd2xhpgk2eax2"]
+
+[ext_resource type="Script" uid="uid://tqb4hdoacxwc" path="res://scripts/ui/SkillDebugUI.gd" id="1_n7xhm"]
+
+[node name="SkillDebugUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n7xhm")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="MainPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -350.0
+offset_right = 600.0
+offset_bottom = 350.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="MainPanel/VBoxContainer"]
+layout_mode = 2
+text = "SKILL SYSTEM DEBUG PANEL"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MainPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LeftPanel" type="VBoxContainer" parent="MainPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SkillsLabel" type="Label" parent="MainPanel/VBoxContainer/HBoxContainer/LeftPanel"]
+layout_mode = 2
+text = "CURRENT SKILLS"
+
+[node name="SkillsList" type="ScrollContainer" parent="MainPanel/VBoxContainer/HBoxContainer/LeftPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SkillsContainer" type="VBoxContainer" parent="MainPanel/VBoxContainer/HBoxContainer/LeftPanel/SkillsList"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VSeparator" type="VSeparator" parent="MainPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MiddlePanel" type="VBoxContainer" parent="MainPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HistoryLabel" type="Label" parent="MainPanel/VBoxContainer/HBoxContainer/MiddlePanel"]
+layout_mode = 2
+text = "XP GAIN HISTORY"
+
+[node name="HistoryList" type="ScrollContainer" parent="MainPanel/VBoxContainer/HBoxContainer/MiddlePanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HistoryContainer" type="VBoxContainer" parent="MainPanel/VBoxContainer/HBoxContainer/MiddlePanel/HistoryList"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VSeparator2" type="VSeparator" parent="MainPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="RightPanel" type="VBoxContainer" parent="MainPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TestingLabel" type="Label" parent="MainPanel/VBoxContainer/HBoxContainer/RightPanel"]
+layout_mode = 2
+text = "TESTING CONTROLS"
+
+[node name="TestButtons" type="ScrollContainer" parent="MainPanel/VBoxContainer/HBoxContainer/RightPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TestButtonsContainer" type="VBoxContainer" parent="MainPanel/VBoxContainer/HBoxContainer/RightPanel/TestButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSeparator2" type="HSeparator" parent="MainPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="BottomControls" type="HBoxContainer" parent="MainPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="MainPanel/VBoxContainer/BottomControls"]
+layout_mode = 2
+text = "Close (Z)"
+
+[node name="RefreshButton" type="Button" parent="MainPanel/VBoxContainer/BottomControls"]
+layout_mode = 2
+text = "Refresh"
+
+[node name="ClearHistoryButton" type="Button" parent="MainPanel/VBoxContainer/BottomControls"]
+layout_mode = 2
+text = "Clear History"
+
+[node name="ToggleXPMessages" type="Button" parent="MainPanel/VBoxContainer/BottomControls"]
+layout_mode = 2
+text = "Toggle XP Messages"
+
+[connection signal="pressed" from="MainPanel/VBoxContainer/BottomControls/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MainPanel/VBoxContainer/BottomControls/RefreshButton" to="." method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="MainPanel/VBoxContainer/BottomControls/ClearHistoryButton" to="." method="_on_clear_history_button_pressed"]
+[connection signal="pressed" from="MainPanel/VBoxContainer/BottomControls/ToggleXPMessages" to="." method="_on_toggle_xp_messages_pressed"]

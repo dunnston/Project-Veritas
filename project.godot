@@ -15,6 +15,38 @@ run/main_scene="res://scenes/world/demo_scene.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+EventBus="*res://scripts/managers/EventBus.gd"
+GameManager="*res://scripts/managers/GameManager.gd"
+SaveManager="*res://modules/save_manager/SaveManager.gd"
+SkillSystem="*res://scripts/managers/SkillSystem.gd"
+AttributeManager="*res://scripts/managers/AttributeManager.gd"
+InventorySystem="*res://modules/inventory_system/InventorySystem.gd"
+TimeManager="*res://scripts/managers/TimeManager.gd"
+GameTimeManager="*res://scripts/managers/GameTimeManager.gd"
+CraftingManager="*res://scripts/managers/CraftingManager.gd"
+EquipmentManager="*res://scripts/managers/EquipmentManager.gd"
+WeaponManager="*res://scripts/managers/WeaponManager.gd"
+AmmoManager="*res://scripts/managers/AmmoManager.gd"
+CombatSystem="*res://scripts/systems/CombatSystem.gd"
+StormSystem="*res://scripts/systems/StormSystem.gd"
+StatusEffectSystem="*res://scripts/systems/StatusEffectSystem.gd"
+BuildingManager="*res://scripts/managers/BuildingManager.gd"
+BuildingSystem="*res://scripts/systems/BuildingSystem.gd"
+PowerSystem="*res://scripts/managers/PowerSystem.gd"
+ProjectileSystem="*res://scripts/systems/ProjectileSystem.gd"
+LootSystem="*res://scripts/systems/LootSystem.gd"
+ItemDropManager="*res://scripts/systems/ItemDropManager.gd"
+SpawnerManager="*res://scripts/systems/SpawnerManager.gd"
+OxygenSystem="*res://scripts/managers/OxygenSystem.gd"
+ShelterSystem="*res://scripts/systems/ShelterSystem.gd"
+InteriorDetectionSystem="*res://scripts/systems/InteriorDetectionSystem.gd"
+RoofVisibilityManager="*res://scripts/systems/RoofVisibilityManager.gd"
+DoorSystem="*res://scripts/systems/DoorSystem.gd"
+EmergencySystem="*res://scripts/systems/EmergencySystem.gd"
+CharacterCreator="*res://scripts/utilities/CharacterCreator.gd"
+
 [input]
 
 move_forward={
@@ -60,5 +92,10 @@ interact={
 menu={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+toggle_inventory={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }

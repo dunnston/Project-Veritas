@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmsmucoa0u3do"]
+
+[ext_resource type="Script" uid="uid://b8g83balelh4u" path="res://scripts/buildings/StorageBox.gd" id="1_4qxha"]
+[ext_resource type="Texture2D" uid="uid://dtm37xybfkuj1" path="res://assets/sprites/items/Chest.png" id="2_xygrl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_interaction"]
+size = Vector2(48, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_building"]
+size = Vector2(32, 32)
+
+[node name="StorageBox" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_4qxha")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_xygrl")
+
+[node name="InteractionCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_interaction")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 2
+
+[node name="BuildingCollision" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_building")

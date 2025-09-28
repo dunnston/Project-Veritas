@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=4 uid="uid://tablet_scene"]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/objects/tablet.png" id="1_tablet"]
+[ext_resource type="Script" path="res://scripts/interactables/Tablet.gd" id="2_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(32, 24)
+
+[node name="Tablet" type="Area2D"]
+script = ExtResource("2_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_tablet")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="InteractionPrompt" type="Label" parent="."]
+offset_left = -25.0
+offset_top = -35.0
+offset_right = 25.0
+offset_bottom = -15.0
+text = "[E] Read Tablet"
+horizontal_alignment = 1
+visible = false

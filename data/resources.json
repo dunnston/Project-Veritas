@@ -1,0 +1,268 @@
+{
+	"BIO_MATTER": {
+		"category": "organic",
+		"description": "Organic material that can be processed into food or fuel",
+		"icon": "bio_matter.png",
+		"name": "Bio-matter",
+		"stack_size": 50.0
+	},
+	"CHEMICAL_CATALYST": {
+		"category": "material",
+		"description": "Advanced catalyst for oxygen generation systems",
+		"icon": "chemical_catalyst.png",
+		"name": "Chemical Catalyst",
+		"stack_size": 10.0
+	},
+	"COPPER_WIRE": {
+		"category": "material",
+		"description": "Conductive wire for electrical connections",
+		"icon": "copper-wire.png",
+		"name": "Copper Wire",
+		"stack_size": 100.0
+	},
+	"CROWBAR": {
+		"category": "tool",
+		"description": "Heavy tool for forcing open locked doors",
+		"icon": "crowbar.png",
+		"name": "Crowbar",
+		"stack_size": 1.0
+	},
+	"ELECTRONICS": {
+		"category": "material",
+		"description": "Salvaged electronic components for advanced crafting",
+		"icon": "electronics.png",
+		"name": "Electronics",
+		"stack_size": 50.0
+	},
+	"ENERGY_CELLS": {
+		"category": "power",
+		"description": "Portable power sources for machines and equipment",
+		"icon": "energy-cell.png",
+		"name": "Energy Cells",
+		"stack_size": 20.0
+	},
+	"FOOD": {
+		"category": "consumable",
+		"description": "Processed rations to maintain hunger levels",
+		"icon": "can-food.png",
+		"name": "Food",
+		"stack_size": 50.0
+	},
+	"GEARS": {
+		"category": "material",
+		"description": "Mechanical gears salvaged from machinery",
+		"icon": "gear.png",
+		"name": "Gears",
+		"stack_size": 25.0
+	},
+	"GEAR_ASSEMBLY": {
+		"category": "component",
+		"description": "Complex mechanical gear system",
+		"icon": "gear_assembly.png",
+		"name": "Gear Assembly",
+		"stack_size": 10.0
+	},
+	"METAL_ROD": {
+		"category": "material",
+		"description": "Long metal rod for structural applications",
+		"icon": "metal-rod.png",
+		"name": "Metal Rod",
+		"stack_size": 25.0
+	},
+	"METAL_SHEETS": {
+		"category": "material",
+		"description": "Reinforced metal sheets for building pressure vessels",
+		"icon": "metal-sheet.png",
+		"name": "Metal Sheets",
+		"stack_size": 50.0
+	},
+	"METAL_VALVE": {
+		"category": "component",
+		"description": "Industrial valve for fluid control systems",
+		"icon": "Metal-Valve.png",
+		"name": "Metal Valve",
+		"stack_size": 15.0
+	},
+	"MAGNETS": {
+		"category": "material",
+		"description": "Strong magnets salvaged from speakers and motors",
+		"icon": "magnet.png",
+		"name": "Magnets",
+		"stack_size": 25.0
+	},
+	"OXYGEN_TANK": {
+		"category": "equipment",
+		"description": "Emergency oxygen supply tank for life support",
+		"icon": "oxygen_tank.png",
+		"name": "Oxygen Tank",
+		"stack_size": 1.0
+	},
+	"RARE_MINERALS": {
+		"category": "material",
+		"description": "Valuable minerals for high-tech crafting",
+		"icon": "rare_minerals.png",
+		"name": "Rare Minerals",
+		"stack_size": 20.0
+	},
+	"RUBBER_SEAL": {
+		"category": "material",
+		"description": "Essential sealing component for airtight systems",
+		"icon": "rubber seal.png",
+		"name": "Rubber Seal",
+		"stack_size": 25.0
+	},
+	"SCRAP_METAL": {
+		"category": "material",
+		"description": "Basic building material salvaged from the wasteland",
+		"icon": "scrap_metal.png",
+		"name": "Scrap Metal",
+		"stack_size": 100.0
+	},
+	"SPEAKERS": {
+		"category": "material",
+		"description": "Salvaged speakers containing electronics and magnets",
+		"icon": "speaker.png",
+		"name": "Speakers",
+		"stack_size": 5.0
+	},
+	"SPRING": {
+		"category": "material",
+		"description": "Metal spring coil useful for mechanical projects",
+		"icon": "spring.png",
+		"name": "Spring",
+		"stack_size": 20.0
+	},
+	"STEEL_GEARS": {
+		"category": "material",
+		"description": "Precision gears for mechanical systems",
+		"icon": "steel_gears.png",
+		"name": "Steel Gears",
+		"stack_size": 20.0
+	},
+	"STEEL_SHEET": {
+		"category": "material",
+		"description": "Flat reinforced steel sheet for construction",
+		"icon": "steel_sheet.png",
+		"name": "Steel Sheet",
+		"stack_size": 50.0
+	},
+	"TESTING_ITEM": {
+		"category": "organic",
+		"description": "Test",
+		"icon": "",
+		"name": "Testing Item",
+		"stack_size": 50.0
+	},
+	"TIRE": {
+		"category": "material",
+		"description": "Old worn tire that can be processed into rubber components",
+		"icon": "tire.png",
+		"name": "Tire",
+		"stack_size": 10.0
+	},
+	"WATER": {
+		"category": "consumable",
+		"description": "Essential for survival and many crafting recipes",
+		"icon": "water-bottel.png",
+		"name": "Water",
+		"stack_size": 100.0
+	},
+	"MEDKIT": {
+		"category": "consumable",
+		"description": "Advanced medical kit that restores 50 health points",
+		"icon": "medkit.png",
+		"name": "Medical Kit",
+		"stack_size": 5.0
+	},
+	"BANDAGE": {
+		"category": "consumable",
+		"description": "Basic first aid bandage that restores 20 health points",
+		"icon": "bandage.png",
+		"name": "Bandage",
+		"stack_size": 20.0
+	},
+	"STIMPACK": {
+		"category": "consumable",
+		"description": "Military stimulant that provides instant healing plus regeneration over time",
+		"icon": "stimpack.png",
+		"name": "Stimpack",
+		"stack_size": 10.0
+	},
+	"RAD_AWAY": {
+		"category": "consumable",
+		"description": "Anti-radiation medicine that reduces radiation levels",
+		"icon": "rad_away.png",
+		"name": "Rad-Away",
+		"stack_size": 15.0
+	},
+	"ENERGY_DRINK": {
+		"category": "consumable",
+		"description": "High-caffeine beverage that restores energy and provides temporary speed boost",
+		"icon": "energy_drink.png",
+		"name": "Energy Drink",
+		"stack_size": 25.0
+	},
+	"RAD_X": {
+		"category": "consumable",
+		"description": "Pre-war radiation treatment that moderately reduces radiation exposure",
+		"icon": "rad_x.png",
+		"name": "Rad-X",
+		"stack_size": 20.0
+	},
+	"IODINE_TABLETS": {
+		"category": "consumable",
+		"description": "Basic iodine pills that provide minor radiation reduction",
+		"icon": "iodine_tablets.png",
+		"name": "Iodine Tablets",
+		"stack_size": 30.0
+	},
+	"WOOD": {
+		"category": "building_material",
+		"description": "Fresh timber harvested from trees. Essential for basic construction and crafting.",
+		"icon": "wood.png",
+		"name": "Wood",
+		"stack_size": 50.0
+	},
+	"STONE": {
+		"category": "building_material", 
+		"description": "Solid stone blocks quarried from rock deposits. Used for foundations and walls.",
+		"icon": "stone.png",
+		"name": "Stone",
+		"stack_size": 25.0
+	},
+	"METAL_SCRAPS": {
+		"category": "building_material",
+		"description": "Refined metal pieces extracted from rock mining. Rare and valuable for advanced construction.",
+		"icon": "metal_scraps.png", 
+		"name": "Metal Scraps",
+		"stack_size": 20.0
+	},
+	"WOOD_SCRAPS": {
+		"category": "material",
+		"description": "Weathered wooden planks salvaged from ruins. Used for basic crafting.",
+		"icon": "wood_scrap.png",
+		"name": "Wood Scraps",
+		"stack_size": 100.0
+	},
+	"SCRAP_HELMET": {
+		"category": "equipment",
+		"description": "Makeshift helmet cobbled together from scrap metal",
+		"icon": "scrap_helmet.png",
+		"name": "Scrap Helmet",
+		"stack_size": 1.0
+	},
+	"SCRAP_VEST": {
+		"category": "equipment",
+		"description": "Basic armor made from metal plates",
+		"icon": "scrap_vest.png",
+		"name": "Scrap Vest",
+		"stack_size": 1.0
+	},
+	"WORK_BOOTS": {
+		"category": "equipment",
+		"description": "Sturdy boots for rough terrain",
+		"icon": "work_boots.png",
+		"name": "Work Boots",
+		"stack_size": 1.0
+	}
+}

@@ -1,0 +1,404 @@
+{
+	"TEST_RECIPIE": {
+		"craft_time": 10.1,
+		"description": "Testing",
+		"ingredients": {
+
+		},
+		"name": "Test Recipie",
+		"output": {
+			"FOOD": 1.0
+		},
+		"requires_building": "workbench"
+	},
+	"assembler": {
+		"category": "crafting_station",
+		"craft_time": 15.0,
+		"description": "Advanced crafting station for automation components",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"ELECTRONICS": 10.0,
+			"ENERGY_CELLS": 2.0,
+			"RARE_MINERALS": 3.0,
+			"SCRAP_METAL": 20.0
+		},
+		"name": "Assembler",
+		"output": {
+			"assembler": 1.0
+		},
+		"workbench_required": true
+	},
+	"basic_floor": {
+		"category": "building",
+		"craft_time": 1.5,
+		"description": "Metal floor plating for your base",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 3.0
+		},
+		"name": "Basic Floor",
+		"output": {
+			"basic_floor": 1.0
+		},
+		"workbench_required": false
+	},
+	"basic_wall": {
+		"category": "building",
+		"craft_time": 2.0,
+		"description": "A simple metal wall for base protection",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 5.0
+		},
+		"name": "Basic Wall",
+		"output": {
+			"basic_wall": 1.0
+		},
+		"workbench_required": false
+	},
+	"basic_roof": {
+		"category": "building",
+		"craft_time": 2.5,
+		"description": "Metal roof plating for overhead storm protection",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 4.0,
+			"METAL_SHEETS": 2.0
+		},
+		"name": "Basic Roof",
+		"output": {
+			"basic_roof": 1.0
+		},
+		"workbench_required": false
+	},
+	"door": {
+		"category": "building",
+		"craft_time": 3.0,
+		"description": "Allows controlled access to your shelter",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 6.0,
+			"ELECTRONICS": 1.0
+		},
+		"name": "Door",
+		"output": {
+			"door": 1.0
+		},
+		"workbench_required": false
+	},
+	"reinforced_wall": {
+		"category": "building",
+		"craft_time": 4.0,
+		"description": "Heavy-duty wall with superior storm protection",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 8.0,
+			"METAL_SHEETS": 2.0
+		},
+		"name": "Reinforced Wall",
+		"output": {
+			"reinforced_wall": 1.0
+		},
+		"workbench_required": true
+	},
+	"reinforced_roof": {
+		"category": "building",
+		"craft_time": 4.5,
+		"description": "Heavy-duty roof with superior storm protection",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 6.0,
+			"METAL_SHEETS": 4.0
+		},
+		"name": "Reinforced Roof",
+		"output": {
+			"reinforced_roof": 1.0
+		},
+		"workbench_required": true
+	},
+	"battery": {
+		"category": "power",
+		"craft_time": 6.0,
+		"description": "Stores power for later use",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"ELECTRONICS": 3.0,
+			"RARE_MINERALS": 1.0,
+			"SCRAP_METAL": 4.0
+		},
+		"name": "Battery",
+		"output": {
+			"battery": 1.0
+		},
+		"workbench_required": true
+	},
+	"copper_wire_from_speakers": {
+		"category": "component",
+		"craft_time": 2.0,
+		"description": "Salvage copper wire from old speakers",
+		"include_in_build_menu": false,
+		"ingredients": {
+			"SPEAKERS": 2.0
+		},
+		"name": "Copper Wire",
+		"output": {
+			"COPPER_WIRE": 1.0
+		},
+		"required_building": "workbench",
+		"workbench_required": true
+	},
+	"crowbar": {
+		"category": "tool",
+		"craft_time": 5.0,
+		"description": "Heavy prying tool for locked doors",
+		"include_in_build_menu": false,
+		"ingredients": {
+			"SCRAP_METAL": 5.0
+		},
+		"name": "Crowbar",
+		"output": {
+			"CROWBAR": 1.0
+		},
+		"required_building": "workbench",
+		"workbench_required": true
+	},
+	"food_processor": {
+		"category": "production",
+		"craft_time": 8.0,
+		"description": "Converts bio-matter into edible food",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"ELECTRONICS": 4.0,
+			"ENERGY_CELLS": 1.0,
+			"SCRAP_METAL": 6.0
+		},
+		"name": "Food Processor",
+		"output": {
+			"food_processor": 1.0
+		},
+		"workbench_required": true
+	},
+	"gear_assembly": {
+		"category": "component",
+		"craft_time": 8.0,
+		"description": "Assemble complex gear mechanism",
+		"icon": "gear-assembly.png",
+		"include_in_build_menu": false,
+		"ingredients": {
+			"GEARS": 2.0,
+			"SCRAP_METAL": 3.0
+		},
+		"name": "Gear Assembly",
+		"output": {
+			"GEAR_ASSEMBLY": 1.0
+		},
+		"required_building": "workbench",
+		"workbench_required": true
+	},
+	"hand_crank_generator": {
+		"category": "emergency",
+		"craft_time": 12.0,
+		"description": "Manual power generator for emergency backup. Provides 4 hours of additional time.",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"COPPER_WIRE": 3.0,
+			"GEAR_ASSEMBLY": 1.0,
+			"METAL_ROD": 2.0,
+			"METAL_SHEETS": 2.0
+		},
+		"name": "Hand Crank Generator",
+		"output": {
+			"hand_crank_generator": 1.0
+		},
+		"workbench_required": true
+	},
+	"metal_rod": {
+		"category": "component",
+		"craft_time": 2.5,
+		"description": "Shape metal into structural rods",
+		"include_in_build_menu": false,
+		"ingredients": {
+			"SCRAP_METAL": 2.0
+		},
+		"name": "Metal Rod",
+		"output": {
+			"METAL_ROD": 1.0
+		},
+		"required_building": "workbench",
+		"workbench_required": true
+	},
+	"metal_sheets": {
+		"category": "component",
+		"craft_time": 4.0,
+		"description": "Process scrap metal into reinforced sheets",
+		"include_in_build_menu": false,
+		"ingredients": {
+			"ENERGY_CELLS": 1.0,
+			"SCRAP_METAL": 8.0
+		},
+		"name": "Metal Sheets",
+		"output": {
+			"METAL_SHEETS": 2.0
+		},
+		"required_building": "workbench",
+		"workbench_required": true
+	},
+	"metal_valve": {
+		"category": "component",
+		"craft_time": 6.0,
+		"description": "Craft industrial valve for fluid control",
+		"include_in_build_menu": false,
+		"ingredients": {
+			"SCRAP_METAL": 2.0,
+			"SPRING": 1.0
+		},
+		"name": "Metal Valve",
+		"output": {
+			"METAL_VALVE": 1.0
+		},
+		"required_building": "workbench",
+		"workbench_required": true
+	},
+	"oxygen_tank": {
+		"category": "emergency",
+		"craft_time": 8.0,
+		"description": "Emergency oxygen supply for life support systems. Critical for restoring base oxygen.",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"METAL_SHEETS": 2.0,
+			"METAL_VALVE": 1.0,
+			"RUBBER_SEAL": 1.0
+		},
+		"name": "Oxygen Tank",
+		"output": {
+			"oxygen_tank": 1.0
+		},
+		"workbench_required": true
+	},
+	"rubber_seal_from_tire": {
+		"category": "component",
+		"craft_time": 4.0,
+		"description": "Process old tires into rubber seals",
+		"include_in_build_menu": false,
+		"ingredients": {
+			"TIRE": 4.0
+		},
+		"name": "Rubber Seal",
+		"output": {
+			"RUBBER_SEAL": 1.0
+		},
+		"required_building": "workbench",
+		"workbench_required": true
+	},
+	"scrap_pickaxe": {
+		"category": "tool",
+		"craft_time": 4.0,
+		"description": "Basic tool for gathering resources",
+		"include_in_build_menu": false,
+		"ingredients": {
+			"ELECTRONICS": 1.0,
+			"SCRAP_METAL": 6.0
+		},
+		"name": "Scrap Pickaxe",
+		"output": {
+			"scrap_pickaxe": 1.0
+		},
+		"required_building": "workbench",
+		"workbench_required": true
+	},
+	"solar_panel": {
+		"category": "power",
+		"craft_time": 10.0,
+		"description": "Generates power during daylight hours",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"ELECTRONICS": 5.0,
+			"RARE_MINERALS": 2.0,
+			"SCRAP_METAL": 5.0
+		},
+		"name": "Solar Panel",
+		"output": {
+			"solar_panel": 1.0
+		},
+		"workbench_required": true
+	},
+	"steel_sheet": {
+		"category": "component",
+		"craft_time": 3.0,
+		"description": "Process metal into reinforced steel sheets",
+		"include_in_build_menu": false,
+		"ingredients": {
+			"SCRAP_METAL": 3.0
+		},
+		"name": "Steel Sheet",
+		"output": {
+			"STEEL_SHEET": 1.0
+		},
+		"required_building": "workbench",
+		"workbench_required": true
+	},
+	"storage_box": {
+		"category": "storage",
+		"craft_time": 3.0,
+		"description": "Basic container for storing items",
+		"icon": "Chest.png",
+		"include_in_build_menu": false,
+		"ingredients": {
+			"SCRAP_METAL": 2.0,
+			"WOOD_SCRAPS": 5.0
+		},
+		"name": "Small Storage Box",
+		"output": {
+			"storage_box": 1.0
+		},
+		"required_building": "workbench",
+		"workbench_required": true
+	},
+	"water_purifier": {
+		"category": "production",
+		"craft_time": 8.0,
+		"description": "Converts contaminated water into clean water",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"BIO_MATTER": 5.0,
+			"ELECTRONICS": 3.0,
+			"SCRAP_METAL": 8.0
+		},
+		"name": "Water Purifier",
+		"output": {
+			"water_purifier": 1.0
+		},
+		"workbench_required": true
+	},
+	"workbench": {
+		"category": "crafting_station",
+		"craft_time": 5.0,
+		"description": "Essential crafting station for advanced items",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"WOOD_SCRAPS": 5.0
+		},
+		"name": "Workbench",
+		"output": {
+			"workbench": 1.0
+		},
+		"workbench_required": false
+	},
+	"repair_bench": {
+		"category": "crafting_station",
+		"craft_time": 12.0,
+		"description": "Specialized workstation for repairing damaged equipment and weapons",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 15.0,
+			"ELECTRONICS": 5.0,
+			"GEARS": 3.0,
+			"METAL_ROD": 2.0
+		},
+		"name": "Repair Bench",
+		"output": {
+			"repair_bench": 1.0
+		},
+		"workbench_required": true
+	}
+}

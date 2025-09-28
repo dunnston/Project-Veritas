@@ -1,0 +1,295 @@
+{
+	"ammo_types": {
+		"ENERGY_CELLS": {
+			"crafting_recipe": {
+				"craft_time": 15.0,
+				"ingredients": {
+					"BATTERY": 1.0,
+					"ELECTRONICS": 3.0,
+					"RARE_MINERALS": 1.0
+				},
+				"output": 5.0,
+				"requires_building": "advanced_workbench"
+			},
+			"damage_modifier": 1.5,
+			"description": "High-tech energy ammunition",
+			"icon": "energy_cells",
+			"name": "Energy Cells",
+			"stack_size": 50.0
+		},
+		"PLASMA_CHARGES": {
+			"crafting_recipe": {
+				"craft_time": 30.0,
+				"ingredients": {
+					"ELECTRONICS": 5.0,
+					"FUSION_CORE": 1.0,
+					"RARE_MINERALS": 2.0
+				},
+				"output": 3.0,
+				"requires_building": "fusion_lab"
+			},
+			"damage_modifier": 2.0,
+			"description": "Experimental plasma-based ammunition",
+			"icon": "plasma_charges",
+			"name": "Plasma Charges",
+			"stack_size": 25.0
+		},
+		"SCRAP_BULLETS": {
+			"crafting_recipe": {
+				"craft_time": 5.0,
+				"ingredients": {
+					"GUNPOWDER": 1.0,
+					"SCRAP_METAL": 2.0
+				},
+				"output": 10.0,
+				"requires_building": "workbench"
+			},
+			"damage_modifier": 1.0,
+			"description": "Makeshift ammunition crafted from scrap metal",
+			"icon": "scrap_bullets",
+			"name": "Scrap Bullets",
+			"stack_size": 100.0
+		}
+	},
+	"weapon_stats": {
+		"accuracy": "Hit chance modifier (0.0 to 1.0)",
+		"armor_penetration": "Percentage of armor ignored",
+		"attack_speed": "Attacks per second",
+		"critical_chance": "Chance for critical hits",
+		"damage": "Base damage per hit",
+		"durability": "Weapon condition points",
+		"energy_damage": "Bypasses physical armor",
+		"full_auto": "Can fire continuously",
+		"magazine_size": "Shots before reload required",
+		"piercing": "Shots can pass through enemies",
+		"range": "Maximum effective range in meters",
+		"reload_time": "Time to reload in seconds",
+		"splash_damage": "Area of effect damage"
+	},
+	"weapon_types": {
+		"MELEE": {
+			"description": "Close-range weapons that don't require ammo",
+			"name": "Melee Weapon",
+			"uses_ammo": false
+		},
+		"RANGED": {
+			"description": "Long-range weapons that consume ammunition",
+			"name": "Ranged Weapon",
+			"uses_ammo": true
+		}
+	},
+	"weapons": {
+		"ASSAULT_RIFLE": {
+			"ammo_type": "SCRAP_BULLETS",
+			"attack_speed": 3.0,
+			"crafting_recipe": {
+				"craft_time": 35.0,
+				"ingredients": {
+					"ELECTRONICS": 2.0,
+					"POLYMER": 3.0,
+					"SPRING": 4.0,
+					"STEEL": 12.0
+				},
+				"requires_building": "advanced_workbench"
+			},
+			"damage": 12.0,
+			"description": "Military-grade automatic weapon with high rate of fire",
+			"durability": 300.0,
+			"icon": "assault_rifle",
+			"magazine_size": 30.0,
+			"name": "Assault Rifle",
+			"range": 12.0,
+			"reload_time": 2.5,
+			"stats": {
+				"accuracy": 0.75,
+				"critical_chance": 0.1,
+				"full_auto": true
+			},
+			"tier": 2.0,
+			"type": "RANGED"
+		},
+		"COMBAT_KNIFE": {
+			"attack_speed": 1.8,
+			"crafting_recipe": {
+				"craft_time": 15.0,
+				"ingredients": {
+					"KEVLAR": 1.0,
+					"RUBBER": 2.0,
+					"STEEL": 4.0
+				},
+				"requires_building": "advanced_workbench"
+			},
+			"damage": 12.0,
+			"description": "Military-grade tactical knife with carbon steel blade",
+			"durability": 200.0,
+			"icon": "combat_knife",
+			"name": "Combat Knife",
+			"range": 1.2,
+			"stats": {
+				"armor_penetration": 0.1,
+				"critical_chance": 0.15
+			},
+			"tier": 2.0,
+			"type": "MELEE"
+		},
+		"ENERGY_RIFLE": {
+			"ammo_type": "ENERGY_CELLS",
+			"attack_speed": 1.5,
+			"crafting_recipe": {
+				"craft_time": 50.0,
+				"ingredients": {
+					"BATTERY": 3.0,
+					"ELECTRONICS": 10.0,
+					"RARE_MINERALS": 4.0,
+					"TITANIUM": 6.0
+				},
+				"requires_building": "tech_lab"
+			},
+			"damage": 20.0,
+			"description": "Advanced directed-energy weapon with precise targeting",
+			"durability": 400.0,
+			"icon": "energy_rifle",
+			"magazine_size": 20.0,
+			"name": "Energy Rifle",
+			"range": 15.0,
+			"reload_time": 2.0,
+			"stats": {
+				"accuracy": 0.9,
+				"critical_chance": 0.15,
+				"energy_damage": true,
+				"piercing": true
+			},
+			"tier": 3.0,
+			"type": "RANGED"
+		},
+		"MAKESHIFT_PISTOL": {
+			"ammo_type": "SCRAP_BULLETS",
+			"attack_speed": 0.8,
+			"crafting_recipe": {
+				"craft_time": 20.0,
+				"ingredients": {
+					"SCRAP_METAL": 8.0,
+					"SPRING": 2.0,
+					"WOOD_SCRAPS": 3.0
+				},
+				"requires_building": "workbench"
+			},
+			"damage": 15.0,
+			"description": "Cobbled together firearm that barely holds together",
+			"durability": 75.0,
+			"icon": "makeshift_pistol",
+			"magazine_size": 6.0,
+			"name": "Makeshift Pistol",
+			"range": 8.0,
+			"reload_time": 2.0,
+			"stats": {
+				"accuracy": 0.6,
+				"critical_chance": 0.05
+			},
+			"tier": 1.0,
+			"type": "RANGED"
+		},
+		"NEW_WEAPON_4383": {
+			"attack_speed": 1.0,
+			"crafting_recipe": {
+				"craft_time": 10.0,
+				"ingredients": {
+
+				},
+				"requires_building": "workbench"
+			},
+			"damage": 10,
+			"description": "Enter description here",
+			"durability": 100,
+			"icon": "new_weapon",
+			"name": "New Weapon",
+			"range": 1.0,
+			"reload_time": 2.0,
+			"stats": {
+
+			},
+			"tier": 1,
+			"type": "MELEE"
+		},
+		"PLASMA_CANNON": {
+			"ammo_type": "PLASMA_CHARGES",
+			"attack_speed": 0.5,
+			"crafting_recipe": {
+				"craft_time": 90.0,
+				"ingredients": {
+					"ELECTRONICS": 15.0,
+					"FUSION_CORE": 2.0,
+					"PLASMA_CONDUITS": 3.0,
+					"RARE_MINERALS": 8.0,
+					"TITANIUM": 10.0
+				},
+				"requires_building": "fusion_lab"
+			},
+			"damage": 40.0,
+			"description": "Devastating heavy weapon that fires superheated plasma",
+			"durability": 600.0,
+			"icon": "plasma_cannon",
+			"magazine_size": 5.0,
+			"name": "Plasma Cannon",
+			"range": 20.0,
+			"reload_time": 3.5,
+			"stats": {
+				"accuracy": 0.8,
+				"armor_penetration": 0.5,
+				"critical_chance": 0.25,
+				"energy_damage": true,
+				"splash_damage": true
+			},
+			"tier": 4.0,
+			"type": "RANGED"
+		},
+		"PLASMA_SWORD": {
+			"attack_speed": 2.0,
+			"crafting_recipe": {
+				"craft_time": 45.0,
+				"ingredients": {
+					"ELECTRONICS": 8.0,
+					"FUSION_CORE": 1.0,
+					"RARE_MINERALS": 2.0,
+					"TITANIUM": 3.0
+				},
+				"requires_building": "fusion_lab"
+			},
+			"damage": 25.0,
+			"description": "High-tech energy blade that cuts through most materials",
+			"durability": 500.0,
+			"icon": "plasma_sword",
+			"name": "Plasma Sword",
+			"range": 1.5,
+			"stats": {
+				"armor_penetration": 0.3,
+				"critical_chance": 0.2,
+				"energy_damage": true
+			},
+			"tier": 3.0,
+			"type": "MELEE"
+		},
+		"SCRAP_KNIFE": {
+			"attack_speed": 1.5,
+			"crafting_recipe": {
+				"craft_time": 8.0,
+				"ingredients": {
+					"FABRIC": 1.0,
+					"SCRAP_METAL": 3.0
+				},
+				"requires_building": "workbench"
+			},
+			"damage": 8.0,
+			"description": "A crude blade fashioned from salvaged metal",
+			"durability": 100.0,
+			"icon": "scrap_knife",
+			"name": "Scrap Knife",
+			"range": 1.0,
+			"stats": {
+				"critical_chance": 0.05
+			},
+			"tier": 1.0,
+			"type": "MELEE"
+		}
+	}
+}

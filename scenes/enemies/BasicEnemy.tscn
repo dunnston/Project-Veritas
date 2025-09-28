@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7nmxvx4kpqeh"]
+
+[ext_resource type="Script" path="res://scripts/enemies/BasicEnemy.gd" id="1_enemy"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(36, 36)
+
+[node name="BasicEnemy" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 3
+script = ExtResource("1_enemy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.8, 0.2, 0.2, 1)
+texture = SubResource("PlaceholderTexture2D_1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+offset_bottom = -30.0
+text = "30/30"
+horizontal_alignment = 1
+vertical_alignment = 1

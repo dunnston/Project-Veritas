@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq82o3dqx2j7s"]
+
+[ext_resource type="Script" uid="uid://ck0owdxod2v2r" path="res://scripts/environment/TreeNode.gd" id="1_0k8ys"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(32, 64)
+
+[node name="TreeNode" type="StaticBody2D"]
+script = ExtResource("1_0k8ys")
+resource_type = "WOOD"
+resource_amount = 3
+harvest_time = 0.0
+respawn_time = 300.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+offset_bottom = 32.0
+color = Color(0.4, 0.7, 0.2, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="HarvestTimer" type="Timer" parent="."]
+
+[node name="RespawnTimer" type="Timer" parent="."]

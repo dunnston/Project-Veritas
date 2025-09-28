@@ -1,0 +1,92 @@
+{
+  "SCRAP_METAL": {
+    "name": "Scrap Metal",
+    "description": "Rusty metal pieces salvaged from the wasteland. Essential for basic crafting.",
+    "icon": "scrap_metal.png",
+    "stack_size": 50,
+    "category": "Materials",
+    "value": 5,
+    "weight": 0.5
+  },
+  "PLASTIC_SHEETS": {
+    "name": "Plastic Sheets",
+    "description": "Flexible plastic material. Useful for waterproofing and insulation.",
+    "icon": "plastic_sheets.png",
+    "stack_size": 25,
+    "category": "Materials",
+    "value": 3,
+    "weight": 0.1
+  },
+  "ELECTRONIC_COMPONENTS": {
+    "name": "Electronic Components",
+    "description": "Salvaged circuit boards and wiring. Required for advanced technology.",
+    "icon": "electronics.png",
+    "stack_size": 10,
+    "category": "Materials",
+    "value": 15,
+    "weight": 0.2
+  },
+  "HEALTH_STIM": {
+    "name": "Health Stimulant",
+    "description": "Emergency medical injector. Rapidly restores health.",
+    "icon": "health_stim.png",
+    "stack_size": 5,
+    "category": "Consumables",
+    "value": 25,
+    "weight": 0.3
+  },
+  "ENERGY_CELL": {
+    "name": "Energy Cell",
+    "description": "Portable power source. Powers various devices and equipment.",
+    "icon": "energy_cell.png",
+    "stack_size": 20,
+    "category": "Power",
+    "value": 12,
+    "weight": 0.4
+  },
+  "BASIC_TOOL": {
+    "name": "Basic Tool",
+    "description": "Simple hand tool for basic repairs and crafting.",
+    "icon": "basic_tool.png",
+    "stack_size": 1,
+    "category": "Tools",
+    "value": 50,
+    "weight": 1.0
+  },
+  "SURVIVAL_RATION": {
+    "name": "Survival Ration",
+    "description": "Preserved food with essential nutrients. Keeps hunger at bay.",
+    "icon": "survival_ration.png",
+    "stack_size": 15,
+    "category": "Food",
+    "value": 8,
+    "weight": 0.2
+  },
+  "WATER_FILTER": {
+    "name": "Water Filter",
+    "description": "Portable filtration device. Purifies contaminated water.",
+    "icon": "water_filter.png",
+    "stack_size": 3,
+    "category": "Tools",
+    "value": 75,
+    "weight": 0.8
+  },
+  "RADIATION_DETECTOR": {
+    "name": "Radiation Detector",
+    "description": "Handheld device that detects radiation levels. Essential for safe exploration.",
+    "icon": "rad_detector.png",
+    "stack_size": 1,
+    "category": "Equipment",
+    "value": 150,
+    "weight": 0.6
+  },
+  "BUILDING_MATERIALS": {
+    "name": "Building Materials",
+    "description": "Assorted construction supplies for building and fortification.",
+    "icon": "building_materials.png",
+    "stack_size": 30,
+    "category": "Building",
+    "value": 10,
+    "weight": 2.0
+  }
+}

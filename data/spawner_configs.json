@@ -1,0 +1,84 @@
+{
+  "spawner_presets": {
+    "light_patrols": {
+      "description": "Light enemy patrols for safe areas",
+      "enemies": ["BasicEnemy", "EnemyAI"],
+      "weights": [3, 1],
+      "spawn_frequency": 5.0,
+      "max_concurrent": 2,
+      "activation_range": 200,
+      "spawn_radius": 60
+    },
+    "mixed_combat": {
+      "description": "Mixed enemies for moderate difficulty",
+      "enemies": ["BasicEnemy", "RangedEnemy", "EnemyAI"],
+      "weights": [2, 2, 1],
+      "spawn_frequency": 3.5,
+      "max_concurrent": 4,
+      "activation_range": 300,
+      "spawn_radius": 100
+    },
+    "heavy_assault": {
+      "description": "Heavy enemies for dangerous zones",
+      "enemies": ["HeavyMeleeEnemy", "EngineerEnemy"],
+      "weights": [1, 1],
+      "spawn_frequency": 6.0,
+      "max_concurrent": 3,
+      "activation_range": 400,
+      "spawn_radius": 120,
+      "always_active": true
+    },
+    "scout_swarms": {
+      "description": "Fast, evasive enemies",
+      "enemies": ["ScoutEnemy", "RangedEnemy"],
+      "weights": [2, 1],
+      "spawn_frequency": 2.0,
+      "max_concurrent": 5,
+      "activation_range": 350,
+      "spawn_radius": 150
+    },
+    "boss_chamber": {
+      "description": "Elite enemies for boss areas",
+      "enemies": ["HeavyMeleeEnemy", "EngineerEnemy", "ScoutEnemy"],
+      "weights": [1, 1, 2],
+      "spawn_frequency": 8.0,
+      "max_concurrent": 6,
+      "activation_range": 600,
+      "spawn_radius": 200,
+      "always_active": true,
+      "initial_delay": 3.0
+    }
+  },
+
+  "level_spawner_layouts": {
+    "Bedroom": [
+      {
+        "preset": "light_patrols",
+        "position": [100, -50],
+        "name": "BedroomPatrol1"
+      },
+      {
+        "preset": "mixed_combat",
+        "position": [-120, 80],
+        "name": "BedroomCombat1"
+      }
+    ],
+    "OuterCity": [
+      {
+        "preset": "mixed_combat",
+        "position": [200, 300],
+        "name": "CityBlock1"
+      },
+      {
+        "preset": "heavy_assault",
+        "position": [-400, -200],
+        "name": "IndustrialZone1"
+      },
+      {
+        "preset": "scout_swarms",
+        "position": [0, -500],
+        "name": "RooftopScouts"
+      }
+    ]
+  }
+}

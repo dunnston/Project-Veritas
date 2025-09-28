@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnx4y4hfpv0mq"]
+
+[ext_resource type="Script" path="res://scripts/systems/EnemySpawner.gd" id="1_spawner"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 500.0
+
+[node name="EnemySpawner" type="Node2D"]
+script = ExtResource("1_spawner")
+spawn_frequency = 3.0
+max_concurrent_enemies = 5
+spawn_radius = 100.0
+min_spawn_distance = 50.0
+activation_range = 500.0
+
+[node name="DetectionArea" type="Area2D" parent="."]
+monitoring = true
+monitorable = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_1")
+debug_color = Color(1, 1, 0, 0.2)
+
+[node name="SpawnPointMarker" type="Marker2D" parent="."]
+visible = false
+
+[node name="EditorIcon" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 0.5, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -30.0
+text = "Enemy Spawner"
+horizontal_alignment = 1

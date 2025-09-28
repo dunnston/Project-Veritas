@@ -1,0 +1,123 @@
+[gd_scene load_steps=4 format=3 uid="uid://purple_beast_001"]
+
+[ext_resource type="Script" path="res://scripts/enemies/PurpleBeast.gd" id="1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1"]
+radius = 20
+height = 60
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": "walk_south",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": "walk_southwest",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": "walk_west",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": "walk_northwest",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": "walk_north",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": "walk_northeast",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": "walk_east",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": "walk_southeast",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": false,
+"name": "tongue_attack",
+"speed": 10.0
+}, {
+"frames": [],
+"loop": true,
+"name": "exhausted_south",
+"speed": 4.0
+}, {
+"frames": [],
+"loop": true,
+"name": "exhausted_southwest",
+"speed": 4.0
+}, {
+"frames": [],
+"loop": true,
+"name": "exhausted_west",
+"speed": 4.0
+}, {
+"frames": [],
+"loop": true,
+"name": "exhausted_northwest",
+"speed": 4.0
+}, {
+"frames": [],
+"loop": true,
+"name": "exhausted_north",
+"speed": 4.0
+}, {
+"frames": [],
+"loop": true,
+"name": "exhausted_northeast",
+"speed": 4.0
+}, {
+"frames": [],
+"loop": true,
+"name": "exhausted_east",
+"speed": 4.0
+}, {
+"frames": [],
+"loop": true,
+"name": "exhausted_southeast",
+"speed": 4.0
+}]
+
+[node name="PurpleBeast" type="CharacterBody2D"]
+modulate = Color(0.7, 0.3, 0.9, 1)
+script = ExtResource("1")
+max_health = 75
+move_speed = 80.0
+attack_damage = 15
+attack_range = 100.0
+detection_range = 250.0
+tongue_attack_range = 100.0
+staff_damage_multiplier = 1.5
+special_ability_cooldown = 5.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1")
+animation = "walk_south"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_1")
+
+[node name="StaffSprite" type="Sprite2D" parent="."]
+position = Vector2(25, -5)
+modulate = Color(0.5, 0.3, 0.2, 1)
+
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(0, 30)
+modulate = Color(0, 0, 0, 0.4)
+scale = Vector2(1.5, 0.5)

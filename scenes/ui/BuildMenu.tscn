@@ -1,0 +1,188 @@
+[gd_scene load_steps=3 format=3 uid="uid://buildmenu"]
+
+[ext_resource type="Script" path="res://scripts/ui/BuildMenu.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.2, 0.2, 0.2, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="BuildMenu" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+mouse_filter = 1
+
+[node name="BuildPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BuildPanel"]
+layout_mode = 2
+
+[node name="TitleBar" type="HBoxContainer" parent="BuildPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="BuildPanel/VBoxContainer/TitleBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "BUILD MENU"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="BuildPanel/VBoxContainer/TitleBar"]
+layout_mode = 2
+text = "X"
+
+[node name="MainContainer" type="HBoxContainer" parent="BuildPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LeftPanel" type="VBoxContainer" parent="BuildPanel/VBoxContainer/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CategoryTabs" type="TabContainer" parent="BuildPanel/VBoxContainer/MainContainer/LeftPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+tab_alignment = 1
+
+[node name="Tools" type="ScrollContainer" parent="BuildPanel/VBoxContainer/MainContainer/LeftPanel/CategoryTabs"]
+layout_mode = 2
+
+[node name="ItemGrid" type="GridContainer" parent="BuildPanel/VBoxContainer/MainContainer/LeftPanel/CategoryTabs/Tools"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="Crafting" type="ScrollContainer" parent="BuildPanel/VBoxContainer/MainContainer/LeftPanel/CategoryTabs"]
+layout_mode = 2
+visible = false
+
+[node name="ItemGrid" type="GridContainer" parent="BuildPanel/VBoxContainer/MainContainer/LeftPanel/CategoryTabs/Crafting"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="Furniture" type="ScrollContainer" parent="BuildPanel/VBoxContainer/MainContainer/LeftPanel/CategoryTabs"]
+layout_mode = 2
+visible = false
+
+[node name="ItemGrid" type="GridContainer" parent="BuildPanel/VBoxContainer/MainContainer/LeftPanel/CategoryTabs/Furniture"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="Building" type="ScrollContainer" parent="BuildPanel/VBoxContainer/MainContainer/LeftPanel/CategoryTabs"]
+layout_mode = 2
+visible = false
+
+[node name="ItemGrid" type="GridContainer" parent="BuildPanel/VBoxContainer/MainContainer/LeftPanel/CategoryTabs/Building"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="Emergency" type="ScrollContainer" parent="BuildPanel/VBoxContainer/MainContainer/LeftPanel/CategoryTabs"]
+layout_mode = 2
+visible = false
+
+[node name="ItemGrid" type="GridContainer" parent="BuildPanel/VBoxContainer/MainContainer/LeftPanel/CategoryTabs/Emergency"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="Components" type="ScrollContainer" parent="BuildPanel/VBoxContainer/MainContainer/LeftPanel/CategoryTabs"]
+layout_mode = 2
+visible = false
+
+[node name="ItemGrid" type="GridContainer" parent="BuildPanel/VBoxContainer/MainContainer/LeftPanel/CategoryTabs/Components"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="RightPanel" type="VBoxContainer" parent="BuildPanel/VBoxContainer/MainContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 0)
+
+[node name="ItemInfoPanel" type="PanelContainer" parent="BuildPanel/VBoxContainer/MainContainer/RightPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemInfoContainer" type="VBoxContainer" parent="BuildPanel/VBoxContainer/MainContainer/RightPanel/ItemInfoPanel"]
+layout_mode = 2
+
+[node name="ItemTitle" type="Label" parent="BuildPanel/VBoxContainer/MainContainer/RightPanel/ItemInfoPanel/ItemInfoContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "Select an item"
+horizontal_alignment = 1
+
+[node name="ItemIcon" type="TextureRect" parent="BuildPanel/VBoxContainer/MainContainer/RightPanel/ItemInfoPanel/ItemInfoContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(64, 64)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemDescription" type="RichTextLabel" parent="BuildPanel/VBoxContainer/MainContainer/RightPanel/ItemInfoPanel/ItemInfoContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.8, 0.8, 0.8, 1)
+bbcode_enabled = true
+text = "Select an item to see details"
+fit_content = true
+
+[node name="RequiredResourcesLabel" type="Label" parent="BuildPanel/VBoxContainer/MainContainer/RightPanel/ItemInfoPanel/ItemInfoContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "Required Materials:"
+
+[node name="ResourcesList" type="VBoxContainer" parent="BuildPanel/VBoxContainer/MainContainer/RightPanel/ItemInfoPanel/ItemInfoContainer"]
+layout_mode = 2
+
+[node name="BuildButton" type="Button" parent="BuildPanel/VBoxContainer/MainContainer/RightPanel"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 50)
+theme_override_font_sizes/font_size = 16
+text = "BUILD"
+flat = false
+
+[connection signal="pressed" from="BuildPanel/VBoxContainer/TitleBar/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="BuildPanel/VBoxContainer/MainContainer/RightPanel/BuildButton" to="." method="_on_build_button_pressed"]

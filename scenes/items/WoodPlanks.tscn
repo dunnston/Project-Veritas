@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://ci67h887hugj2"]
+
+[ext_resource type="Texture2D" uid="uid://wood1" path="res://assets/sprites/items/wood_planks.png" id="1_texture"]
+[ext_resource type="Script" path="res://scripts/items/ResourcePickup.gd" id="2_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(14, 14)
+
+[node name="WoodPlanks" type="Area2D"]
+collision_layer = 128
+collision_mask = 1
+script = ExtResource("2_script")
+resource_type = "WOOD"
+resource_amount = 1
+pickup_name = "Wood Planks"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_texture")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 1
+
+[node name="InteractionShape" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("RectangleShape2D_1")
+modulate = Color(1, 1, 0, 0.5)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

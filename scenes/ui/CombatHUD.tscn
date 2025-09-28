@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://combat_hud"]
+
+[ext_resource type="Script" path="res://scripts/ui/CombatHUD.gd" id="1_script"]
+
+[node name="CombatHUD" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="WeaponInfo" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.9
+anchor_right = 0.5
+anchor_bottom = 0.9
+offset_left = -150.0
+offset_top = -40.0
+offset_right = 150.0
+offset_bottom = 0.0
+text = "Current Weapon: Fists (5 dmg)
+Ready to Attack"
+horizontal_alignment = 1
+vertical_alignment = 1

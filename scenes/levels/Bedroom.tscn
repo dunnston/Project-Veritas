@@ -1,0 +1,436 @@
+[gd_scene load_steps=39 format=4 uid="uid://dqbihqqw0vix4"]
+
+[ext_resource type="TileSet" uid="uid://cl42vmggj7vjy" path="res://SciFitileset.tres" id="1_5ci2j"]
+[ext_resource type="PackedScene" path="res://scenes/player/AnimatedPlayer.tscn" id="2_player"]
+[ext_resource type="Script" uid="uid://cr1hhdwbh2ejq" path="res://scripts/ui/HUD.gd" id="3_hud"]
+[ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="4_inventory"]
+[ext_resource type="Script" uid="uid://drwn6jfoe3vj3" path="res://scripts/levels/BedroomTutorial.gd" id="5_tutorial"]
+[ext_resource type="PackedScene" uid="uid://iuq65o6iuc6i" path="res://scenes/items/WoodScrap.tscn" id="6_woodscrap"]
+[ext_resource type="PackedScene" path="res://scenes/ui/BuildMenu.tscn" id="7_buildmenu"]
+[ext_resource type="PackedScene" path="res://scenes/ui/WorkbenchCraftingMenu.tscn" id="8_workbenchmenu"]
+[ext_resource type="PackedScene" uid="uid://db6dswj7b1jd1" path="res://scenes/items/MetalScrap.tscn" id="9_metalscrap"]
+[ext_resource type="PackedScene" uid="uid://tire" path="res://scenes/items/Tire.tscn" id="10_tire"]
+[ext_resource type="PackedScene" uid="uid://dlajxcwurwsyr" path="res://scenes/items/Speakers.tscn" id="11_speakers"]
+[ext_resource type="PackedScene" uid="uid://c7yvsawrpgeg2" path="res://scenes/items/Gears.tscn" id="12_gears"]
+[ext_resource type="PackedScene" uid="uid://spring" path="res://scenes/items/Spring.tscn" id="13_spring"]
+[ext_resource type="Script" uid="uid://due57p8ddo6ey" path="res://scripts/systems/RoomBounds.gd" id="14_roombounds"]
+[ext_resource type="Script" uid="uid://dhv2p7qa5rs6b" path="res://scripts/systems/RoomCamera.gd" id="15_roomcamera"]
+[ext_resource type="Script" uid="uid://f5ui4t204p2t" path="res://scripts/systems/DoorSystem.gd" id="16_doorsystem"]
+[ext_resource type="Texture2D" uid="uid://dj5gqgqr00bbr" path="res://assets/sprites/Sci-Asset-Pack/AnimatedProps/Doors.png" id="17_3i3c2"]
+[ext_resource type="Script" uid="uid://qp4dkjdmiydi" path="res://scripts/interactables/AnimatedSpriteDoor.gd" id="18_animatedspritedoor"]
+[ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="18_jjt3x"]
+[ext_resource type="PackedScene" uid="uid://ttributesui" path="res://scenes/ui/AttributesUI.tscn" id="19_63gfr"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/Tablet.tscn" id="19_tablet"]
+[ext_resource type="Script" uid="uid://c8bcfm8lpaqkn" path="res://scripts/systems/EmergencySystem.gd" id="20_emergency"]
+[ext_resource type="PackedScene" uid="uid://dd2xhpgk2eax2" path="res://scenes/ui/SkillDebugUI.tscn" id="20_ftnsy"]
+[ext_resource type="Texture2D" uid="uid://do7el72uc2pyn" path="res://assets/sprites/buildings/pixellab-A-sci-fi-workbench-with-a-meta-1756949376631.png" id="21_workbench_texture"]
+[ext_resource type="Script" uid="uid://d28bg7lt640gs" path="res://scripts/buildings/WorkbenchBuilding.gd" id="22_workbench_script"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DevMenu.tscn" id="23_devmenu"]
+[ext_resource type="PackedScene" uid="uid://b8hgax2kqw7lr" path="res://scenes/ui/GeneratorMenu.tscn" id="25_generatormenu"]
+[ext_resource type="PackedScene" path="res://scenes/ui/StorageUI.tscn" id="26_storageui"]
+[ext_resource type="PackedScene" uid="uid://drebonoqww603" path="res://scenes/environment/SceneTransition.tscn" id="29_2uu2a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgole"]
+atlas = ExtResource("17_3i3c2")
+region = Rect2(0, 16, 62, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xog3a"]
+atlas = ExtResource("17_3i3c2")
+region = Rect2(0, 48, 62, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itrhj"]
+atlas = ExtResource("17_3i3c2")
+region = Rect2(0, 80, 62, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ml1g1"]
+atlas = ExtResource("17_3i3c2")
+region = Rect2(0, 112, 62, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idorb"]
+atlas = ExtResource("17_3i3c2")
+region = Rect2(0, 144, 62, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bipmg"]
+atlas = ExtResource("17_3i3c2")
+region = Rect2(0, 176, 62, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogv7s"]
+atlas = ExtResource("17_3i3c2")
+region = Rect2(0, 208, 62, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hcdht"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgole")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xog3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_itrhj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ml1g1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idorb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bipmg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogv7s")
+}],
+"loop": true,
+"name": &"door",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_workbench"]
+size = Vector2(96, 48)
+
+[node name="Bedroom" type="Node2D"]
+script = ExtResource("5_tutorial")
+
+[node name="DoorSystem" type="Node" parent="."]
+script = ExtResource("16_doorsystem")
+
+[node name="EmergencySystem" type="Node" parent="."]
+script = ExtResource("20_emergency")
+
+[node name="RoomBounds" type="Node2D" parent="."]
+script = ExtResource("14_roombounds")
+room_min = Vector2(144, 48)
+room_max = Vector2(432, 208)
+building_margin = 16.0
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_5ci2j")
+format = 2
+layer_0/tile_data = PackedInt32Array(-65520, 720896, 5, -65519, 720896, 5, -131055, 720896, 5, -131056, 720896, 5, -196592, 720896, 5, -262128, 720896, 5, -327664, 720896, 5, -393200, 720896, 5, -393199, 720896, 5, -327663, 720896, 5, -262127, 720896, 5, -196591, 720896, 5, -458735, 720896, 5, -458736, 720896, 5, -524272, 720896, 5, -524271, 720896, 5, -983031, 65537, 1, -917495, 65537, 2, -983030, 131073, 1, -917494, 131073, 2, -983029, 196609, 1, -917493, 196609, 2, -983028, 65537, 1, -917492, 65537, 2, -983027, 131073, 1, -917491, 131073, 2, -983026, 196609, 1, -917490, 196609, 2, -983025, 65537, 1, -917489, 65537, 2, -983024, 131073, 1, -917488, 131073, 2, -983023, 196609, 1, -917487, 196609, 2, -983022, 327681, 1, -917486, 327681, 2, -983021, 393217, 1, -917485, 393217, 2, -983020, 458753, 1, -917484, 458753, 2, -983019, 65537, 1, -917483, 65537, 2, -983018, 131073, 1, -917482, 131073, 2, -983017, 196609, 1, -917481, 196609, 2, -983016, 65537, 1, -917480, 65537, 2, -983015, 131073, 1, -917479, 131073, 2, -983014, 196609, 1, -917478, 196609, 2, -983032, 589825, 14, -917496, 589825, 14, -851960, 589825, 14, -786424, 589825, 14, -720888, 589825, 14, -655352, 589825, 14, -589816, 589825, 14, -524280, 458753, 14, -524279, 655361, 15, -524278, 655361, 15, -524277, 655361, 15, -524276, 655361, 15, -524275, 655361, 15, -524274, 655361, 15, -524273, 393217, 13, -524269, 655361, 15, -524268, 655361, 15, -524267, 655361, 15, -524266, 655361, 15, -524265, 655361, 15, -524264, 655361, 15, -524263, 655361, 15, -524262, 655361, 15, -524261, 524289, 14, -589797, 720897, 14, -655333, 720897, 14, -720869, 720897, 14, -786405, 720897, 14, -851941, 720897, 14, -917477, 720897, 14, -983013, 720897, 14, -1048568, 458753, 13, -1048549, 524289, 13, -1048567, 655361, 13, -1048566, 655361, 13, -1048565, 655361, 13, -1048564, 655361, 13, -1048563, 655361, 13, -1048562, 655361, 13, -1048561, 655361, 13, -1048560, 655361, 13, -1048559, 655361, 13, -1048558, 655361, 13, -1048557, 655361, 13, -1048556, 655361, 13, -1048555, 655361, 13, -1048554, 655361, 13, -1048553, 655361, 13, -1048552, 655361, 13, -1048551, 655361, 13, -1048550, 655361, 13, -851959, 589824, 2, -786423, 589824, 2, -720887, 589824, 2, -655351, 589824, 2, -589815, 589824, 2, -851958, 720896, 2, -786422, 720896, 2, -720886, 720896, 2, -655350, 720896, 2, -655349, 720896, 2, -655348, 720896, 2, -589814, 720896, 2, -589813, 720896, 2, -589812, 720896, 2, -589811, 720896, 2, -655347, 720896, 2, -720883, 720896, 2, -786419, 720896, 2, -786420, 720896, 2, -851956, 720896, 2, -851957, 720896, 2, -786421, 720896, 2, -720885, 720896, 2, -720884, 720896, 2, -851955, 720896, 2, -851954, 720896, 2, -786417, 720896, 2, -786418, 720896, 2, -720882, 720896, 2, -655346, 720896, 2, -589810, 720896, 2, -589809, 720896, 2, -655345, 720896, 2, -655344, 720896, 2, -720880, 720896, 2, -786416, 720896, 2, -851953, 720896, 2, -720881, 720896, 2, -851952, 720896, 2, -851951, 720896, 2, -786415, 720896, 2, -786414, 720896, 2, -786413, 720896, 2, -786412, 720896, 2, -851948, 720896, 2, -851947, 720896, 2, -851946, 720896, 2, -851945, 720896, 2, -851949, 720896, 2, -851950, 720896, 2, -851944, 720896, 2, -851943, 720896, 2, -851942, 720896, 2, -786406, 720896, 2, -720870, 720896, 2, -655334, 720896, 2, -589798, 720896, 2, -589799, 720896, 2, -589800, 720896, 2, -589801, 720896, 2, -589802, 720896, 2, -589803, 720896, 2, -589804, 720896, 2, -589805, 720896, 2, -589806, 720896, 2, -589807, 720896, 2, -589808, 720896, 2, -655342, 720896, 2, -655343, 720896, 2, -720879, 720896, 2, -720878, 720896, 2, -720877, 720896, 2, -655341, 720896, 2, -655340, 720896, 2, -655339, 720896, 2, -655338, 720896, 2, -720876, 720896, 2, -786411, 720896, 2, -720875, 720896, 2, -720874, 720896, 2, -720873, 720896, 2, -655337, 720896, 2, -655336, 720896, 2, -655335, 720896, 2, -720871, 720896, 2, -786407, 720896, 2, -786408, 720896, 2, -786409, 720896, 2, -786410, 720896, 2, -720872, 720896, 2, -524270, 327681, 13, -458734, 720897, 14, -393198, 720897, 14, -327662, 720897, 14, -262126, 720897, 14, -196590, 720897, 14, -131054, 720897, 14, -65518, 327681, 14, -458737, 589825, 14, -393201, 589825, 14, -327665, 589825, 14, -262129, 589825, 14, -196593, 589825, 14, -131057, 589825, 14, -65521, 393217, 14)
+
+[node name="Floor" type="TileMapLayer" parent="TileMap"]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAJAAwAAAALAAIAAAAKAAwAAAALAAIAAAALAAwAAAALAAIAAAAMAAwAAAALAAIAAAANAAwAAAALAAIAAAAOAAwAAAALAAIAAAAPAAwAAAALAAIAAAAQAAwAAAALAAIAAAARAAwAAAALAAIAAAASAA4AAAALAAIAAAATAA4AAAALAAIAAAAUAA4AAAALAAIAAAAVAA4AAAALAAIAAAAWAA4AAAALAAIAAAAWAA0AAAALAAIAAAAWAAwAAAALAAIAAAAVAAwAAAALAAIAAAAUAAwAAAALAAIAAAATAAwAAAALAAIAAAASAAwAAAALAAIAAAASAA0AAAALAAIAAAATAA0AAAALAAIAAAAUAA0AAAALAAIAAAAVAA0AAAALAAIAAAAXAAwAAAALAAIAAAAYAAwAAAALAAIAAAAZAAwAAAALAAIAAAAaAAwAAAALAAIAAAAbAAwAAAALAAIAAAAcAAwAAAALAAIAAAAcAAsAAAALAAIAAAAcAAoAAAALAAIAAAAcAAkAAAALAAIAAAAcAAgAAAALAAIAAAAcAAcAAAALAAIAAAAcAAYAAAALAAIAAAAcAAUAAAALAAIAAAAcAAQAAAALAAIAAAAcAAMAAAALAAIAAAAIAAIAAAAJAAEAAAAJAAIAAAALAAEAAAAKAAIAAAALAAEAAAALAAIAAAALAAEAAAAMAAIAAAALAAEAAAANAAIAAAALAAEAAAAOAAIAAAALAAEAAAAPAAIAAAALAAEAAAAQAAIAAAALAAEAAAARAAIAAAALAAEAAAASAAIAAAALAAEAAAATAAIAAAALAAEAAAAUAAIAAAALAAEAAAAVAAIAAAALAAEAAAAWAAIAAAALAAEAAAAXAAIAAAALAAEAAAAYAAIAAAALAAEAAAAZAAIAAAALAAEAAAAaAAIAAAALAAEAAAAbAAIAAAALAAEAAAAcAAIAAAALAAEAAAAIAAsAAAAJAAIAAAAIAAoAAAAJAAIAAAAIAAkAAAAJAAIAAAAIAAgAAAAJAAIAAAAIAAcAAAAJAAIAAAAIAAYAAAAJAAIAAAAIAAUAAAAJAAIAAAAIAAQAAAAJAAIAAAAIAAMAAAAJAAIAAAAIAAwAAAAJAAIAAAARAA0AAAAJAAIAAAARAA4AAAAJAAIAAAAJAAMAAAALAAIAAAAJAAQAAAALAAIAAAAJAAUAAAALAAIAAAAJAAYAAAALAAIAAAAJAAcAAAALAAIAAAAJAAgAAAALAAIAAAAJAAkAAAALAAIAAAAKAAkAAAALAAIAAAAKAAoAAAALAAIAAAAJAAsAAAALAAIAAAAJAAoAAAALAAIAAAAKAAsAAAALAAIAAAALAAsAAAALAAIAAAAMAAsAAAALAAIAAAAMAAoAAAALAAIAAAAMAAkAAAALAAIAAAALAAgAAAALAAIAAAALAAcAAAALAAIAAAALAAYAAAALAAIAAAAKAAYAAAALAAIAAAAKAAUAAAALAAIAAAAKAAQAAAALAAIAAAAKAAMAAAALAAIAAAAKAAcAAAALAAIAAAAKAAgAAAALAAIAAAALAAkAAAALAAIAAAANAAkAAAALAAIAAAANAAoAAAALAAIAAAALAAoAAAALAAIAAAAOAAoAAAALAAIAAAANAAsAAAALAAIAAAAOAAsAAAALAAIAAAAPAAsAAAALAAIAAAAQAAsAAAALAAIAAAARAAsAAAALAAIAAAASAAsAAAALAAIAAAATAAsAAAALAAIAAAAUAAsAAAALAAIAAAAVAAsAAAALAAIAAAAWAAsAAAALAAIAAAAXAAsAAAALAAIAAAAYAAsAAAALAAIAAAAZAAsAAAALAAIAAAAaAAsAAAALAAIAAAAbAAsAAAALAAIAAAAbAAoAAAALAAIAAAAaAAoAAAALAAIAAAAaAAkAAAALAAIAAAAaAAgAAAALAAIAAAAaAAcAAAALAAIAAAAaAAYAAAALAAIAAAAaAAUAAAALAAIAAAAbAAUAAAALAAIAAAAbAAQAAAALAAIAAAAbAAMAAAALAAIAAAAbAAYAAAALAAIAAAAbAAcAAAALAAIAAAAbAAgAAAALAAIAAAAbAAkAAAALAAIAAAAZAAkAAAALAAIAAAAYAAkAAAALAAIAAAAYAAoAAAALAAIAAAAXAAoAAAALAAIAAAAWAAoAAAALAAIAAAAVAAoAAAALAAIAAAAUAAoAAAALAAIAAAATAAoAAAALAAIAAAASAAoAAAALAAIAAAARAAoAAAALAAIAAAAQAAoAAAALAAIAAAAPAAoAAAALAAIAAAAOAAkAAAALAAIAAAAMAAgAAAALAAIAAAALAAUAAAALAAIAAAALAAQAAAALAAIAAAALAAMAAAALAAIAAAAMAAMAAAALAAIAAAANAAMAAAALAAIAAAANAAQAAAALAAIAAAAMAAQAAAALAAIAAAAMAAUAAAALAAIAAAAMAAYAAAALAAIAAAAMAAcAAAALAAIAAAANAAcAAAALAAIAAAAOAAcAAAALAAIAAAANAAgAAAALAAIAAAAOAAgAAAALAAIAAAAPAAgAAAALAAIAAAAPAAkAAAALAAIAAAAQAAkAAAALAAIAAAARAAkAAAALAAIAAAASAAkAAAALAAIAAAATAAkAAAALAAIAAAAUAAkAAAALAAIAAAAVAAkAAAALAAIAAAAWAAkAAAALAAIAAAAXAAkAAAALAAIAAAAZAAoAAAALAAIAAAAZAAgAAAALAAIAAAAZAAcAAAALAAIAAAAZAAYAAAALAAIAAAAZAAUAAAALAAIAAAAZAAQAAAALAAIAAAAaAAQAAAALAAIAAAAaAAMAAAALAAIAAAAZAAMAAAALAAIAAAAYAAMAAAALAAIAAAAXAAMAAAALAAIAAAAWAAMAAAALAAIAAAAVAAMAAAALAAIAAAAUAAMAAAALAAIAAAATAAMAAAALAAIAAAASAAMAAAALAAIAAAARAAMAAAALAAIAAAAQAAMAAAALAAIAAAAPAAMAAAALAAIAAAAOAAMAAAALAAIAAAAOAAQAAAALAAIAAAAOAAUAAAALAAIAAAANAAUAAAALAAIAAAANAAYAAAALAAIAAAAOAAYAAAALAAIAAAAPAAYAAAALAAIAAAAPAAUAAAALAAIAAAAPAAQAAAALAAIAAAAQAAQAAAALAAIAAAARAAQAAAALAAIAAAASAAQAAAALAAIAAAATAAQAAAALAAIAAAAUAAQAAAALAAIAAAAVAAQAAAALAAIAAAAWAAQAAAALAAIAAAAXAAQAAAALAAIAAAAYAAQAAAALAAIAAAAYAAUAAAALAAIAAAAYAAYAAAALAAIAAAAYAAcAAAALAAIAAAAYAAgAAAALAAIAAAAXAAgAAAALAAIAAAAWAAgAAAALAAIAAAAVAAgAAAALAAIAAAAUAAgAAAALAAIAAAATAAgAAAALAAIAAAASAAgAAAALAAIAAAARAAgAAAALAAIAAAAQAAgAAAALAAIAAAAPAAcAAAALAAIAAAAQAAcAAAALAAIAAAARAAcAAAALAAIAAAASAAcAAAALAAIAAAATAAcAAAALAAIAAAAUAAcAAAALAAIAAAAVAAcAAAALAAIAAAAWAAcAAAALAAIAAAAXAAcAAAALAAIAAAAXAAYAAAALAAIAAAAXAAUAAAALAAIAAAAWAAUAAAALAAIAAAAVAAUAAAALAAIAAAAUAAUAAAALAAIAAAATAAUAAAALAAIAAAASAAUAAAALAAIAAAARAAUAAAALAAIAAAARAAYAAAALAAIAAAAQAAYAAAALAAIAAAAQAAUAAAALAAIAAAASAAYAAAALAAIAAAATAAYAAAALAAIAAAAUAAYAAAALAAIAAAAVAAYAAAALAAIAAAAWAAYAAAALAAIAAAA=")
+tile_set = ExtResource("1_5ci2j")
+
+[node name="Walls" type="TileMapLayer" parent="TileMap"]
+tile_map_data = PackedByteArray("AAAIAAAAAQABAAQAAAAIAAEAAQABAAUAAAAJAAAAAQACAAQAAAAJAAEAAQACAAUAAAAKAAAAAQADAAQAAAAKAAEAAQADAAUAAAALAAAAAQAFAAEAAAALAAEAAQAFAAIAAAAMAAAAAQAGAAEAAAAMAAEAAQAGAAIAAAANAAAAAQAHAAEAAAANAAEAAQAHAAIAAAAOAAAAAQAFAAcAAAAOAAEAAQAFAAgAAAAPAAAAAQAGAAcAAAAPAAEAAQAGAAgAAAATAAEAAQALAAgAAAAUAAAAAQAFAAcAAAAUAAEAAQAFAAgAAAAVAAAAAQAGAAcAAAAVAAEAAQAGAAgAAAAWAAAAAQAHAAcAAAAWAAEAAQAHAAgAAAAXAAAAAQAJAAcAAAAXAAEAAQAJAAgAAAAYAAAAAQAKAAcAAAAYAAEAAQAKAAgAAAAZAAAAAQALAAcAAAAZAAEAAQALAAgAAAAaAAAAAQABAAQAAAAaAAEAAQABAAUAAAAbAAAAAQACAAQAAAAbAAEAAQACAAUAAAAcAAAAAQADAAQAAAAcAAEAAQADAAUAAAAHAAAAAQAJAA4AAAAHAAEAAQAJAA4AAAAHAAIAAQAJAA4AAAAHAAMAAQAJAA4AAAAHAAQAAQAJAA4AAAAHAAUAAQAJAA4AAAAHAAYAAQAJAA4AAAAHAAcAAQAJAA4AAAAHAAgAAQAJAA4AAAAHAAkAAQAJAA4AAAAHAAoAAQAJAA4AAAAHAAsAAQAJAA4AAAAHAAwAAQAJAA4AAAAdAAAAAQALAA4AAAAdAAEAAQALAA4AAAAdAAIAAQALAA4AAAAdAAMAAQALAA4AAAAdAAQAAQALAA4AAAAdAAUAAQALAA4AAAAdAAYAAQALAA4AAAAdAAcAAQALAA4AAAAdAAgAAQALAA4AAAAdAAkAAQALAA4AAAAdAAoAAQALAA4AAAAdAAsAAQALAA4AAAAdAAwAAQALAA4AAAAHAA0AAQAHAA4AAAAIAA0AAQAKAA8AAAAJAA0AAQAKAA8AAAAKAA0AAQAKAA8AAAALAA0AAQAKAA8AAAAMAA0AAQAKAA8AAAANAA0AAQAKAA8AAAAOAA0AAQAKAA8AAAAPAA0AAQAKAA8AAAAHAP//AQAHAA0AAAAIAP//AQAKAA0AAAAJAP//AQAKAA0AAAAKAP//AQAKAA0AAAALAP//AQAKAA0AAAAMAP//AQAKAA0AAAANAP//AQAKAA0AAAAOAP//AQAKAA0AAAAPAP//AQAKAA0AAAASAP//AQAKAA0AAAATAP//AQAKAA0AAAAUAP//AQAKAA0AAAAVAP//AQAKAA0AAAAWAP//AQAKAA0AAAAXAP//AQAKAA0AAAAYAP//AQAKAA0AAAAZAP//AQAKAA0AAAAaAP//AQAKAA0AAAAbAP//AQAKAA0AAAAdAP//AQAIAA0AAAAcAP//AQAKAA0AAAAdAA0AAQAIAA4AAAAcAA0AAQAKAA8AAAAbAA0AAQAKAA8AAAAaAA0AAQAKAA8AAAAZAA0AAQAKAA8AAAAYAA0AAQAKAA8AAAAXAA0AAQAFAA0AAAAQAA0AAQAGAA0AAAAQAA8AAQAHAA4AAAAXAA8AAQAIAA4AAAAXAA4AAQALAA4AAAAQAA4AAQAJAA4AAAARAA8AAQAKAA8AAAASAA8AAQAKAA8AAAATAA8AAQAKAA8AAAAUAA8AAQAKAA8AAAAVAA8AAQAKAA8AAAAWAA8AAQAKAA8AAAASAAEAAQAKAAgAAAASAAAAAQAKAAcAAAATAAAAAQALAAcAAAAQAP//CQAKAA0AAAARAP//CQAKAA0AAAA=")
+tile_set = ExtResource("1_5ci2j")
+use_kinematic_bodies = true
+
+[node name="Door" type="TileMapLayer" parent="TileMap"]
+tile_set = ExtResource("1_5ci2j")
+
+[node name="Props" type="TileMapLayer" parent="TileMap"]
+tile_map_data = PackedByteArray("AAAYAAEAAgAIAAcAAAAYAAIAAgAIAAgAAAAYAAMAAgAIAAkAAAAZAAEAAgAJAAcAAAAZAAIAAgAJAAgAAAAZAAMAAgAJAAkAAAAWAAEAAgABAAsAAAAWAAIAAgABAAwAAAAaAAEAAgAKAAsAAAAaAAIAAgAKAAwAAAAbAAEAAgALAAsAAAAbAAIAAgALAAwAAAASAA4AAgAEAAQAAAATAA4AAgAFAAQAAAAUAA4AAgAGAAQAAAAJAPH/AgANAAYAAAAJAPL/AgANAAcAAAAJAPP/AgANAAgAAAAKAPH/AgAOAAYAAAAKAPL/AgAOAAcAAAAKAPP/AgAOAAgAAAALAPH/AgANAAYAAAALAPL/AgANAAcAAAALAPP/AgANAAgAAAAMAPH/AgAOAAYAAAAMAPL/AgAOAAcAAAAMAPP/AgAOAAgAAAANAPH/AgANAAYAAAANAPL/AgANAAcAAAANAPP/AgANAAgAAAAOAPH/AgAOAAYAAAAOAPL/AgAOAAcAAAAOAPP/AgAOAAgAAAAVAPH/AgANAAYAAAAVAPL/AgANAAcAAAAVAPP/AgANAAgAAAAWAPH/AgAOAAYAAAAWAPL/AgAOAAcAAAAWAPP/AgAOAAgAAAAXAPH/AgANAAYAAAAXAPL/AgANAAcAAAAXAPP/AgANAAgAAAAYAPH/AgAOAAYAAAAYAPL/AgAOAAcAAAAYAPP/AgAOAAgAAAAZAPH/AgANAAYAAAAZAPL/AgANAAcAAAAZAPP/AgANAAgAAAAaAPH/AgAOAAYAAAAaAPL/AgAOAAcAAAAaAPP/AgAOAAgAAAAPAPL/AgABABAAAAAPAPP/AgABABEAAAAQAPL/AgACABAAAAAQAPP/AgACABEAAAARAPL/AgADABAAAAARAPP/AgADABEAAAAKAPf/AgAFAAQAAAALAPf/AgAGAAQAAAAJAPf/AgAEAAQAAAA=")
+tile_set = ExtResource("1_5ci2j")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="TileMap"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(270, 15)
+sprite_frames = SubResource("SpriteFrames_hcdht")
+animation = &"door"
+script = ExtResource("18_animatedspritedoor")
+
+[node name="Tablet" parent="." instance=ExtResource("19_tablet")]
+position = Vector2(250, 79)
+scale = Vector2(0.1856, 0.16)
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(275, 148)
+
+[node name="Camera2D2" type="Camera2D" parent="Player"]
+zoom = Vector2(2, 2)
+limit_left = 144
+limit_top = 48
+limit_right = 432
+limit_bottom = 208
+limit_smoothed = true
+script = ExtResource("15_roomcamera")
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+position = Vector2(-236, -109)
+
+[node name="PlayerSpawn" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(512, 256)
+
+[node name="WoodScraps" type="Node2D" parent="."]
+
+[node name="WoodScrap1" parent="WoodScraps" instance=ExtResource("6_woodscrap")]
+position = Vector2(199, 124)
+scale = Vector2(1, 0.993286)
+
+[node name="WoodScrap2" parent="WoodScraps" instance=ExtResource("6_woodscrap")]
+position = Vector2(340, 123)
+
+[node name="WoodScrap3" parent="WoodScraps" instance=ExtResource("6_woodscrap")]
+position = Vector2(415, 108)
+
+[node name="WoodScrap4" parent="WoodScraps" instance=ExtResource("6_woodscrap")]
+position = Vector2(280, 170)
+
+[node name="WoodScrap5" parent="WoodScraps" instance=ExtResource("6_woodscrap")]
+position = Vector2(350, 175)
+
+[node name="MetalScraps" type="Node2D" parent="."]
+
+[node name="MetalScrap1" parent="MetalScraps" instance=ExtResource("9_metalscrap")]
+position = Vector2(220, 190)
+
+[node name="MetalScrap2" parent="MetalScraps" instance=ExtResource("9_metalscrap")]
+position = Vector2(380, 140)
+
+[node name="MetalScrap3" parent="MetalScraps" instance=ExtResource("9_metalscrap")]
+position = Vector2(300, 110)
+
+[node name="MetalScrap4" parent="MetalScraps" instance=ExtResource("9_metalscrap")]
+position = Vector2(420, 180)
+
+[node name="MetalScrap5" parent="MetalScraps" instance=ExtResource("9_metalscrap")]
+position = Vector2(180, 150)
+
+[node name="MetalScrap6" parent="MetalScraps" instance=ExtResource("9_metalscrap")]
+position = Vector2(360, 200)
+
+[node name="NewItems" type="Node2D" parent="."]
+visible = false
+
+[node name="Tire1" parent="NewItems" instance=ExtResource("10_tire")]
+position = Vector2(165, 180)
+
+[node name="Speakers1" parent="NewItems" instance=ExtResource("11_speakers")]
+position = Vector2(395, 165)
+
+[node name="Gears1" parent="NewItems" instance=ExtResource("12_gears")]
+position = Vector2(210, 105)
+
+[node name="Spring1" parent="NewItems" instance=ExtResource("13_spring")]
+position = Vector2(325, 195)
+scale = Vector2(0.3, 0.3)
+
+[node name="Tire2" parent="NewItems" instance=ExtResource("10_tire")]
+position = Vector2(404, 125)
+
+[node name="Gears2" parent="NewItems" instance=ExtResource("12_gears")]
+position = Vector2(170, 125)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_hud")
+
+[node name="StatsPanel" type="VBoxContainer" parent="UI/HUD"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 170.0
+
+[node name="HealthBar" type="ProgressBar" parent="UI/HUD/StatsPanel"]
+layout_mode = 2
+value = 100.0
+
+[node name="EnergyBar" type="ProgressBar" parent="UI/HUD/StatsPanel"]
+modulate = Color(0.3, 0.8, 1, 1)
+layout_mode = 2
+value = 100.0
+
+[node name="HungerBar" type="ProgressBar" parent="UI/HUD/StatsPanel"]
+modulate = Color(1, 0.8, 0.3, 1)
+layout_mode = 2
+value = 100.0
+
+[node name="ThirstBar" type="ProgressBar" parent="UI/HUD/StatsPanel"]
+modulate = Color(0.2, 0.8, 1, 1)
+layout_mode = 2
+value = 100.0
+
+[node name="HealthLabel" type="Label" parent="UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Health: 100/100"
+
+[node name="EnergyLabel" type="Label" parent="UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Energy: 100/100"
+
+[node name="HungerLabel" type="Label" parent="UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Hunger: 100/100"
+
+[node name="ThirstLabel" type="Label" parent="UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Thirst: 100/100"
+
+[node name="ResourcePanel" type="PanelContainer" parent="UI/HUD"]
+visible = false
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_bottom = 200.0
+
+[node name="ResourceList" type="VBoxContainer" parent="UI/HUD/ResourcePanel"]
+visible = false
+layout_mode = 2
+
+[node name="TimePanel" type="VBoxContainer" parent="UI/HUD"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 80.0
+
+[node name="TimeLabel" type="Label" parent="UI/HUD/TimePanel"]
+layout_mode = 2
+text = "06:00"
+horizontal_alignment = 1
+
+[node name="DayLabel" type="Label" parent="UI/HUD/TimePanel"]
+layout_mode = 2
+text = "Day 1"
+horizontal_alignment = 1
+
+[node name="WeatherLabel" type="Label" parent="UI/HUD/TimePanel"]
+layout_mode = 2
+text = "Clear"
+horizontal_alignment = 1
+
+[node name="Hotbar" parent="UI/HUD" instance=ExtResource("18_jjt3x")]
+layout_mode = 1
+script = null
+
+[node name="AttributesUI" parent="UI/HUD" instance=ExtResource("19_63gfr")]
+layout_mode = 1
+
+[node name="SkillDebugUI" parent="UI/HUD" instance=ExtResource("20_ftnsy")]
+layout_mode = 1
+
+[node name="InventoryUI" parent="UI" instance=ExtResource("4_inventory")]
+
+[node name="BuildMenu" parent="UI" instance=ExtResource("7_buildmenu")]
+
+[node name="WorkbenchCraftingMenu" parent="UI" instance=ExtResource("8_workbenchmenu")]
+
+[node name="GeneratorMenu" parent="UI" instance=ExtResource("25_generatormenu")]
+
+[node name="StorageUI" parent="UI" instance=ExtResource("26_storageui")]
+
+[node name="DevMenu" parent="UI" instance=ExtResource("23_devmenu")]
+visible = false
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" type="CanvasLayer" parent="UI"]
+
+[node name="HUD" type="Control" parent="UI/UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_hud")
+
+[node name="StatsPanel" type="VBoxContainer" parent="UI/UI/HUD"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 170.0
+
+[node name="HealthBar" type="ProgressBar" parent="UI/UI/HUD/StatsPanel"]
+layout_mode = 2
+value = 100.0
+
+[node name="EnergyBar" type="ProgressBar" parent="UI/UI/HUD/StatsPanel"]
+modulate = Color(0.3, 0.8, 1, 1)
+layout_mode = 2
+value = 100.0
+
+[node name="HungerBar" type="ProgressBar" parent="UI/UI/HUD/StatsPanel"]
+modulate = Color(1, 0.8, 0.3, 1)
+layout_mode = 2
+value = 100.0
+
+[node name="ThirstBar" type="ProgressBar" parent="UI/UI/HUD/StatsPanel"]
+modulate = Color(0.2, 0.8, 1, 1)
+layout_mode = 2
+value = 100.0
+
+[node name="HealthLabel" type="Label" parent="UI/UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Health: 100/100"
+
+[node name="EnergyLabel" type="Label" parent="UI/UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Energy: 100/100"
+
+[node name="HungerLabel" type="Label" parent="UI/UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Hunger: 100/100"
+
+[node name="ThirstLabel" type="Label" parent="UI/UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Thirst: 100/100"
+
+[node name="TimePanel" type="VBoxContainer" parent="UI/UI/HUD"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 80.0
+
+[node name="TimeLabel" type="Label" parent="UI/UI/HUD/TimePanel"]
+layout_mode = 2
+text = "06:00"
+horizontal_alignment = 1
+
+[node name="DayLabel" type="Label" parent="UI/UI/HUD/TimePanel"]
+layout_mode = 2
+text = "Day 1"
+horizontal_alignment = 1
+
+[node name="WeatherLabel" type="Label" parent="UI/UI/HUD/TimePanel"]
+layout_mode = 2
+text = "Clear"
+horizontal_alignment = 1
+
+[node name="Hotbar" parent="UI/UI/HUD" instance=ExtResource("18_jjt3x")]
+layout_mode = 1
+script = null
+
+[node name="AttributesUI" parent="UI/UI/HUD" instance=ExtResource("19_63gfr")]
+layout_mode = 1
+
+[node name="TestWorkbench" type="Area2D" parent="."]
+position = Vector2(288, 170)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("22_workbench_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="TestWorkbench"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("21_workbench_texture")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestWorkbench"]
+shape = SubResource("RectangleShape2D_workbench")
+
+[node name="SceneTransition" parent="." instance=ExtResource("29_2uu2a")]
+position = Vector2(393, -162)

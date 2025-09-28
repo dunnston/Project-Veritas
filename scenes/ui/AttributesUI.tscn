@@ -1,0 +1,366 @@
+[gd_scene load_steps=2 format=3 uid="uid://ttributesui"]
+
+[ext_resource type="Script" uid="uid://cw2hhtwkpr4aa" path="res://scripts/ui/AttributesUI.gd" id="1"]
+
+[node name="AttributesUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1")
+
+[node name="AttributesPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CloseButton" type="Button" parent="AttributesPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 40.0
+grow_horizontal = 0
+text = "Close"
+
+[node name="TitleLabel" type="Label" parent="AttributesPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 15.0
+offset_right = 60.0
+offset_bottom = 41.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 18
+text = "ATTRIBUTES"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="AttributesPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 50.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AttributesContainer" type="VBoxContainer" parent="AttributesPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SurvivalSection" type="VBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer"]
+layout_mode = 2
+
+[node name="SurvivalHeader" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "CORE SURVIVAL"
+
+[node name="HealthContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection"]
+layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/HealthContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Health:"
+
+[node name="HealthValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/HealthContainer"]
+layout_mode = 2
+text = "100"
+horizontal_alignment = 2
+
+[node name="MaxHealthContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection"]
+layout_mode = 2
+
+[node name="MaxHealthLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/MaxHealthContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Max Health:"
+
+[node name="MaxHealthValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/MaxHealthContainer"]
+layout_mode = 2
+text = "100"
+horizontal_alignment = 2
+
+[node name="EnergyContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection"]
+layout_mode = 2
+
+[node name="EnergyLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/EnergyContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Energy:"
+
+[node name="EnergyValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/EnergyContainer"]
+layout_mode = 2
+text = "100"
+horizontal_alignment = 2
+
+[node name="MaxEnergyContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection"]
+layout_mode = 2
+
+[node name="MaxEnergyLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/MaxEnergyContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Max Energy:"
+
+[node name="MaxEnergyValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/MaxEnergyContainer"]
+layout_mode = 2
+text = "100"
+horizontal_alignment = 2
+
+[node name="HungerContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection"]
+layout_mode = 2
+
+[node name="HungerLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/HungerContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Hunger:"
+
+[node name="HungerValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/HungerContainer"]
+layout_mode = 2
+text = "100"
+horizontal_alignment = 2
+
+[node name="MaxHungerContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection"]
+layout_mode = 2
+
+[node name="MaxHungerLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/MaxHungerContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Max Hunger:"
+
+[node name="MaxHungerValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/MaxHungerContainer"]
+layout_mode = 2
+text = "100"
+horizontal_alignment = 2
+
+[node name="ThirstContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection"]
+layout_mode = 2
+
+[node name="ThirstLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/ThirstContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Thirst:"
+
+[node name="ThirstValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/ThirstContainer"]
+layout_mode = 2
+text = "100"
+horizontal_alignment = 2
+
+[node name="MaxThirstContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection"]
+layout_mode = 2
+
+[node name="MaxThirstLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/MaxThirstContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Max Thirst:"
+
+[node name="MaxThirstValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/MaxThirstContainer"]
+layout_mode = 2
+text = "100"
+horizontal_alignment = 2
+
+[node name="RadiationContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection"]
+layout_mode = 2
+
+[node name="RadiationLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/RadiationContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Radiation Level:"
+
+[node name="RadiationValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/RadiationContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="OxygenContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection"]
+layout_mode = 2
+
+[node name="OxygenLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/OxygenContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Oxygen:"
+
+[node name="OxygenValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection/OxygenContainer"]
+layout_mode = 2
+text = "100"
+horizontal_alignment = 2
+
+[node name="SurvivalSpacer" type="Control" parent="AttributesPanel/ScrollContainer/AttributesContainer/SurvivalSection"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="CombatSection" type="VBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer"]
+layout_mode = 2
+
+[node name="CombatHeader" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/CombatSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "COMBAT"
+
+[node name="DamageContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/CombatSection"]
+layout_mode = 2
+
+[node name="DamageLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/CombatSection/DamageContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Damage:"
+
+[node name="DamageValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/CombatSection/DamageContainer"]
+layout_mode = 2
+text = "10"
+horizontal_alignment = 2
+
+[node name="CritChanceContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/CombatSection"]
+layout_mode = 2
+
+[node name="CritChanceLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/CombatSection/CritChanceContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Crit Chance:"
+
+[node name="CritChanceValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/CombatSection/CritChanceContainer"]
+layout_mode = 2
+text = "5%"
+horizontal_alignment = 2
+
+[node name="CritDamageContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/CombatSection"]
+layout_mode = 2
+
+[node name="CritDamageLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/CombatSection/CritDamageContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Crit Damage:"
+
+[node name="CritDamageValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/CombatSection/CritDamageContainer"]
+layout_mode = 2
+text = "1.5x"
+horizontal_alignment = 2
+
+[node name="ArmorPenContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/CombatSection"]
+layout_mode = 2
+
+[node name="ArmorPenLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/CombatSection/ArmorPenContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Armor Pen:"
+
+[node name="ArmorPenValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/CombatSection/ArmorPenContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="CombatSpacer" type="Control" parent="AttributesPanel/ScrollContainer/AttributesContainer/CombatSection"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="UtilitySection" type="VBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer"]
+layout_mode = 2
+
+[node name="UtilityHeader" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/UtilitySection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 1, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "UTILITY"
+
+[node name="SpeedContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/UtilitySection"]
+layout_mode = 2
+
+[node name="SpeedLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/UtilitySection/SpeedContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Speed:"
+
+[node name="SpeedValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/UtilitySection/SpeedContainer"]
+layout_mode = 2
+text = "1.0x"
+horizontal_alignment = 2
+
+[node name="CraftingSpeedContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/UtilitySection"]
+layout_mode = 2
+
+[node name="CraftingSpeedLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/UtilitySection/CraftingSpeedContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Crafting Speed:"
+
+[node name="CraftingSpeedValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/UtilitySection/CraftingSpeedContainer"]
+layout_mode = 2
+text = "1.0x"
+horizontal_alignment = 2
+
+[node name="UtilitySpacer" type="Control" parent="AttributesPanel/ScrollContainer/AttributesContainer/UtilitySection"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="EnvironmentalSection" type="VBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer"]
+layout_mode = 2
+
+[node name="EnvironmentalHeader" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/EnvironmentalSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "ENVIRONMENTAL PROTECTION"
+
+[node name="ArmorContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/EnvironmentalSection"]
+layout_mode = 2
+
+[node name="ArmorLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/EnvironmentalSection/ArmorContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Armor:"
+
+[node name="ArmorValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/EnvironmentalSection/ArmorContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="FireResistanceContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/EnvironmentalSection"]
+layout_mode = 2
+
+[node name="FireResistanceLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/EnvironmentalSection/FireResistanceContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Fire Resistance:"
+
+[node name="FireResistanceValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/EnvironmentalSection/FireResistanceContainer"]
+layout_mode = 2
+text = "0%"
+horizontal_alignment = 2
+
+[node name="ColdResistanceContainer" type="HBoxContainer" parent="AttributesPanel/ScrollContainer/AttributesContainer/EnvironmentalSection"]
+layout_mode = 2
+
+[node name="ColdResistanceLabel" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/EnvironmentalSection/ColdResistanceContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Cold Resistance:"
+
+[node name="ColdResistanceValue" type="Label" parent="AttributesPanel/ScrollContainer/AttributesContainer/EnvironmentalSection/ColdResistanceContainer"]
+layout_mode = 2
+text = "0%"
+horizontal_alignment = 2
+
+[connection signal="pressed" from="AttributesPanel/CloseButton" to="." method="_on_close_pressed"]

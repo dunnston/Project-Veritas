@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4wqgxfhqv8dj"]
+
+[ext_resource type="Script" uid="uid://by5obiuadxpvm" path="res://scripts/interactables/AnimatedDoor.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(64, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2"]
+size = Vector2(48, 48)
+
+[node name="AnimatedDoor" type="Area2D"]
+script = ExtResource("1_script")
+
+[node name="DoorSprite" type="Sprite2D" parent="."]
+
+[node name="CollisionBody" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="CollisionBody"]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="InteractionArea" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2")
+
+[node name="InteractionPrompt" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = -30.0
+text = "[E] Open Door"
+horizontal_alignment = 1

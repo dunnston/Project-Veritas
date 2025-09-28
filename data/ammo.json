@@ -1,0 +1,154 @@
+{
+	"ammo_types": {
+		"BULLET": {
+			"name": "Bullet",
+			"description": "Projectile ammunition fired from guns",
+			"icon": "ammo_bullet"
+		},
+		"ARROW": {
+			"name": "Arrow",
+			"description": "Projectile ammunition fired from bows",
+			"icon": "ammo_arrow"
+		},
+		"ENERGY": {
+			"name": "Energy",
+			"description": "Energy-based ammunition for advanced weapons",
+			"icon": "ammo_energy"
+		},
+		"PLASMA": {
+			"name": "Plasma",
+			"description": "Plasma-based ammunition for exotic weapons",
+			"icon": "ammo_plasma"
+		}
+	},
+	"ammo_items": {
+		"SCRAP_BULLETS": {
+			"name": "Scrap Bullets",
+			"description": "Makeshift ammunition crafted from scrap metal",
+			"type": "BULLET",
+			"icon": "scrap_bullets",
+			"damage_modifier": 1.0,
+			"accuracy_modifier": 0.9,
+			"stack_size": 100,
+			"crafting_recipe": {
+				"ingredients": {
+					"SCRAP_METAL": 2,
+					"GUNPOWDER": 1
+				},
+				"output": 10,
+				"craft_time": 5.0,
+				"requires_building": "workbench"
+			}
+		},
+		"FIRE_BULLETS": {
+			"name": "Fire Bullets",
+			"description": "Incendiary bullets that deal fire damage",
+			"type": "BULLET",
+			"icon": "fire_bullets",
+			"damage_modifier": 1.2,
+			"accuracy_modifier": 1.0,
+			"stack_size": 50,
+			"stats": {
+				"fire_damage": 5,
+				"burn_chance": 0.3
+			},
+			"crafting_recipe": {
+				"ingredients": {
+					"STEEL": 2,
+					"GUNPOWDER": 2,
+					"PHOSPHORUS": 1
+				},
+				"output": 5,
+				"craft_time": 10.0,
+				"requires_building": "advanced_workbench"
+			}
+		},
+		"WOOD_ARROWS": {
+			"name": "Wood Arrows",
+			"description": "Basic arrows with wooden shafts",
+			"type": "ARROW",
+			"icon": "wood_arrows",
+			"damage_modifier": 0.8,
+			"accuracy_modifier": 1.0,
+			"stack_size": 50,
+			"crafting_recipe": {
+				"ingredients": {
+					"WOOD_SCRAPS": 2,
+					"SCRAP_METAL": 1,
+					"FABRIC": 1
+				},
+				"output": 8,
+				"craft_time": 3.0,
+				"requires_building": "workbench"
+			}
+		},
+		"STEEL_ARROWS": {
+			"name": "Steel Arrows",
+			"description": "High-quality arrows with steel tips",
+			"type": "ARROW",
+			"icon": "steel_arrows",
+			"damage_modifier": 1.3,
+			"accuracy_modifier": 1.1,
+			"stack_size": 40,
+			"stats": {
+				"armor_penetration": 0.1
+			},
+			"crafting_recipe": {
+				"ingredients": {
+					"WOOD_SCRAPS": 2,
+					"STEEL": 2,
+					"FABRIC": 1
+				},
+				"output": 5,
+				"craft_time": 8.0,
+				"requires_building": "advanced_workbench"
+			}
+		},
+		"ENERGY_CELLS": {
+			"name": "Energy Cells",
+			"description": "High-tech energy ammunition",
+			"type": "ENERGY",
+			"icon": "energy_cells",
+			"damage_modifier": 1.5,
+			"accuracy_modifier": 1.2,
+			"stack_size": 50,
+			"stats": {
+				"energy_damage": true
+			},
+			"crafting_recipe": {
+				"ingredients": {
+					"BATTERY": 1,
+					"ELECTRONICS": 3,
+					"RARE_MINERALS": 1
+				},
+				"output": 5,
+				"craft_time": 15.0,
+				"requires_building": "advanced_workbench"
+			}
+		},
+		"PLASMA_CHARGES": {
+			"name": "Plasma Charges",
+			"description": "Experimental plasma-based ammunition",
+			"type": "PLASMA",
+			"icon": "plasma_charges",
+			"damage_modifier": 2.0,
+			"accuracy_modifier": 1.0,
+			"stack_size": 25,
+			"stats": {
+				"energy_damage": true,
+				"armor_penetration": 0.3,
+				"splash_damage": 5
+			},
+			"crafting_recipe": {
+				"ingredients": {
+					"ELECTRONICS": 5,
+					"FUSION_CORE": 1,
+					"RARE_MINERALS": 2
+				},
+				"output": 3,
+				"craft_time": 30.0,
+				"requires_building": "fusion_lab"
+			}
+		}
+	}
+}

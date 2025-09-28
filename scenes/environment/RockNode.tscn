@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj4h1m8vkx2qa"]
+
+[ext_resource type="Script" uid="uid://bjx2ql2cdfa" path="res://scripts/environment/RockNode.gd" id="1_0k8ys"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(40, 32)
+
+[node name="RockNode" type="StaticBody2D"]
+collision_layer = 129
+script = ExtResource("1_0k8ys")
+resource_type = "STONE"
+resource_amount = 2
+harvest_time = 0.0
+respawn_time = 600.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -20.0
+offset_top = -16.0
+offset_right = 20.0
+offset_bottom = 16.0
+color = Color(0.6, 0.6, 0.6, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="HarvestTimer" type="Timer" parent="."]
+
+[node name="RespawnTimer" type="Timer" parent="."]

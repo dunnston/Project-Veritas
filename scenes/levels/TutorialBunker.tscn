@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://btk4nvfyuwldg"]
+
+[ext_resource type="Texture2D" uid="uid://bw4yjsadodng7" path="res://assets/sprites/tiles/floors/concrete_floor.png" id="1_floors"]
+[ext_resource type="Script" uid="uid://dvgaavnwyc6gq" path="res://scripts/levels/TutorialController.gd" id="5_script"]
+[ext_resource type="PackedScene" path="res://scenes/ui/BuildMenu.tscn" id="6_buildmenu"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/Tablet.tscn" id="7_tablet"]
+[ext_resource type="Script" uid="uid://c8bcfm8lpaqkn" path="res://scripts/systems/EmergencySystem.gd" id="8_emergency"]
+[ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="9_inventory"]
+[ext_resource type="PackedScene" path="res://scenes/interactables/HandCrankGenerator.tscn" id="10_generator"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1"]
+texture = ExtResource("1_floors")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_1"]
+sources/0 = SubResource("TileSetAtlasSource_1")
+
+[node name="TutorialBunker" type="Node2D"]
+script = ExtResource("5_script")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_1")
+format = 2
+layer_0/name = "Floor"
+layer_1/name = "Walls"
+layer_1/z_index = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(160, 120)
+zoom = Vector2(2, 2)
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="PlayerSpawn" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(80, 64)
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="Interactables" type="Node2D" parent="."]
+
+[node name="Tablet" parent="Interactables" instance=ExtResource("7_tablet")]
+position = Vector2(100, 100)
+
+[node name="HandCrankGenerator" parent="Interactables" instance=ExtResource("10_generator")]
+position = Vector2(200, 150)
+
+[node name="EmergencySystem" type="Node" parent="."]
+script = ExtResource("8_emergency")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="BuildMenu" parent="UI" instance=ExtResource("6_buildmenu")]
+visible = true
+
+[node name="InventoryUI" parent="UI" instance=ExtResource("9_inventory")]

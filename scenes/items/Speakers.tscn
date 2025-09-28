@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0lyy3v82pv3g"]
+
+[ext_resource type="Texture2D" uid="uid://b7t23k08hgoks" path="res://assets/sprites/ui/e_key_prompt.png" id="2_prompt"]
+[ext_resource type="Texture2D" uid="uid://4mbtcdr3qf5c" path="res://assets/sprites/items/speaker.png" id="2_s6g13"]
+[ext_resource type="Script" uid="uid://dkc8peypefqaw" path="res://scripts/items/WoodScrapPickup.gd" id="3_script"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 16.0
+
+[node name="Speakers" type="Area2D" groups=["interactable", "resource"]]
+collision_layer = 128
+collision_mask = 2
+script = ExtResource("3_script")
+resource_name = "SPEAKERS"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("2_s6g13")
+
+[node name="InteractionPrompt" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -20)
+texture = ExtResource("2_prompt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="InteractionCollision" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_1")
+
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_entered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="_on_interaction_area_exited"]

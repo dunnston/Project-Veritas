@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4h6k3naq1r8v"]
+
+[ext_resource type="Script" path="res://scripts/environment/DroppedResource.gd" id="1_0k8ys"]
+
+[node name="DroppedResource" type="RigidBody2D"]
+script = ExtResource("1_0k8ys")
+resource_type = "SCRAP_METAL"
+amount = 1
+pickup_radius = 32.0
+auto_pickup_time = 10.0
+despawn_time = 60.0

@@ -1,0 +1,284 @@
+[gd_scene load_steps=17 format=3 uid="uid://dkft6qrq087dx"]
+
+[ext_resource type="PackedScene" path="res://scenes/player/AnimatedPlayer.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://b7nmxvx4kpqeh" path="res://scenes/enemies/BasicEnemy.tscn" id="2_enemy"]
+[ext_resource type="Script" uid="uid://ck4dpk0mama8c" path="res://scripts/levels/CombatTestSetup.gd" id="3_setup"]
+[ext_resource type="PackedScene" path="res://scenes/ui/CombatHUD.tscn" id="4_hud"]
+[ext_resource type="Script" uid="uid://cr1hhdwbh2ejq" path="res://scripts/ui/HUD.gd" id="5_wfxi0"]
+[ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="6_qfkfh"]
+[ext_resource type="PackedScene" uid="uid://ttributesui" path="res://scenes/ui/AttributesUI.tscn" id="7_orthl"]
+[ext_resource type="PackedScene" uid="uid://dd2xhpgk2eax2" path="res://scenes/ui/SkillDebugUI.tscn" id="8_slrok"]
+[ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="9_bhgry"]
+[ext_resource type="PackedScene" path="res://scenes/ui/BuildMenu.tscn" id="10_3bq5r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/WorkbenchCraftingMenu.tscn" id="11_cu346"]
+[ext_resource type="PackedScene" uid="uid://b8hgax2kqw7lr" path="res://scenes/ui/GeneratorMenu.tscn" id="12_3g71t"]
+[ext_resource type="PackedScene" path="res://scenes/ui/StorageUI.tscn" id="13_cnouo"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DevMenu.tscn" id="14_lclej"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(800, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(20, 600)
+
+[node name="CombatTestArena" type="Node2D"]
+script = ExtResource("3_setup")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(400, 300)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="BasicEnemy1" parent="Enemies" instance=ExtResource("2_enemy")]
+position = Vector2(200, 200)
+
+[node name="BasicEnemy2" parent="Enemies" instance=ExtResource("2_enemy")]
+position = Vector2(600, 200)
+
+[node name="BasicEnemy3" parent="Enemies" instance=ExtResource("2_enemy")]
+position = Vector2(400, 100)
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="TopWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(400, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/TopWall"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="BottomWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(400, 590)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/BottomWall"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(10, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="RightWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(790, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="Instructions" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 780.0
+offset_bottom = 80.0
+text = "COMBAT TEST ARENA - Weapon System
+Attack: Left Click or F | Switch Weapon: Q | Move: WASD | Sprint: Shift
+Fists: 5 dmg | Scrap Knife: 5 dmg, faster | Combat Knife: 12 dmg, 15% crit
+Enemies: 30 HP (6 punches or 3 combat knife hits)"
+horizontal_alignment = 1
+
+[node name="CombatHUD" parent="." instance=ExtResource("4_hud")]
+layout_mode = 3
+anchors_preset = 15
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_wfxi0")
+
+[node name="StatsPanel" type="VBoxContainer" parent="UI/HUD"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 170.0
+
+[node name="HealthBar" type="ProgressBar" parent="UI/HUD/StatsPanel"]
+layout_mode = 2
+value = 100.0
+
+[node name="EnergyBar" type="ProgressBar" parent="UI/HUD/StatsPanel"]
+modulate = Color(0.3, 0.8, 1, 1)
+layout_mode = 2
+value = 100.0
+
+[node name="HungerBar" type="ProgressBar" parent="UI/HUD/StatsPanel"]
+modulate = Color(1, 0.8, 0.3, 1)
+layout_mode = 2
+value = 100.0
+
+[node name="ThirstBar" type="ProgressBar" parent="UI/HUD/StatsPanel"]
+modulate = Color(0.2, 0.8, 1, 1)
+layout_mode = 2
+value = 100.0
+
+[node name="HealthLabel" type="Label" parent="UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Health: 100/100"
+
+[node name="EnergyLabel" type="Label" parent="UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Energy: 100/100"
+
+[node name="HungerLabel" type="Label" parent="UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Hunger: 100/100"
+
+[node name="ThirstLabel" type="Label" parent="UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Thirst: 100/100"
+
+[node name="ResourcePanel" type="PanelContainer" parent="UI/HUD"]
+visible = false
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_bottom = 200.0
+
+[node name="ResourceList" type="VBoxContainer" parent="UI/HUD/ResourcePanel"]
+visible = false
+layout_mode = 2
+
+[node name="TimePanel" type="VBoxContainer" parent="UI/HUD"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 80.0
+
+[node name="TimeLabel" type="Label" parent="UI/HUD/TimePanel"]
+layout_mode = 2
+text = "06:00"
+horizontal_alignment = 1
+
+[node name="DayLabel" type="Label" parent="UI/HUD/TimePanel"]
+layout_mode = 2
+text = "Day 1"
+horizontal_alignment = 1
+
+[node name="WeatherLabel" type="Label" parent="UI/HUD/TimePanel"]
+layout_mode = 2
+text = "Clear"
+horizontal_alignment = 1
+
+[node name="Hotbar" parent="UI/HUD" instance=ExtResource("6_qfkfh")]
+layout_mode = 1
+script = null
+
+[node name="AttributesUI" parent="UI/HUD" instance=ExtResource("7_orthl")]
+layout_mode = 1
+
+[node name="SkillDebugUI" parent="UI/HUD" instance=ExtResource("8_slrok")]
+layout_mode = 1
+
+[node name="InventoryUI" parent="UI" instance=ExtResource("9_bhgry")]
+
+[node name="BuildMenu" parent="UI" instance=ExtResource("10_3bq5r")]
+
+[node name="WorkbenchCraftingMenu" parent="UI" instance=ExtResource("11_cu346")]
+
+[node name="GeneratorMenu" parent="UI" instance=ExtResource("12_3g71t")]
+
+[node name="StorageUI" parent="UI" instance=ExtResource("13_cnouo")]
+
+[node name="DevMenu" parent="UI" instance=ExtResource("14_lclej")]
+visible = false
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" type="CanvasLayer" parent="UI"]
+
+[node name="HUD" type="Control" parent="UI/UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_wfxi0")
+
+[node name="StatsPanel" type="VBoxContainer" parent="UI/UI/HUD"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 170.0
+
+[node name="HealthBar" type="ProgressBar" parent="UI/UI/HUD/StatsPanel"]
+layout_mode = 2
+value = 100.0
+
+[node name="EnergyBar" type="ProgressBar" parent="UI/UI/HUD/StatsPanel"]
+modulate = Color(0.3, 0.8, 1, 1)
+layout_mode = 2
+value = 100.0
+
+[node name="HungerBar" type="ProgressBar" parent="UI/UI/HUD/StatsPanel"]
+modulate = Color(1, 0.8, 0.3, 1)
+layout_mode = 2
+value = 100.0
+
+[node name="ThirstBar" type="ProgressBar" parent="UI/UI/HUD/StatsPanel"]
+modulate = Color(0.2, 0.8, 1, 1)
+layout_mode = 2
+value = 100.0
+
+[node name="HealthLabel" type="Label" parent="UI/UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Health: 100/100"
+
+[node name="EnergyLabel" type="Label" parent="UI/UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Energy: 100/100"
+
+[node name="HungerLabel" type="Label" parent="UI/UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Hunger: 100/100"
+
+[node name="ThirstLabel" type="Label" parent="UI/UI/HUD/StatsPanel"]
+visible = false
+layout_mode = 2
+text = "Thirst: 100/100"
+
+[node name="TimePanel" type="VBoxContainer" parent="UI/UI/HUD"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 80.0
+
+[node name="TimeLabel" type="Label" parent="UI/UI/HUD/TimePanel"]
+layout_mode = 2
+text = "06:00"
+horizontal_alignment = 1
+
+[node name="DayLabel" type="Label" parent="UI/UI/HUD/TimePanel"]
+layout_mode = 2
+text = "Day 1"
+horizontal_alignment = 1
+
+[node name="WeatherLabel" type="Label" parent="UI/UI/HUD/TimePanel"]
+layout_mode = 2
+text = "Clear"
+horizontal_alignment = 1
+
+[node name="Hotbar" parent="UI/UI/HUD" instance=ExtResource("6_qfkfh")]
+layout_mode = 1
+script = null
+
+[node name="AttributesUI" parent="UI/UI/HUD" instance=ExtResource("7_orthl")]
+layout_mode = 1

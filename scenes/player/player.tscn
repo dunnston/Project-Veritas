@@ -1,29 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://bx4y5e7m8qvk7"]
+[gd_scene load_steps=4 format=3 uid="uid://animated_player"]
 
-[ext_resource type="Script" path="res://scripts/player/Player3D.gd" id="1_qvmxh"]
+[ext_resource type="Script" path="res://scripts/player/AnimatedPlayerController.gd" id="1_script"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7xvtm"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(16, 20)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_1xfnr"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 32.0
 
-[node name="Player" type="CharacterBody3D"]
-script = ExtResource("1_qvmxh")
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_script")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_7xvtm")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_1xfnr")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_1")
 
-[node name="CameraPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
 
-[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
-spring_length = 5.0
-margin = 0.2
+[node name="InteractionCollision" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_1")
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
-fov = 75.0
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+enabled = true

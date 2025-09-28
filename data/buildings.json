@@ -1,0 +1,380 @@
+{
+	"assembler": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "crafting",
+		"cost": {
+			"ELECTRONICS": 10.0,
+			"ENERGY_CELLS": 2.0,
+			"RARE_MINERALS": 3.0,
+			"SCRAP_METAL": 20.0
+		},
+		"description": "Advanced automated crafting",
+		"icon": "assembler.png",
+		"interactable": true,
+		"interaction_range": 64.0,
+		"max_health": 100.0,
+		"name": "Assembler",
+		"power_consumption": 8.0,
+		"refund": {
+			"ELECTRONICS": 5.0,
+			"ENERGY_CELLS": 1.0,
+			"RARE_MINERALS": 1.0,
+			"SCRAP_METAL": 10.0
+		},
+		"size": {
+			"x": 3.0,
+			"y": 2.0
+		}
+	},
+	"basic_floor": {
+		"blocks_movement": false,
+		"blocks_placement": false,
+		"category": "structure",
+		"cost": {
+			"SCRAP_METAL": 3.0
+		},
+		"description": "Metal floor plating",
+		"icon": "basic_floor.png",
+		"interactable": false,
+		"max_health": 50.0,
+		"name": "Basic Floor",
+		"refund": {
+			"SCRAP_METAL": 1.0
+		},
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"basic_wall": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "structure",
+		"cost": {
+			"SCRAP_METAL": 5.0
+		},
+		"description": "Simple metal wall for protection",
+		"icon": "basic_wall.png",
+		"provides_shelter": true,
+		"interactable": false,
+		"max_health": 100.0,
+		"name": "Basic Wall",
+		"refund": {
+			"SCRAP_METAL": 2.0
+		},
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"battery": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "power",
+		"cost": {
+			"ELECTRONICS": 3.0,
+			"RARE_MINERALS": 1.0,
+			"SCRAP_METAL": 4.0
+		},
+		"description": "Stores electrical power",
+		"icon": "battery.png",
+		"interactable": false,
+		"max_health": 60.0,
+		"name": "Battery",
+		"power_storage": 100.0,
+		"refund": {
+			"ELECTRONICS": 1.0,
+			"SCRAP_METAL": 2.0
+		},
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"door": {
+		"blocks_movement": false,
+		"blocks_placement": true,
+		"can_open": true,
+		"category": "structure",
+		"cost": {
+			"ELECTRONICS": 1.0,
+			"SCRAP_METAL": 6.0
+		},
+		"description": "Allows controlled access",
+		"icon": "door.png",
+		"interactable": false,
+		"max_health": 80.0,
+		"name": "Door",
+		"refund": {
+			"SCRAP_METAL": 3.0
+		},
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"food_processor": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "production",
+		"cost": {
+			"ELECTRONICS": 4.0,
+			"ENERGY_CELLS": 1.0,
+			"SCRAP_METAL": 6.0
+		},
+		"description": "Converts bio-matter to food",
+		"icon": "food_processor.png",
+		"input_resource": "BIO_MATTER",
+		"interactable": true,
+		"max_health": 60.0,
+		"name": "Food Processor",
+		"output_resource": "FOOD",
+		"power_consumption": 3.0,
+		"production_rate": 0.05,
+		"refund": {
+			"ELECTRONICS": 2.0,
+			"SCRAP_METAL": 3.0
+		},
+		"size": {
+			"x": 2.0,
+			"y": 1.0
+		}
+	},
+	"hand_crank_generator": {
+		"blocks_movement": null,
+		"blocks_placement": null,
+		"category": "structure",
+		"description": "Manual power generator for emergency backup",
+		"icon": "generator2.png",
+		"interactable": null,
+		"interaction_range": 64.0,
+		"max_health": 80.0,
+		"name": "Hand Crank Generator",
+		"power_consumption": 0.0,
+		"recipe_id": "hand_crank_generator",
+		"refund": {
+
+		},
+		"size": {
+			"x": 2.0,
+			"y": 2.0
+		}
+	},
+	"oxygen_tank": {
+		"blocks_movement": null,
+		"blocks_placement": null,
+		"category": "structure",
+		"description": "Emergency oxygen supply for life support systems",
+		"icon": "oxygentank.png",
+		"interactable": null,
+		"interaction_range": 48.0,
+		"max_health": 60.0,
+		"name": "Oxygen Tank",
+		"power_consumption": 0.0,
+		"recipe_id": "oxygen_tank",
+		"refund": {
+
+		},
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"solar_panel": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "power",
+		"cost": {
+			"ELECTRONICS": 5.0,
+			"RARE_MINERALS": 2.0,
+			"SCRAP_METAL": 5.0
+		},
+		"description": "Generates power from sunlight",
+		"icon": "solar_panel.png",
+		"interactable": false,
+		"max_health": 40.0,
+		"name": "Solar Panel",
+		"power_generation": 10.0,
+		"refund": {
+			"ELECTRONICS": 2.0,
+			"RARE_MINERALS": 1.0,
+			"SCRAP_METAL": 2.0
+		},
+		"requires_sunlight": true,
+		"size": {
+			"x": 2.0,
+			"y": 2.0
+		}
+	},
+	"storage_box": {
+		"blocks_movement": null,
+		"blocks_placement": null,
+		"category": "storage",
+		"description": "Container for items",
+		"icon": "Chest.png",
+		"interactable": null,
+		"interaction_range": 48.0,
+		"max_health": 50.0,
+		"name": "Storage Box",
+		"power_consumption": 0.0,
+		"recipe_id": "storage_box",
+		"refund": {
+
+		},
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"water_purifier": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "production",
+		"cost": {
+			"BIO_MATTER": 5.0,
+			"ELECTRONICS": 3.0,
+			"SCRAP_METAL": 8.0
+		},
+		"description": "Purifies contaminated water",
+		"icon": "water_purifier.png",
+		"input_resource": "contaminated_water",
+		"interactable": true,
+		"max_health": 60.0,
+		"name": "Water Purifier",
+		"output_resource": "WATER",
+		"power_consumption": 5.0,
+		"production_rate": 0.1,
+		"refund": {
+			"BIO_MATTER": 2.0,
+			"ELECTRONICS": 1.0,
+			"SCRAP_METAL": 4.0
+		},
+		"size": {
+			"x": 2.0,
+			"y": 1.0
+		}
+	},
+	"workbench": {
+		"blocks_movement": null,
+		"blocks_placement": null,
+		"category": "crafting",
+		"description": "Essential crafting station",
+		"icon": "pixellab-A-sci-fi-workbench-with-a-meta-1756949376631.png",
+		"provides_shelter": true,
+		"interactable": null,
+		"interaction_range": 64.0,
+		"max_health": 75.0,
+		"name": "Workbench",
+		"power_consumption": 0.0,
+		"recipe_id": "workbench",
+		"refund": {
+
+		},
+		"size": {
+			"x": 2.0,
+			"y": 1.0
+		}
+	},
+	"basic_roof": {
+		"blocks_movement": false,
+		"blocks_placement": false,
+		"category": "structure",
+		"cost": {
+			"SCRAP_METAL": 4.0,
+			"METAL_SHEETS": 2.0
+		},
+		"description": "Metal roof plating for overhead protection",
+		"icon": "basic_roof.png",
+		"provides_shelter": true,
+		"interactable": false,
+		"max_health": 80.0,
+		"name": "Basic Roof",
+		"refund": {
+			"SCRAP_METAL": 2.0,
+			"METAL_SHEETS": 1.0
+		},
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"reinforced_wall": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "structure",
+		"cost": {
+			"SCRAP_METAL": 8.0,
+			"METAL_SHEETS": 2.0,
+			"CONCRETE": 3.0
+		},
+		"description": "Heavy-duty wall with superior storm protection",
+		"icon": "reinforced_wall.png",
+		"provides_shelter": true,
+		"interactable": false,
+		"max_health": 200.0,
+		"name": "Reinforced Wall",
+		"refund": {
+			"SCRAP_METAL": 4.0,
+			"METAL_SHEETS": 1.0,
+			"CONCRETE": 1.0
+		},
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"reinforced_roof": {
+		"blocks_movement": false,
+		"blocks_placement": false,
+		"category": "structure",
+		"cost": {
+			"SCRAP_METAL": 6.0,
+			"METAL_SHEETS": 4.0,
+			"CONCRETE": 2.0
+		},
+		"description": "Heavy-duty roof with superior storm protection",
+		"icon": "reinforced_roof.png",
+		"provides_shelter": true,
+		"interactable": false,
+		"max_health": 150.0,
+		"name": "Reinforced Roof",
+		"refund": {
+			"SCRAP_METAL": 3.0,
+			"METAL_SHEETS": 2.0,
+			"CONCRETE": 1.0
+		},
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"repair_bench": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "crafting",
+		"cost": {
+			"SCRAP_METAL": 15.0,
+			"ELECTRONICS": 5.0,
+			"GEARS": 3.0,
+			"METAL_ROD": 2.0
+		},
+		"description": "Specialized workstation for repairing damaged equipment and weapons",
+		"icon": "repair_bench.png",
+		"interactable": true,
+		"interaction_range": 64.0,
+		"max_health": 80.0,
+		"name": "Repair Bench",
+		"power_consumption": 0.0,
+		"refund": {
+			"SCRAP_METAL": 7.0,
+			"ELECTRONICS": 2.0,
+			"GEARS": 1.0,
+			"METAL_ROD": 1.0
+		},
+		"size": {
+			"x": 2.0,
+			"y": 2.0
+		}
+	}
+}

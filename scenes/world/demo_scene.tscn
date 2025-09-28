@@ -1,6 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c7xvh2m4qgtjk"]
+[gd_scene load_steps=12 format=3 uid="uid://c7xvh2m4qgtjk"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_8gvxm"]
+[ext_resource type="PackedScene" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
+[ext_resource type="PackedScene" path="res://scenes/ui/InventoryUI.tscn" id="3_inventory"]
+[ext_resource type="PackedScene" path="res://scenes/ui/StorageUI.tscn" id="4_storage"]
+[ext_resource type="PackedScene" path="res://scenes/ui/CombatHUD.tscn" id="5_combathud"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxywg"]
 sky_top_color = Color(0.0862745, 0.0392157, 0.117647, 1)
@@ -49,7 +53,7 @@ size = Vector3(100, 1, 100)
 [node name="DemoScene" type="Node3D"]
 
 [node name="PlayerMixamo" parent="." instance=ExtResource("1_8gvxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.489066, 0)
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -150,3 +154,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 4, -10)
 light_color = Color(1, 1, 0, 1)
 light_energy = 1.5
 omni_range = 10.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Hotbar" parent="UI" instance=ExtResource("2_hotbar")]
+
+[node name="InventoryUI" parent="UI" instance=ExtResource("3_inventory")]
+
+[node name="StorageUI" parent="UI" instance=ExtResource("4_storage")]
+
+[node name="CombatHUD" parent="UI" instance=ExtResource("5_combathud")]
+layout_mode = 3
+anchors_preset = 15

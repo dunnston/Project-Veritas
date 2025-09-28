@@ -1,0 +1,350 @@
+[gd_scene load_steps=8 format=3 uid="uid://dvvrkfbrg3h80"]
+
+[ext_resource type="Texture2D" uid="uid://dah1ti0ueqxqk" path="res://assets/sprites/PostApocalypsePack/UI/Inventory/Inventory_1.png" id="1_bg"]
+[ext_resource type="Texture2D" uid="uid://cojtewl7u5oov" path="res://assets/sprites/PostApocalypsePack/UI/Inventory/Inventory_Close_Not-Pressed.png" id="3_close"]
+[ext_resource type="Texture2D" uid="uid://bs887m54op843" path="res://assets/sprites/PostApocalypsePack/UI/Inventory/Inventory-Cell.png" id="4_lvuwj"]
+[ext_resource type="Script" uid="uid://duyiak64ebg2m" path="res://scripts/ui/InventoryUI.gd" id="4_script"]
+[ext_resource type="Texture2D" uid="uid://ctxp17ybqvobm" path="res://assets/sprites/player/animations/breathing-idle/south/frame_000.png" id="6_wgv8v"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ufdhg"]
+texture = ExtResource("1_bg")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1"]
+
+[node name="InventoryUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("4_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 8.0
+offset_right = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 0.7)
+
+[node name="InventoryPanel" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_bg")
+
+[node name="CloseButton" type="TextureButton" parent="InventoryPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -12.0
+offset_top = 6.0
+offset_right = 8.0
+offset_bottom = 26.0
+grow_horizontal = 0
+texture_normal = ExtResource("3_close")
+
+[node name="GridContainer" type="GridContainer" parent="InventoryPanel"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 60.0
+offset_right = 370.0
+offset_bottom = 320.0
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 5
+
+[node name="PannelLabelContainer" type="PanelContainer" parent="InventoryPanel"]
+layout_mode = 0
+offset_left = 149.0
+offset_top = -40.0
+offset_right = 255.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_ufdhg")
+
+[node name="MarginContainer" type="MarginContainer" parent="InventoryPanel/PannelLabelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 20
+
+[node name="TitleLabel" type="Label" parent="InventoryPanel/PannelLabelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "INVENTORY"
+horizontal_alignment = 1
+
+[node name="ItemInfoPanel" type="PanelContainer" parent="InventoryPanel"]
+layout_mode = 0
+offset_left = -466.0
+offset_top = 41.0
+offset_right = -126.0
+offset_bottom = 91.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1")
+
+[node name="ItemInfoLabel" type="RichTextLabel" parent="InventoryPanel/ItemInfoPanel"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center]Hover over items for details[/center]"
+fit_content = true
+
+[node name="EquipmentPanel" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 306.0
+offset_top = -196.0
+offset_right = 706.0
+offset_bottom = 204.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_bg")
+
+[node name="CloseButton" type="TextureButton" parent="EquipmentPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -12.0
+offset_top = 6.0
+offset_right = 8.0
+offset_bottom = 26.0
+grow_horizontal = 0
+texture_normal = ExtResource("3_close")
+
+[node name="PannelLabelContainer" type="PanelContainer" parent="EquipmentPanel"]
+layout_mode = 2
+offset_left = 149.0
+offset_top = -40.0
+offset_right = 255.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_ufdhg")
+
+[node name="MarginContainer" type="MarginContainer" parent="EquipmentPanel/PannelLabelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="TitleLabel" type="Label" parent="EquipmentPanel/PannelLabelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "Equipment"
+horizontal_alignment = 1
+
+[node name="EquipmentSlot1" type="TextureRect" parent="EquipmentPanel"]
+layout_mode = 2
+offset_left = 83.0
+offset_top = 40.0
+offset_right = 147.0
+offset_bottom = 104.0
+texture = ExtResource("4_lvuwj")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot1"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 59.0
+offset_right = 78.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 16
+text = "Head"
+
+[node name="EquipmentSlot2" type="TextureRect" parent="EquipmentPanel"]
+layout_mode = 2
+offset_left = 167.0
+offset_top = 38.0
+offset_right = 231.0
+offset_bottom = 102.0
+texture = ExtResource("4_lvuwj")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot2"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 59.0
+offset_right = 78.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 16
+text = "Trinket 1"
+
+[node name="EquipmentSlot3" type="TextureRect" parent="EquipmentPanel"]
+layout_mode = 2
+offset_left = 253.0
+offset_top = 40.0
+offset_right = 317.0
+offset_bottom = 104.0
+texture = ExtResource("4_lvuwj")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot3"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 59.0
+offset_right = 78.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 16
+text = "Trinket"
+
+[node name="EquipmentSlot4" type="TextureRect" parent="EquipmentPanel"]
+layout_mode = 2
+offset_left = 82.0
+offset_top = 124.0
+offset_right = 146.0
+offset_bottom = 188.0
+texture = ExtResource("4_lvuwj")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot4"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 59.0
+offset_right = 78.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 16
+text = "Chest"
+
+[node name="EquipmentSlot5" type="TextureRect" parent="EquipmentPanel"]
+layout_mode = 2
+offset_left = 85.0
+offset_top = 209.0
+offset_right = 149.0
+offset_bottom = 273.0
+texture = ExtResource("4_lvuwj")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot5"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 59.0
+offset_right = 78.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 16
+text = "Pants"
+
+[node name="EquipmentSlot6" type="TextureRect" parent="EquipmentPanel"]
+layout_mode = 2
+offset_left = 86.0
+offset_top = 288.0
+offset_right = 150.0
+offset_bottom = 352.0
+texture = ExtResource("4_lvuwj")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot6"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 59.0
+offset_right = 78.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 16
+text = "Feet"
+
+[node name="EquipmentSlot7" type="TextureRect" parent="EquipmentPanel"]
+layout_mode = 2
+offset_left = 173.0
+offset_top = 286.0
+offset_right = 237.0
+offset_bottom = 350.0
+texture = ExtResource("4_lvuwj")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot7"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 59.0
+offset_right = 78.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 16
+text = "Primary"
+
+[node name="EquipmentSlot8" type="TextureRect" parent="EquipmentPanel"]
+layout_mode = 2
+offset_left = 256.0
+offset_top = 283.0
+offset_right = 320.0
+offset_bottom = 347.0
+texture = ExtResource("4_lvuwj")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot8"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 59.0
+offset_right = 78.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 16
+text = "Secondary"
+
+[node name="ToolSlot" type="TextureRect" parent="EquipmentPanel"]
+layout_mode = 2
+offset_left = 252.0
+offset_top = 131.0
+offset_right = 316.0
+offset_bottom = 195.0
+texture = ExtResource("4_lvuwj")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="EquipmentPanel/ToolSlot"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 59.0
+offset_right = 76.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 16
+text = "Tool"
+
+[node name="EquipmentSlot10" type="TextureRect" parent="EquipmentPanel"]
+layout_mode = 2
+offset_left = 256.0
+offset_top = 207.0
+offset_right = 320.0
+offset_bottom = 271.0
+texture = ExtResource("4_lvuwj")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot10"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 59.0
+offset_right = 78.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 16
+text = "Backpack"
+
+[node name="CharacterImage" type="TextureRect" parent="EquipmentPanel"]
+layout_mode = 2
+offset_left = 128.0
+offset_top = 124.0
+offset_right = 192.0
+offset_bottom = 188.0
+scale = Vector2(2.16, 2.16)
+texture = ExtResource("6_wgv8v")
+expand_mode = 2
+
+[connection signal="pressed" from="InventoryPanel/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="EquipmentPanel/CloseButton" to="." method="_on_close_button_pressed"]
