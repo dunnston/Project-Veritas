@@ -1,10 +1,10 @@
-# Neon Wasteland 3D
+# Project Veritas 3D
 
 A dystopian survival-automation game built with Godot 4.3, featuring a neon-drenched wasteland where players must survive, build, and automate in a harsh post-apocalyptic world.
 
 ## 🎮 Overview
 
-Neon Wasteland 3D is a 3D reimagining of a survival-automation game, transitioning from 2D to an immersive 3D environment. Players navigate a dystopian world filled with environmental dangers, resource scarcity, and opportunities for automation.
+Project Veritas 3D is a 3D reimagining of a survival-automation game, transitioning from 2D to an immersive 3D environment. Players navigate a dystopian world filled with environmental dangers, resource scarcity, and opportunities for automation.
 
 ## 🚀 Features
 
