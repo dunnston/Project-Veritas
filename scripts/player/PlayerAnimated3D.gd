@@ -39,8 +39,10 @@ func _ready():
 	call_deferred("setup_animations")
 
 func _register_with_game_manager():
-	if GameManager and GameManager.has_method("register_player"):
-		GameManager.register_player(self)
+	# Get GameManager specifically to avoid autoload conflicts
+	var game_manager = get_node("/root/GameManager")
+	if game_manager and game_manager.has_method("register_player"):
+		game_manager.register_player(self)
 		print("Player registered with GameManager successfully")
 	else:
 		print("ERROR: GameManager not found or register_player method missing")
