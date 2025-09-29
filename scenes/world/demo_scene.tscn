@@ -1,10 +1,11 @@
 [gd_scene load_steps=12 format=3 uid="uid://c7xvh2m4qgtjk"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_8gvxm"]
-[ext_resource type="PackedScene" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
-[ext_resource type="PackedScene" path="res://scenes/ui/InventoryUI.tscn" id="3_inventory"]
-[ext_resource type="PackedScene" path="res://scenes/ui/StorageUI.tscn" id="4_storage"]
+[ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
+[ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="3_inventory"]
+[ext_resource type="PackedScene" uid="uid://c5qxr8jyf4kxm" path="res://scenes/ui/StorageUI.tscn" id="4_storage"]
 [ext_resource type="PackedScene" path="res://scenes/ui/CombatHUD.tscn" id="5_combathud"]
+[ext_resource type="PackedScene" uid="uid://devmenu" path="res://scenes/ui/DevMenu.tscn" id="6_devmenu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxywg"]
 sky_top_color = Color(0.0862745, 0.0392157, 0.117647, 1)
@@ -166,3 +167,7 @@ omni_range = 10.0
 [node name="CombatHUD" parent="UI" instance=ExtResource("5_combathud")]
 layout_mode = 3
 anchors_preset = 15
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DevMenu" parent="UI" instance=ExtResource("6_devmenu")]

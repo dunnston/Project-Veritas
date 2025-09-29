@@ -532,7 +532,14 @@ func handle_item_drop(slot_index: int, shift_pressed: bool, ctrl_pressed: bool):
 		print("No player found for item drop")
 		return
 	
-	var drop_position = player.global_position + Vector2(randf_range(-32, 32), randf_range(-32, 32))
+	# Convert to 3D position for dropping
+	var drop_position: Vector3
+	if player.global_position is Vector3:
+		drop_position = player.global_position + Vector3(randf_range(-1, 1), 0, randf_range(-1, 1))
+	else:
+		# Fallback for 2D (shouldn't happen in 3D project)
+		var pos2d = player.global_position
+		drop_position = Vector3(pos2d.x + randf_range(-32, 32), 0, pos2d.y + randf_range(-32, 32))
 	
 	# Determine drop quantity based on modifiers
 	var drop_quantity = 1
