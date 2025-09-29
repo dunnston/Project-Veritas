@@ -17,7 +17,7 @@ const SUFFOCATION_DAMAGE_RATE: float = 5.0  # Damage per second when suffocating
 
 var oxygen_level: float = MAX_OXYGEN
 var oxygen_sources: Array[Node2D] = []
-var player_ref: Node2D = null
+var player_ref: Node = null
 var is_suffocating: bool = false
 var has_oxygen_supply: bool = false
 var check_timer: Timer
@@ -138,7 +138,15 @@ func _check_oxygen_availability():
 			# Skip if we can't verify it's active
 			continue
 		
-		var distance = player_ref.global_position.distance_to(source.global_position)
+		# Handle 3D to 2D position conversion for distance calculation
+		var player_pos_2d: Vector2
+		if player_ref.global_position is Vector3:
+			var pos_3d = player_ref.global_position
+			player_pos_2d = Vector2(pos_3d.x, pos_3d.z)  # Use X,Z for 2D distance
+		else:
+			player_pos_2d = player_ref.global_position
+
+		var distance = player_pos_2d.distance_to(source.global_position)
 		if distance <= OXYGEN_RANGE and distance < min_distance:
 			nearest_source = source
 			min_distance = distance
