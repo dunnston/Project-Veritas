@@ -93,12 +93,14 @@ func _on_item_button_pressed(item_id: String):
 		amount = max_stack
 	
 	# Add item to inventory
+	print("[DEV] Attempting to add %d of item_id: '%s'" % [amount, item_id])
 	var success = InventorySystem.add_item(item_id, amount)
-	
+
 	if success:
-		print("[DEV] Added %d %s to inventory" % [amount, item_data.get("name", item_id)])
+		print("[DEV] Successfully added %d %s to inventory" % [amount, item_data.get("name", item_id)])
+		print("[DEV] Current inventory count for %s: %d" % [item_id, InventorySystem.get_item_count(item_id)])
 	else:
-		print("[DEV] Failed to add %s - inventory may be full" % item_data.get("name", item_id))
+		print("[DEV] Failed to add %s - inventory may be full" % item_data.get("name", item_id)])
 	
 	refresh_item_buttons()
 

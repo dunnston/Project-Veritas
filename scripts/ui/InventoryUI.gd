@@ -110,6 +110,7 @@ class InventorySlotUI:
 	
 	func _on_slot_input(event: InputEvent):
 		if event is InputEventMouseButton and event.pressed:
+			print("DEBUG: Slot %d clicked with button %d" % [slot_index, event.button_index])
 			if event.button_index == MOUSE_BUTTON_LEFT:
 				# Check if storage is open - if so, transfer to storage instead of normal click
 				if StorageUI.instance and StorageUI.instance.visible:
@@ -526,17 +527,23 @@ func transfer_item_to_storage(slot_index: int):
 		print("StorageUI not available")
 
 func handle_item_drop(slot_index: int, shift_pressed: bool, ctrl_pressed: bool):
+	print("DEBUG: handle_item_drop called for slot %d (shift: %s, ctrl: %s)" % [slot_index, shift_pressed, ctrl_pressed])
+
 	# Check if storage is open - disable dropping when using storage
 	if StorageUI.instance and StorageUI.instance.visible:
 		print("Storage is open - item dropping disabled. Use storage transfer instead.")
 		return
-	
+
 	if slot_index >= inventory_system.inventory_slots.size():
+		print("DEBUG: Invalid slot index %d" % slot_index)
 		return
-	
+
 	var slot = inventory_system.inventory_slots[slot_index]
 	if slot.is_empty():
+		print("DEBUG: Slot %d is empty" % slot_index)
 		return
+
+	print("DEBUG: Attempting to drop item %s from slot %d" % [slot.item_id, slot_index])
 	
 	# Get player position for drop location
 	var player = GameManager.player_node
