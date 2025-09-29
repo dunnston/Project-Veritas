@@ -24,23 +24,28 @@ func _ready():
 	if InventorySystem:
 		InventorySystem.item_dropped.connect(_on_item_dropped)
 
-func _on_item_dropped(item_id: String, quantity: int, drop_position: Vector2):
+func _on_item_dropped(item_id: String, quantity: int, drop_position: Vector3):
 	print("ItemDropManager: Spawning %d %s at %s" % [quantity, item_id, drop_position])
-	
+
+	# For now, just log the drop since we don't have 3D pickup scenes yet
+	print("ITEM DROPPED: %d x %s at position %s" % [quantity, item_id, drop_position])
+	print("Note: 3D item pickup scenes not yet implemented - items are removed from inventory but not spawned in world")
+
+	# TODO: Implement 3D item pickup spawning
 	# Get the scene path for this item
 	var scene_path = item_scene_map.get(item_id, "")
 	if scene_path.is_empty():
-		print("No scene mapping found for item: %s" % item_id)
+		print("No scene mapping found for item: %s (would need 3D pickup scene)" % item_id)
 		return
-	
+
 	# Check if scene exists
 	if not ResourceLoader.exists(scene_path):
-		print("Scene file not found: %s" % scene_path)
+		print("Scene file not found: %s (these are 2D scenes, need 3D versions)" % scene_path)
 		return
-	
-	# Spawn items based on quantity
-	for i in range(quantity):
-		spawn_item_pickup(scene_path, drop_position + Vector2(randf_range(-16, 16), randf_range(-16, 16)), item_id)
+
+	# Would spawn 3D items here when scenes are available
+	# for i in range(quantity):
+	#     spawn_item_pickup_3d(scene_path, drop_position + Vector3(randf_range(-1, 1), 0, randf_range(-1, 1)), item_id)
 
 func spawn_item_pickup(scene_path: String, position: Vector2, item_id: String = ""):
 	# Load and instantiate the pickup scene

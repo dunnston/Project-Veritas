@@ -110,6 +110,7 @@ class InventorySlotUI:
 	
 	func _on_slot_input(event: InputEvent):
 		if event is InputEventMouseButton and event.pressed:
+			print("DEBUG: Slot %d clicked with button %d" % [slot_index, event.button_index])
 			if event.button_index == MOUSE_BUTTON_LEFT:
 				# Check if storage is open - if so, transfer to storage instead of normal click
 				if StorageUI.instance and StorageUI.instance.visible:
@@ -311,22 +312,34 @@ func setup_equipment_slots():
 
 func toggle_inventory():
 	visible = not visible
-	
+
 	if visible:
+		# Release mouse for UI interaction
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		# Refresh inventory display when opened
 		_on_inventory_changed()
+	else:
+		# Recapture mouse for gameplay
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_close_button_pressed():
+	visible = false
+	# Recapture mouse for gameplay
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	GameManager.change_state(GameManager.GameState.IN_GAME)
 
 func _on_game_state_changed(new_state: GameManager.GameState):
 	# Show/hide inventory based on game state
 	if new_state == GameManager.GameState.INVENTORY:
 		visible = true
+		# Release mouse for UI interaction
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		# Refresh inventory display when opened
 		_on_inventory_changed()
 	else:
 		visible = false
+		# Recapture mouse for gameplay
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_inventory_changed():
 	# Update all slot displays
@@ -514,17 +527,23 @@ func transfer_item_to_storage(slot_index: int):
 		print("StorageUI not available")
 
 func handle_item_drop(slot_index: int, shift_pressed: bool, ctrl_pressed: bool):
+	print("DEBUG: handle_item_drop called for slot %d (shift: %s, ctrl: %s)" % [slot_index, shift_pressed, ctrl_pressed])
+
 	# Check if storage is open - disable dropping when using storage
 	if StorageUI.instance and StorageUI.instance.visible:
 		print("Storage is open - item dropping disabled. Use storage transfer instead.")
 		return
-	
+
 	if slot_index >= inventory_system.inventory_slots.size():
+		print("DEBUG: Invalid slot index %d" % slot_index)
 		return
-	
+
 	var slot = inventory_system.inventory_slots[slot_index]
 	if slot.is_empty():
+		print("DEBUG: Slot %d is empty" % slot_index)
 		return
+
+	print("DEBUG: Attempting to drop item %s from slot %d" % [slot.item_id, slot_index])
 	
 	# Get player position for drop location
 	var player = GameManager.player_node
@@ -532,7 +551,14 @@ func handle_item_drop(slot_index: int, shift_pressed: bool, ctrl_pressed: bool):
 		print("No player found for item drop")
 		return
 	
-	var drop_position = player.global_position + Vector2(randf_range(-32, 32), randf_range(-32, 32))
+	# Convert to 3D position for dropping
+	var drop_position: Vector3
+	if player.global_position is Vector3:
+		drop_position = player.global_position + Vector3(randf_range(-1, 1), 0, randf_range(-1, 1))
+	else:
+		# Fallback for 2D (shouldn't happen in 3D project)
+		var pos2d = player.global_position
+		drop_position = Vector3(pos2d.x + randf_range(-32, 32), 0, pos2d.y + randf_range(-32, 32))
 	
 	# Determine drop quantity based on modifiers
 	var drop_quantity = 1

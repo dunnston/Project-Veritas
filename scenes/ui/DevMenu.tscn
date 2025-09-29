@@ -53,11 +53,19 @@ placeholder_text = "Search items..."
 layout_mode = 2
 custom_minimum_size = Vector2(0, 60)
 bbcode_enabled = true
-text = "[b]Instructions:[/b]
-• Click: Add 1 item
-• Shift+Click: Add 10 items  
+text = "[b]Dev Menu Instructions:[/b]
+• ` (grave/tilde): Toggle this menu
+• Click item: Add 1 to inventory
+• Shift+Click: Add 10 items
 • Ctrl+Click: Add max stack
-• ` (backtick): Toggle this menu"
+
+[b]Inventory Controls:[/b]
+• Tab: Open/close inventory
+• Right-click item: Drop 1 item
+• Shift+Right-click: Drop half stack
+• Ctrl+Right-click: Drop full stack
+• Ctrl+Left-click: Equip item
+• Left-click tool/weapon: Auto-equip"
 fit_content = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel"]

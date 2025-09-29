@@ -48,7 +48,15 @@ func update_shelter_status() -> void:
 		return
 	
 	var player_pos = GameManager.player_node.global_position
-	var shelter_data = analyze_shelter_at_position(player_pos)
+
+	# Convert 3D position to 2D for shelter analysis
+	var shelter_pos: Vector2
+	if player_pos is Vector3:
+		shelter_pos = Vector2(player_pos.x, player_pos.z)  # Use X,Z mapping
+	else:
+		shelter_pos = player_pos
+
+	var shelter_data = analyze_shelter_at_position(shelter_pos)
 	
 	var new_quality = calculate_shelter_quality(shelter_data)
 	var new_integrity = calculate_integrity_percent(shelter_data)
@@ -90,11 +98,11 @@ func analyze_shelter_at_position(world_pos: Vector2) -> Dictionary:
 			}
 	
 	var building_manager = get_node_or_null("/root/BuildingManager")
-	var grid_pos
-	if building_manager:
-		grid_pos = building_manager.snap_to_grid(world_pos)
+	var grid_pos: Vector2
+	if building_manager and building_manager.has_method("snap_to_grid_2d"):
+		grid_pos = building_manager.snap_to_grid_2d(world_pos)
 	else:
-		# Fallback grid snapping
+		# Fallback grid snapping (GRID_SIZE = 32)
 		grid_pos = Vector2(round(world_pos.x / 32) * 32, round(world_pos.y / 32) * 32)
 	
 	var shelter_data = {

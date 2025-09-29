@@ -25,7 +25,12 @@ func _input(event: InputEvent):
 func toggle_menu():
 	visible = !visible
 	if visible:
+		# Release mouse for UI interaction
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		refresh_item_buttons()
+	else:
+		# Recapture mouse for gameplay
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func load_all_items():
 	# Get all items from InventorySystem
@@ -88,12 +93,14 @@ func _on_item_button_pressed(item_id: String):
 		amount = max_stack
 	
 	# Add item to inventory
+	print("[DEV] Attempting to add %d of item_id: '%s'" % [amount, item_id])
 	var success = InventorySystem.add_item(item_id, amount)
-	
+
 	if success:
-		print("[DEV] Added %d %s to inventory" % [amount, item_data.get("name", item_id)])
+		print("[DEV] Successfully added %d %s to inventory" % [amount, item_data.get("name", item_id)])
+		print("[DEV] Current inventory count for %s: %d" % [item_id, InventorySystem.get_item_count(item_id)])
 	else:
-		print("[DEV] Failed to add %s - inventory may be full" % item_data.get("name", item_id))
+		print("[DEV] Failed to add %s - inventory may be full" % [item_data.get("name", item_id)])
 	
 	refresh_item_buttons()
 
@@ -129,3 +136,5 @@ func _on_search_changed(search_text: String):
 
 func _on_close_pressed():
 	visible = false
+	# Recapture mouse for gameplay
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
