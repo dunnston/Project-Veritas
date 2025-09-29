@@ -5,8 +5,8 @@ signal oxygen_state_changed(has_oxygen: bool)
 signal suffocation_started()
 signal suffocation_ended()
 signal player_died_from_suffocation()
-signal oxygen_source_added(source: Node2D)
-signal oxygen_source_removed(source: Node2D)
+signal oxygen_source_added(source: Node)
+signal oxygen_source_removed(source: Node)
 
 const OXYGEN_RANGE: float = 600.0  # Range in pixels for oxygen supply
 const OXYGEN_CHECK_INTERVAL: float = 0.2  # Check oxygen every 0.2 seconds
@@ -16,12 +16,12 @@ const OXYGEN_REPLENISH_RATE: float = 10.0  # Oxygen replenishes at 10 units per 
 const SUFFOCATION_DAMAGE_RATE: float = 5.0  # Damage per second when suffocating
 
 var oxygen_level: float = MAX_OXYGEN
-var oxygen_sources: Array[Node2D] = []
+var oxygen_sources: Array[Node] = []
 var player_ref: Node = null
 var is_suffocating: bool = false
 var has_oxygen_supply: bool = false
 var check_timer: Timer
-var last_oxygen_source: Node2D = null
+var last_oxygen_source: Node = null
 
 # Backup oxygen system
 var backup_oxygen_active: bool = true
@@ -47,18 +47,20 @@ func register_player(player: Node):
 	player_ref = player
 	print("OxygenSystem: Player registered")
 
-func register_oxygen_source(source: Node2D):
+func register_oxygen_source(source: Node):
 	if source in oxygen_sources:
 		return
 	
 	oxygen_sources.append(source)
-	print("OxygenSystem: Registered oxygen source at ", source.global_position)
+	# Handle position display for both 2D and 3D sources
+	var pos_display = source.global_position if source.has_property("global_position") else "unknown position"
+	print("OxygenSystem: Registered oxygen source at ", pos_display)
 	oxygen_source_added.emit(source)
 	
 	# Immediate oxygen check
 	_check_oxygen_availability()
 
-func unregister_oxygen_source(source: Node2D):
+func unregister_oxygen_source(source: Node):
 	if source not in oxygen_sources:
 		return
 	
@@ -138,15 +140,25 @@ func _check_oxygen_availability():
 			# Skip if we can't verify it's active
 			continue
 		
-		# Handle 3D to 2D position conversion for distance calculation
-		var player_pos_2d: Vector2
+		# Handle position conversion for distance calculation between 2D/3D nodes
+		var player_pos: Vector2
+		var source_pos: Vector2
+
+		# Convert player position to 2D
 		if player_ref.global_position is Vector3:
 			var pos_3d = player_ref.global_position
-			player_pos_2d = Vector2(pos_3d.x, pos_3d.z)  # Use X,Z for 2D distance
+			player_pos = Vector2(pos_3d.x, pos_3d.z)  # Use X,Z for 2D distance
 		else:
-			player_pos_2d = player_ref.global_position
+			player_pos = player_ref.global_position
 
-		var distance = player_pos_2d.distance_to(source.global_position)
+		# Convert source position to 2D
+		if source.global_position is Vector3:
+			var src_pos_3d = source.global_position
+			source_pos = Vector2(src_pos_3d.x, src_pos_3d.z)  # Use X,Z for 2D distance
+		else:
+			source_pos = source.global_position
+
+		var distance = player_pos.distance_to(source_pos)
 		if distance <= OXYGEN_RANGE and distance < min_distance:
 			nearest_source = source
 			min_distance = distance
