@@ -32,11 +32,18 @@ var fall_anim: String = ""
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	# Register with GameManager
-	GameManager.register_player(self)
+	# Register with GameManager (defer to avoid autoload conflicts)
+	call_deferred("_register_with_game_manager")
 	# Store the original position of the character model
 	model_base_position = character_model.position
 	call_deferred("setup_animations")
+
+func _register_with_game_manager():
+	if GameManager and GameManager.has_method("register_player"):
+		GameManager.register_player(self)
+		print("Player registered with GameManager successfully")
+	else:
+		print("ERROR: GameManager not found or register_player method missing")
 
 func setup_animations():
 	animation_player = find_animation_player(character_model)
