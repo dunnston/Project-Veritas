@@ -33,7 +33,7 @@ func _ready():
 
 	# Initialize empty inventory slots
 	var base_slots = config.base_slots if config else DEFAULT_BASE_SLOTS
-	for i in base_slots:
+	for i in range(base_slots):
 		inventory_slots.append(InventorySlot.new())
 
 	# Load item data
@@ -154,19 +154,30 @@ func add_item(item_id: String, quantity: int) -> bool:
 
 	return false
 
-func remove_item(item_id: String, quantity: int) -> bool:
+func remove_item(item_id: String, quantity: int, target_slot: int = -1) -> bool:
 	if item_id.is_empty() or quantity <= 0:
 		return false
 
 	var remaining = quantity
 
-	# Remove from slots
-	for slot in inventory_slots:
+	# If target_slot is specified, remove from that slot first
+	if target_slot >= 0 and target_slot < inventory_slots.size():
+		var slot = inventory_slots[target_slot]
 		if slot.item_id == item_id and slot.quantity > 0:
 			var removed = slot.remove_items(remaining)
 			remaining -= removed
-			if remaining <= 0:
-				break
+
+	# Remove from other slots if needed
+	if remaining > 0:
+		for i in range(inventory_slots.size()):
+			if i == target_slot:
+				continue  # Skip the target slot, already processed
+			var slot = inventory_slots[i]
+			if slot.item_id == item_id and slot.quantity > 0:
+				var removed = slot.remove_items(remaining)
+				remaining -= removed
+				if remaining <= 0:
+					break
 
 	var actually_removed = quantity - remaining
 	if actually_removed > 0:
@@ -220,8 +231,18 @@ func drop_item_from_slot(slot_index: int, quantity: int = 1, drop_position: Vect
 
 	# If quantity not specified or exceeds available, drop all
 	var drop_quantity = min(quantity, slot.quantity)
+	var item_id = slot.item_id
 
-	return drop_item(slot.item_id, drop_quantity, drop_position)
+	# Remove the item from the specific slot
+	if remove_item(item_id, drop_quantity, slot_index):
+		item_dropped.emit(item_id, drop_quantity, drop_position)
+
+		if config and config.debug_logging:
+			print("InventorySystem: Dropped %d %s from slot %d" % [drop_quantity, get_item_data(item_id).get("name", item_id), slot_index])
+
+		return true
+
+	return false
 
 ## Utility Functions
 func get_empty_slot_count() -> int:
@@ -306,12 +327,23 @@ func load_save_data(data: Dictionary):
 
 	var slots_data = data["slots"]
 
-	# Ensure we have enough slots
-	while inventory_slots.size() < slots_data.size():
-		inventory_slots.append(InventorySlot.new())
+	# Update inventory size to match saved size if needed
+	if data.has("base_slots"):
+		var saved_slots = data["base_slots"]
+		# Ensure we have at least as many slots as the save data
+		while inventory_slots.size() < slots_data.size():
+			inventory_slots.append(InventorySlot.new())
+	else:
+		# Ensure we have enough slots to load all saved data
+		while inventory_slots.size() < slots_data.size():
+			inventory_slots.append(InventorySlot.new())
 
 	# Load slot data
-	for i in range(min(slots_data.size(), inventory_slots.size())):
+	for i in range(slots_data.size()):
+		# Ensure we have enough slots
+		if i >= inventory_slots.size():
+			inventory_slots.append(InventorySlot.new())
+
 		var slot_data = slots_data[i]
 		if slot_data.is_empty():
 			inventory_slots[i].clear()
@@ -323,7 +355,7 @@ func load_save_data(data: Dictionary):
 	inventory_changed.emit()
 
 	if config and config.debug_logging:
-		print("InventorySystem: Loaded inventory from save data")
+		print("InventorySystem: Loaded inventory from save data with %d slots" % slots_data.size())
 
 ## Debug Functions
 func print_inventory():

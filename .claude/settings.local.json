@@ -10,7 +10,9 @@
       "Bash(git pull:*)",
       "Bash(git push:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(where godot)"
     ],
     "deny": [],
     "ask": []
