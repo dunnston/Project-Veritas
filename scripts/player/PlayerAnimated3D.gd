@@ -32,6 +32,8 @@ var fall_anim: String = ""
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# Register with GameManager
+	GameManager.register_player(self)
 	# Store the original position of the character model
 	model_base_position = character_model.position
 	call_deferred("setup_animations")
