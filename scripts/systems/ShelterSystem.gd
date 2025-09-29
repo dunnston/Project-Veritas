@@ -48,7 +48,15 @@ func update_shelter_status() -> void:
 		return
 	
 	var player_pos = GameManager.player_node.global_position
-	var shelter_data = analyze_shelter_at_position(player_pos)
+
+	# Convert 3D position to 2D for shelter analysis
+	var shelter_pos: Vector2
+	if player_pos is Vector3:
+		shelter_pos = Vector2(player_pos.x, player_pos.z)  # Use X,Z mapping
+	else:
+		shelter_pos = player_pos
+
+	var shelter_data = analyze_shelter_at_position(shelter_pos)
 	
 	var new_quality = calculate_shelter_quality(shelter_data)
 	var new_integrity = calculate_integrity_percent(shelter_data)
