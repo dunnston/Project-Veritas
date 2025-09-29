@@ -527,8 +527,6 @@ func transfer_item_to_storage(slot_index: int):
 		print("StorageUI not available")
 
 func handle_item_drop(slot_index: int, shift_pressed: bool, ctrl_pressed: bool):
-	print("DEBUG: handle_item_drop called for slot %d (shift: %s, ctrl: %s)" % [slot_index, shift_pressed, ctrl_pressed])
-
 	# Check if storage is open - disable dropping when using storage
 	if StorageUI.instance and StorageUI.instance.visible:
 		print("Storage is open - item dropping disabled. Use storage transfer instead.")
@@ -543,22 +541,18 @@ func handle_item_drop(slot_index: int, shift_pressed: bool, ctrl_pressed: bool):
 		print("DEBUG: Slot %d is empty" % slot_index)
 		return
 
-	print("DEBUG: Attempting to drop item %s from slot %d" % [slot.item_id, slot_index])
-	
 	# Get player position for drop location
-	var player = GameManager.player_node
+	var player = get_tree().get_first_node_in_group("player")
 	if not player:
 		print("No player found for item drop")
 		return
-	
-	# Convert to 3D position for dropping
-	var drop_position: Vector3
-	if player.global_position is Vector3:
-		drop_position = player.global_position + Vector3(randf_range(-1, 1), 0, randf_range(-1, 1))
-	else:
-		# Fallback for 2D (shouldn't happen in 3D project)
-		var pos2d = player.global_position
-		drop_position = Vector3(pos2d.x + randf_range(-32, 32), 0, pos2d.y + randf_range(-32, 32))
+
+	# Use proper 3D drop position (same method as player controller)
+	var drop_position = Vector3(player.global_position.x, player.global_position.y + 1.0, player.global_position.z)
+
+	# Add small random offset so multiple items don't stack exactly
+	drop_position.x += randf_range(-0.3, 0.3)
+	drop_position.z += randf_range(-0.3, 0.3)
 	
 	# Determine drop quantity based on modifiers
 	var drop_quantity = 1
@@ -571,7 +565,7 @@ func handle_item_drop(slot_index: int, shift_pressed: bool, ctrl_pressed: bool):
 	
 	# Drop the item(s)
 	if inventory_system.drop_item_from_slot(slot_index, drop_quantity, drop_position):
-		print("Dropped %d items from slot %d" % [drop_quantity, slot_index])
+		print("Dropped %d %s from inventory slot" % [drop_quantity, slot.item_id])
 
 func try_consume_item(slot_index: int):
 	if slot_index >= inventory_system.inventory_slots.size():

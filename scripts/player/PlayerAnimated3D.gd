@@ -6,6 +6,10 @@ extends CharacterBody3D
 @export var jump_velocity: float = 8.0
 @export var mouse_sensitivity: float = 0.002
 
+@export_group("Interaction Settings")
+@export var drop_distance: float = 2.0
+@export var interact_range: float = 3.0
+
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var spring_arm: SpringArm3D = $CameraPivot/SpringArm3D
 @onready var camera_3d: Camera3D = $CameraPivot/SpringArm3D/Camera3D
@@ -32,11 +36,18 @@ var fall_anim: String = ""
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	add_to_group("player")
 	# Register with GameManager (defer to avoid autoload conflicts)
 	call_deferred("_register_with_game_manager")
 	# Store the original position of the character model
 	model_base_position = character_model.position
 	call_deferred("setup_animations")
+
+	# Connect to inventory system if available
+	if InventorySystem:
+		print("PlayerAnimated3D: Connected to InventorySystem")
+		# Add some test items for testing drops
+		call_deferred("add_test_items")
 
 func _register_with_game_manager():
 	# Get GameManager specifically to avoid autoload conflicts
@@ -188,6 +199,16 @@ func _input(event: InputEvent):
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+	# Removed world right-click drop functionality
+
+	# Handle item pickup
+	if event.is_action_pressed("interact"):
+		pickup_nearest_item()
+
+	# Handle inventory toggle
+	if event.is_action_pressed("inventory"):
+		toggle_inventory()
+
 func _physics_process(delta: float):
 	apply_camera_rotation(delta)
 
@@ -317,3 +338,61 @@ func rotate_character():
 	if character_model and last_direction.length() > 0.1:
 		var target_rotation = atan2(last_direction.x, last_direction.z)
 		character_model.rotation.y = lerp_angle(character_model.rotation.y, target_rotation, 0.15)
+
+# Item Interaction Functions
+func drop_selected_item():
+	if not InventorySystem:
+		return
+
+	# Drop the first item found in inventory
+	for slot in InventorySystem.inventory_slots:
+		if not slot.is_empty():
+			var drop_position = get_drop_position()
+			if InventorySystem.drop_item_from_slot(InventorySystem.inventory_slots.find(slot), 1, drop_position):
+				print("Dropped %s at player feet" % slot.item_id)
+				return
+
+func get_drop_position() -> Vector3:
+	# Drop position: right at player's feet with slight offset
+	var drop_pos = Vector3(global_position.x, global_position.y + 1.0, global_position.z)
+
+	# Add small random offset so multiple items don't stack exactly
+	drop_pos.x += randf_range(-0.3, 0.3)
+	drop_pos.z += randf_range(-0.3, 0.3)
+
+	return drop_pos
+
+func pickup_nearest_item():
+	# Find the nearest item pickup
+	var nearest_item = null
+	var min_distance = interact_range
+
+	# Get all item pickups in the scene
+	var items = get_tree().get_nodes_in_group("item_pickups")
+	for item in items:
+		if item.has_method("collect_item"):
+			var distance = global_position.distance_to(item.global_position)
+			if distance < min_distance:
+				nearest_item = item
+				min_distance = distance
+
+	if nearest_item:
+		print("Picking up item at distance: %f" % min_distance)
+		nearest_item.collect_item()
+	else:
+		print("No items nearby to pick up")
+
+func add_test_items():
+	# Add some test items to inventory for testing drops
+	if InventorySystem:
+		InventorySystem.add_item("WOOD_SCRAPS", 10)
+		InventorySystem.add_item("METAL_SCRAPS", 5)
+		InventorySystem.add_item("GEARS", 3)
+		print("Added test items to inventory for drop testing")
+
+func toggle_inventory():
+	# Toggle inventory UI
+	if GameManager and GameManager.has_method("toggle_inventory"):
+		GameManager.toggle_inventory()
+	else:
+		print("Inventory toggle not implemented yet")
