@@ -43,7 +43,7 @@ func _ready():
 	if GameManager.player_node:
 		register_player(GameManager.player_node)
 
-func register_player(player: Node2D):
+func register_player(player: Node):
 	player_ref = player
 	print("OxygenSystem: Player registered")
 
