@@ -103,19 +103,195 @@ func grid_to_world_3d(grid_pos: Vector2i) -> Vector3:
    - Update any dependent modules list
    - Commit with message: "Migrate [ModuleName] to 3D"
 
-### Git Workflow
-```bash
-# Create feature branch for each module
-git checkout -b migrate/module-name
+# Development Workflow Rules
 
-# Stage and commit
-git add modules/managers/ModuleName.gd
-git commit -m "Migrate ModuleName to 3D with adapter layer"
+## Branch Strategy
+- `main` is always playable and tagged for releases.
+- Use feature branches: `feature/<short-name>`  
+  Example: `feature/player-movement`, `feature/hud-healthbar`
+- Use fix branches: `fix/<short-name>`  
+  Example: `fix/navmesh-stuck`, `fix/build-export-path`
+- Use hotfix branches: `hotfix/<short-name>` (urgent, from `main`)
+- One logical change per branch. Keep branches small → small PRs → fast reviews.
 
-# Merge to main after testing
-git checkout main
-git merge migrate/module-name
+## Daily Rhythm
+- Always start from updated main:
+  ```bash
+  git checkout main
+  git pull
+  ```
+- Create a new feature branch:
+  ```bash
+  git checkout -b feature/branch-name
+  ```
+- Commit progress often with small, clear commits:
+  ```bash
+  git add -A
+  git commit -m "Player: add dash; configurable cooldown; temp VFX"
+  ```
+- Push early, open a PR (use Draft if WIP):
+  ```bash
+  git push -u origin feature/branch-name
+  ```
+- Keep branch fresh:
+  ```bash
+  git fetch origin
+  git rebase origin/main
+  git push --force-with-lease
+  ```
+- PRs must be reviewed before merge.
+- Merge with squash (preferred) or rebase merge. No merge commits.
+
+## Commit & PR Hygiene
+Commit messages use imperative + scope:
+- `Player: add dash; configurable cooldown; temp VFX`
+- `AI: fix patrol state transition when target lost`
+- `Build: export preset for Win/Mac; include PDBs off`
+
+PRs should follow this structure:
 ```
+## What
+Summary of the change.
+
+## Why
+Problem or user story it solves.
+
+## How
+Scenes/scripts touched, format changes, migrations.
+
+## Test Plan
+- [ ] Launch from menu → start level → feature works
+- [ ] No new errors in Output
+- [ ] Performance baseline unchanged
+
+## Risks
+Areas that might break (e.g., player controller).
+
+## Screens/Video
+Attach GIF/screenshot if possible.
+```
+
+## Releases & Hotfixes
+Tag milestones from main:
+```bash
+git checkout main
+git pull
+git tag -a v0.2.0 -m "Vertical slice"
+git push origin v0.2.0
+```
+
+Hotfix workflow:
+```bash
+git checkout -b hotfix/crash-fix main
+# fix...
+git commit -m "Fix crash when loading save without profile"
+git push -u origin hotfix/crash-fix
+```
+→ PR → review → merge into main → tag new version.
+
+## Godot-Specific Guardrails
+- Pin editor version (e.g., Godot 4.3) in README and Discord pins.
+- `.gitignore` must exclude:
+  ```
+  .godot/
+  .import/
+  export.cfg
+  export_presets.cfg
+  ```
+- Keep versioned: `project.godot`, `*.tscn`, `*.gd`, and `assets/`
+- Use Git LFS for binaries:
+  ```
+  *.png, *.jpg, *.wav, *.ogg, *.glb, *.fbx
+  ```
+- Lock large/binary files before editing:
+  ```bash
+  git lfs lock assets/characters/hero.glb
+  git lfs unlock assets/characters/hero.glb
+  ```
+- Scene etiquette:
+  - Prefer instanced sub-scenes to avoid conflicts.
+  - If multiple people must touch the same scene, coordinate in Discord and commit quickly.
+
+## Branch Naming & Labels
+- Branches: `feature/...`, `fix/...`, `hotfix/...`
+- Labels (optional): `area:player`, `area:ai`, `type:feature`, `type:bug`, `priority:high`
+
+## History & Merge Rules
+- Squash merge = default (PR → 1 commit).
+- Rebase merge acceptable if preserving commits.
+- Avoid merge commits.
+
+## CI Guidance
+Run on every PR:
+- Validate Godot project loads (headless).
+- Run GUT tests if present.
+- Export demo build (Win/Mac/Linux).
+- Post build artifact link to PR & Discord.
+
+## Command Cheat Sheet
+```bash
+# Start feature
+git checkout main && git pull
+git checkout -b feature/camera-collision
+
+# Save work
+git add -A
+git commit -m "Camera: add spring arm and obstacle avoidance"
+git push -u origin feature/camera-collision
+
+# Update branch
+git fetch origin
+git rebase origin/main
+git push --force-with-lease
+
+# PR → squash-merge
+```
+
+## Team Norms
+- One PR = one cohesive change (~400 lines max ideal).
+- No direct commits to main.
+- Rebase before merge to reduce conflicts.
+- Post note in Discord #dev-log when merging.
+- If editing the same scene as someone else, ping them first or lock the file.
+```
+## 🚀 GitHub PR Automation
+
+This project uses automated PR creation and management. **Before making any changes, please read the complete automation guide in `GITHUB.md`**.
+
+### Quick Start for New Features:
+1. **Always start with the PR script:**
+   ```bash
+   ./scripts/create-pr.sh feature "feature-name" "Brief description"
+   ```
+
+2. **Use conventional commit format:**
+   ```bash
+   feat: add new feature
+   fix: resolve bug
+   docs: update documentation
+   refactor: improve code structure
+   ```
+
+3. **Follow branch naming convention:**
+   - `feature/feature-name` for new features
+   - `fix/bug-description` for bug fixes
+   - `docs/update-description` for documentation
+
+### For Claude Code Integration:
+- **Reference the automation guide:** When asked to create features, always mention following the `GITHUB.md` automation workflow
+- **Use the PR script first** before making code changes
+- **Follow conventional commits** for all commit messages
+- **Keep PRs focused** - one feature or fix per PR
+
+### Important Rules:
+- ✅ Always create a branch using the script before coding
+- ✅ Use meaningful commit messages following conventional format
+- ✅ Push changes to trigger automated PR creation
+- ✅ Review the auto-generated PR template and fill it out
+- ❌ Never push directly to main/master
+- ❌ Don't skip the automation workflow
+
+**📖 Full details available in `GITHUB.md` - read it for complete automation setup and usage!**
 
 ## Naming Conventions
 - **3D Scripts:** Append "3D" to distinguish (Player3D.gd)

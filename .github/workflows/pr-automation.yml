@@ -1,0 +1,80 @@
+name: PR Automation
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches-ignore:
+      - main
+      - master
+
+jobs:
+  pr-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js (adjust for your tech stack)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run linting
+        run: npm run lint || echo "No lint script found"
+        
+      - name: Run tests
+        run: npm test || echo "No test script found"
+        
+      - name: Check formatting
+        run: npm run format:check || echo "No format check script found"
+
+  auto-pr-creation:
+    if: github.event_name == 'push' && !contains(github.ref, 'refs/heads/main') && !contains(github.ref, 'refs/heads/master')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Extract branch info
+        id: branch-info
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          FEATURE_TYPE=$(echo $BRANCH_NAME | cut -d'/' -f1)
+          FEATURE_NAME=$(echo $BRANCH_NAME | cut -d'/' -f2- | tr '-' ' ' | tr '_' ' ')
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "feature_type=$FEATURE_TYPE" >> $GITHUB_OUTPUT
+          echo "feature_name=$FEATURE_NAME" >> $GITHUB_OUTPUT
+        
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: "${{ steps.branch-info.outputs.feature_type }}: ${{ steps.branch-info.outputs.feature_name }}"
+          body: |
+            ## 🚀 Changes
+            Auto-generated PR for branch: `${{ steps.branch-info.outputs.branch_name }}`
+            
+            ## 📋 Type of Change
+            - [ ] 🐛 Bug fix
+            - [ ] ✨ New feature
+            - [ ] 💥 Breaking change
+            - [ ] 📚 Documentation update
+            - [ ] 🎨 Style/formatting change
+            - [ ] ♻️ Code refactor
+            - [ ] ⚡ Performance improvement
+            
+            ## 🧪 Testing
+            - [ ] Tests added/updated
+            - [ ] All tests passing
+            - [ ] Manual testing completed
+            
+            ## 📝 Additional Notes
+            _Add any additional context about the changes here_
+            
+            ---
+            *This PR was automatically created by GitHub Actions*
+          draft: false
