@@ -25,7 +25,12 @@ func _input(event: InputEvent):
 func toggle_menu():
 	visible = !visible
 	if visible:
+		# Release mouse for UI interaction
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		refresh_item_buttons()
+	else:
+		# Recapture mouse for gameplay
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func load_all_items():
 	# Get all items from InventorySystem
@@ -129,3 +134,5 @@ func _on_search_changed(search_text: String):
 
 func _on_close_pressed():
 	visible = false
+	# Recapture mouse for gameplay
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

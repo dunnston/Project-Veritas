@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c7xvh2m4qgtjk"]
+[gd_scene load_steps=13 format=3 uid="uid://c7xvh2m4qgtjk"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_8gvxm"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
@@ -171,3 +171,5 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="DevMenu" parent="UI" instance=ExtResource("6_devmenu")]
+grow_horizontal = 2
+grow_vertical = 2

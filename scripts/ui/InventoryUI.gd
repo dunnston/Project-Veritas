@@ -311,22 +311,34 @@ func setup_equipment_slots():
 
 func toggle_inventory():
 	visible = not visible
-	
+
 	if visible:
+		# Release mouse for UI interaction
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		# Refresh inventory display when opened
 		_on_inventory_changed()
+	else:
+		# Recapture mouse for gameplay
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_close_button_pressed():
+	visible = false
+	# Recapture mouse for gameplay
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	GameManager.change_state(GameManager.GameState.IN_GAME)
 
 func _on_game_state_changed(new_state: GameManager.GameState):
 	# Show/hide inventory based on game state
 	if new_state == GameManager.GameState.INVENTORY:
 		visible = true
+		# Release mouse for UI interaction
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		# Refresh inventory display when opened
 		_on_inventory_changed()
 	else:
 		visible = false
+		# Recapture mouse for gameplay
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_inventory_changed():
 	# Update all slot displays
