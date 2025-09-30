@@ -1,7 +1,7 @@
 extends Control
 
 @onready var weapon_label: Label = $WeaponInfo
-@onready var player_combat: PlayerCombat = null
+var player_combat = null  # Reference to player's combat component
 
 func _ready() -> void:
 	var player = get_tree().get_first_node_in_group("player")
