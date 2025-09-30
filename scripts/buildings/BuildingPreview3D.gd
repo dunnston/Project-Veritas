@@ -112,19 +112,68 @@ func recheck_validity():
 	if collision_area:
 		# Force area to re-check overlaps at new position
 		overlapping_bodies.clear()
-		for body in collision_area.get_overlapping_bodies():
+		var all_overlaps = collision_area.get_overlapping_bodies()
+		print("DEBUG: Rechecking validity - found %d overlapping bodies" % all_overlaps.size())
+
+		# ALSO check with a physics shape query for more accuracy
+		var space_state = get_world_3d().direct_space_state
+		var query = PhysicsShapeQueryParameters3D.new()
+
+		# Use the collision area's shape
+		if collision_area.get_child_count() > 0:
+			var collision_shape_node = collision_area.get_child(0)
+			if collision_shape_node is CollisionShape3D and collision_shape_node.shape:
+				query.shape = collision_shape_node.shape
+				# Use the collision shape's global transform to include rotation
+				query.transform = collision_shape_node.global_transform
+				query.collision_mask = 0xFFFFFFFF  # Check all layers
+
+				# Exclude player
+				var player = get_tree().get_first_node_in_group("player")
+				if player:
+					query.exclude = [player.get_rid()]
+
+				var shape_results = space_state.intersect_shape(query)
+				print("DEBUG: Shape query found %d intersections" % shape_results.size())
+
+				for result in shape_results:
+					var collider = result.collider
+					print("  Shape query found: %s (type: %s)" % [collider.name, collider.get_class()])
+
+					# Skip ground
+					if collider.name == "Ground" or collider.is_in_group("terrain"):
+						print("    -> Skipped: ground/terrain")
+						continue
+					# Skip ground-like
+					if _is_ground_like(collider):
+						print("    -> Skipped: ground-like")
+						continue
+
+					print("    -> ADDED from shape query")
+					if not overlapping_bodies.has(collider):
+						overlapping_bodies.append(collider)
+
+		# Also check the Area3D overlaps
+		for body in all_overlaps:
+			print("  Checking body: %s (type: %s)" % [body.name, body.get_class()])
 			# Skip player and pickups
 			if body.is_in_group("player") or body.is_in_group("item_pickup"):
+				print("    -> Skipped: player/pickup")
 				continue
 			# Skip ground
 			if body.name == "Ground" or body.is_in_group("terrain"):
+				print("    -> Skipped: ground/terrain")
 				continue
 			# Skip large flat surfaces (likely ground)
 			if _is_ground_like(body):
+				print("    -> Skipped: ground-like")
 				continue
 
-			overlapping_bodies.append(body)
+			print("    -> ADDED to overlapping_bodies")
+			if not overlapping_bodies.has(body):
+				overlapping_bodies.append(body)
 
+		print("DEBUG: Final overlapping_bodies count: %d" % overlapping_bodies.size())
 		# Update validity based on current overlaps
 		check_placement_validity()
 	else:
@@ -196,19 +245,18 @@ func setup_collision_area(size: Vector3):
 	# Create collision shape
 	var collision_shape = CollisionShape3D.new()
 	var box_shape = BoxShape3D.new()
-	# Make collision slightly smaller to avoid false positives with ground
-	# Reduce vertical size more aggressively to avoid ground detection
-	box_shape.size = Vector3(size.x * 0.9, size.y * 0.8, size.z * 0.9)
+	# Use FULL size for accurate collision detection - no reductions
+	# We filter out ground using name/group checks instead
+	box_shape.size = size
 	collision_shape.shape = box_shape
-	# Offset collision shape slightly upward to avoid ground intersection
-	collision_shape.position = Vector3(0, size.y * 0.05, 0)
+	# No offset - collision box matches mesh exactly
+	collision_shape.position = Vector3.ZERO
 	collision_area.add_child(collision_shape)
 
 	# Set collision layers
 	collision_area.collision_layer = 0  # Preview doesn't collide
-	# Detect everything except ground (layer 1)
-	# Layer 1 = ground/terrain, so exclude it from mask
-	collision_area.collision_mask = 0xFFFFFFFE  # All layers except layer 1
+	# Detect ALL layers - we'll filter out ground in the signal handlers
+	collision_area.collision_mask = 0xFFFFFFFF  # All layers
 	collision_area.monitoring = true
 	collision_area.monitorable = false
 
@@ -219,23 +267,38 @@ func setup_collision_area(size: Vector3):
 	collision_area.area_exited.connect(_on_area_exited)
 
 func _on_body_entered(body: Node3D):
+	print("DEBUG: Body entered collision area: %s (type: %s)" % [body.name, body.get_class()])
+
 	# Ignore certain bodies
 	if body.is_in_group("player") or body.is_in_group("item_pickup"):
+		print("  -> Ignored: player or item_pickup")
 		return
 
 	# Ignore ground/terrain
 	if body.name == "Ground" or body.is_in_group("terrain"):
+		print("  -> Ignored: ground/terrain")
 		return
 
 	# Check if it's ground-like geometry
 	if _is_ground_like(body):
+		print("  -> Ignored: ground-like geometry")
 		return
 
 	# Check if it's an actual obstacle
-	if body is StaticBody3D or body is RigidBody3D or body is CharacterBody3D:
-		print("Preview overlapping with: ", body.name)
+	# Include all CSG types (CSGShape3D, CSGBox3D, CSGPolygon3D, etc.)
+	var is_collidable = (
+		body is StaticBody3D or
+		body is RigidBody3D or
+		body is CharacterBody3D or
+		body.get_class().begins_with("CSG")  # Catches all CSG types
+	)
+
+	if is_collidable:
+		print("  -> COLLISION DETECTED with: ", body.name)
 		overlapping_bodies.append(body)
 		check_placement_validity()
+	else:
+		print("  -> Not a collidable body type: %s" % body.get_class())
 
 func _on_body_exited(body: Node3D):
 	overlapping_bodies.erase(body)
