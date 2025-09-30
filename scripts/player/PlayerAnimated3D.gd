@@ -56,6 +56,12 @@ var was_on_floor: bool = true
 var nearby_interactables: Array = []
 var interaction_area: Area3D = null
 
+# Survival stat depletion timers
+var hunger_timer: Timer
+var thirst_timer: Timer
+const HUNGER_DEPLETION_RATE: float = 60.0  # Lose 1 hunger every 60 seconds
+const THIRST_DEPLETION_RATE: float = 45.0  # Lose 1 thirst every 45 seconds
+
 # Animation names (will be detected from AnimationPlayer)
 var idle_anim: String = ""
 var walk_anim: String = ""
@@ -85,6 +91,9 @@ func _ready():
 
 	# Set up 3D interaction system
 	call_deferred("setup_interaction_area")
+
+	# Set up survival stat depletion timers
+	call_deferred("setup_depletion_timers")
 
 func initialize_stats():
 	"""Initialize all survival stats to their maximum values"""
@@ -602,6 +611,38 @@ func consume_item(item_id: String) -> bool:
 		modify_radiation(effects.radiation)
 
 	return true
+
+func setup_depletion_timers() -> void:
+	"""Set up timers for hunger and thirst depletion"""
+	# Create hunger timer
+	hunger_timer = Timer.new()
+	hunger_timer.name = "HungerTimer"
+	hunger_timer.wait_time = HUNGER_DEPLETION_RATE
+	hunger_timer.autostart = true
+	hunger_timer.timeout.connect(_on_hunger_timer_timeout)
+	add_child(hunger_timer)
+
+	# Create thirst timer
+	thirst_timer = Timer.new()
+	thirst_timer.name = "ThirstTimer"
+	thirst_timer.wait_time = THIRST_DEPLETION_RATE
+	thirst_timer.autostart = true
+	thirst_timer.timeout.connect(_on_thirst_timer_timeout)
+	add_child(thirst_timer)
+
+	print("Survival depletion timers initialized (Hunger: %ss, Thirst: %ss)" % [HUNGER_DEPLETION_RATE, THIRST_DEPLETION_RATE])
+
+func _on_hunger_timer_timeout() -> void:
+	"""Called when hunger timer times out - deplete hunger by 1"""
+	modify_hunger(-1)
+	if hunger <= 20:
+		print("WARNING: Hunger is low! (%d/100)" % hunger)
+
+func _on_thirst_timer_timeout() -> void:
+	"""Called when thirst timer times out - deplete thirst by 1"""
+	modify_thirst(-1)
+	if thirst <= 20:
+		print("WARNING: Thirst is low! (%d/100)" % thirst)
 
 func die() -> void:
 	"""Handle player death"""

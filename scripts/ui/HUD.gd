@@ -44,14 +44,14 @@ func _ready() -> void:
 	radiation_label = get_node_or_null("StatsPanel/RadiationLabel")
 	radiation_status_label = get_node_or_null("StatsPanel/RadiationStatusLabel")
 	
-	# Create environmental stats container (oxygen + radiation)
-	create_environmental_stats_display()
-	
+	# Environmental stats are now in the scene file, no need to create programmatically
+	# create_environmental_stats_display()
+
 	# Create storm warning UI
 	create_storm_warning_ui()
-	
-	# Create hotbar
-	create_hotbar()
+
+	# Hotbar is now in the scene hierarchy (HotbarLayer), no need to create programmatically
+	# create_hotbar()
 
 	# Create message system
 	create_message_system()

@@ -1,9 +1,9 @@
 extends Control
 class_name DevMenu
 
-@onready var item_container: GridContainer = $Panel/ScrollContainer/ItemContainer
-@onready var close_button: Button = $Panel/VBoxContainer/TitleBar/CloseButton
-@onready var search_bar: LineEdit = $Panel/VBoxContainer/SearchBar
+@onready var item_container: GridContainer = $HBoxContainer/Panel/ScrollContainer/ItemContainer
+@onready var close_button: Button = $HBoxContainer/Panel/VBoxContainer/TitleBar/CloseButton
+@onready var search_bar: LineEdit = $HBoxContainer/Panel/VBoxContainer/SearchBar
 
 var all_items: Dictionary = {}
 
@@ -11,10 +11,10 @@ func _ready():
 	visible = false
 	load_all_items()
 	create_item_buttons()
-	
+
 	if close_button:
 		close_button.pressed.connect(_on_close_pressed)
-	
+
 	if search_bar:
 		search_bar.text_changed.connect(_on_search_changed)
 
@@ -81,19 +81,18 @@ func create_item_button(item_id: String, item_data: Dictionary) -> Button:
 func _on_item_button_pressed(item_id: String):
 	if not InventorySystem:
 		return
-	
+
 	var amount = 1
 	var item_data = all_items.get(item_id, {})
 	var max_stack = item_data.get("max_stack", 1)
-	
+
 	# Check for modifier keys
 	if Input.is_key_pressed(KEY_SHIFT):
 		amount = 10
 	elif Input.is_key_pressed(KEY_CTRL):
 		amount = max_stack
-	
+
 	# Add item to inventory
-	print("[DEV] Attempting to add %d of item_id: '%s'" % [amount, item_id])
 	var success = InventorySystem.add_item(item_id, amount)
 
 	if success:
