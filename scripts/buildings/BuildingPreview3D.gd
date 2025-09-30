@@ -112,8 +112,9 @@ func recheck_validity():
 	if collision_area:
 		# Force area to re-check overlaps at new position
 		overlapping_bodies.clear()
-		var all_overlaps = collision_area.get_overlapping_bodies()
-		print("DEBUG: Rechecking validity - found %d overlapping bodies" % all_overlaps.size())
+		var all_body_overlaps = collision_area.get_overlapping_bodies()
+		var all_area_overlaps = collision_area.get_overlapping_areas()
+		print("DEBUG: Rechecking validity - found %d bodies, %d areas" % [all_body_overlaps.size(), all_area_overlaps.size()])
 
 		# ALSO check with a physics shape query for more accuracy
 		var space_state = get_world_3d().direct_space_state
@@ -153,8 +154,8 @@ func recheck_validity():
 					if not overlapping_bodies.has(collider):
 						overlapping_bodies.append(collider)
 
-		# Also check the Area3D overlaps
-		for body in all_overlaps:
+		# Check body overlaps from Area3D
+		for body in all_body_overlaps:
 			print("  Checking body: %s (type: %s)" % [body.name, body.get_class()])
 			# Skip player and pickups
 			if body.is_in_group("player") or body.is_in_group("item_pickup"):
@@ -169,9 +170,18 @@ func recheck_validity():
 				print("    -> Skipped: ground-like")
 				continue
 
-			print("    -> ADDED to overlapping_bodies")
+			print("    -> ADDED body to overlapping_bodies")
 			if not overlapping_bodies.has(body):
 				overlapping_bodies.append(body)
+
+		# Check area overlaps (e.g., other buildings' interaction areas)
+		for area in all_area_overlaps:
+			var parent = area.get_parent()
+			if parent and parent.is_in_group("building"):
+				print("  Found building area: %s" % parent.name)
+				print("    -> ADDED building from area overlap")
+				if not overlapping_bodies.has(parent):
+					overlapping_bodies.append(parent)
 
 		print("DEBUG: Final overlapping_bodies count: %d" % overlapping_bodies.size())
 		# Update validity based on current overlaps
