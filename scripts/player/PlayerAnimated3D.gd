@@ -10,6 +10,32 @@ extends CharacterBody3D
 @export var drop_distance: float = 2.0
 @export var interact_range: float = 3.0
 
+@export_group("Survival Stats")
+@export var max_health: int = 100
+@export var max_energy: int = 100
+@export var max_hunger: int = 100
+@export var max_thirst: int = 100
+@export var max_radiation_damage: float = 100.0
+
+# Current survival stats
+var health: int = 100
+var energy: int = 100
+var hunger: int = 100
+var thirst: int = 100
+var current_radiation_damage: float = 0.0
+
+# Stat signals for HUD updates
+signal health_changed(new_health: int)
+signal energy_changed(new_energy: int)
+signal hunger_changed(new_hunger: int)
+signal thirst_changed(new_thirst: int)
+signal radiation_changed(current_radiation: float, max_radiation: float)
+
+# Stat modifiers from equipment/skills
+var speed_modifier: float = 1.0
+var defense: int = 0
+var bonus_inventory_slots: int = 0
+
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var spring_arm: SpringArm3D = $CameraPivot/SpringArm3D
 @onready var camera_3d: Camera3D = $CameraPivot/SpringArm3D/Camera3D
@@ -41,6 +67,10 @@ var fall_anim: String = ""
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	add_to_group("player")
+
+	# Initialize survival stats
+	initialize_stats()
+
 	# Register with GameManager (defer to avoid autoload conflicts)
 	call_deferred("_register_with_game_manager")
 	# Store the original position of the character model
@@ -55,6 +85,21 @@ func _ready():
 
 	# Set up 3D interaction system
 	call_deferred("setup_interaction_area")
+
+func initialize_stats():
+	"""Initialize all survival stats to their maximum values"""
+	health = max_health
+	energy = max_energy
+	hunger = max_hunger
+	thirst = max_thirst
+	current_radiation_damage = 0.0
+
+	# Emit initial values for HUD
+	health_changed.emit(health)
+	energy_changed.emit(energy)
+	hunger_changed.emit(hunger)
+	thirst_changed.emit(thirst)
+	radiation_changed.emit(current_radiation_damage, max_radiation_damage)
 
 func _register_with_game_manager():
 	# Get GameManager specifically to avoid autoload conflicts
@@ -487,3 +532,81 @@ func _on_area_exited_interaction(area: Area3D) -> void:
 	if parent:
 		nearby_interactables.erase(parent)
 		print("Player3D: Remaining nearby_interactables: ", nearby_interactables.size())
+
+# ============================================================================
+# SURVIVAL STAT MANAGEMENT
+# ============================================================================
+
+func modify_health(amount: int) -> void:
+	"""Modify health by amount (positive or negative)"""
+	health = clampi(health + amount, 0, max_health)
+	health_changed.emit(health)
+	if health <= 0:
+		die()
+
+func modify_energy(amount: int) -> void:
+	"""Modify energy by amount (positive or negative)"""
+	energy = clampi(energy + amount, 0, max_energy)
+	energy_changed.emit(energy)
+
+func modify_hunger(amount: int) -> void:
+	"""Modify hunger by amount (positive or negative)"""
+	hunger = clampi(hunger + amount, 0, max_hunger)
+	hunger_changed.emit(hunger)
+	if hunger <= 0:
+		# Starving - take health damage
+		modify_health(-1)
+
+func modify_thirst(amount: int) -> void:
+	"""Modify thirst by amount (positive or negative)"""
+	thirst = clampi(thirst + amount, 0, max_thirst)
+	thirst_changed.emit(thirst)
+	if thirst <= 0:
+		# Dehydrated - take health damage
+		modify_health(-2)
+
+func modify_radiation(amount: float) -> void:
+	"""Modify radiation damage by amount (positive or negative)"""
+	current_radiation_damage = clampf(current_radiation_damage + amount, 0.0, max_radiation_damage)
+	radiation_changed.emit(current_radiation_damage, max_radiation_damage)
+
+func get_radiation_level_text() -> String:
+	"""Get text description of radiation level"""
+	var rad_pct = current_radiation_damage / max_radiation_damage
+	if rad_pct <= 0.25:
+		return "Safe"
+	elif rad_pct <= 0.5:
+		return "Mild"
+	elif rad_pct <= 0.75:
+		return "Moderate"
+	else:
+		return "Severe"
+
+func consume_item(item_id: String) -> bool:
+	"""Consume an item for its effects"""
+	var item_data = InventorySystem.get_item_data(item_id)
+	if item_data.get("category", "").to_lower() != "consumable":
+		return false
+
+	# Apply consumable effects
+	var effects = item_data.get("effects", {})
+	if effects.has("health"):
+		modify_health(effects.health)
+	if effects.has("energy"):
+		modify_energy(effects.energy)
+	if effects.has("hunger"):
+		modify_hunger(effects.hunger)
+	if effects.has("thirst"):
+		modify_thirst(effects.thirst)
+	if effects.has("radiation"):
+		modify_radiation(effects.radiation)
+
+	return true
+
+func die() -> void:
+	"""Handle player death"""
+	print("Player died!")
+	# TODO: Implement death handling (respawn, game over, etc.)
+	# For now, just reset health
+	health = max_health
+	health_changed.emit(health)

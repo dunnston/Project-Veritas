@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" path="res://scenes/items/item_pickup_3d.tscn" id="7_item_pickup"]
 [ext_resource type="PackedScene" uid="uid://buildmenu" path="res://scenes/ui/BuildMenu.tscn" id="7_tioqf"]
 [ext_resource type="PackedScene" uid="uid://ttributesui" path="res://scenes/ui/AttributesUI.tscn" id="8_mxda1"]
-[ext_resource type="PackedScene" path="res://scenes/buildings/workbench_3d.tscn" id="8_workbench"]
+[ext_resource type="PackedScene" uid="uid://workbench3d" path="res://scenes/buildings/workbench_3d.tscn" id="8_workbench"]
 [ext_resource type="PackedScene" uid="uid://b7gl23jy6jhi3" path="res://scenes/ui/EquipedWeaponUI.tscn" id="9_6j8p0"]
 [ext_resource type="PackedScene" uid="uid://b8hgax2kqw7lr" path="res://scenes/ui/GeneratorMenu.tscn" id="10_0dfus"]
 [ext_resource type="PackedScene" uid="uid://dd2xhpgk2eax2" path="res://scenes/ui/SkillDebugUI.tscn" id="11_8occt"]
@@ -166,8 +166,6 @@ omni_range = 10.0
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Hotbar" parent="UI" instance=ExtResource("2_hotbar")]
-
 [node name="InventoryUI" parent="UI" instance=ExtResource("3_inventory")]
 
 [node name="StorageUI" parent="UI" instance=ExtResource("4_storage")]
@@ -197,6 +195,11 @@ grow_vertical = 2
 [node name="SkillDebugUI" parent="UI" instance=ExtResource("11_8occt")]
 
 [node name="WorkbenchCraftingMenu" parent="UI" instance=ExtResource("12_kmphx")]
+
+[node name="HotbarLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Hotbar" parent="HotbarLayer" instance=ExtResource("2_hotbar")]
 
 [node name="TestItems" type="Node3D" parent="."]
 

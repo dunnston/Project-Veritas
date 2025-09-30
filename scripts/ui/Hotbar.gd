@@ -29,14 +29,15 @@ func initialize_hotbar_data():
 
 func setup_slot_references():
 	slot_buttons.clear()
-	
+
 	var slot_names = ["Slot", "Slot2", "Slot3", "Slot4", "Slot5", "Slot6", "Slot7", "Slot8", "Slot9"]
-	
+
 	for i in range(HOTBAR_SLOTS):
-		var slot_node = slot_container.get_node(slot_names[i])
+		var slot_node = slot_container.get_node_or_null(slot_names[i])
 		if slot_node:
 			slot_buttons.append(slot_node)
-			slot_node.pressed.connect(_on_slot_pressed.bind(i))
+			# Connect gui_input only (PanelContainer doesn't have pressed signal)
+			slot_node.gui_input.connect(_on_slot_gui_input.bind(i))
 		else:
 			print("Warning: Could not find slot node: %s" % slot_names[i])
 
@@ -188,6 +189,37 @@ func try_consume_item(slot_index: int) -> bool:
 
 func _on_slot_pressed(slot_index: int):
 	use_hotbar_slot(slot_index)
+
+func _on_slot_gui_input(event: InputEvent, slot_index: int):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		# Check if we're currently dragging
+		if DragPreviewManager and DragPreviewManager.is_dragging:
+			# Drop on this hotbar slot
+			DragPreviewManager.try_drop_on_hotbar(slot_index)
+		else:
+			# Not dragging - start drag if slot has item
+			var slot_data = hotbar_data[slot_index]
+			if not slot_data["item_id"].is_empty():
+				start_drag_from_hotbar(slot_index)
+
+func start_drag_from_hotbar(slot_index: int):
+	if slot_index < 0 or slot_index >= HOTBAR_SLOTS:
+		return
+
+	var slot_data = hotbar_data[slot_index]
+	if slot_data["item_id"].is_empty():
+		return
+
+	# Get icon texture
+	var item_data = InventorySystem.get_item_data(slot_data["item_id"])
+	var icon_path = item_data.get("icon_path", "")
+
+	var icon_texture: Texture2D = null
+	if not icon_path.is_empty() and ResourceLoader.exists(icon_path):
+		icon_texture = load(icon_path)
+
+	if DragPreviewManager:
+		DragPreviewManager.start_drag("HOTBAR", slot_index, slot_data["item_id"], slot_data["quantity"], icon_texture)
 
 func _on_inventory_changed():
 	for i in range(HOTBAR_SLOTS):
