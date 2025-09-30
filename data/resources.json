@@ -46,7 +46,10 @@
 		"description": "Processed rations to maintain hunger levels",
 		"icon": "can-food.png",
 		"name": "Food",
-		"stack_size": 50.0
+		"stack_size": 50.0,
+		"effects": {
+			"hunger": 25
+		}
 	},
 	"GEARS": {
 		"category": "material",
@@ -165,19 +168,28 @@
 		"description": "Essential for survival and many crafting recipes",
 		"icon": "water-bottel.png",
 		"name": "Water",
-		"stack_size": 100.0
+		"stack_size": 100.0,
+		"effects": {
+			"thirst": 30
+		}
 	},
 	"MEDKIT": {
 		"category": "consumable",
 		"description": "Advanced medical kit that restores 50 health points",
 		"icon": "medkit.png",
 		"name": "Medical Kit",
-		"stack_size": 5.0
+		"stack_size": 5.0,
+		"effects": {
+			"health": 50
+		}
 	},
 	"BANDAGE": {
 		"category": "consumable",
 		"description": "Basic first aid bandage that restores 20 health points",
 		"icon": "bandage.png",
+		"effects": {
+			"health": 20
+		},
 		"name": "Bandage",
 		"stack_size": 20.0
 	},

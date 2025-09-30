@@ -93,6 +93,7 @@ func get_item_data(item_id: String) -> Dictionary:
 			"icon_path": _build_icon_path(json_data.get("icon", "")),
 			"max_stack": int(json_data.get("stack_size", 1)),
 			"category": json_data.get("category", "Misc").capitalize(),
+			"effects": json_data.get("effects", {}),
 			"value": json_data.get("value", 0),
 			"weight": json_data.get("weight", 0.0)
 		}
@@ -104,6 +105,7 @@ func get_item_data(item_id: String) -> Dictionary:
 		"icon_path": "",
 		"max_stack": 1,
 		"category": "Misc",
+		"effects": {},
 		"value": 0,
 		"weight": 0.0
 	}

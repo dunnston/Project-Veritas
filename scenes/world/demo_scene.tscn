@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c7xvh2m4qgtjk"]
+[gd_scene load_steps=22 format=3 uid="uid://c7xvh2m4qgtjk"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_8gvxm"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://b7gl23jy6jhi3" path="res://scenes/ui/EquipedWeaponUI.tscn" id="9_6j8p0"]
 [ext_resource type="PackedScene" uid="uid://b8hgax2kqw7lr" path="res://scenes/ui/GeneratorMenu.tscn" id="10_0dfus"]
 [ext_resource type="PackedScene" uid="uid://dd2xhpgk2eax2" path="res://scenes/ui/SkillDebugUI.tscn" id="11_8occt"]
+[ext_resource type="PackedScene" uid="uid://cwco3dupc62jn" path="res://scenes/ui/HUD.tscn" id="12_6j8p0"]
 [ext_resource type="PackedScene" uid="uid://cfeodp70flpq1" path="res://scenes/ui/WorkbenchCraftingMenu.tscn" id="12_kmphx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxywg"]
@@ -166,9 +167,17 @@ omni_range = 10.0
 
 [node name="UI" type="CanvasLayer" parent="."]
 
+[node name="HUD" parent="UI" instance=ExtResource("12_6j8p0")]
+offset_left = -1.0
+offset_top = 9.0
+offset_right = -1.0
+offset_bottom = 9.0
+
 [node name="InventoryUI" parent="UI" instance=ExtResource("3_inventory")]
+visible = false
 
 [node name="StorageUI" parent="UI" instance=ExtResource("4_storage")]
+visible = true
 
 [node name="CombatHUD" parent="UI" instance=ExtResource("5_combathud")]
 layout_mode = 3
@@ -177,24 +186,21 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="DevMenu" parent="UI" instance=ExtResource("6_devmenu")]
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="BuildMenu" parent="UI" instance=ExtResource("7_tioqf")]
+visible = true
 
 [node name="AttributesUI" parent="UI" instance=ExtResource("8_mxda1")]
-
-[node name="DevMenu2" parent="UI" instance=ExtResource("6_devmenu")]
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="EquipedWeaponUi" parent="UI" instance=ExtResource("9_6j8p0")]
 
 [node name="GeneratorMenu" parent="UI" instance=ExtResource("10_0dfus")]
+visible = true
 
 [node name="SkillDebugUI" parent="UI" instance=ExtResource("11_8occt")]
 
 [node name="WorkbenchCraftingMenu" parent="UI" instance=ExtResource("12_kmphx")]
+visible = true
 
 [node name="HotbarLayer" type="CanvasLayer" parent="."]
 layer = 10

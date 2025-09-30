@@ -710,16 +710,60 @@ func is_item_already_equipped(item_id: String) -> bool:
 	
 	return false
 
-func try_equip_item_from_slot(slot_index: int):
+func consume_item_from_slot(slot_index: int):
+	"""Consume a consumable item directly from inventory"""
 	if slot_index >= inventory_system.inventory_slots.size():
 		return
-	
+
 	var slot = inventory_system.inventory_slots[slot_index]
 	if slot.is_empty():
 		return
-	
+
 	var item_id = slot.item_id
-	
+	var item_data = inventory_system.get_item_data(item_id)
+	var effects = item_data.get("effects", {})
+
+	# Apply effects to player
+	var player = GameManager.player_node
+	if player:
+		var consumed = false
+		if effects.has("health"):
+			player.modify_health(effects.health)
+			consumed = true
+		if effects.has("energy"):
+			player.modify_energy(effects.energy)
+			consumed = true
+		if effects.has("hunger"):
+			player.modify_hunger(effects.hunger)
+			consumed = true
+		if effects.has("thirst"):
+			player.modify_thirst(effects.thirst)
+			consumed = true
+		if effects.has("radiation"):
+			player.modify_radiation(effects.radiation)
+			consumed = true
+
+		if consumed:
+			# Remove consumed item from inventory
+			inventory_system.remove_item(item_id, 1)
+			print("Consumed %s from inventory" % item_data.get("name", item_id))
+
+func try_equip_item_from_slot(slot_index: int):
+	if slot_index >= inventory_system.inventory_slots.size():
+		return
+
+	var slot = inventory_system.inventory_slots[slot_index]
+	if slot.is_empty():
+		return
+
+	var item_id = slot.item_id
+
+	# Check if this item is consumable - if so, consume it instead
+	var item_data = inventory_system.get_item_data(item_id)
+	if item_data.get("category", "").to_lower() == "consumable":
+		consume_item_from_slot(slot_index)
+		return
+
 	# Check if this item is equipment
 	if EquipmentManager.equipment_data.has(item_id):
 		# Create equipment instance

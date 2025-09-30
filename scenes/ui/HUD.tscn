@@ -1,0 +1,150 @@
+[gd_scene load_steps=7 format=3 uid="uid://cwco3dupc62jn"]
+
+[ext_resource type="Script" uid="uid://cr1hhdwbh2ejq" path="res://scripts/ui/HUD.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_health"]
+bg_color = Color(0.8, 0.1, 0.1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_energy"]
+bg_color = Color(0.1, 0.5, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hunger"]
+bg_color = Color(1, 0.6, 0.1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thirst"]
+bg_color = Color(0.1, 0.8, 0.9, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_radiation"]
+bg_color = Color(0.9, 0.9, 0.1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="StatsPanel" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 340.0
+offset_bottom = 220.0
+theme_override_constants/separation = 8
+
+[node name="HealthLabel" type="Label" parent="StatsPanel"]
+layout_mode = 2
+text = "Health: 100/100"
+
+[node name="HealthBar" type="ProgressBar" parent="StatsPanel"]
+custom_minimum_size = Vector2(300, 24)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_health")
+value = 100.0
+show_percentage = false
+
+[node name="EnergyLabel" type="Label" parent="StatsPanel"]
+layout_mode = 2
+text = "Energy: 100/100"
+
+[node name="EnergyBar" type="ProgressBar" parent="StatsPanel"]
+custom_minimum_size = Vector2(300, 24)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_energy")
+value = 100.0
+show_percentage = false
+
+[node name="HungerLabel" type="Label" parent="StatsPanel"]
+layout_mode = 2
+text = "Hunger: 100/100"
+
+[node name="HungerBar" type="ProgressBar" parent="StatsPanel"]
+custom_minimum_size = Vector2(300, 24)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_hunger")
+value = 100.0
+show_percentage = false
+
+[node name="ThirstLabel" type="Label" parent="StatsPanel"]
+layout_mode = 2
+text = "Thirst: 100/100"
+
+[node name="ThirstBar" type="ProgressBar" parent="StatsPanel"]
+custom_minimum_size = Vector2(300, 24)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_thirst")
+value = 100.0
+show_percentage = false
+
+[node name="RadiationLabel" type="Label" parent="StatsPanel"]
+layout_mode = 2
+text = "Radiation: 0/100"
+
+[node name="RadiationBar" type="ProgressBar" parent="StatsPanel"]
+custom_minimum_size = Vector2(300, 24)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_radiation")
+show_percentage = false
+
+[node name="RadiationStatusLabel" type="Label" parent="StatsPanel"]
+layout_mode = 2
+text = "Safe"
+
+[node name="TimePanel" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 100.0
+grow_horizontal = 0
+
+[node name="TimeLabel" type="Label" parent="TimePanel"]
+layout_mode = 2
+text = "Time: 12:00"
+
+[node name="DayLabel" type="Label" parent="TimePanel"]
+layout_mode = 2
+text = "Day 1"
+
+[node name="WeatherLabel" type="Label" parent="TimePanel"]
+layout_mode = 2
+text = "Clear"
+
+[node name="NotificationContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
