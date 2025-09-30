@@ -47,7 +47,16 @@ class EquipmentSlotUI:
 	func _on_equipment_slot_input(event: InputEvent):
 		if event is InputEventMouseButton and event.pressed:
 			if event.button_index == MOUSE_BUTTON_LEFT:
-				InventoryUI.instance._on_equipment_slot_clicked(slot_type)
+				# Check if drag manager is active and dragging
+				if DragPreviewManager and DragPreviewManager.is_dragging:
+					# Try to drop on this equipment slot
+					DragPreviewManager.try_drop_on_equipment(slot_type)
+				else:
+					# Start drag or handle normal click
+					if equipped_item:
+						InventoryUI.instance.start_drag_from_equipment(slot_type)
+					else:
+						InventoryUI.instance._on_equipment_slot_clicked(slot_type)
 			elif event.button_index == MOUSE_BUTTON_RIGHT:
 				InventoryUI.instance._on_equipment_slot_right_clicked(slot_type)
 	
@@ -109,32 +118,30 @@ class InventorySlotUI:
 		panel.mouse_exited.connect(_on_slot_mouse_exited)
 	
 	func _on_slot_input(event: InputEvent):
-		if event is InputEventMouseButton and event.pressed:
+		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			print("DEBUG: Slot %d clicked with button %d" % [slot_index, event.button_index])
-			if event.button_index == MOUSE_BUTTON_LEFT:
-				# Check if storage is open - if so, transfer to storage instead of normal click
-				if StorageUI.instance and StorageUI.instance.visible:
-					InventoryUI.instance.transfer_item_to_storage(slot_index)
-				elif event.shift_pressed:
-					# Shift+click to add to hotbar
-					InventoryUI.instance.add_item_to_hotbar(slot_index)
-				elif event.ctrl_pressed:
-					# Ctrl+click to try to equip item
-					InventoryUI.instance.try_equip_item_from_slot(slot_index)
-				else:
-					# Check if this is a tool - if so, equip it directly
-					var slot = InventoryUI.instance.inventory_system.inventory_slots[slot_index]
-					if not slot.is_empty() and EquipmentManager.equipment_data.has(slot.item_id):
-						var equipment_data = EquipmentManager.equipment_data[slot.item_id]
-						if equipment_data.get("slot") == "TOOL":
-							# Tools can be equipped with just left-click
-							InventoryUI.instance.try_equip_item_from_slot(slot_index)
-							return
-					
-					# Try to consume the item (original behavior)
-					InventoryUI.instance.try_consume_item(slot_index)
-			elif event.button_index == MOUSE_BUTTON_RIGHT:
-				InventoryUI.instance.handle_item_drop(slot_index, event.shift_pressed, event.ctrl_pressed)
+
+			# Check if we're currently dragging - if so, try to drop here
+			if DragPreviewManager and DragPreviewManager.is_dragging:
+				DragPreviewManager.try_drop_on_inventory(slot_index)
+				return
+
+			# Not dragging, handle as new action
+			# Check if storage is open - if so, transfer to storage instead of normal click
+			if StorageUI.instance and StorageUI.instance.visible:
+				InventoryUI.instance.transfer_item_to_storage(slot_index)
+			elif event.shift_pressed:
+				# Shift+click to add to hotbar
+				InventoryUI.instance.add_item_to_hotbar(slot_index)
+			elif event.ctrl_pressed:
+				# Ctrl+click to try to equip item
+				InventoryUI.instance.try_equip_item_from_slot(slot_index)
+			else:
+				# Start drag on left-click
+				InventoryUI.instance.start_drag_from_inventory(slot_index)
+
+		elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+			InventoryUI.instance.handle_item_drop(slot_index, event.shift_pressed, event.ctrl_pressed)
 	
 	func _on_slot_mouse_entered():
 		if InventoryUI.instance:
@@ -193,6 +200,7 @@ func _ready() -> void:
 
 	# Add to group for input blocking detection
 	add_to_group("inventory_ui")
+
 
 	# Get reference to autoloaded inventory system
 	inventory_system = InventorySystem
@@ -321,6 +329,57 @@ func toggle_inventory():
 	else:
 		# Recapture mouse for gameplay
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func start_drag_from_inventory(slot_index: int):
+	if slot_index >= inventory_system.inventory_slots.size():
+		return
+
+	var slot = inventory_system.inventory_slots[slot_index]
+	if slot.is_empty():
+		return
+
+	# Get icon texture
+	var item_data = inventory_system.get_item_data(slot.item_id)
+	var icon_path = item_data.get("icon_path", "")
+
+	# Check equipment/weapon icons
+	if EquipmentManager.equipment_data.has(slot.item_id):
+		var equipment_data = EquipmentManager.equipment_data[slot.item_id]
+		var icon_name = equipment_data.get("icon", "")
+		if not icon_name.is_empty():
+			icon_path = "res://assets/sprites/items/equipment/" + icon_name + ".png"
+	elif WeaponManager.weapon_data.has(slot.item_id):
+		var weapon_data = WeaponManager.weapon_data[slot.item_id]
+		var icon_name = weapon_data.get("icon", "")
+		if not icon_name.is_empty():
+			icon_path = "res://assets/sprites/items/weapons/" + icon_name + ".png"
+
+	var icon_texture: Texture2D = null
+	if not icon_path.is_empty() and ResourceLoader.exists(icon_path):
+		icon_texture = load(icon_path)
+
+	if DragPreviewManager:
+		DragPreviewManager.start_drag("INVENTORY", slot_index, slot.item_id, slot.quantity, icon_texture)
+
+func start_drag_from_equipment(slot_type: String):
+	var equipped_item = null
+	var icon_texture: Texture2D = null
+
+	# Check if weapon slot
+	if slot_type == "PRIMARY_WEAPON" or slot_type == "SECONDARY_WEAPON":
+		var weapon = WeaponManager.get_equipped_weapon(slot_type)
+		if weapon:
+			equipped_item = weapon
+			icon_texture = weapon.icon
+	else:
+		# Regular equipment
+		var equipment = EquipmentManager.get_equipped_item(slot_type)
+		if equipment:
+			equipped_item = equipment
+			icon_texture = equipment.icon
+
+	if equipped_item and DragPreviewManager:
+		DragPreviewManager.start_drag("EQUIPMENT", 0, equipped_item.id, 1, icon_texture, slot_type)
 
 func _on_close_button_pressed():
 	visible = false

@@ -34,7 +34,7 @@ grow_vertical = 2
 theme_override_constants/h_separation = 8
 columns = 9
 
-[node name="Slot" type="Button" parent="GridContainer"]
+[node name="Slot" type="PanelContainer" parent="GridContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 
@@ -90,7 +90,7 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 16
 text = "1"
 
-[node name="Slot2" type="Button" parent="GridContainer"]
+[node name="Slot2" type="PanelContainer" parent="GridContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 
@@ -149,7 +149,7 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 16
 text = "2"
 
-[node name="Slot3" type="Button" parent="GridContainer"]
+[node name="Slot3" type="PanelContainer" parent="GridContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 
@@ -208,7 +208,7 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 16
 text = "3"
 
-[node name="Slot4" type="Button" parent="GridContainer"]
+[node name="Slot4" type="PanelContainer" parent="GridContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 
@@ -267,7 +267,7 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 16
 text = "4"
 
-[node name="Slot5" type="Button" parent="GridContainer"]
+[node name="Slot5" type="PanelContainer" parent="GridContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 
@@ -326,7 +326,7 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 16
 text = "5"
 
-[node name="Slot6" type="Button" parent="GridContainer"]
+[node name="Slot6" type="PanelContainer" parent="GridContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 
@@ -384,7 +384,7 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 16
 text = "6"
 
-[node name="Slot7" type="Button" parent="GridContainer"]
+[node name="Slot7" type="PanelContainer" parent="GridContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 
@@ -443,7 +443,7 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 16
 text = "7"
 
-[node name="Slot8" type="Button" parent="GridContainer"]
+[node name="Slot8" type="PanelContainer" parent="GridContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 
@@ -502,7 +502,7 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 16
 text = "8"
 
-[node name="Slot9" type="Button" parent="GridContainer"]
+[node name="Slot9" type="PanelContainer" parent="GridContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 
