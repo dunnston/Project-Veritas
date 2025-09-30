@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://c7xvh2m4qgtjk"]
+[gd_scene load_steps=22 format=3 uid="uid://c7xvh2m4qgtjk"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_8gvxm"]
+[ext_resource type="PackedScene" uid="uid://hud_scene" path="res://scenes/ui/HUD.tscn" id="2_hud"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
 [ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="3_inventory"]
 [ext_resource type="PackedScene" uid="uid://c5qxr8jyf4kxm" path="res://scenes/ui/StorageUI.tscn" id="4_storage"]
@@ -165,6 +166,8 @@ light_energy = 1.5
 omni_range = 10.0
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("2_hud")]
 
 [node name="InventoryUI" parent="UI" instance=ExtResource("3_inventory")]
 
