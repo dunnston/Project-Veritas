@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c7xvh2m4qgtjk"]
+[gd_scene load_steps=21 format=3 uid="uid://c7xvh2m4qgtjk"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_8gvxm"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" path="res://scenes/items/item_pickup_3d.tscn" id="7_item_pickup"]
 [ext_resource type="PackedScene" uid="uid://buildmenu" path="res://scenes/ui/BuildMenu.tscn" id="7_tioqf"]
 [ext_resource type="PackedScene" uid="uid://ttributesui" path="res://scenes/ui/AttributesUI.tscn" id="8_mxda1"]
+[ext_resource type="PackedScene" path="res://scenes/buildings/workbench_3d.tscn" id="8_workbench"]
 [ext_resource type="PackedScene" uid="uid://b7gl23jy6jhi3" path="res://scenes/ui/EquipedWeaponUI.tscn" id="9_6j8p0"]
 [ext_resource type="PackedScene" uid="uid://b8hgax2kqw7lr" path="res://scenes/ui/GeneratorMenu.tscn" id="10_0dfus"]
 [ext_resource type="PackedScene" uid="uid://dd2xhpgk2eax2" path="res://scenes/ui/SkillDebugUI.tscn" id="11_8occt"]
@@ -217,3 +218,8 @@ item_id = "GEARS"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
 item_id = "SPRING"
 amount = 2
+
+[node name="TestWorkbench" type="Node3D" parent="."]
+
+[node name="Workbench3D" parent="TestWorkbench" instance=ExtResource("8_workbench")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
