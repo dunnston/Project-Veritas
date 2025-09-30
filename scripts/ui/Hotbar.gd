@@ -12,11 +12,12 @@ var slot_buttons: Array = []
 @onready var slot_container = $GridContainer
 
 func _ready():
+	add_to_group("hotbar")
 	initialize_hotbar_data()
 	setup_slot_references()
 	connect_signals()
 	update_all_slots()
-	
+
 	print("Hotbar initialized with %d slots" % HOTBAR_SLOTS)
 
 func initialize_hotbar_data():
@@ -167,24 +168,35 @@ func use_hotbar_slot(slot_index: int):
 func try_consume_item(slot_index: int) -> bool:
 	var slot_data = hotbar_data[slot_index]
 	var item_id = slot_data["item_id"]
-	
+
+	# Check if we have the item in inventory
 	if not InventorySystem.has_item(item_id, 1):
 		clear_slot(slot_index)
 		return false
-	
+
+	# Get item data to check effects
+	var item_data = InventorySystem.get_item_data(item_id)
+	var effects = item_data.get("effects", {})
+
+	# Apply effects to player
 	var player = GameManager.player_node
-	if player and player.has_method("consume_item"):
+	if player:
+		if effects.has("health"):
+			player.modify_health(effects.health)
+		if effects.has("energy"):
+			player.modify_energy(effects.energy)
+		if effects.has("hunger"):
+			player.modify_hunger(effects.hunger)
+		if effects.has("thirst"):
+			player.modify_thirst(effects.thirst)
+		if effects.has("radiation"):
+			player.modify_radiation(effects.radiation)
+
+		# Remove consumed item from inventory
 		if InventorySystem.remove_item(item_id, 1):
-			if player.inventory.add_item(item_id, 1) > 0:
-				if player.consume_item(item_id):
-					remove_item_from_hotbar(slot_index, 1)
-					return true
-				else:
-					player.inventory.remove_item(item_id, 1)
-					InventorySystem.add_item(item_id, 1)
-			else:
-				InventorySystem.add_item(item_id, 1)
-	
+			remove_item_from_hotbar(slot_index, 1)
+			return true
+
 	return false
 
 func _on_slot_pressed(slot_index: int):

@@ -1,6 +1,41 @@
-[gd_scene load_steps=2 format=3 uid="uid://hud_scene"]
+[gd_scene load_steps=7 format=3 uid="uid://cwco3dupc62jn"]
 
-[ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://cr1hhdwbh2ejq" path="res://scripts/ui/HUD.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_health"]
+bg_color = Color(0.8, 0.1, 0.1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_energy"]
+bg_color = Color(0.1, 0.5, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hunger"]
+bg_color = Color(1, 0.6, 0.1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thirst"]
+bg_color = Color(0.1, 0.8, 0.9, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_radiation"]
+bg_color = Color(0.9, 0.9, 0.1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -15,17 +50,18 @@ script = ExtResource("1_script")
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
-offset_right = 320.0
-offset_bottom = 200.0
+offset_right = 340.0
+offset_bottom = 220.0
+theme_override_constants/separation = 8
 
 [node name="HealthLabel" type="Label" parent="StatsPanel"]
 layout_mode = 2
 text = "Health: 100/100"
 
 [node name="HealthBar" type="ProgressBar" parent="StatsPanel"]
-custom_minimum_size = Vector2(280, 20)
+custom_minimum_size = Vector2(300, 24)
 layout_mode = 2
-max_value = 100.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_health")
 value = 100.0
 show_percentage = false
 
@@ -34,9 +70,9 @@ layout_mode = 2
 text = "Energy: 100/100"
 
 [node name="EnergyBar" type="ProgressBar" parent="StatsPanel"]
-custom_minimum_size = Vector2(280, 20)
+custom_minimum_size = Vector2(300, 24)
 layout_mode = 2
-max_value = 100.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_energy")
 value = 100.0
 show_percentage = false
 
@@ -45,9 +81,9 @@ layout_mode = 2
 text = "Hunger: 100/100"
 
 [node name="HungerBar" type="ProgressBar" parent="StatsPanel"]
-custom_minimum_size = Vector2(280, 20)
+custom_minimum_size = Vector2(300, 24)
 layout_mode = 2
-max_value = 100.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_hunger")
 value = 100.0
 show_percentage = false
 
@@ -56,9 +92,9 @@ layout_mode = 2
 text = "Thirst: 100/100"
 
 [node name="ThirstBar" type="ProgressBar" parent="StatsPanel"]
-custom_minimum_size = Vector2(280, 20)
+custom_minimum_size = Vector2(300, 24)
 layout_mode = 2
-max_value = 100.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_thirst")
 value = 100.0
 show_percentage = false
 
@@ -67,10 +103,9 @@ layout_mode = 2
 text = "Radiation: 0/100"
 
 [node name="RadiationBar" type="ProgressBar" parent="StatsPanel"]
-custom_minimum_size = Vector2(280, 20)
+custom_minimum_size = Vector2(300, 24)
 layout_mode = 2
-max_value = 100.0
-value = 0.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_radiation")
 show_percentage = false
 
 [node name="RadiationStatusLabel" type="Label" parent="StatsPanel"]

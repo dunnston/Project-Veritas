@@ -300,21 +300,17 @@ func link_inventory_to_hotbar(inventory_index: int, hotbar_index: int) -> bool:
 	if slot.is_empty():
 		return false
 
-	# Find hotbar through HUD
-	var hud = get_tree().get_nodes_in_group("hud")
+	# Find hotbar directly in HotbarLayer (preferred method)
+	var hotbar = get_tree().get_first_node_in_group("hotbar")
 
-	if hud.is_empty():
-		# Try alternative: find hotbar directly in scene tree
+	if not hotbar:
+		# Fallback: try to find by path
 		var hotbar_layer = get_tree().get_root().get_node_or_null("DemoScene/HotbarLayer")
 		if hotbar_layer:
-			var hotbar = hotbar_layer.get_node_or_null("Hotbar")
-			if hotbar:
-				hotbar.set_slot(hotbar_index, slot.item_id, slot.quantity)
-				return true
-		return false
+			hotbar = hotbar_layer.get_node_or_null("Hotbar")
 
-	var hotbar = hud[0].hotbar
 	if not hotbar:
+		print("ERROR: Could not find Hotbar for drag-drop!")
 		return false
 
 	# Set the hotbar slot to link to this item
@@ -322,12 +318,11 @@ func link_inventory_to_hotbar(inventory_index: int, hotbar_index: int) -> bool:
 	return true
 
 func swap_hotbar_slots(from_index: int, to_index: int) -> bool:
-	var hud = get_tree().get_nodes_in_group("hud")
-	if hud.is_empty():
-		return false
+	# Find hotbar using group
+	var hotbar = get_tree().get_first_node_in_group("hotbar")
 
-	var hotbar = hud[0].hotbar
 	if not hotbar:
+		print("ERROR: Could not find Hotbar for slot swap!")
 		return false
 
 	# Swap hotbar data
