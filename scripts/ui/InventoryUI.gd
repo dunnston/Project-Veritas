@@ -156,7 +156,7 @@ class InventorySlotUI:
 			icon.texture = null
 			quantity_label.text = ""
 		else:
-			print("Updating inventory slot display for item: ", slot.item_id)
+			# print("Updating inventory slot display for item: ", slot.item_id)  # Debug: Too spammy
 			var item_data = InventoryUI.instance.inventory_system.get_item_data(slot.item_id)
 			var icon_path = item_data.get("icon_path", "")
 			

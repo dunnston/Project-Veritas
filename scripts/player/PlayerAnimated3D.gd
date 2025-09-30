@@ -114,14 +114,14 @@ func setup_animations():
 	animation_player = find_animation_player(character_model)
 
 	if animation_player:
-		print("✅ Found AnimationPlayer with animations:")
+		# print("✅ Found AnimationPlayer with animations:")  # Debug: Setup only
 		var all_anims = animation_player.get_animation_list()
-		print("Available animations: ", all_anims)
+		# print("Available animations: ", all_anims)  # Debug: Setup only
 
 		# Disable root motion if AnimationPlayer supports it
 		if animation_player.has_method("set_root_motion_track"):
 			animation_player.set_root_motion_track(NodePath())
-			print("Disabled root motion")
+			# print("Disabled root motion")  # Debug: Setup only
 
 		# Ensure animations are set to loop where appropriate
 		for anim_name in all_anims:
@@ -131,50 +131,50 @@ func setup_animations():
 				# Set looping for continuous animations
 				if "idle" in lower or "walk" in lower or "run" in lower or "crouch" in lower:
 					animation.loop_mode = Animation.LOOP_LINEAR
-					print("Set ", anim_name, " to loop")
+					# print("Set ", anim_name, " to loop")  # Debug: Setup only
 					# Remove position tracks that cause jumping
 					remove_position_tracks(animation, anim_name)
 				elif "jump" in lower:
 					animation.loop_mode = Animation.LOOP_NONE
-					print("Set ", anim_name, " to play once")
+					# print("Set ", anim_name, " to play once")  # Debug: Setup only
 
 		# Map animations based on common naming patterns
 		for anim_name in all_anims:
 			var lower = anim_name.to_lower()
-			print("Checking animation: ", anim_name, " (", lower, ")")
+			# print("Checking animation: ", anim_name, " (", lower, ")")  # Debug: Setup only
 
 			if "crouch" in lower:
 				crouch_anim = anim_name
-				print("  -> Mapped as CROUCH")
+				# print("  -> Mapped as CROUCH")  # Debug: Setup only
 			elif "jump" in lower:
 				jump_anim = anim_name
-				print("  -> Mapped as JUMP")
+				# print("  -> Mapped as JUMP")  # Debug: Setup only
 			elif "run" in lower and "walk" not in lower:
 				run_anim = anim_name
-				print("  -> Mapped as RUN")
+				# print("  -> Mapped as RUN")  # Debug: Setup only
 			elif "walk" in lower:
 				walk_anim = anim_name
-				print("  -> Mapped as WALK")
+				# print("  -> Mapped as WALK")  # Debug: Setup only
 			elif "fall" in lower:
 				fall_anim = anim_name
-				print("  -> Mapped as FALL")
+				# print("  -> Mapped as FALL")  # Debug: Setup only
 			elif "idle" in lower or "breathing" in lower:
 				idle_anim = anim_name
-				print("  -> Mapped as IDLE")
+				# print("  -> Mapped as IDLE")  # Debug: Setup only
 
-		print("\nFinal animation mapping:")
-		print("  Idle: ", idle_anim)
-		print("  Walk: ", walk_anim)
-		print("  Run: ", run_anim)
-		print("  Jump: ", jump_anim)
-		print("  Crouch: ", crouch_anim)
-		print("  Fall: ", fall_anim)
+		# print("\nFinal animation mapping:")  # Debug: Setup only
+		# print("  Idle: ", idle_anim)
+		# print("  Walk: ", walk_anim)
+		# print("  Run: ", run_anim)
+		# print("  Jump: ", jump_anim)
+		# print("  Crouch: ", crouch_anim)
+		# print("  Fall: ", fall_anim)
 
 		# Ensure we start with idle animation, not first in list
 		if idle_anim != "":
 			animation_player.play(idle_anim)
 			current_anim = idle_anim
-			print("Starting with idle animation: ", idle_anim)
+			# print("Starting with idle animation: ", idle_anim)  # Debug: Setup only
 		elif walk_anim != "":
 			animation_player.play(walk_anim)
 			current_anim = walk_anim
@@ -217,7 +217,7 @@ func remove_position_tracks(animation: Animation, anim_name: String):
 				# For hip/pelvis, we might want to keep vertical movement but remove horizontal
 				# For now, let's remove it entirely to prevent sliding
 				tracks_to_remove.append(i)
-				print("  Removing body position track: ", path_str)
+				# print("  Removing body position track: ", path_str)  # Debug: Setup only
 
 	# Remove tracks in reverse order to maintain indices
 	tracks_to_remove.reverse()
@@ -231,7 +231,7 @@ func play_anim(anim_name: String):
 			if anim_name != current_anim:
 				animation_player.play(anim_name)
 				current_anim = anim_name
-				print("Playing animation: ", anim_name)
+				# print("Playing animation: ", anim_name)
 			# If same animation and not playing, restart it (for looping)
 			elif not animation_player.is_playing():
 				animation_player.play(anim_name)
@@ -480,11 +480,11 @@ func setup_interaction_area():
 	print("PlayerAnimated3D: Interaction area set up with range: %f" % interact_range)
 
 func interact_with_nearest() -> void:
-	print("Player3D: interact_with_nearest() called")
-	print("Player3D: Number of nearby interactables = ", nearby_interactables.size())
+	# print("Player3D: interact_with_nearest() called")
+	# print("Player3D: Number of nearby interactables = ", nearby_interactables.size())
 
 	if nearby_interactables.is_empty():
-		print("Player3D: No nearby interactables found")
+		# print("Player3D: No nearby interactables found")  # Debug: Too spammy
 		# Fallback to old item pickup behavior if no interactables
 		pickup_nearest_item()
 		return
@@ -493,45 +493,45 @@ func interact_with_nearest() -> void:
 	var min_dist = global_position.distance_to(nearest.global_position)
 
 	for interactable in nearby_interactables:
-		print("Player3D: Found interactable: ", interactable.name, " of type: ", interactable.get_class())
+		# print("Player3D: Found interactable: ", interactable.name, " of type: ", interactable.get_class())  # Debug: Too spammy
 		var dist = global_position.distance_to(interactable.global_position)
 		if dist < min_dist:
 			nearest = interactable
 			min_dist = dist
 
-	print("Player3D: Interacting with nearest: ", nearest.name, " at distance: ", min_dist)
+	# print("Player3D: Interacting with nearest: ", nearest.name, " at distance: ", min_dist)
 	nearest.interact()
 
 func _on_body_entered_interaction(body: Node3D) -> void:
-	print("Player3D: Body entered interaction area: ", body.name, " (", body.get_class(), ")")
-	print("Player3D: Body has interact method: ", body.has_method("interact"))
+	# print("Player3D: Body entered interaction area: ", body.name, " (", body.get_class(), ")")
+	# print("Player3D: Body has interact method: ", body.has_method("interact"))
 	if body.has_method("interact"):
 		nearby_interactables.append(body)
-		print("Player3D: Added to nearby_interactables. Total count: ", nearby_interactables.size())
-	else:
-		print("Player3D: Body does not have interact method, not adding to interactables")
+		# print("Player3D: Added to nearby_interactables. Total count: ", nearby_interactables.size())  # Debug: Too spammy
+	# else:
+		# print("Player3D: Body does not have interact method, not adding to interactables")  # Debug: Too spammy
 
 func _on_body_exited_interaction(body: Node3D) -> void:
-	print("Player3D: Body exited interaction area: ", body.name)
+	# print("Player3D: Body exited interaction area: ", body.name)
 	nearby_interactables.erase(body)
-	print("Player3D: Remaining nearby_interactables: ", nearby_interactables.size())
+	# print("Player3D: Remaining nearby_interactables: ", nearby_interactables.size())
 
 func _on_area_entered_interaction(area: Area3D) -> void:
-	print("Player3D: Area entered interaction area: ", area.name, " (", area.get_class(), ")")
+	# print("Player3D: Area entered interaction area: ", area.name, " (", area.get_class(), ")")
 	var parent = area.get_parent()
 	if parent and parent.has_method("interact"):
-		print("Player3D: Area's parent has interact method: ", parent.name)
+		# print("Player3D: Area's parent has interact method: ", parent.name)  # Debug: Too spammy
 		nearby_interactables.append(parent)
-		print("Player3D: Added area parent to nearby_interactables. Total count: ", nearby_interactables.size())
-	else:
-		print("Player3D: Area's parent does not have interact method")
+		# print("Player3D: Added area parent to nearby_interactables. Total count: ", nearby_interactables.size())  # Debug: Too spammy
+	# else:
+		# print("Player3D: Area's parent does not have interact method")  # Debug: Too spammy
 
 func _on_area_exited_interaction(area: Area3D) -> void:
-	print("Player3D: Area exited interaction area: ", area.name)
+	# print("Player3D: Area exited interaction area: ", area.name)
 	var parent = area.get_parent()
 	if parent:
 		nearby_interactables.erase(parent)
-		print("Player3D: Remaining nearby_interactables: ", nearby_interactables.size())
+		# print("Player3D: Remaining nearby_interactables: ", nearby_interactables.size())  # Debug: Too spammy
 
 # ============================================================================
 # SURVIVAL STAT MANAGEMENT
