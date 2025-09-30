@@ -9,6 +9,8 @@ var can_place: bool = false
 var material_valid: StandardMaterial3D
 var material_invalid: StandardMaterial3D
 var overlapping_bodies: Array = []
+var ground_raycast_length: float = 100.0  # How far down to check for ground
+var ground_clearance: float = 0.05  # Small offset above ground to prevent z-fighting
 
 signal placement_validity_changed(is_valid: bool)
 
@@ -73,27 +75,37 @@ func set_validity(is_valid: bool):
 	placement_validity_changed.emit(is_valid)
 
 func update_position(world_pos: Vector3):
-	# Snap to grid (but keep Y from raycast)
+	# Snap to grid on X and Z axes
 	var grid_pos = Vector3(
 		round(world_pos.x / 1.0) * 1.0,
-		world_pos.y,  # Keep the exact Y from raycast
+		world_pos.y,  # Temporary Y, will be adjusted by ground raycast
 		round(world_pos.z / 1.0) * 1.0
 	)
 
-	# Adjust Y position to sit properly on ground
+	# Get mesh size for calculations
+	var mesh_height = 1.0
 	if mesh_instance and mesh_instance.mesh and mesh_instance.mesh is BoxMesh:
 		var box_mesh = mesh_instance.mesh as BoxMesh
-		# The raycast hits the surface. For a box mesh centered at origin,
-		# we need to offset by half its height to place bottom at surface
-		grid_pos.y = world_pos.y + (box_mesh.size.y * 0.5) + 0.01  # Small offset to prevent z-fighting
+		mesh_height = box_mesh.size.y
+
+	# Perform downward raycast to find the actual ground below this position
+	var ground_y = find_ground_below(grid_pos)
+
+	# If we found ground, snap to it
+	if ground_y != null:
+		# Place the bottom of the mesh exactly on the ground surface
+		# Since the mesh is centered at its origin, we need to offset by half height
+		grid_pos.y = ground_y + (mesh_height * 0.5) + ground_clearance
+	else:
+		# No ground found - use the original Y position from mouse raycast
+		grid_pos.y = world_pos.y + (mesh_height * 0.5) + ground_clearance
 
 	global_position = grid_pos
 
-	# TEMPORARY: Always set as valid to test if placement works
-	set_validity(true)
-
-	# Comment out collision checking for now
-	# call_deferred("recheck_validity")
+	# Force immediate validity check after moving
+	# Wait one physics frame for collision updates
+	await get_tree().physics_frame
+	recheck_validity()
 
 func recheck_validity():
 	# Let the physics engine update and re-detect overlaps
@@ -112,7 +124,37 @@ func recheck_validity():
 				continue
 
 			overlapping_bodies.append(body)
+
+		# Update validity based on current overlaps
 		check_placement_validity()
+	else:
+		# No collision area yet, assume valid for now
+		set_validity(true)
+
+func find_ground_below(position: Vector3) -> Variant:
+	# Cast a ray straight down from above the position to find ground
+	var space_state = get_world_3d().direct_space_state
+
+	# Start the ray from above the current position
+	var ray_start = Vector3(position.x, position.y + 50.0, position.z)
+	var ray_end = Vector3(position.x, position.y - ground_raycast_length, position.z)
+
+	var query = PhysicsRayQueryParameters3D.create(ray_start, ray_end)
+	# Check all layers for ground
+	query.collision_mask = 0xFFFFFFFF
+
+	# Exclude the preview itself from the raycast
+	if collision_area:
+		query.exclude = [collision_area.get_rid()]
+
+	var result = space_state.intersect_ray(query)
+
+	if result:
+		# Return the Y coordinate where we hit
+		return result.position.y
+
+	# No ground found
+	return null
 
 func _is_ground_like(body: Node3D) -> bool:
 	# Check if this body is ground-like (large, flat)
@@ -155,10 +197,11 @@ func setup_collision_area(size: Vector3):
 	var collision_shape = CollisionShape3D.new()
 	var box_shape = BoxShape3D.new()
 	# Make collision slightly smaller to avoid false positives with ground
-	box_shape.size = Vector3(size.x * 0.9, size.y * 0.9, size.z * 0.9)
+	# Reduce vertical size more aggressively to avoid ground detection
+	box_shape.size = Vector3(size.x * 0.9, size.y * 0.8, size.z * 0.9)
 	collision_shape.shape = box_shape
-	# Position collision shape to match mesh center
-	collision_shape.position = Vector3(0, 0, 0)
+	# Offset collision shape slightly upward to avoid ground intersection
+	collision_shape.position = Vector3(0, size.y * 0.05, 0)
 	collision_area.add_child(collision_shape)
 
 	# Set collision layers
@@ -214,13 +257,14 @@ func _on_area_exited(area: Area3D):
 func check_placement_validity():
 	# Can't place if overlapping with any bodies
 	var is_valid = overlapping_bodies.is_empty()
-	if not is_valid:
-		print("Cannot place - overlapping with %d objects:" % overlapping_bodies.size())
-		for body in overlapping_bodies:
-			print("  - ", body.name)
 	set_validity(is_valid)
 
 func can_place_here() -> bool:
-	# TEMPORARY: Always allow placement to test
-	return true
-	# return can_place and overlapping_bodies.is_empty()
+	var result = can_place and overlapping_bodies.is_empty()
+	if not result:
+		print("Cannot place: can_place=%s, overlapping_bodies.size=%d" % [can_place, overlapping_bodies.size()])
+		if not overlapping_bodies.is_empty():
+			print("Overlapping with:")
+			for body in overlapping_bodies:
+				print("  - %s (type: %s)" % [body.name, body.get_class()])
+	return result
