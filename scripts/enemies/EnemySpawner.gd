@@ -38,12 +38,5 @@ func spawn_purple_beast() -> void:
 	get_parent().add_child(beast)
 	current_enemy_count += 1
 
-func create_character(description: String, n_directions: int = 8) -> Node:
-	if "purple beast" in description.to_lower():
-		return CharacterCreator.create_purple_beast()
-	else:
-		var character_scene = CharacterCreator.create_character(description, n_directions)
-		return character_scene.instantiate()
-
 func _on_enemy_died() -> void:
 	current_enemy_count -= 1
