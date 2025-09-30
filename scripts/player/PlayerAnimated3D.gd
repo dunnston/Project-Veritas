@@ -26,6 +26,10 @@ var model_base_position: Vector3 = Vector3.ZERO
 var is_jumping: bool = false
 var was_on_floor: bool = true
 
+# Interaction system for 3D
+var nearby_interactables: Array = []
+var interaction_area: Area3D = null
+
 # Animation names (will be detected from AnimationPlayer)
 var idle_anim: String = ""
 var walk_anim: String = ""
@@ -48,6 +52,9 @@ func _ready():
 		print("PlayerAnimated3D: Connected to InventorySystem")
 		# Add some test items for testing drops
 		call_deferred("add_test_items")
+
+	# Set up 3D interaction system
+	call_deferred("setup_interaction_area")
 
 func _register_with_game_manager():
 	# Get GameManager specifically to avoid autoload conflicts
@@ -201,9 +208,9 @@ func _input(event: InputEvent):
 
 	# Removed world right-click drop functionality
 
-	# Handle item pickup
+	# Handle interactions (items, workbenches, doors, etc.)
 	if event.is_action_pressed("interact"):
-		pickup_nearest_item()
+		interact_with_nearest()
 
 	# Handle inventory toggle
 	if event.is_action_pressed("inventory"):
@@ -396,3 +403,87 @@ func toggle_inventory():
 		GameManager.toggle_inventory()
 	else:
 		print("Inventory toggle not implemented yet")
+
+# 3D Interaction System
+func setup_interaction_area():
+	# Create Area3D for detecting interactable objects
+	interaction_area = Area3D.new()
+	interaction_area.name = "InteractionArea"
+	add_child(interaction_area)
+
+	# Create collision shape for interaction range
+	var interaction_shape = CollisionShape3D.new()
+	var sphere_shape = SphereShape3D.new()
+	sphere_shape.radius = interact_range
+	interaction_shape.shape = sphere_shape
+	interaction_area.add_child(interaction_shape)
+
+	# Configure area to detect interactables
+	interaction_area.collision_layer = 1 << 1  # Put on player layer (layer 2)
+	interaction_area.collision_mask = 0xFFFFFFFF  # Detect everything
+	interaction_area.monitoring = true
+	interaction_area.monitorable = false  # Player doesn't need to be detected by other areas
+
+	# Also connect area signals for Area3D detection
+	interaction_area.area_entered.connect(_on_area_entered_interaction)
+	interaction_area.area_exited.connect(_on_area_exited_interaction)
+
+	# Connect signals
+	interaction_area.body_entered.connect(_on_body_entered_interaction)
+	interaction_area.body_exited.connect(_on_body_exited_interaction)
+
+	print("PlayerAnimated3D: Interaction area set up with range: %f" % interact_range)
+
+func interact_with_nearest() -> void:
+	print("Player3D: interact_with_nearest() called")
+	print("Player3D: Number of nearby interactables = ", nearby_interactables.size())
+
+	if nearby_interactables.is_empty():
+		print("Player3D: No nearby interactables found")
+		# Fallback to old item pickup behavior if no interactables
+		pickup_nearest_item()
+		return
+
+	var nearest = nearby_interactables[0]
+	var min_dist = global_position.distance_to(nearest.global_position)
+
+	for interactable in nearby_interactables:
+		print("Player3D: Found interactable: ", interactable.name, " of type: ", interactable.get_class())
+		var dist = global_position.distance_to(interactable.global_position)
+		if dist < min_dist:
+			nearest = interactable
+			min_dist = dist
+
+	print("Player3D: Interacting with nearest: ", nearest.name, " at distance: ", min_dist)
+	nearest.interact()
+
+func _on_body_entered_interaction(body: Node3D) -> void:
+	print("Player3D: Body entered interaction area: ", body.name, " (", body.get_class(), ")")
+	print("Player3D: Body has interact method: ", body.has_method("interact"))
+	if body.has_method("interact"):
+		nearby_interactables.append(body)
+		print("Player3D: Added to nearby_interactables. Total count: ", nearby_interactables.size())
+	else:
+		print("Player3D: Body does not have interact method, not adding to interactables")
+
+func _on_body_exited_interaction(body: Node3D) -> void:
+	print("Player3D: Body exited interaction area: ", body.name)
+	nearby_interactables.erase(body)
+	print("Player3D: Remaining nearby_interactables: ", nearby_interactables.size())
+
+func _on_area_entered_interaction(area: Area3D) -> void:
+	print("Player3D: Area entered interaction area: ", area.name, " (", area.get_class(), ")")
+	var parent = area.get_parent()
+	if parent and parent.has_method("interact"):
+		print("Player3D: Area's parent has interact method: ", parent.name)
+		nearby_interactables.append(parent)
+		print("Player3D: Added area parent to nearby_interactables. Total count: ", nearby_interactables.size())
+	else:
+		print("Player3D: Area's parent does not have interact method")
+
+func _on_area_exited_interaction(area: Area3D) -> void:
+	print("Player3D: Area exited interaction area: ", area.name)
+	var parent = area.get_parent()
+	if parent:
+		nearby_interactables.erase(parent)
+		print("Player3D: Remaining nearby_interactables: ", nearby_interactables.size())

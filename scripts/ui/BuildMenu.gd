@@ -36,9 +36,14 @@ func _input(event: InputEvent):
 
 func toggle_build_menu():
 	visible = not visible
-	
+
 	if visible:
 		refresh_build_items()
+		# Disable camera mouse control when menu opens
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		# Re-enable camera mouse control when menu closes
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func setup_build_items():
 	# UNIFIED SYSTEM: Load buildable items from unified JSON sources
@@ -214,6 +219,8 @@ func clear_selection():
 
 func _on_close_button_pressed():
 	visible = false
+	# Re-enable camera mouse control when menu closes
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 # UNIFIED SYSTEM: Load build data from recipes.json (you were right - recipes create buildings!)
 func load_build_data_from_json():

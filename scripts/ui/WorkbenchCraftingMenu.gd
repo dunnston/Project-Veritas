@@ -12,7 +12,7 @@ class_name WorkbenchCraftingMenu
 @onready var move_button: Button = $CraftingPanel/VBoxContainer/MainContainer/RightPanel/ButtonContainer/MoveButton
 @onready var destroy_button: Button = $CraftingPanel/VBoxContainer/MainContainer/RightPanel/ButtonContainer/DestroyButton
 
-var current_workbench: WorkbenchBuilding = null
+var current_workbench: Node = null  # Can be WorkbenchBuilding or WorkbenchBuilding3D
 var selected_recipe_id: String = ""
 var recipe_buttons: Array[Button] = []
 
@@ -23,11 +23,13 @@ func _ready():
 	visible = false
 	clear_selection()
 
-func open_workbench_menu(workbench: WorkbenchBuilding):
+func open_workbench_menu(workbench: Node):  # Accepts both WorkbenchBuilding and WorkbenchBuilding3D
 	current_workbench = workbench
 	visible = true
 	setup_recipes()
 	clear_selection()
+	# Enable mouse cursor for UI interaction
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func setup_recipes():
 	# Clear existing recipe buttons
@@ -128,6 +130,8 @@ func clear_selection():
 
 func _on_close_button_pressed():
 	visible = false
+	# Restore camera mouse control
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_craft_button_pressed():
 	if not current_workbench or selected_recipe_id.is_empty():
@@ -147,8 +151,12 @@ func _on_move_button_pressed():
 	if current_workbench:
 		current_workbench.move_workbench()
 		visible = false
+		# Restore camera mouse control
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_destroy_button_pressed():
 	if current_workbench:
 		current_workbench.destroy_workbench()
 		visible = false
+		# Restore camera mouse control
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
