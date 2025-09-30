@@ -52,10 +52,10 @@ func _ready() -> void:
 	
 	# Create hotbar
 	create_hotbar()
-	
+
 	# Create message system
 	create_message_system()
-	
+
 	# Debug: Check what UI elements were found
 	if not thirst_bar:
 		print("WARNING: ThirstBar not found in HUD scene")
