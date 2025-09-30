@@ -11,7 +11,7 @@ var attack_timer: float = 0.0
 var is_attacking: bool = false
 var current_attack_cooldown: float = 0.5
 
-@onready var player: AnimatedPlayer = get_parent()
+@onready var player: CharacterBody3D = get_parent()
 @onready var combat_system: Node = get_node_or_null("/root/CombatSystem")
 @onready var weapon_manager: Node = get_node_or_null("/root/WeaponManager")
 @onready var projectile_system: Node = get_node_or_null("/root/ProjectileSystem")
@@ -23,7 +23,7 @@ signal weapon_switched()
 
 func _ready() -> void:
 	if not player:
-		print("ERROR: PlayerCombat must be child of AnimatedPlayer")
+		print("ERROR: PlayerCombat must be child of player (CharacterBody3D)")
 		return
 
 	if weapon_manager:
@@ -112,7 +112,7 @@ func perform_melee_attack() -> void:
 	is_attacking = false
 	attack_finished.emit()
 
-func perform_ranged_attack(_target_pos: Vector2) -> void:
+func perform_ranged_attack(_target_pos: Vector3) -> void:
 	if not can_attack or is_attacking:
 		return
 
@@ -137,8 +137,12 @@ func perform_ranged_attack(_target_pos: Vector2) -> void:
 
 	print("Firing %s (damage: %d, ammo: %d/%d)" % [weapon_data.name, weapon_data.damage, weapon_data.weapon.current_ammo, weapon_data.weapon.magazine_size])
 
-	# Convert screen position to world position
-	var world_target = player.get_global_mouse_position()
+	# Get camera and raycast for target position
+	var camera = get_viewport().get_camera_3d()
+	var mouse_pos = get_viewport().get_mouse_position()
+	var from = camera.project_ray_origin(mouse_pos)
+	var to = from + camera.project_ray_normal(mouse_pos) * 1000.0
+	var world_target = to
 
 	# Create projectile data
 	var projectile_data = {
@@ -203,9 +207,9 @@ func get_current_weapon_data(calculate_crit: bool = false) -> Dictionary:
 	return data
 
 func check_melee_hit(weapon_data: Dictionary) -> bool:
-	var space_state = player.get_world_2d().direct_space_state
+	var space_state = player.get_world_3d().direct_space_state
 	var player_pos = player.global_position
-	var facing_direction = player.get_facing_direction()
+	var facing_direction = -player.global_transform.basis.z  # Forward direction in 3D
 
 	var attack_center = player_pos + (facing_direction * weapon_data.range * 0.5)
 
@@ -237,18 +241,18 @@ func check_melee_hit(weapon_data: Dictionary) -> bool:
 
 	return enemies_hit.size() > 0
 
-func create_hit_effect(pos: Vector2, is_critical: bool = false) -> void:
-	var hit_marker = Label.new()
+func create_hit_effect(pos: Vector3, is_critical: bool = false) -> void:
+	var hit_marker = Label3D.new()
 	hit_marker.text = "CRIT!" if is_critical else "HIT!"
-	hit_marker.add_theme_color_override("font_color", Color.RED if is_critical else Color.YELLOW)
-	hit_marker.add_theme_font_size_override("font_size", 24 if is_critical else 20)
-	hit_marker.position = pos - Vector2(20, 20)
-	hit_marker.z_index = 100
+	hit_marker.modulate = Color.RED if is_critical else Color.YELLOW
+	hit_marker.font_size = 24 if is_critical else 20
+	hit_marker.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	hit_marker.global_position = pos + Vector3(0, 1, 0)
 
 	get_tree().current_scene.add_child(hit_marker)
 
 	var tween = create_tween()
-	tween.tween_property(hit_marker, "position", pos + Vector2(0, -30), 0.5)
+	tween.tween_property(hit_marker, "global_position", pos + Vector3(0, 2, 0), 0.5)
 	tween.parallel().tween_property(hit_marker, "modulate:a", 0.0, 0.5)
 	tween.tween_callback(hit_marker.queue_free)
 
@@ -362,17 +366,17 @@ func is_ui_blocking_input() -> bool:
 	return false
 
 func show_reload_message(message: String) -> void:
-	var reload_label = Label.new()
+	var reload_label = Label3D.new()
 	reload_label.text = message
-	reload_label.add_theme_color_override("font_color", Color.CYAN)
-	reload_label.add_theme_font_size_override("font_size", 28)
-	reload_label.position = player.global_position - Vector2(60, 40)
-	reload_label.z_index = 200
+	reload_label.modulate = Color.CYAN
+	reload_label.font_size = 28
+	reload_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	reload_label.global_position = player.global_position + Vector3(0, 2, 0)
 
 	get_tree().current_scene.add_child(reload_label)
 
 	var tween = create_tween()
-	tween.tween_property(reload_label, "position", reload_label.position + Vector2(0, -50), 1.5)
+	tween.tween_property(reload_label, "global_position", reload_label.global_position + Vector3(0, 1, 0), 1.5)
 	tween.parallel().tween_property(reload_label, "modulate:a", 0.0, 1.5)
 	tween.tween_callback(reload_label.queue_free)
 
