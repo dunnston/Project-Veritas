@@ -45,7 +45,6 @@ InteriorDetectionSystem="*res://scripts/systems/InteriorDetectionSystem.gd"
 RoofVisibilityManager="*res://scripts/systems/RoofVisibilityManager.gd"
 DoorSystem="*res://scripts/systems/DoorSystem.gd"
 EmergencySystem="*res://scripts/systems/EmergencySystem.gd"
-CharacterCreator="*res://scripts/utilities/CharacterCreator.gd"
 DragPreviewManager="*res://scripts/ui/DragPreviewManager.gd"
 
 [input]
