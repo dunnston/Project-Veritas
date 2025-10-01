@@ -260,60 +260,55 @@ func snap_to_grid_3d(pos: Vector3, grid_size: float = 1.0) -> Vector3:
 	)
 
 func snap_wall_to_floor_edge(wall_pos: Vector3, half_grid: float) -> Vector3:
-	# Walls must align their INNER edge with floor edges
-	# For 4m floors: edges at ..., -2, 2, 6, 10...
-	# Wall is 0.2m thick, so we offset by 0.1m (half thickness) outward from floor
-	# Final wall centers: ..., -2.1, 2.1, 6.1, 10.1... (edge + thickness/2 outward)
+	# Wall snapping logic:
+	# - Along wall length: snap to FULL 4m grid (to align corners with floors)
+	# - Perpendicular to wall: snap to EDGE positions (2m offset from floor center)
+	# - Then offset perpendicular by wall thickness/2 outward
 
 	var full_grid = half_grid * 2.0  # 4m
 	var wall_thickness = 0.2
 	var wall_half_thickness = wall_thickness / 2.0  # 0.1m
 
-	# Snap to nearest 2m position first
-	var x_grid = round(wall_pos.x / half_grid) * half_grid
-	var z_grid = round(wall_pos.z / half_grid) * half_grid
-
-	# Force to edge positions (odd multiples of 2m)
-	# If at a center position (0, 4, 8...), shift by 2m to nearest edge
-	var x_floor_index = round(x_grid / full_grid)
-	var x_at_center = abs(x_grid - (x_floor_index * full_grid)) < 0.1
-	if x_at_center:
-		# At center, move to nearest edge (±2m)
-		if wall_pos.x > x_grid:
-			x_grid += half_grid
-		else:
-			x_grid -= half_grid
-
-	var z_floor_index = round(z_grid / full_grid)
-	var z_at_center = abs(z_grid - (z_floor_index * full_grid)) < 0.1
-	if z_at_center:
-		if wall_pos.z > z_grid:
-			z_grid += half_grid
-		else:
-			z_grid -= half_grid
-
-	# Determine wall orientation and shift outward by half wall thickness
+	# Determine wall orientation
 	var rotation_y = rotation_degrees.y
 	var normalized_rotation = fmod(rotation_y + 360.0, 360.0)
 	var runs_along_x = abs(normalized_rotation) < 45.0 or abs(normalized_rotation - 180.0) < 45.0
 
-	if runs_along_x:
-		# Wall runs along X axis, offset Z outward from floor edge
-		# Determine which side of floor center we're on
-		var nearest_floor_z = round(z_grid / full_grid) * full_grid
-		if z_grid > nearest_floor_z:
-			z_grid += wall_half_thickness  # Shift outward (positive)
-		else:
-			z_grid -= wall_half_thickness  # Shift outward (negative)
-	else:
-		# Wall runs along Z axis, offset X outward from floor edge
-		var nearest_floor_x = round(x_grid / full_grid) * full_grid
-		if x_grid > nearest_floor_x:
-			x_grid += wall_half_thickness  # Shift outward (positive)
-		else:
-			x_grid -= wall_half_thickness  # Shift outward (negative)
+	var x_snapped: float
+	var z_snapped: float
 
-	return Vector3(x_grid, wall_pos.y, z_grid)
+	if runs_along_x:
+		# Wall runs along X axis (4m wide wall extends in X direction)
+		# X: Snap to full 4m grid for corner alignment
+		x_snapped = round(wall_pos.x / full_grid) * full_grid
+
+		# Z: Snap to floor edge (odd multiples of 2m)
+		z_snapped = round(wall_pos.z / half_grid) * half_grid
+		var z_at_center = abs(z_snapped - round(z_snapped / full_grid) * full_grid) < 0.1
+		if z_at_center:
+			# At floor center, shift to nearest edge
+			z_snapped += half_grid if wall_pos.z > z_snapped else -half_grid
+
+		# Offset Z by wall thickness outward from floor
+		var nearest_floor_z = round(z_snapped / full_grid) * full_grid
+		z_snapped += wall_half_thickness if z_snapped > nearest_floor_z else -wall_half_thickness
+	else:
+		# Wall runs along Z axis (4m wide wall extends in Z direction)
+		# Z: Snap to full 4m grid for corner alignment
+		z_snapped = round(wall_pos.z / full_grid) * full_grid
+
+		# X: Snap to floor edge (odd multiples of 2m)
+		x_snapped = round(wall_pos.x / half_grid) * half_grid
+		var x_at_center = abs(x_snapped - round(x_snapped / full_grid) * full_grid) < 0.1
+		if x_at_center:
+			# At floor center, shift to nearest edge
+			x_snapped += half_grid if wall_pos.x > x_snapped else -half_grid
+
+		# Offset X by wall thickness outward from floor
+		var nearest_floor_x = round(x_snapped / full_grid) * full_grid
+		x_snapped += wall_half_thickness if x_snapped > nearest_floor_x else -wall_half_thickness
+
+	return Vector3(x_snapped, wall_pos.y, z_snapped)
 
 func rotate_building():
 	rotation_degrees.y += 90
