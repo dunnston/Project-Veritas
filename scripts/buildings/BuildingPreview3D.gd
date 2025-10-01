@@ -113,15 +113,17 @@ func update_position(world_pos: Vector3):
 			print("DEBUG Floor: ground_y=%.3f, mesh_height=%.3f, final_y=%.3f (bottom at %.3f, top at %.3f)" %
 				[ground_y, mesh_height, grid_pos.y, grid_pos.y - mesh_height * 0.5, grid_pos.y + mesh_height * 0.5])
 		elif building_id.contains("roof"):
-			# Roofs: Check for walls below and snap to their top
+			# Roofs: MUST have walls below to be placeable
 			var wall_height = detect_wall_height_at_position(grid_pos)
 			if wall_height > 0:
 				# Found wall, place roof on top (wall top + half roof thickness)
 				grid_pos.y = wall_height + (mesh_height * 0.5)
 				print("DEBUG Roof: Snapping to wall top at %.3f, roof center at %.3f" % [wall_height, grid_pos.y])
 			else:
-				# No wall, place on ground
-				grid_pos.y = ground_y + (mesh_height * 0.5) + 0.01
+				# No wall found - roof cannot be placed here
+				# Set to a very high invalid position so collision check will fail
+				grid_pos.y = 9999.0
+				print("DEBUG Roof: No wall found - invalid placement")
 		else:
 			# Walls, doors, etc.: offset by half height with standard clearance
 			grid_pos.y = ground_y + (mesh_height * 0.5) + ground_clearance
@@ -135,6 +137,10 @@ func update_position(world_pos: Vector3):
 	# Wait one physics frame for collision updates
 	await get_tree().physics_frame
 	recheck_validity()
+
+	# Special case: Roofs without walls are always invalid
+	if building_id.contains("roof") and grid_pos.y > 9000:
+		set_validity(false)
 
 func recheck_validity():
 	# Let the physics engine update and re-detect overlaps
@@ -248,6 +254,7 @@ func detect_wall_height_at_position(position: Vector3) -> float:
 	# Check for walls at this grid position
 	# Walls are 3m tall, so check if there's a building node that's wall-like
 	var buildings = get_tree().get_nodes_in_group("building")
+	var highest_wall_top = 0.0
 
 	for building in buildings:
 		if not building is Node3D:
@@ -262,12 +269,21 @@ func detect_wall_height_at_position(position: Vector3) -> float:
 		var distance_xz = Vector2(position.x - building_pos.x, position.z - building_pos.z).length()
 
 		# If within 2m (half grid), consider it as "at this position"
-		if distance_xz < 2.0:
-			# Wall is 3m tall, so top is at position.y + 1.5m (half height from center)
-			# Walls are centered at ground + 1.5m, so top is at ground + 3m
-			return building_pos.y + 1.5  # Wall center + half wall height
+		if distance_xz < 2.5:
+			# Get the actual wall mesh size if possible
+			var wall_height = 3.0  # Default wall height
+			var mesh_instance = building.get_node_or_null("MeshInstance3D")
+			if mesh_instance and mesh_instance.mesh and mesh_instance.mesh is BoxMesh:
+				wall_height = (mesh_instance.mesh as BoxMesh).size.y
 
-	return 0.0  # No wall found
+			# Wall top = wall center Y + half wall height
+			var wall_top = building_pos.y + (wall_height * 0.5)
+			highest_wall_top = max(highest_wall_top, wall_top)
+
+			print("DEBUG: Found wall at XZ distance %.2f, center Y=%.3f, height=%.1f, top=%.3f" %
+				[distance_xz, building_pos.y, wall_height, wall_top])
+
+	return highest_wall_top
 
 func _is_ground_like(body: Node3D) -> bool:
 	# Check if this body is ground-like (large, flat)
