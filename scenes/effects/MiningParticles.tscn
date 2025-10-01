@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpx8vqy6m3nno"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+transparency = 1
+albedo_color = Color(0.8, 0.7, 0.5, 1)
+emission_enabled = true
+emission = Color(1, 0.9, 0.7, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_1"]
+size = Vector2(0.1, 0.1)
+
+[node name="MiningParticles" type="GPUParticles3D"]
+amount = 20
+lifetime = 0.5
+explosiveness = 0.3
+randomness = 0.5
+visibility_aabb = AABB(-2, -2, -2, 4, 4, 4)
+local_coords = true
+draw_order = 1
+process_material = SubResource("StandardMaterial3D_1")
+draw_passes = 1
+draw_pass_1 = SubResource("QuadMesh_1")
+
+[node name="Timer" type="Timer"]
+wait_time = 0.5
+one_shot = true
+autostart = true

@@ -238,6 +238,8 @@
 			"icon": "basic_axe",
 			"name": "Basic Axe",
 			"slot": "TOOL",
+			"tool_type": "Axe",
+			"tool_level": 1,
 			"stats": {
 				"mining_speed": 1.0,
 				"wood_efficiency": 1.0
@@ -257,8 +259,10 @@
 			"description": "Reinforced steel axe that cuts faster and lasts longer",
 			"durability": 200,
 			"icon": "steel_axe",
-			"name": "Steel Axe", 
+			"name": "Steel Axe",
 			"slot": "TOOL",
+			"tool_type": "Axe",
+			"tool_level": 2,
 			"stats": {
 				"mining_speed": 1.5,
 				"wood_efficiency": 1.3
@@ -280,7 +284,9 @@
 			"durability": 300,
 			"icon": "advanced_axe",
 			"name": "Advanced Axe",
-			"slot": "TOOL", 
+			"slot": "TOOL",
+			"tool_type": "Axe",
+			"tool_level": 3,
 			"stats": {
 				"mining_speed": 2.0,
 				"wood_efficiency": 1.6
@@ -296,11 +302,13 @@
 				},
 				"requires_building": "workbench"
 			},
-			"description": "Basic pickaxe for mining stone and extracting materials from rocks", 
+			"description": "Basic pickaxe for mining stone and extracting materials from rocks",
 			"durability": 80,
 			"icon": "basic_pickaxe",
 			"name": "Basic Pickaxe",
 			"slot": "TOOL",
+			"tool_type": "Pickaxe",
+			"tool_level": 1,
 			"stats": {
 				"mining_speed": 1.0,
 				"stone_efficiency": 1.0
@@ -322,19 +330,21 @@
 			"icon": "steel_pickaxe",
 			"name": "Steel Pickaxe",
 			"slot": "TOOL",
+			"tool_type": "Pickaxe",
+			"tool_level": 2,
 			"stats": {
 				"mining_speed": 1.4,
 				"stone_efficiency": 1.2,
 				"metal_find_chance": 0.05
 			},
-			"tier": 2.0  
+			"tier": 2.0
 		},
 		"ADVANCED_PICKAXE": {
 			"crafting_recipe": {
 				"craft_time": 35.0,
 				"ingredients": {
 					"WOOD": 3.0,
-					"STEEL_SHEET": 4.0, 
+					"STEEL_SHEET": 4.0,
 					"METAL_SCRAPS": 3.0,
 					"GEARS": 2.0
 				},
@@ -342,9 +352,11 @@
 			},
 			"description": "State-of-the-art mining tool with superior efficiency and material detection",
 			"durability": 250,
-			"icon": "advanced_pickaxe", 
+			"icon": "advanced_pickaxe",
 			"name": "Advanced Pickaxe",
 			"slot": "TOOL",
+			"tool_type": "Pickaxe",
+			"tool_level": 3,
 			"stats": {
 				"mining_speed": 1.8,
 				"stone_efficiency": 1.5,
