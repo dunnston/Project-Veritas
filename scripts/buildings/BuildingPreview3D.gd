@@ -1,8 +1,8 @@
 extends Node3D
 class_name BuildingPreview3D
 
-@onready var mesh_instance: MeshInstance3D = null
-@onready var collision_area: Area3D = null
+var mesh_instance: MeshInstance3D = null
+var collision_area: Area3D = null
 
 var building_id: String = ""
 var can_place: bool = false
@@ -94,9 +94,19 @@ func update_position(world_pos: Vector3):
 
 	# Get mesh size for calculations
 	var mesh_height = 1.0
+	print("DEBUG: mesh_instance exists: ", mesh_instance != null)
+	if mesh_instance:
+		print("DEBUG: mesh_instance.mesh exists: ", mesh_instance.mesh != null)
+		if mesh_instance.mesh:
+			print("DEBUG: mesh type: ", mesh_instance.mesh.get_class())
+			print("DEBUG: is BoxMesh: ", mesh_instance.mesh is BoxMesh)
+
 	if mesh_instance and mesh_instance.mesh and mesh_instance.mesh is BoxMesh:
 		var box_mesh = mesh_instance.mesh as BoxMesh
 		mesh_height = box_mesh.size.y
+		print("DEBUG: Detected mesh size: ", box_mesh.size)
+	else:
+		print("DEBUG: No mesh or not BoxMesh - using default height 1.0")
 
 	# Perform downward raycast to find the actual ground below this position
 	var ground_y = find_ground_below(grid_pos)
@@ -118,19 +128,23 @@ func update_position(world_pos: Vector3):
 			var wall_height = detect_wall_height_at_position(grid_pos)
 			if wall_height > 0:
 				# Found wall - wall_height is already the TOP of the wall
-				# Place roof slightly overlapping wall top to hide any seams/gaps
-				# Overlap by 0.01m (1cm) to ensure no visible gap
-				grid_pos.y = wall_height + (mesh_height * 0.5) - 0.01
+				# Place roof with minimal overlap to prevent z-fighting
+				# Overlap by 0.01m (1cm) for clean connection
+				var overlap = 0.01
+				grid_pos.y = wall_height + (mesh_height * 0.5) - overlap
 				var roof_bottom = grid_pos.y - (mesh_height * 0.5)
-				print("Roof placement: wall_top=%.3f, roof_center=%.3f, roof_bottom=%.3f (overlap=%.3f)" %
+				print("Roof placement: wall_top=%.3f, roof_center=%.3f, roof_bottom=%.3f (overlap=%.3fm)" %
 					[wall_height, grid_pos.y, roof_bottom, wall_height - roof_bottom])
 			else:
 				# No wall found - show roof at ground level but mark as invalid
 				# This keeps the preview visible so player can see where they're trying to place
 				grid_pos.y = ground_y + 2.0  # Show at reasonable height for visibility
 		else:
-			# Walls, doors, etc.: offset by half height with standard clearance
-			grid_pos.y = ground_y + (mesh_height * 0.5) + ground_clearance
+			# Walls, doors, etc.: Place bottom flush with ground, just like floors
+			# Center = ground_y + half_height (no clearance - we want flush placement)
+			grid_pos.y = ground_y + (mesh_height * 0.5)
+			print("DEBUG Wall: ground_y=%.3f, mesh_height=%.3f, final_y=%.3f (bottom at %.3f, top at %.3f)" %
+				[ground_y, mesh_height, grid_pos.y, grid_pos.y - mesh_height * 0.5, grid_pos.y + mesh_height * 0.5])
 	else:
 		# No ground found - use the original Y position from mouse raycast
 		grid_pos.y = world_pos.y + (mesh_height * 0.5) + ground_clearance
@@ -264,6 +278,8 @@ func find_ground_below(position: Vector3) -> Variant:
 
 	if result:
 		# Return the Y coordinate where we hit
+		print("DEBUG find_ground_below: hit '%s' at Y=%.3f (ray from %.3f to %.3f)" %
+			[result.collider.name if result.collider else "unknown", result.position.y, ray_start.y, ray_end.y])
 		return result.position.y
 
 	# No ground found
@@ -327,11 +343,9 @@ func snap_wall_to_floor_edge(wall_pos: Vector3, half_grid: float) -> Vector3:
 	# Wall snapping logic:
 	# - Along wall length: snap to FULL 4m grid (to align corners with floors)
 	# - Perpendicular to wall: snap to EDGE positions (2m offset from floor center)
-	# - Then offset perpendicular by wall thickness/2 outward
+	# - Wall center placed exactly at edge, so inner edge aligns with floor edge
 
 	var full_grid = half_grid * 2.0  # 4m
-	var wall_thickness = 0.2
-	var wall_half_thickness = wall_thickness / 2.0  # 0.1m
 
 	# Determine wall orientation
 	var rotation_y = rotation_degrees.y
@@ -352,10 +366,6 @@ func snap_wall_to_floor_edge(wall_pos: Vector3, half_grid: float) -> Vector3:
 		if z_at_center:
 			# At floor center, shift to nearest edge
 			z_snapped += half_grid if wall_pos.z > z_snapped else -half_grid
-
-		# Offset Z by wall thickness outward from floor
-		var nearest_floor_z = round(z_snapped / full_grid) * full_grid
-		z_snapped += wall_half_thickness if z_snapped > nearest_floor_z else -wall_half_thickness
 	else:
 		# Wall runs along Z axis (4m wide wall extends in Z direction)
 		# Z: Snap to full 4m grid for corner alignment
@@ -367,10 +377,6 @@ func snap_wall_to_floor_edge(wall_pos: Vector3, half_grid: float) -> Vector3:
 		if x_at_center:
 			# At floor center, shift to nearest edge
 			x_snapped += half_grid if wall_pos.x > x_snapped else -half_grid
-
-		# Offset X by wall thickness outward from floor
-		var nearest_floor_x = round(x_snapped / full_grid) * full_grid
-		x_snapped += wall_half_thickness if x_snapped > nearest_floor_x else -wall_half_thickness
 
 	return Vector3(x_snapped, wall_pos.y, z_snapped)
 
@@ -465,16 +471,34 @@ func _on_area_exited(area: Area3D):
 		check_placement_validity()
 
 func check_placement_validity():
-	# Can't place if overlapping with any bodies
-	var is_valid = overlapping_bodies.is_empty()
+	# Allow placement if only overlapping with other buildings (for connecting pieces)
+	# Only block if overlapping with non-building obstacles
+	var has_blocking_overlap = false
+	for body in overlapping_bodies:
+		# Buildings can overlap/connect with each other
+		if body.is_in_group("building"):
+			continue
+		# Everything else blocks placement
+		has_blocking_overlap = true
+		break
+
+	var is_valid = not has_blocking_overlap
 	set_validity(is_valid)
 
 func can_place_here() -> bool:
-	var result = can_place and overlapping_bodies.is_empty()
+	# Check if there are any blocking overlaps (non-building obstacles)
+	var has_blocking_overlap = false
+	for body in overlapping_bodies:
+		if not body.is_in_group("building"):
+			has_blocking_overlap = true
+			break
+
+	var result = can_place and not has_blocking_overlap
 	if not result:
-		print("Cannot place: can_place=%s, overlapping_bodies.size=%d" % [can_place, overlapping_bodies.size()])
-		if not overlapping_bodies.is_empty():
-			print("Overlapping with:")
+		print("Cannot place: can_place=%s, has_blocking_overlap=%s" % [can_place, has_blocking_overlap])
+		if has_blocking_overlap:
+			print("Blocked by non-building obstacles:")
 			for body in overlapping_bodies:
-				print("  - %s (type: %s)" % [body.name, body.get_class()])
+				if not body.is_in_group("building"):
+					print("  - %s (type: %s)" % [body.name, body.get_class()])
 	return result
