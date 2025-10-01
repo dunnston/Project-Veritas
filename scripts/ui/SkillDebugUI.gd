@@ -10,21 +10,25 @@ var skill_labels: Dictionary = {}
 var is_visible_debug: bool = false
 
 func _ready() -> void:
-	# SkillDebugUI initializing  
+	# SkillDebugUI initializing
 	visible = false
-	
+
+	# Add to groups so PlayerCombat can detect this UI
+	add_to_group("skill_debug_ui")
+	add_to_group("debug_ui")
+
 	setup_skill_display()
 	setup_test_buttons()
 	_init_storm_testing()
 	_init_stealth_testing()
 	setup_rapid_controls()
-	
+
 	# Connect to skill system signals
 	if has_node("/root/SkillSystem"):
 		var skill_system = get_node("/root/SkillSystem")
 		skill_system.skill_xp_gained.connect(_on_xp_gained)
 		skill_system.skill_level_up.connect(_on_level_up)
-	
+
 	refresh_display()
 	# SkillDebugUI initialization complete
 

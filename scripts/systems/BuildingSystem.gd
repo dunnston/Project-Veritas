@@ -39,29 +39,29 @@ var building_data: Dictionary = {
 		"collision_shape": Vector3(1, 1, 1),
 		"icon_path": "res://assets/sprites/items/Chest.png"
 	},
-	# Shelter Building Components (3D)
+	# Shelter Building Components (3D) - 4m grid system
 	"basic_wall": {
 		"name": "Basic Wall",
-		"size": Vector3(1, 3, 0.2),
-		"collision_shape": Vector3(1, 3, 0.2),
+		"size": Vector3(4, 3, 0.2),  # 4m wide, 3m tall, 20cm thick
+		"collision_shape": Vector3(4, 3, 0.2),
 		"icon_path": ""
 	},
 	"basic_floor": {
 		"name": "Basic Floor",
-		"size": Vector3(1, 0.1, 1),
-		"collision_shape": Vector3(1, 0.1, 1),
+		"size": Vector3(4, 0.1, 4),  # 4m x 4m floor tile
+		"collision_shape": Vector3(4, 0.1, 4),
 		"icon_path": ""
 	},
 	"basic_roof": {
 		"name": "Basic Roof",
-		"size": Vector3(1, 0.1, 1),
-		"collision_shape": Vector3(1, 0.1, 1),
+		"size": Vector3(4, 0.1, 4),  # 4m x 4m roof tile
+		"collision_shape": Vector3(4, 0.1, 4),
 		"icon_path": ""
 	},
 	"door": {
 		"name": "Door",
-		"size": Vector3(1, 2, 0.2),
-		"collision_shape": Vector3(1, 2, 0.2),
+		"size": Vector3(1.2, 2.4, 0.2),  # Standard door size (1.2m wide x 2.4m tall)
+		"collision_shape": Vector3(1.2, 2.4, 0.2),
 		"icon_path": ""
 	},
 	"reinforced_wall": {
@@ -149,8 +149,9 @@ func _input(event: InputEvent):
 			get_viewport().set_input_as_handled()
 
 	elif event is InputEventKey and event.pressed:
-		if event.keycode == KEY_ESCAPE:
+		if event.keycode == KEY_ESCAPE or event.keycode == KEY_C:
 			cancel_building()
+			get_viewport().set_input_as_handled()
 
 func _process(_delta):
 	if is_building_mode and building_preview and camera:
@@ -370,11 +371,8 @@ func place_building(pos: Vector3):
 		placed_building.add_to_group("building")
 
 	# Position and add to scene
-	var grid_pos = snap_to_grid_3d(pos)
-
-	# The preview already has the correct height adjustment, so use it directly
-	# Don't add another height offset here
-	placed_building.global_position = grid_pos
+	# Use the preview's position directly - it already has correct height adjustment for floors/walls
+	placed_building.global_position = pos
 	placed_building.rotation_degrees = Vector3(0, building_rotation, 0)
 	placed_building.name = current_building_id + "_" + str(Time.get_unix_time_from_system())
 
@@ -391,7 +389,7 @@ func place_building(pos: Vector3):
 	if placed_building.has_method("set_physics_process"):
 		placed_building.set_physics_process(true)
 
-	print("Placed building at position: ", grid_pos)
+	print("Placed building at position: ", pos)
 	print("Building name: ", placed_building.name)
 	print("Building type: ", placed_building.get_class())
 	if placed_building.has_method("interact"):
@@ -405,10 +403,10 @@ func place_building(pos: Vector3):
 		print("WARNING: Building is not in interactable group!")
 
 	# Track placed building
-	var pos_key = grid_pos_to_key(grid_pos)
+	var pos_key = grid_pos_to_key(pos)
 	placed_buildings[pos_key] = {
 		"id": current_building_id,
-		"position": grid_pos,
+		"position": pos,
 		"rotation": building_rotation,
 		"node": placed_building
 	}
@@ -424,8 +422,8 @@ func place_building(pos: Vector3):
 		building_to_move = null
 
 	# Emit signal
-	building_placed.emit(current_building_id, grid_pos)
-	print("Placed 3D building %s at %s" % [current_building_id, grid_pos])
+	building_placed.emit(current_building_id, pos)
+	print("Placed 3D building %s at %s" % [current_building_id, pos])
 
 	# Exit building mode
 	finish_building_mode()
@@ -453,7 +451,7 @@ func finish_building_mode():
 	print("Restored mouse capture for camera control")
 
 # 3D Grid functions
-func snap_to_grid_3d(pos: Vector3, grid_size: float = 1.0) -> Vector3:
+func snap_to_grid_3d(pos: Vector3, grid_size: float = 4.0) -> Vector3:
 	return Vector3(
 		round(pos.x / grid_size) * grid_size,
 		pos.y,  # Keep original Y position from raycast

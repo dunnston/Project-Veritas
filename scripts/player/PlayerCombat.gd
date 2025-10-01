@@ -380,6 +380,11 @@ func get_ammo_ids_of_type(ammo_type: String) -> Array[String]:
 	return result
 
 func is_ui_blocking_input() -> bool:
+	# Check if building mode is active
+	var building_system = get_node_or_null("/root/BuildingSystem")
+	if building_system and building_system.is_building_mode:
+		return true
+
 	# Check if any UI that should block combat input is open
 	var inventory_ui = get_tree().get_first_node_in_group("inventory_ui")
 	if inventory_ui and inventory_ui.visible:
@@ -392,6 +397,12 @@ func is_ui_blocking_input() -> bool:
 	var crafting_menu = get_tree().get_first_node_in_group("crafting_menu")
 	if crafting_menu and crafting_menu.visible:
 		return true
+
+	# Check for debug UIs (dev menu, skill debug panel, etc.)
+	var debug_uis = get_tree().get_nodes_in_group("debug_ui")
+	for debug_ui in debug_uis:
+		if debug_ui is Control and debug_ui.visible:
+			return true
 
 	# Check if any popups are active (like ammo selection)
 	# Check all nodes in the weapon_ui group for active popups

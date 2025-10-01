@@ -9,6 +9,11 @@ var all_items: Dictionary = {}
 
 func _ready():
 	visible = false
+
+	# Add to groups so PlayerCombat can detect this UI
+	add_to_group("dev_menu")
+	add_to_group("debug_ui")
+
 	load_all_items()
 	create_item_buttons()
 

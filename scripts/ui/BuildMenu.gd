@@ -21,18 +21,23 @@ static var instance: BuildMenu
 
 func _ready() -> void:
 	instance = self
-	
+
+	# Add to build_menu group so PlayerCombat can detect it
+	add_to_group("build_menu")
+
 	# Get building system reference
 	building_system = get_node("/root/BuildingSystem") if get_node_or_null("/root/BuildingSystem") else null
-	
+
 	# Setup initial state
 	visible = false
 	setup_build_items()
 	clear_selection()
 
 func _input(event: InputEvent):
+	# Only handle build_mode toggle when menu is not visible or when clicking outside the panel
 	if event.is_action_pressed("build_mode"):
 		toggle_build_menu()
+		get_viewport().set_input_as_handled()
 
 func toggle_build_menu():
 	visible = not visible
@@ -41,6 +46,8 @@ func toggle_build_menu():
 		refresh_build_items()
 		# Disable camera mouse control when menu opens
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		# Ensure the menu can receive mouse input
+		mouse_filter = Control.MOUSE_FILTER_STOP
 	else:
 		# Re-enable camera mouse control when menu closes
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -100,7 +107,9 @@ func create_build_item_button(item_id: String, item_data: Dictionary) -> Button:
 	var button = Button.new()
 	button.custom_minimum_size = Vector2(80, 80)
 	button.name = "BuildItem_" + item_id
-	
+	button.mouse_filter = Control.MOUSE_FILTER_STOP  # Ensure button receives clicks
+	button.focus_mode = Control.FOCUS_ALL  # Allow button to receive focus
+
 	# Set icon if available
 	var icon_path = item_data.get("icon_path", "")
 	if not icon_path.is_empty() and ResourceLoader.exists(icon_path):
@@ -109,10 +118,10 @@ func create_build_item_button(item_id: String, item_data: Dictionary) -> Button:
 		button.expand_icon = true
 	else:
 		button.text = item_data.get("name", item_id)
-	
+
 	# Connect button signal
 	button.pressed.connect(_on_build_item_selected.bind(item_id, item_data))
-	
+
 	return button
 
 func _on_build_item_selected(item_id: String, item_data: Dictionary):
