@@ -35,6 +35,7 @@ var next_spawn_time: float = 0.0
 
 func _ready() -> void:
 	_set_next_spawn_time()
+	_ready_debug()
 
 func _process(delta: float) -> void:
 	# Clean up dead/freed entities
@@ -121,10 +122,29 @@ func _get_random_spawn_position() -> Vector3:
 func _set_next_spawn_time() -> void:
 	next_spawn_time = randf_range(spawn_frequency_min, spawn_frequency_max)
 
-## Debug visualization
-func _draw_debug() -> void:
+## Debug visualization using ImmediateMesh
+var debug_mesh: ImmediateMesh
+var debug_mesh_instance: MeshInstance3D
+
+func _ready_debug() -> void:
 	if not debug_draw:
 		return
+
+	# Create debug mesh for visualization
+	debug_mesh = ImmediateMesh.new()
+	debug_mesh_instance = MeshInstance3D.new()
+	debug_mesh_instance.mesh = debug_mesh
+	debug_mesh_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	add_child(debug_mesh_instance)
+
+	_update_debug_mesh()
+
+func _update_debug_mesh() -> void:
+	if not debug_draw or not debug_mesh:
+		return
+
+	debug_mesh.clear_surfaces()
+	debug_mesh.surface_begin(Mesh.PRIMITIVE_LINES)
 
 	# Draw spawn radius circle
 	var steps = 32
@@ -132,22 +152,23 @@ func _draw_debug() -> void:
 		var angle1 = (float(i) / steps) * TAU
 		var angle2 = (float(i + 1) / steps) * TAU
 
-		var p1 = global_position + Vector3(cos(angle1) * spawn_radius, 0.1, sin(angle1) * spawn_radius)
-		var p2 = global_position + Vector3(cos(angle2) * spawn_radius, 0.1, sin(angle2) * spawn_radius)
+		var p1 = Vector3(cos(angle1) * spawn_radius, 0.1, sin(angle1) * spawn_radius)
+		var p2 = Vector3(cos(angle2) * spawn_radius, 0.1, sin(angle2) * spawn_radius)
 
-		DebugDraw3D.draw_line_3d(p1, p2, debug_color)
+		debug_mesh.surface_set_color(debug_color)
+		debug_mesh.surface_add_vertex(p1)
+		debug_mesh.surface_add_vertex(p2)
 
 	# Draw min radius
 	for i in range(steps):
 		var angle1 = (float(i) / steps) * TAU
 		var angle2 = (float(i + 1) / steps) * TAU
 
-		var p1 = global_position + Vector3(cos(angle1) * min_spawn_distance, 0.1, sin(angle1) * min_spawn_distance)
-		var p2 = global_position + Vector3(cos(angle2) * min_spawn_distance, 0.1, sin(angle2) * min_spawn_distance)
+		var p1 = Vector3(cos(angle1) * min_spawn_distance, 0.1, sin(angle1) * min_spawn_distance)
+		var p2 = Vector3(cos(angle2) * min_spawn_distance, 0.1, sin(angle2) * min_spawn_distance)
 
-		DebugDraw3D.draw_line_3d(p1, p2, Color(1, 0, 0, 0.3))
+		debug_mesh.surface_set_color(Color(1, 0, 0, 0.3))
+		debug_mesh.surface_add_vertex(p1)
+		debug_mesh.surface_add_vertex(p2)
 
-func _physics_process(_delta: float) -> void:
-	if Engine.is_editor_hint():
-		return
-	_draw_debug()
+	debug_mesh.surface_end()
