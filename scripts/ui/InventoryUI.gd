@@ -226,11 +226,16 @@ func _ready() -> void:
 	# Initialize UI slots
 	setup_inventory_slots()
 	setup_equipment_slots()
-	
+
 	# Start hidden
 	visible = false
+	print("InventoryUI: _ready() complete - set visible = false")
 
 func _input(event: InputEvent):
+	# Debug: Log if inventory receives mouse clicks when it shouldn't
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		print("InventoryUI: Left mouse received in _input - visible=%s" % visible)
+
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_SLASH:
 			# Debug: Load equipment items (/)
@@ -239,9 +244,8 @@ func _input(event: InputEvent):
 			# Debug: Show inventory contents (\)
 			debug_show_inventory_contents()
 
-	# Handle inventory toggle
-	if Input.is_action_just_pressed("toggle_inventory"):
-		toggle_inventory()
+	# NOTE: Inventory toggle is handled by player controller (PlayerAnimated3D)
+	# Don't handle it here to avoid duplicate input processing
 
 func setup_inventory_slots():
 	# Clear existing slots
@@ -320,6 +324,7 @@ func setup_equipment_slots():
 
 func toggle_inventory():
 	visible = not visible
+	print("InventoryUI: toggle_inventory() called - visible is now: %s" % visible)
 
 	if visible:
 		# Release mouse for UI interaction
@@ -388,15 +393,18 @@ func _on_close_button_pressed():
 	GameManager.change_state(GameManager.GameState.IN_GAME)
 
 func _on_game_state_changed(new_state: GameManager.GameState):
+	print("InventoryUI: _on_game_state_changed() called with state: %s" % new_state)
 	# Show/hide inventory based on game state
 	if new_state == GameManager.GameState.INVENTORY:
 		visible = true
+		print("InventoryUI: Set visible = true due to INVENTORY state")
 		# Release mouse for UI interaction
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		# Refresh inventory display when opened
 		_on_inventory_changed()
 	else:
 		visible = false
+		print("InventoryUI: Set visible = false due to state: %s" % new_state)
 		# Recapture mouse for gameplay
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 

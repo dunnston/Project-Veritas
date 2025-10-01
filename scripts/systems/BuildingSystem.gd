@@ -115,14 +115,20 @@ func _connect_to_build_menu():
 			print("3D BuildingSystem connected to BuildMenu")
 
 func _input(event: InputEvent):
+	# Debug: Log all mouse button events
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		print("BuildingSystem: Left mouse clicked - is_building_mode=%s, is_demolition_mode=%s" % [is_building_mode, is_demolition_mode])
+
 	# Debug: Add resources with L key
 	if event is InputEventKey and event.pressed and event.keycode == KEY_L:
 		add_debug_resources()
+		get_viewport().set_input_as_handled()
 		return
 
 	# Demolition mode toggle with X key
 	if event is InputEventKey and event.pressed and event.keycode == KEY_X:
 		toggle_demolition_mode()
+		get_viewport().set_input_as_handled()
 		return
 
 	# Handle demolition mode
@@ -130,9 +136,11 @@ func _input(event: InputEvent):
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 				demolish_building_at_mouse()
+				get_viewport().set_input_as_handled()
 		elif event is InputEventKey and event.pressed:
 			if event.keycode == KEY_ESCAPE:
 				exit_demolition_mode()
+				get_viewport().set_input_as_handled()
 		return
 
 	# Handle door interactions when not in building mode
@@ -140,11 +148,14 @@ func _input(event: InputEvent):
 		handle_door_input(event)
 		return
 
+	# Only handle building placement when in building mode
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			attempt_place_building()
+			get_viewport().set_input_as_handled()
 		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 			rotate_building()
+			get_viewport().set_input_as_handled()
 
 	elif event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:

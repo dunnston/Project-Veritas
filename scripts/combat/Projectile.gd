@@ -141,8 +141,9 @@ func _handle_collision_deferred(body: Node) -> void:
 	# Try to check groups, but fail safely
 	if body.has_method("is_in_group"):
 		var is_enemy = body.is_in_group("enemies")
+		var is_animal = body.is_in_group("animals")
 		var is_player = body.is_in_group("player")
-		is_enemy_or_player = is_enemy or is_player
+		is_enemy_or_player = is_enemy or is_animal or is_player
 
 		# Basic friendly fire check - enemies don't damage enemies
 		if shooter and shooter.has_method("is_in_group"):

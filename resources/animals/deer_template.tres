@@ -31,4 +31,4 @@ flee_range = 15.0
 attack_range = 1.5
 attack_damage = 8.0
 attack_cooldown = 1.2
-loot_drops = Array[Resource]([SubResource("Resource_deer_meat"), SubResource("Resource_deer_hide")])
+loot_drops = Array[ExtResource("3_deer_drop")]([SubResource("Resource_deer_meat"), SubResource("Resource_deer_hide")])

@@ -15,6 +15,7 @@ var current_attack_cooldown: float = 0.5
 @onready var combat_system: Node = get_node_or_null("/root/CombatSystem")
 @onready var weapon_manager: Node = get_node_or_null("/root/WeaponManager")
 @onready var projectile_system: Node = get_node_or_null("/root/ProjectileSystem")
+@onready var character_model: Node3D = player.get_node_or_null("CharacterModel")
 
 signal attack_started()
 signal attack_finished()
@@ -31,6 +32,12 @@ func _ready() -> void:
 
 	print("Player combat system initialized")
 
+func _apply_visual_flash(color: Color, duration: float = 0.2) -> void:
+	"""Visual flash effect - disabled due to character model complexity"""
+	# TODO: Implement proper visual feedback with particles or shader effects
+	# Character model has armature/skeleton and doesn't support simple modulate
+	pass
+
 func _process(delta: float) -> void:
 	if not can_attack:
 		attack_timer -= delta
@@ -38,10 +45,14 @@ func _process(delta: float) -> void:
 			can_attack = true
 			attack_timer = 0.0
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
+	# Debug: Check if we receive input at all
+	if event.is_action_pressed("attack"):
+		print("PlayerCombat: Attack input received - can_attack=%s, is_attacking=%s" % [can_attack, is_attacking])
+
 	# Don't allow attacks when UI is open
 	if is_ui_blocking_input():
-		print("PlayerCombat: Blocking input due to UI")
+		# Don't print spam, UI blocking is expected when inventory is open
 		return
 
 	if event.is_action_pressed("attack") and can_attack and not is_attacking:
@@ -49,19 +60,22 @@ func _unhandled_input(event: InputEvent) -> void:
 		var weapon_data = get_current_weapon_data()
 
 		if weapon_data.weapon and weapon_data.weapon.is_ranged():
-			perform_ranged_attack(event.global_position)
+			perform_ranged_attack(Vector3.ZERO)  # Parameter not used, calculated from camera
 		else:
 			perform_melee_attack()
 
 		get_viewport().set_input_as_handled()
+		return
 
 	if event.is_action_pressed("switch_weapon"):
-		switch_weapon()
+		cycle_weapons()
 		get_viewport().set_input_as_handled()
+		return
 
 	if event.is_action_pressed("reload") or (event is InputEventKey and event.pressed and event.keycode == KEY_R):
 		reload_weapon()
 		get_viewport().set_input_as_handled()
+		return
 
 func perform_melee_attack() -> void:
 	if not can_attack or is_attacking:
@@ -81,7 +95,7 @@ func perform_melee_attack() -> void:
 	if weapon_data.weapon:
 		print("Attacking with %s (damage: %d, range: %.1f)" % [weapon_data.name, weapon_data.damage, weapon_data.range])
 		# Play weapon swing animation (white flash for now)
-		player.modulate = Color(1.5, 1.5, 1.5)
+		_apply_visual_flash(Color(1.5, 1.5, 1.5))
 	else:
 		print("Punching (damage: %d, range: %.1f)" % [weapon_data.damage, weapon_data.range])
 		# Play punch animation for unarmed attacks
@@ -108,16 +122,21 @@ func perform_melee_attack() -> void:
 	else:
 		# Weapon flash effect
 		await get_tree().create_timer(0.2).timeout
-		player.modulate = Color.WHITE
 	is_attacking = false
 	attack_finished.emit()
 
 func perform_ranged_attack(_target_pos: Vector3) -> void:
 	if not can_attack or is_attacking:
+		print("Cannot attack: can_attack=%s, is_attacking=%s" % [can_attack, is_attacking])
 		return
 
 	var weapon_data = get_current_weapon_data()
-	if not weapon_data.weapon or not weapon_data.weapon.is_ranged():
+	if not weapon_data.weapon:
+		print("No weapon equipped")
+		return
+
+	if not weapon_data.weapon.is_ranged():
+		print("Weapon is not ranged: %s" % weapon_data.weapon.name)
 		return
 
 	# Check if weapon can attack (has ammo)
@@ -125,7 +144,7 @@ func perform_ranged_attack(_target_pos: Vector3) -> void:
 		if weapon_data.weapon.current_ammo <= 0:
 			print("Need to reload! Press R to reload %s" % weapon_data.weapon.name)
 		else:
-			print("Cannot attack with %s" % weapon_data.weapon.name)
+			print("Cannot attack with %s (durability: %d)" % [weapon_data.weapon.name, weapon_data.weapon.current_durability])
 		return
 
 	is_attacking = true
@@ -154,17 +173,21 @@ func perform_ranged_attack(_target_pos: Vector3) -> void:
 
 	# Fire projectile
 	if projectile_system:
-		var start_pos = player.global_position
-		projectile_system.create_projectile(player, start_pos, world_target, projectile_data)
+		var start_pos = player.global_position + Vector3(0, 1.5, 0)  # Spawn at chest height
+		print("Firing projectile from %s to %s" % [start_pos, world_target])
+		var projectile = projectile_system.create_projectile(player, start_pos, world_target, projectile_data)
+		if projectile:
+			print("Projectile created successfully")
+		else:
+			print("Failed to create projectile!")
+	else:
+		print("ERROR: ProjectileSystem not found!")
 
 	# Consume ammo and reduce durability
 	weapon_data.weapon.use_weapon()
 
 	# Visual feedback for shooting
-	player.modulate = Color(1.2, 1.2, 0.8)
-
-	await get_tree().create_timer(0.1).timeout
-	player.modulate = Color.WHITE
+	_apply_visual_flash(Color(1.2, 1.2, 0.8), 0.1)
 
 	is_attacking = false
 	attack_finished.emit()
@@ -209,12 +232,14 @@ func get_current_weapon_data(calculate_crit: bool = false) -> Dictionary:
 func check_melee_hit(weapon_data: Dictionary) -> bool:
 	var space_state = player.get_world_3d().direct_space_state
 	var player_pos = player.global_position
-	var facing_direction = -player.global_transform.basis.z  # Forward direction in 3D
 
-	var attack_center = player_pos + (facing_direction * weapon_data.range * 0.5)
+	# Use camera direction for aiming (where player is looking)
+	var camera = get_viewport().get_camera_3d()
+	var aim_direction = -camera.global_transform.basis.z if camera else -player.global_transform.basis.z
 
 	var enemies_hit = []
-	var all_bodies = get_tree().get_nodes_in_group("enemies")
+	# Check both enemies and animals
+	var all_bodies = get_tree().get_nodes_in_group("enemies") + get_tree().get_nodes_in_group("animals")
 
 	for enemy in all_bodies:
 		if not is_instance_valid(enemy):
@@ -226,8 +251,12 @@ func check_melee_hit(weapon_data: Dictionary) -> bool:
 		if distance > weapon_data.range:
 			continue
 
-		var angle_to_enemy = rad_to_deg(facing_direction.angle_to(to_enemy.normalized()))
-		if abs(angle_to_enemy) <= attack_arc / 2:
+		# Check if enemy is within attack cone from where camera is looking
+		var angle_to_enemy = rad_to_deg(aim_direction.angle_to(to_enemy.normalized()))
+
+		# Use a more generous attack arc for melee (120 degrees total, 60 on each side)
+		var melee_arc = 120.0
+		if abs(angle_to_enemy) <= melee_arc / 2:
 			enemies_hit.append(enemy)
 
 	for enemy in enemies_hit:
@@ -237,46 +266,73 @@ func check_melee_hit(weapon_data: Dictionary) -> bool:
 
 		hit_enemy.emit(enemy)
 
-		create_hit_effect(enemy.global_position, weapon_data.get("is_critical", false))
+		create_damage_number(enemy.global_position, weapon_data.damage, weapon_data.get("is_critical", false))
 
 	return enemies_hit.size() > 0
 
-func create_hit_effect(pos: Vector3, is_critical: bool = false) -> void:
-	var hit_marker = Label3D.new()
-	hit_marker.text = "CRIT!" if is_critical else "HIT!"
-	hit_marker.modulate = Color.RED if is_critical else Color.YELLOW
-	hit_marker.font_size = 24 if is_critical else 20
-	hit_marker.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	hit_marker.global_position = pos + Vector3(0, 1, 0)
+func create_damage_number(pos: Vector3, damage: int, is_critical: bool = false) -> void:
+	var damage_label = Label3D.new()
+	damage_label.text = str(damage)
+	damage_label.modulate = Color.RED if is_critical else Color.ORANGE
+	damage_label.font_size = 32 if is_critical else 24
+	damage_label.outline_size = 4
+	damage_label.outline_modulate = Color.BLACK
+	damage_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	damage_label.global_position = pos + Vector3(randf_range(-0.3, 0.3), 1.5, randf_range(-0.3, 0.3))
 
-	get_tree().current_scene.add_child(hit_marker)
+	get_tree().current_scene.add_child(damage_label)
 
 	var tween = create_tween()
-	tween.tween_property(hit_marker, "global_position", pos + Vector3(0, 2, 0), 0.5)
-	tween.parallel().tween_property(hit_marker, "modulate:a", 0.0, 0.5)
-	tween.tween_callback(hit_marker.queue_free)
+	tween.tween_property(damage_label, "global_position", damage_label.global_position + Vector3(0, 1, 0), 0.8)
+	tween.parallel().tween_property(damage_label, "modulate:a", 0.0, 0.8)
+	tween.tween_callback(damage_label.queue_free)
 
-func switch_weapon() -> void:
+func cycle_weapons() -> void:
 	if not weapon_manager:
 		print("No weapon manager available")
 		return
 
-	if weapon_manager.switch_weapon():
-		weapon_switched.emit()
-		var weapon = weapon_manager.get_active_weapon()
-		# Determine which slot is active
-		var primary_weapon = weapon_manager.get_primary_weapon()
-		var slot = "PRIMARY" if (weapon == primary_weapon) else "SECONDARY"
+	# Cycle through: Primary → Secondary → Fists → Primary...
+	var current_slot = weapon_manager.active_weapon_slot
+	var next_slot = ""
 
-		# Visual feedback for weapon switching
-		if weapon:
-			print("Switched to %s: %s (%d damage)" % [slot, weapon.name, weapon.get_effective_damage()])
-			# Flash the player to show weapon switch
-			player.modulate = Color(1.2, 1.2, 1.5)
-			await get_tree().create_timer(0.2).timeout
-			player.modulate = Color.WHITE
+	if current_slot == "PRIMARY_WEAPON":
+		# Check if secondary weapon exists
+		if weapon_manager.secondary_weapon:
+			next_slot = "SECONDARY_WEAPON"
 		else:
-			print("Switched to %s: Fists" % slot)
+			next_slot = ""  # Go to fists
+	elif current_slot == "SECONDARY_WEAPON":
+		next_slot = ""  # Go to fists
+	else:  # Currently on fists or empty
+		# Check if primary weapon exists
+		if weapon_manager.primary_weapon:
+			next_slot = "PRIMARY_WEAPON"
+		elif weapon_manager.secondary_weapon:
+			next_slot = "SECONDARY_WEAPON"
+		else:
+			print("No weapons equipped!")
+			return
+
+	weapon_manager.active_weapon_slot = next_slot
+
+	# Emit WeaponManager's signal so HUD updates
+	var new_weapon = weapon_manager.get_active_weapon()
+	if new_weapon:
+		weapon_manager.weapon_switched.emit(new_weapon)
+
+	weapon_switched.emit()
+
+	# Visual feedback
+	_apply_visual_flash(Color(1.2, 1.2, 1.5))
+
+	# Print what we switched to
+	if next_slot == "PRIMARY_WEAPON":
+		print("Switched to Primary: %s" % weapon_manager.primary_weapon.name)
+	elif next_slot == "SECONDARY_WEAPON":
+		print("Switched to Secondary: %s" % weapon_manager.secondary_weapon.name)
+	else:
+		print("Switched to Fists")
 
 func _on_weapon_switched(weapon: Weapon) -> void:
 	if weapon:
@@ -309,9 +365,8 @@ func reload_weapon() -> void:
 	if weapon.reload_from_inventory():
 		# Visual feedback for successful reload
 		show_reload_message("RELOADING...")
-		player.modulate = Color(1.2, 1.2, 1.5)  # Blue flash
+		_apply_visual_flash(Color(1.2, 1.2, 1.5), weapon.reload_time)
 		await get_tree().create_timer(weapon.reload_time).timeout
-		player.modulate = Color.WHITE
 		show_reload_message("RELOAD COMPLETE!")
 	else:
 		show_reload_message("NO AMMO TO RELOAD!")
@@ -336,14 +391,17 @@ func is_ui_blocking_input() -> bool:
 	# Check if any UI that should block combat input is open
 	var inventory_ui = get_tree().get_first_node_in_group("inventory_ui")
 	if inventory_ui and inventory_ui.visible:
+		print("PlayerCombat: Inventory UI is blocking input (Node: %s, Path: %s)" % [inventory_ui.name, inventory_ui.get_path()])
 		return true
 
 	var build_menu = get_tree().get_first_node_in_group("build_menu")
 	if build_menu and build_menu.visible:
+		print("PlayerCombat: Build menu is blocking input")
 		return true
 
 	var crafting_menu = get_tree().get_first_node_in_group("crafting_menu")
 	if crafting_menu and crafting_menu.visible:
+		print("PlayerCombat: Crafting menu is blocking input")
 		return true
 
 	# Check if any popups are active (like ammo selection)
@@ -352,14 +410,14 @@ func is_ui_blocking_input() -> bool:
 	for weapon_ui in weapon_uis:
 		# Check if the weapon UI has a specific blocking flag
 		if weapon_ui.has_method("is_blocking_input") and weapon_ui.is_blocking_input():
-			print("Blocking input: Weapon UI is blocking")
+			print("PlayerCombat: Weapon UI is blocking input")
 			return true
 
 		if weapon_ui.get_child_count() > 0:
 			# Check if there are any popup menus active
 			for child in weapon_ui.get_children():
 				if child is PopupMenu and child.visible:
-					print("Blocking input: Found active popup menu")
+					print("PlayerCombat: Found active popup menu")
 					return true
 
 	# Add other UIs that should block input here

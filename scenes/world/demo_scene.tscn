@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cwco3dupc62jn" path="res://scenes/ui/HUD.tscn" id="12_6j8p0"]
 [ext_resource type="PackedScene" uid="uid://cfeodp70flpq1" path="res://scenes/ui/WorkbenchCraftingMenu.tscn" id="12_kmphx"]
 [ext_resource type="PackedScene" uid="uid://bxn3k4p7m8qwe" path="res://scenes/world/nodes/SandstoneNode.tscn" id="16_0dfus"]
-[ext_resource type="Script" path="res://scripts/world/ResourceDrop.gd" id="17_8occt"]
+[ext_resource type="Script" uid="uid://b5v7p3r1bhcci" path="res://scripts/world/ResourceDrop.gd" id="17_8occt"]
 [ext_resource type="Script" uid="uid://c72syhu85ya17" path="res://scripts/world/EntitySpawner.gd" id="18_spawner"]
 [ext_resource type="Resource" uid="uid://cpf8vx5h4y2bk" path="res://resources/animals/rabbit_template.tres" id="19_rabbit"]
 [ext_resource type="Resource" uid="uid://cn3qw8ry5x7mh" path="res://resources/animals/deer_template.tres" id="20_deer"]
@@ -201,7 +201,6 @@ offset_bottom = 9.0
 visible = false
 
 [node name="StorageUI" parent="UI" instance=ExtResource("4_storage")]
-visible = true
 
 [node name="CombatHUD" parent="UI" instance=ExtResource("5_combathud")]
 layout_mode = 3
@@ -210,21 +209,21 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="DevMenu" parent="UI" instance=ExtResource("6_devmenu")]
+visible = false
 
 [node name="BuildMenu" parent="UI" instance=ExtResource("7_tioqf")]
-visible = true
 
 [node name="AttributesUI" parent="UI" instance=ExtResource("8_mxda1")]
+visible = false
 
 [node name="EquipedWeaponUi" parent="UI" instance=ExtResource("9_6j8p0")]
 
 [node name="GeneratorMenu" parent="UI" instance=ExtResource("10_0dfus")]
-visible = true
 
 [node name="SkillDebugUI" parent="UI" instance=ExtResource("11_8occt")]
+visible = false
 
 [node name="WorkbenchCraftingMenu" parent="UI" instance=ExtResource("12_kmphx")]
-visible = true
 
 [node name="HotbarLayer" type="CanvasLayer" parent="."]
 layer = 10

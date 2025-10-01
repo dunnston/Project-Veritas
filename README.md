@@ -10,6 +10,9 @@ Project Veritas 3D is a 3D reimagining of a survival-automation game, transition
 
 - **Third-person character controller** with smooth camera movement
 - **Full animation system** supporting walk, run, jump, crouch, and idle states
+- **Combat system** with melee and ranged weapons, ammunition, and durability
+- **Animal spawning** with AI behaviors (passive, neutral, aggressive)
+- **Inventory system** with drag-and-drop UI and equipment slots
 - **Modular architecture** designed for gradual migration from 2D systems
 - **Neon dystopian aesthetic** with atmospheric lighting and effects
 - **Grid-based building system** (in development)
@@ -40,34 +43,52 @@ neon-wasteland-3d/
 ## 🎯 Development Status
 
 ### Current Features
-- ✅ Basic third-person character controller
+- ✅ Third-person character controller with camera pivot
 - ✅ Animation system with Mixamo support
+- ✅ Combat system (melee and ranged weapons)
+- ✅ Weapon manager with switching and durability
+- ✅ Ammunition system with reload mechanics
+- ✅ Inventory system with UI
+- ✅ Animal spawning with template-based AI
+- ✅ AI behaviors (passive, neutral, aggressive)
+- ✅ Loot system with drop tables
 - ✅ Demo environment with test geometry
-- ✅ Movement controls (WASD + mouse)
-- ✅ Jump, sprint, and crouch mechanics
 
 ### In Progress
+- 🔄 Survival stats (hunger, thirst, oxygen)
 - 🔄 Migration of 2D systems to 3D
 - 🔄 Grid-based building system
 - 🔄 Resource gathering mechanics
 
 ### Planned
-- 📋 Inventory system
 - 📋 Crafting system
 - 📋 Automation mechanics
 - 📋 Environmental hazards
 - 📋 Day/night cycle
 - 📋 Weather system
+- 📋 Advanced weapon attachments
+- 📋 Animal pack behaviors
 
 ## 🎮 Controls
 
-- **WASD** - Movement
+### Movement
+- **WASD** - Move character
 - **Mouse** - Camera rotation
 - **Space** - Jump
 - **Shift** - Sprint
 - **Ctrl** - Crouch
-- **E** - Interact (placeholder)
+
+### Combat
+- **Left Click** - Attack with equipped weapon or fists
+- **Q** - Switch weapons (Primary → Secondary → Fists)
+- **R** - Reload ranged weapon
+
+### UI
+- **Tab** - Toggle inventory
+- **E** - Interact
 - **Escape** - Menu/Cursor toggle
+
+See `docs/COMBAT_CONTROLS.md` for detailed combat guide.
 
 ## 🔧 Setup
 
@@ -76,13 +97,29 @@ neon-wasteland-3d/
 3. Open the project in Godot
 4. Run the demo scene: `scenes/world/demo_scene.tscn`
 
+## 📚 Documentation
+
+### Developer Documentation
+- **CLAUDE.md** - Development guidelines and workflow
+- **GDD.md** - Game Design Document
+- **GITHUB.md** - GitHub PR automation guide
+
+### System Documentation
+- **docs/COMBAT_SYSTEM.md** - Complete combat system reference with API docs
+- **docs/COMBAT_CONTROLS.md** - Player-facing combat controls guide
+- **docs/ANIMAL_SYSTEM.md** - Animal creation and spawning tutorial
+- **docs/SPAWNING_SYSTEM.md** - Complete spawning system reference with API docs
+
+### Migration Documentation
+- **MIGRATION_COMPLETED.md** - Completed 2D to 3D migrations
+
 ## 📝 Development Notes
 
 - The `3d Assets/` folder is excluded from version control due to size
 - Character animations use a processed GLB file from Blender
 - The project is designed for gradual migration from an existing 2D codebase
-- See `GDD.md` for detailed game design documentation
-- See `CLAUDE.md` for development guidelines and migration tracking
+- Follow the GitHub PR automation workflow in `GITHUB.md` for all features
+- Use conventional commit format for all commits
 
 ## 🤝 Contributing
 
