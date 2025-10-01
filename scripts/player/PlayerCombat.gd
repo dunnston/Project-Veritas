@@ -114,10 +114,16 @@ func perform_melee_attack() -> void:
 
 func perform_ranged_attack(_target_pos: Vector3) -> void:
 	if not can_attack or is_attacking:
+		print("Cannot attack: can_attack=%s, is_attacking=%s" % [can_attack, is_attacking])
 		return
 
 	var weapon_data = get_current_weapon_data()
-	if not weapon_data.weapon or not weapon_data.weapon.is_ranged():
+	if not weapon_data.weapon:
+		print("No weapon equipped")
+		return
+
+	if not weapon_data.weapon.is_ranged():
+		print("Weapon is not ranged: %s" % weapon_data.weapon.name)
 		return
 
 	# Check if weapon can attack (has ammo)
@@ -125,7 +131,7 @@ func perform_ranged_attack(_target_pos: Vector3) -> void:
 		if weapon_data.weapon.current_ammo <= 0:
 			print("Need to reload! Press R to reload %s" % weapon_data.weapon.name)
 		else:
-			print("Cannot attack with %s" % weapon_data.weapon.name)
+			print("Cannot attack with %s (durability: %d)" % [weapon_data.weapon.name, weapon_data.weapon.current_durability])
 		return
 
 	is_attacking = true
@@ -154,8 +160,15 @@ func perform_ranged_attack(_target_pos: Vector3) -> void:
 
 	# Fire projectile
 	if projectile_system:
-		var start_pos = player.global_position
-		projectile_system.create_projectile(player, start_pos, world_target, projectile_data)
+		var start_pos = player.global_position + Vector3(0, 1.5, 0)  # Spawn at chest height
+		print("Firing projectile from %s to %s" % [start_pos, world_target])
+		var projectile = projectile_system.create_projectile(player, start_pos, world_target, projectile_data)
+		if projectile:
+			print("Projectile created successfully")
+		else:
+			print("Failed to create projectile!")
+	else:
+		print("ERROR: ProjectileSystem not found!")
 
 	# Consume ammo and reduce durability
 	weapon_data.weapon.use_weapon()
@@ -287,6 +300,12 @@ func cycle_weapons() -> void:
 			return
 
 	weapon_manager.active_weapon_slot = next_slot
+
+	# Emit WeaponManager's signal so HUD updates
+	var new_weapon = weapon_manager.get_active_weapon()
+	if new_weapon:
+		weapon_manager.weapon_switched.emit(new_weapon)
+
 	weapon_switched.emit()
 
 	# Visual feedback

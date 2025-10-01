@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://c7xvh2m4qgtjk"]
+[gd_scene load_steps=32 format=3 uid="uid://c7xvh2m4qgtjk"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_8gvxm"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cwco3dupc62jn" path="res://scenes/ui/HUD.tscn" id="12_6j8p0"]
 [ext_resource type="PackedScene" uid="uid://cfeodp70flpq1" path="res://scenes/ui/WorkbenchCraftingMenu.tscn" id="12_kmphx"]
 [ext_resource type="PackedScene" uid="uid://bxn3k4p7m8qwe" path="res://scenes/world/nodes/SandstoneNode.tscn" id="16_0dfus"]
-[ext_resource type="Script" path="res://scripts/world/ResourceDrop.gd" id="17_8occt"]
+[ext_resource type="Script" uid="uid://b5v7p3r1bhcci" path="res://scripts/world/ResourceDrop.gd" id="17_8occt"]
 [ext_resource type="Script" uid="uid://c72syhu85ya17" path="res://scripts/world/EntitySpawner.gd" id="18_spawner"]
 [ext_resource type="Resource" uid="uid://cpf8vx5h4y2bk" path="res://resources/animals/rabbit_template.tres" id="19_rabbit"]
 [ext_resource type="Resource" uid="uid://cn3qw8ry5x7mh" path="res://resources/animals/deer_template.tres" id="20_deer"]
