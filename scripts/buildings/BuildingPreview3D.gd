@@ -260,13 +260,14 @@ func snap_to_grid_3d(pos: Vector3, grid_size: float = 1.0) -> Vector3:
 	)
 
 func snap_wall_to_floor_edge(wall_pos: Vector3, half_grid: float) -> Vector3:
-	# Walls must snap to floor EDGES only, never centers
-	# For 4m floors: centers at 0, 4, 8... edges at 2, 6, 10, -2, -6...
-	# Formula: floor_center ± 2m = floor_edges
-	# So walls snap to: (4n + 2) positions where n is any integer
-	# Examples: ..., -6, -2, 2, 6, 10, 14...
+	# Walls must align their INNER edge with floor edges
+	# For 4m floors: edges at ..., -2, 2, 6, 10...
+	# Wall is 0.2m thick, so we offset by 0.1m (half thickness) outward from floor
+	# Final wall centers: ..., -2.1, 2.1, 6.1, 10.1... (edge + thickness/2 outward)
 
 	var full_grid = half_grid * 2.0  # 4m
+	var wall_thickness = 0.2
+	var wall_half_thickness = wall_thickness / 2.0  # 0.1m
 
 	# Snap to nearest 2m position first
 	var x_grid = round(wall_pos.x / half_grid) * half_grid
@@ -290,6 +291,27 @@ func snap_wall_to_floor_edge(wall_pos: Vector3, half_grid: float) -> Vector3:
 			z_grid += half_grid
 		else:
 			z_grid -= half_grid
+
+	# Determine wall orientation and shift outward by half wall thickness
+	var rotation_y = rotation_degrees.y
+	var normalized_rotation = fmod(rotation_y + 360.0, 360.0)
+	var runs_along_x = abs(normalized_rotation) < 45.0 or abs(normalized_rotation - 180.0) < 45.0
+
+	if runs_along_x:
+		# Wall runs along X axis, offset Z outward from floor edge
+		# Determine which side of floor center we're on
+		var nearest_floor_z = round(z_grid / full_grid) * full_grid
+		if z_grid > nearest_floor_z:
+			z_grid += wall_half_thickness  # Shift outward (positive)
+		else:
+			z_grid -= wall_half_thickness  # Shift outward (negative)
+	else:
+		# Wall runs along Z axis, offset X outward from floor edge
+		var nearest_floor_x = round(x_grid / full_grid) * full_grid
+		if x_grid > nearest_floor_x:
+			x_grid += wall_half_thickness  # Shift outward (positive)
+		else:
+			x_grid -= wall_half_thickness  # Shift outward (negative)
 
 	return Vector3(x_grid, wall_pos.y, z_grid)
 
