@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c7xvh2m4qgtjk"]
+[gd_scene load_steps=32 format=3 uid="uid://c7xvh2m4qgtjk"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_8gvxm"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
@@ -16,8 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://cwco3dupc62jn" path="res://scenes/ui/HUD.tscn" id="12_6j8p0"]
 [ext_resource type="PackedScene" uid="uid://cfeodp70flpq1" path="res://scenes/ui/WorkbenchCraftingMenu.tscn" id="12_kmphx"]
 [ext_resource type="PackedScene" uid="uid://bxn3k4p7m8qwe" path="res://scenes/world/nodes/SandstoneNode.tscn" id="16_0dfus"]
-[ext_resource type="Script" uid="uid://b5v7p3r1bhcci" path="res://scripts/world/ResourceDrop.gd" id="17_8occt"]
-[ext_resource type="Script" path="res://scripts/world/EntitySpawner.gd" id="18_spawner"]
+[ext_resource type="Script" path="res://scripts/world/ResourceDrop.gd" id="17_8occt"]
+[ext_resource type="Script" uid="uid://c72syhu85ya17" path="res://scripts/world/EntitySpawner.gd" id="18_spawner"]
 [ext_resource type="Resource" uid="uid://cpf8vx5h4y2bk" path="res://resources/animals/rabbit_template.tres" id="19_rabbit"]
 [ext_resource type="Resource" uid="uid://cn3qw8ry5x7mh" path="res://resources/animals/deer_template.tres" id="20_deer"]
 [ext_resource type="Resource" uid="uid://dnb8wx4ky2pvj" path="res://resources/animals/boar_template.tres" id="21_boar"]
@@ -71,11 +71,15 @@ size = Vector3(100, 1, 100)
 [sub_resource type="Resource" id="Resource_kmphx"]
 script = ExtResource("17_8occt")
 item_id = "STONE"
+min_amount = 1
+max_amount = 3
+drop_chance = 1.0
 metadata/_custom_type_script = "uid://b5v7p3r1bhcci"
 
 [sub_resource type="Resource" id="Resource_lysxd"]
 script = ExtResource("17_8occt")
 item_id = "METAL_SCRAPS"
+min_amount = 1
 max_amount = 2
 drop_chance = 0.3
 metadata/_custom_type_script = "uid://b5v7p3r1bhcci"
@@ -254,7 +258,7 @@ amount = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
 
 [node name="SandstoneNode" parent="." instance=ExtResource("16_0dfus")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98982, 0, -16.795628)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98982, 0, -16.7956)
 drop_table = Array[ExtResource("17_8occt")]([SubResource("Resource_kmphx"), SubResource("Resource_lysxd")])
 
 [node name="AnimalSpawners" type="Node3D" parent="."]
@@ -268,8 +272,6 @@ spawn_frequency_min = 8.0
 spawn_frequency_max = 20.0
 spawn_radius = 25.0
 min_spawn_distance = 8.0
-debug_draw = true
-debug_color = Color(0, 1, 0, 0.3)
 
 [node name="NeutralSpawner" type="Node3D" parent="AnimalSpawners"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -15)
@@ -278,9 +280,7 @@ spawn_templates = Array[Resource]([ExtResource("21_boar")])
 max_entities = 5
 spawn_frequency_min = 10.0
 spawn_frequency_max = 25.0
-spawn_radius = 20.0
 min_spawn_distance = 10.0
-debug_draw = true
 debug_color = Color(1, 1, 0, 0.3)
 
 [node name="AggressiveSpawner" type="Node3D" parent="AnimalSpawners"]
@@ -292,5 +292,4 @@ spawn_frequency_min = 15.0
 spawn_frequency_max = 35.0
 spawn_radius = 30.0
 min_spawn_distance = 15.0
-debug_draw = true
 debug_color = Color(1, 0, 0, 0.3)

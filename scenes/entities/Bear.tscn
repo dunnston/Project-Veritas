@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b5v8nw2xtfh4k"]
 
-[ext_resource type="Script" path="res://scripts/entities/Animal.gd" id="1_bear"]
+[ext_resource type="Script" uid="uid://ctfqdwt7wmtxw" path="res://scripts/entities/Animal.gd" id="1_bear"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bear"]
 radius = 0.8
@@ -17,7 +17,6 @@ albedo_color = Color(0.3, 0.2, 0.15, 1)
 
 [node name="Bear" type="CharacterBody3D" groups=["animals"]]
 collision_layer = 16
-collision_mask = 1
 script = ExtResource("1_bear")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="AnimalTemplate" load_steps=7 format=3 uid="uid://dft8qw2nx4vbp"]
 
-[ext_resource type="Script" path="res://scripts/entities/AnimalTemplate.gd" id="1_bear_template"]
+[ext_resource type="Script" uid="uid://cn061j3cjggur" path="res://scripts/entities/AnimalTemplate.gd" id="1_bear_template"]
 [ext_resource type="PackedScene" uid="uid://b5v8nw2xtfh4k" path="res://scenes/entities/Bear.tscn" id="2_bear_scene"]
-[ext_resource type="Script" path="res://scripts/entities/AnimalDrop.gd" id="3_bear_drop"]
+[ext_resource type="Script" uid="uid://uquhx6hk8cyc" path="res://scripts/entities/AnimalDrop.gd" id="3_bear_drop"]
 
 [sub_resource type="Resource" id="Resource_bear_meat"]
 script = ExtResource("3_bear_drop")
