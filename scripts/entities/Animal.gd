@@ -279,7 +279,7 @@ func _spawn_item_drop(item_id: String, quantity: int) -> void:
 	var pickup = pickup_scene.instantiate()
 
 	pickup.item_id = item_id
-	pickup.quantity = quantity
+	pickup.amount = quantity
 	pickup.global_position = global_position + Vector3.UP * 0.5
 
 	# Add impulse for scatter effect
