@@ -143,10 +143,13 @@ func drop_resources() -> void:
 		if drop and randf() <= drop.drop_chance:
 			var amount = randi_range(drop.min_amount, drop.max_amount)
 			if amount > 0:
+				# Spawn items slightly above the node to prevent clipping into ground
+				var drop_position = global_position + Vector3(0, 0.5, 0)
+
 				# Use the correct function name from ItemDropManager
 				ItemDropManager.spawn_item_pickup_3d(
 					ItemDropManager.GENERIC_PICKUP_3D_SCENE,
-					global_position,
+					drop_position,
 					drop.item_id,
 					amount
 				)
