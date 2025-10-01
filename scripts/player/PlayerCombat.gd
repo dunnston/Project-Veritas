@@ -45,14 +45,14 @@ func _process(delta: float) -> void:
 			can_attack = true
 			attack_timer = 0.0
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	# Debug: Check if we receive input at all
 	if event.is_action_pressed("attack"):
 		print("PlayerCombat: Attack input received - can_attack=%s, is_attacking=%s" % [can_attack, is_attacking])
 
 	# Don't allow attacks when UI is open
 	if is_ui_blocking_input():
-		print("PlayerCombat: Blocking input due to UI")
+		# Don't print spam, UI blocking is expected when inventory is open
 		return
 
 	if event.is_action_pressed("attack") and can_attack and not is_attacking:
@@ -65,14 +65,17 @@ func _unhandled_input(event: InputEvent) -> void:
 			perform_melee_attack()
 
 		get_viewport().set_input_as_handled()
+		return
 
 	if event.is_action_pressed("switch_weapon"):
 		cycle_weapons()
 		get_viewport().set_input_as_handled()
+		return
 
 	if event.is_action_pressed("reload") or (event is InputEventKey and event.pressed and event.keycode == KEY_R):
 		reload_weapon()
 		get_viewport().set_input_as_handled()
+		return
 
 func perform_melee_attack() -> void:
 	if not can_attack or is_attacking:
