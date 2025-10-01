@@ -159,10 +159,3 @@ func respawn() -> void:
 ## Get mining progress (0.0 to 1.0)
 func get_mining_progress() -> float:
 	return 1.0 - (current_health / max_health)
-
-## Resource drop configuration class
-class ResourceDrop:
-	var item_id: String = ""
-	var min_amount: int = 1
-	var max_amount: int = 3
-	var drop_chance: float = 1.0  # 0.0 to 1.0
