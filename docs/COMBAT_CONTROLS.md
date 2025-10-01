@@ -11,10 +11,7 @@ The combat system supports melee (fists/knives) and ranged (guns/bows) weapons w
 - **R** - Reload current weapon (guns and bows)
 
 ### Weapon Switching
-- **X** - Cycle between primary and secondary weapons
-- **Z** - Equip primary weapon slot
-- **C** - Equip secondary weapon slot
-- **V** - Unequip weapon (use fists)
+- **Q** - Cycle through Primary → Secondary → Fists
 
 ## Weapon Types
 
@@ -105,18 +102,19 @@ Base Damage × Durability Modifier × Player Modifiers = Final Damage
 
 ## Testing in Demo Scene
 
-### Auto-Equipped Weapons
-The CombatTestHelper automatically equips:
-1. **Primary Slot**: Scrap Knife (15 dmg, 15% crit)
-2. **Secondary Slot**: Scrap Pistol (20 dmg, 10 rounds)
-3. **Inventory**: 100 bullets, 50 arrows
+### Setup
+1. Press **?** to open debug menu and add test items to inventory
+2. Open inventory (Tab) and equip weapons:
+   - Drag a knife/melee weapon to Primary slot
+   - Drag a gun/bow to Secondary slot
+3. Close inventory and start testing
 
 ### Test Sequence
-1. **Test Fists**: Press V to unequip, punch rabbits
-2. **Test Knife**: Press Z to equip primary, attack deer
-3. **Test Gun**: Press C to equip secondary, shoot boars
+1. **Test Fists**: Press Q until "Fists" is equipped, punch rabbits
+2. **Test Knife**: Press Q to cycle to primary weapon, attack deer
+3. **Test Gun**: Press Q to cycle to secondary weapon, shoot boars
 4. **Test Reload**: Empty magazine, press R to reload
-5. **Test Switching**: Press X to cycle weapons mid-combat
+5. **Test Switching**: Press Q repeatedly to cycle weapons mid-combat
 
 ## Combat Tips
 

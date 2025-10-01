@@ -56,19 +56,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 	if event.is_action_pressed("switch_weapon"):
-		switch_weapon()
-		get_viewport().set_input_as_handled()
-
-	if event.is_action_pressed("equip_primary"):
-		equip_weapon_slot("PRIMARY_WEAPON")
-		get_viewport().set_input_as_handled()
-
-	if event.is_action_pressed("equip_secondary"):
-		equip_weapon_slot("SECONDARY_WEAPON")
-		get_viewport().set_input_as_handled()
-
-	if event.is_action_pressed("unequip_weapon"):
-		unequip_current_weapon()
+		cycle_weapons()
 		get_viewport().set_input_as_handled()
 
 	if event.is_action_pressed("reload") or (event is InputEventKey and event.pressed and event.keycode == KEY_R):
@@ -271,27 +259,48 @@ func create_damage_number(pos: Vector3, damage: int, is_critical: bool = false) 
 	tween.parallel().tween_property(damage_label, "modulate:a", 0.0, 0.8)
 	tween.tween_callback(damage_label.queue_free)
 
-func switch_weapon() -> void:
+func cycle_weapons() -> void:
 	if not weapon_manager:
 		print("No weapon manager available")
 		return
 
-	if weapon_manager.switch_weapon():
-		weapon_switched.emit()
-		var weapon = weapon_manager.get_active_weapon()
-		# Determine which slot is active
-		var primary_weapon = weapon_manager.get_primary_weapon()
-		var slot = "PRIMARY" if (weapon == primary_weapon) else "SECONDARY"
+	# Cycle through: Primary → Secondary → Fists → Primary...
+	var current_slot = weapon_manager.active_weapon_slot
+	var next_slot = ""
 
-		# Visual feedback for weapon switching
-		if weapon:
-			print("Switched to %s: %s (%d damage)" % [slot, weapon.name, weapon.get_effective_damage()])
-			# Flash the player to show weapon switch
-			player.modulate = Color(1.2, 1.2, 1.5)
-			await get_tree().create_timer(0.2).timeout
-			player.modulate = Color.WHITE
+	if current_slot == "PRIMARY_WEAPON":
+		# Check if secondary weapon exists
+		if weapon_manager.secondary_weapon:
+			next_slot = "SECONDARY_WEAPON"
 		else:
-			print("Switched to %s: Fists" % slot)
+			next_slot = ""  # Go to fists
+	elif current_slot == "SECONDARY_WEAPON":
+		next_slot = ""  # Go to fists
+	else:  # Currently on fists or empty
+		# Check if primary weapon exists
+		if weapon_manager.primary_weapon:
+			next_slot = "PRIMARY_WEAPON"
+		elif weapon_manager.secondary_weapon:
+			next_slot = "SECONDARY_WEAPON"
+		else:
+			print("No weapons equipped!")
+			return
+
+	weapon_manager.active_weapon_slot = next_slot
+	weapon_switched.emit()
+
+	# Visual feedback
+	player.modulate = Color(1.2, 1.2, 1.5)
+	await get_tree().create_timer(0.2).timeout
+	player.modulate = Color.WHITE
+
+	# Print what we switched to
+	if next_slot == "PRIMARY_WEAPON":
+		print("Switched to Primary: %s" % weapon_manager.primary_weapon.name)
+	elif next_slot == "SECONDARY_WEAPON":
+		print("Switched to Secondary: %s" % weapon_manager.secondary_weapon.name)
+	else:
+		print("Switched to Fists")
 
 func _on_weapon_switched(weapon: Weapon) -> void:
 	if weapon:
@@ -394,34 +403,6 @@ func show_reload_message(message: String) -> void:
 	tween.tween_property(reload_label, "global_position", reload_label.global_position + Vector3(0, 1, 0), 1.5)
 	tween.parallel().tween_property(reload_label, "modulate:a", 0.0, 1.5)
 	tween.tween_callback(reload_label.queue_free)
-
-func equip_weapon_slot(slot: String) -> void:
-	if not weapon_manager:
-		print("No weapon manager available")
-		return
-
-	weapon_manager.set_active_weapon_slot(slot)
-	var weapon = weapon_manager.get_active_weapon()
-
-	if weapon:
-		print("Equipped %s: %s" % [slot, weapon.name])
-		player.modulate = Color(1.2, 1.2, 1.5)
-		await get_tree().create_timer(0.2).timeout
-		player.modulate = Color.WHITE
-	else:
-		print("No weapon in %s slot" % slot)
-
-func unequip_current_weapon() -> void:
-	if not weapon_manager:
-		print("No weapon manager available")
-		return
-
-	# Set active slot to empty to use fists
-	print("Switched to Fists")
-	weapon_manager.active_weapon_slot = ""
-	player.modulate = Color(1.5, 1.5, 1.5)
-	await get_tree().create_timer(0.2).timeout
-	player.modulate = Color.WHITE
 
 func get_weapon_info() -> String:
 	var weapon_data = get_current_weapon_data()

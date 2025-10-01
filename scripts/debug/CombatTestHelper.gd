@@ -28,7 +28,7 @@ func _ready() -> void:
 	print("Controls:")
 	print("  Left Click - Attack")
 	print("  R - Reload (guns/bows)")
-	print("  X - Switch between weapons")
+	print("  Q - Switch between weapons")
 	print("  Z - Equip Primary Weapon")
 	print("  C - Equip Secondary Weapon")
 	print("  V - Unequip (use fists)")

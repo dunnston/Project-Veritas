@@ -31,4 +31,4 @@ flee_range = 8.0
 attack_range = 2.5
 attack_damage = 20.0
 attack_cooldown = 1.8
-loot_drops = Array[Resource]([SubResource("Resource_wolf_meat"), SubResource("Resource_wolf_hide")])
+loot_drops = Array[ExtResource("3_wolf_drop")]([SubResource("Resource_wolf_meat"), SubResource("Resource_wolf_hide")])

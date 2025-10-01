@@ -31,4 +31,4 @@ flee_range = 12.0
 attack_range = 2.0
 attack_damage = 15.0
 attack_cooldown = 1.5
-loot_drops = Array[Resource]([SubResource("Resource_boar_meat"), SubResource("Resource_boar_hide")])
+loot_drops = Array[ExtResource("3_boar_drop")]([SubResource("Resource_boar_meat"), SubResource("Resource_boar_hide")])
