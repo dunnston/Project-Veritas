@@ -256,34 +256,28 @@ func snap_to_grid_3d(pos: Vector3, grid_size: float = 1.0) -> Vector3:
 	)
 
 func snap_wall_to_floor_edge(wall_pos: Vector3, grid_size: float) -> Vector3:
-	# Check if placing a wall near a floor edge
-	# Walls are 4m wide, so they should align with floor edges at grid + half_wall_width offsets
-	# For a 4m wall on a 4m floor grid, wall can be at:
-	# - Floor center: X = 0, 4, 8, ... (aligned with floor)
-	# - Floor edge: X = 2, 6, 10, ... (offset by 2m = half grid)
+	# Walls should snap to half-grid positions to sit on floor edges
+	# For a 4m grid: floors at 0, 4, 8... and walls at edges: 2, 6, 10...
+	# This makes walls sit on the perimeter of floor tiles
 
 	var half_grid = grid_size / 2.0
 
-	# Check current rotation to determine which axis is the wall's length
+	# Check current rotation to determine which axis the wall runs along
 	var rotation_y = rotation_degrees.y
-	var is_aligned_with_x = abs(fmod(rotation_y, 180.0)) < 45.0  # Wall runs along X axis
+	var normalized_rotation = fmod(rotation_y + 360.0, 360.0)
 
-	if is_aligned_with_x:
-		# Wall runs along X axis, so it can snap to Z edges
-		var z_center = round(wall_pos.z / grid_size) * grid_size
-		var z_edge = round((wall_pos.z - half_grid) / grid_size) * grid_size + half_grid
+	# Wall orientation: 0/180 = runs along X axis, 90/270 = runs along Z axis
+	var runs_along_x = abs(normalized_rotation) < 45.0 or abs(normalized_rotation - 180.0) < 45.0
 
-		# Choose whichever is closer
-		if abs(wall_pos.z - z_edge) < abs(wall_pos.z - z_center):
-			return Vector3(wall_pos.x, wall_pos.y, z_edge)
+	if runs_along_x:
+		# Wall runs along X, snap Z to edge (half-grid positions)
+		# Snap to nearest half-grid: ..., -2, 2, 6, 10, ...
+		var z_snapped = round(wall_pos.z / half_grid) * half_grid
+		return Vector3(wall_pos.x, wall_pos.y, z_snapped)
 	else:
-		# Wall runs along Z axis, so it can snap to X edges
-		var x_center = round(wall_pos.x / grid_size) * grid_size
-		var x_edge = round((wall_pos.x - half_grid) / grid_size) * grid_size + half_grid
-
-		# Choose whichever is closer
-		if abs(wall_pos.x - x_edge) < abs(wall_pos.x - x_center):
-			return Vector3(x_edge, wall_pos.y, wall_pos.z)
+		# Wall runs along Z, snap X to edge (half-grid positions)
+		var x_snapped = round(wall_pos.x / half_grid) * half_grid
+		return Vector3(x_snapped, wall_pos.y, wall_pos.z)
 
 	return wall_pos
 
