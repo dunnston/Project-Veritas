@@ -790,42 +790,48 @@ func find_nearest_resource_node() -> ResourceNode:
 
 func get_equipped_tool() -> String:
 	"""Get the currently equipped tool type - prioritizes TOOL slot over WEAPON slot"""
-	if not EquipmentManager or not EquipmentManager.has_method("get_equipped_item"):
+	if not EquipmentManager:
 		return "None"
 
 	# First check TOOL slot (dedicated tool slot)
 	var tool_equipment = EquipmentManager.get_equipped_item("TOOL")
 	if tool_equipment:
-		var item_data = InventorySystem.get_item_data(tool_equipment.id)
-		if item_data.has("tool_type"):
-			return item_data.tool_type
+		# Get data from EquipmentManager's equipment_data, not InventorySystem
+		if EquipmentManager.equipment_data.has(tool_equipment.id):
+			var equipment_data = EquipmentManager.equipment_data[tool_equipment.id]
+			if equipment_data.has("tool_type"):
+				return equipment_data.tool_type
 
 	# Fallback to WEAPON slot (for backwards compatibility)
 	var weapon_equipment = EquipmentManager.get_equipped_item("WEAPON")
 	if weapon_equipment:
-		var item_data = InventorySystem.get_item_data(weapon_equipment.id)
-		if item_data.has("tool_type"):
-			return item_data.tool_type
+		if EquipmentManager.equipment_data.has(weapon_equipment.id):
+			var equipment_data = EquipmentManager.equipment_data[weapon_equipment.id]
+			if equipment_data.has("tool_type"):
+				return equipment_data.tool_type
 
 	return "None"
 
 func get_equipped_tool_level() -> int:
 	"""Get the level of the currently equipped tool - prioritizes TOOL slot over WEAPON slot"""
-	if not EquipmentManager or not EquipmentManager.has_method("get_equipped_item"):
+	if not EquipmentManager:
 		return 0
 
 	# First check TOOL slot (dedicated tool slot)
 	var tool_equipment = EquipmentManager.get_equipped_item("TOOL")
 	if tool_equipment:
-		var item_data = InventorySystem.get_item_data(tool_equipment.id)
-		if item_data.has("tool_level"):
-			return item_data.tool_level
+		# Get data from EquipmentManager's equipment_data, not InventorySystem
+		if EquipmentManager.equipment_data.has(tool_equipment.id):
+			var equipment_data = EquipmentManager.equipment_data[tool_equipment.id]
+			if equipment_data.has("tool_level"):
+				return equipment_data.tool_level
 
 	# Fallback to WEAPON slot (for backwards compatibility)
 	var weapon_equipment = EquipmentManager.get_equipped_item("WEAPON")
 	if weapon_equipment:
-		var item_data = InventorySystem.get_item_data(weapon_equipment.id)
-		if item_data.has("tool_level"):
-			return item_data.tool_level
+		if EquipmentManager.equipment_data.has(weapon_equipment.id):
+			var equipment_data = EquipmentManager.equipment_data[weapon_equipment.id]
+			if equipment_data.has("tool_level"):
+				return equipment_data.tool_level
 
 	return 0
