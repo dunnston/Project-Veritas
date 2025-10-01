@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="AnimalTemplate" load_steps=7 format=3 uid="uid://dft8qw2nx4vbp"]
+
+[ext_resource type="Script" uid="uid://cn061j3cjggur" path="res://scripts/entities/AnimalTemplate.gd" id="1_bear_template"]
+[ext_resource type="PackedScene" uid="uid://b5v8nw2xtfh4k" path="res://scenes/entities/Bear.tscn" id="2_bear_scene"]
+[ext_resource type="Script" uid="uid://uquhx6hk8cyc" path="res://scripts/entities/AnimalDrop.gd" id="3_bear_drop"]
+
+[sub_resource type="Resource" id="Resource_bear_meat"]
+script = ExtResource("3_bear_drop")
+item_id = "raw_meat"
+min_amount = 3
+max_amount = 6
+drop_chance = 0.95
+
+[sub_resource type="Resource" id="Resource_bear_hide"]
+script = ExtResource("3_bear_drop")
+item_id = "leather"
+min_amount = 2
+max_amount = 4
+drop_chance = 0.8
+
+[sub_resource type="Resource" id="Resource_bear_bone"]
+script = ExtResource("3_bear_drop")
+item_id = "bone"
+min_amount = 1
+max_amount = 3
+drop_chance = 0.5
+
+[resource]
+script = ExtResource("1_bear_template")
+animal_name = "Bear"
+scene = ExtResource("2_bear_scene")
+behavior_type = 2
+max_health = 200.0
+move_speed = 5.0
+run_speed = 8.0
+aggro_range = 12.0
+flee_range = 5.0
+attack_range = 3.0
+attack_damage = 35.0
+attack_cooldown = 2.0
+loot_drops = Array[Resource]([SubResource("Resource_bear_meat"), SubResource("Resource_bear_hide"), SubResource("Resource_bear_bone")])
