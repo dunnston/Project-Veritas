@@ -95,11 +95,15 @@ func update_position(world_pos: Vector3):
 	if ground_y != null:
 		# For floor pieces (thin, horizontal pieces), place directly on ground
 		# For other pieces (walls, etc.), offset by half height
-		if building_id.contains("floor") or mesh_height <= 0.2:
-			# Floor tiles: place flat on ground with minimal clearance
+		if building_id.contains("floor"):
+			# Floor tiles: place bottom flush with ground, just need half-height offset
+			# No additional clearance - we want it right on the surface
+			grid_pos.y = ground_y + (mesh_height * 0.5)
+		elif building_id.contains("roof") or mesh_height <= 0.2:
+			# Roof or other thin pieces: minimal clearance
 			grid_pos.y = ground_y + (mesh_height * 0.5) + 0.01
 		else:
-			# Walls, doors, etc.: offset by half height
+			# Walls, doors, etc.: offset by half height with standard clearance
 			grid_pos.y = ground_y + (mesh_height * 0.5) + ground_clearance
 	else:
 		# No ground found - use the original Y position from mouse raycast
