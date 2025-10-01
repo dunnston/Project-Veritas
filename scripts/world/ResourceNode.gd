@@ -143,7 +143,13 @@ func drop_resources() -> void:
 		if drop and randf() <= drop.drop_chance:
 			var amount = randi_range(drop.min_amount, drop.max_amount)
 			if amount > 0:
-				ItemDropManager.spawn_item_drop(drop.item_id, amount, global_position)
+				# Use the correct function name from ItemDropManager
+				ItemDropManager.spawn_item_pickup_3d(
+					ItemDropManager.GENERIC_PICKUP_3D_SCENE,
+					global_position,
+					drop.item_id,
+					amount
+				)
 
 ## Respawn the node
 func respawn() -> void:
