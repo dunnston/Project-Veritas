@@ -10,6 +10,10 @@ extends CharacterBody3D
 @export var drop_distance: float = 2.0
 @export var interact_range: float = 3.0
 
+@export_group("Mining Settings")
+@export var mining_damage_per_hit: float = 10.0
+@export var mining_hit_rate: float = 0.5  # Time between mining hits
+
 @export_group("Survival Stats")
 @export var max_health: int = 100
 @export var max_energy: int = 100
@@ -56,6 +60,11 @@ var was_on_floor: bool = true
 var nearby_interactables: Array = []
 var interaction_area: Area3D = null
 
+# Mining system
+var is_mining: bool = false
+var current_mining_target: ResourceNode = null
+var mining_timer: Timer = null
+
 # Survival stat depletion timers
 var hunger_timer: Timer
 var thirst_timer: Timer
@@ -94,6 +103,9 @@ func _ready():
 
 	# Set up survival stat depletion timers
 	call_deferred("setup_depletion_timers")
+
+	# Set up mining timer
+	call_deferred("setup_mining_timer")
 
 func initialize_stats():
 	"""Initialize all survival stats to their maximum values"""
@@ -269,6 +281,12 @@ func _input(event: InputEvent):
 	# Handle inventory toggle
 	if event.is_action_pressed("inventory"):
 		toggle_inventory()
+
+	# Handle mining
+	if event.is_action_pressed("attack"):  # Left click
+		start_mining()
+	elif event.is_action_released("attack"):
+		stop_mining()
 
 func _physics_process(delta: float):
 	apply_camera_rotation(delta)
@@ -651,3 +669,129 @@ func die() -> void:
 	# For now, just reset health
 	health = max_health
 	health_changed.emit(health)
+
+# ============================================================================
+# MINING SYSTEM
+# ============================================================================
+
+func setup_mining_timer() -> void:
+	"""Set up timer for mining hits"""
+	mining_timer = Timer.new()
+	mining_timer.name = "MiningTimer"
+	mining_timer.wait_time = mining_hit_rate
+	mining_timer.timeout.connect(_on_mining_timer_timeout)
+	add_child(mining_timer)
+	print("Mining timer initialized (Hit rate: %ss)" % mining_hit_rate)
+
+func start_mining() -> void:
+	"""Start mining the nearest resource node"""
+	if is_mining:
+		return
+
+	# Find nearest resource node
+	var nearest_node = find_nearest_resource_node()
+	if not nearest_node:
+		return
+
+	# Check if player has required tool equipped
+	var equipped_tool = get_equipped_tool()
+	var tool_level = get_equipped_tool_level()
+
+	if not nearest_node.can_mine(equipped_tool, tool_level):
+		print("Cannot mine %s - requires %s level %d (you have: %s level %d)" % [
+			nearest_node.name,
+			nearest_node.required_tool,
+			nearest_node.required_tool_level,
+			equipped_tool,
+			tool_level
+		])
+		return
+
+	# Start mining
+	is_mining = true
+	current_mining_target = nearest_node
+	mining_timer.start()
+
+	# Immediate first hit
+	_on_mining_timer_timeout()
+
+	print("Started mining %s" % nearest_node.name)
+
+func stop_mining() -> void:
+	"""Stop mining"""
+	if not is_mining:
+		return
+
+	is_mining = false
+	mining_timer.stop()
+
+	# Stop visual effect on target
+	if current_mining_target and is_instance_valid(current_mining_target):
+		current_mining_target.stop_mining_effect()
+
+	current_mining_target = null
+	print("Stopped mining")
+
+func _on_mining_timer_timeout() -> void:
+	"""Called when mining timer times out - apply damage to node"""
+	if not is_mining or not current_mining_target or not is_instance_valid(current_mining_target):
+		stop_mining()
+		return
+
+	# Check if still in range
+	var distance = global_position.distance_to(current_mining_target.global_position)
+	if distance > interact_range:
+		print("Mining target out of range")
+		stop_mining()
+		return
+
+	# Get current tool info
+	var equipped_tool = get_equipped_tool()
+	var tool_level = get_equipped_tool_level()
+
+	# Apply damage
+	var destroyed = current_mining_target.mine(mining_damage_per_hit, equipped_tool, tool_level)
+
+	if destroyed:
+		print("Destroyed resource node!")
+		stop_mining()
+
+func find_nearest_resource_node() -> ResourceNode:
+	"""Find the nearest resource node within interact range"""
+	var nearest: ResourceNode = null
+	var min_distance = interact_range
+
+	# Check all nodes in the resource_nodes group
+	var nodes = get_tree().get_nodes_in_group("resource_nodes")
+	for node in nodes:
+		if node is ResourceNode and not node.is_destroyed:
+			var distance = global_position.distance_to(node.global_position)
+			if distance < min_distance:
+				nearest = node
+				min_distance = distance
+
+	return nearest
+
+func get_equipped_tool() -> String:
+	"""Get the currently equipped tool type"""
+	# Check if player has a tool equipped
+	if EquipmentManager and EquipmentManager.has_method("get_equipped_item"):
+		var weapon_slot = EquipmentManager.get_equipped_item("weapon")
+		if weapon_slot and not weapon_slot.is_empty():
+			var item_data = InventorySystem.get_item_data(weapon_slot.item_id)
+			if item_data.has("tool_type"):
+				return item_data.tool_type
+
+	return "None"
+
+func get_equipped_tool_level() -> int:
+	"""Get the level of the currently equipped tool"""
+	# Check if player has a tool equipped
+	if EquipmentManager and EquipmentManager.has_method("get_equipped_item"):
+		var weapon_slot = EquipmentManager.get_equipped_item("weapon")
+		if weapon_slot and not weapon_slot.is_empty():
+			var item_data = InventorySystem.get_item_data(weapon_slot.item_id)
+			if item_data.has("tool_level"):
+				return item_data.tool_level
+
+	return 0

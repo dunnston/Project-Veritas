@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://d9k5m2n7p4qwe"]
+
+[ext_resource type="Script" path="res://scripts/world/ResourceNode.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://dpx8vqy6m3nno" path="res://scenes/effects/MiningParticles.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://c4y2m8h3j5kkp" path="res://scenes/effects/DestructionParticles.tscn" id="3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(1.8, 1.6, 1.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.35, 0.35, 0.38, 1)
+metallic = 0.2
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+material = SubResource("StandardMaterial3D_1")
+size = Vector3(1.8, 1.6, 1.8)
+
+[node name="GraniteNode" type="StaticBody3D"]
+script = ExtResource("1")
+required_tool = "Pickaxe"
+required_tool_level = 3
+max_health = 180.0
+current_health = 180.0
+can_respawn = true
+respawn_time = 400.0
+mining_particles = ExtResource("2")
+destruction_particles = ExtResource("3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("BoxShape3D_1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+mesh = SubResource("BoxMesh_1")
