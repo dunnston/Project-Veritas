@@ -112,9 +112,16 @@ func update_position(world_pos: Vector3):
 			grid_pos.y = ground_y
 			print("DEBUG Floor: ground_y=%.3f, mesh_height=%.3f, final_y=%.3f (bottom at %.3f, top at %.3f)" %
 				[ground_y, mesh_height, grid_pos.y, grid_pos.y - mesh_height * 0.5, grid_pos.y + mesh_height * 0.5])
-		elif building_id.contains("roof") or mesh_height <= 0.2:
-			# Roof or other thin pieces: minimal clearance
-			grid_pos.y = ground_y + (mesh_height * 0.5) + 0.01
+		elif building_id.contains("roof"):
+			# Roofs: Check for walls below and snap to their top
+			var wall_height = detect_wall_height_at_position(grid_pos)
+			if wall_height > 0:
+				# Found wall, place roof on top (wall top + half roof thickness)
+				grid_pos.y = wall_height + (mesh_height * 0.5)
+				print("DEBUG Roof: Snapping to wall top at %.3f, roof center at %.3f" % [wall_height, grid_pos.y])
+			else:
+				# No wall, place on ground
+				grid_pos.y = ground_y + (mesh_height * 0.5) + 0.01
 		else:
 			# Walls, doors, etc.: offset by half height with standard clearance
 			grid_pos.y = ground_y + (mesh_height * 0.5) + ground_clearance
@@ -236,6 +243,31 @@ func find_ground_below(position: Vector3) -> Variant:
 
 	# No ground found
 	return null
+
+func detect_wall_height_at_position(position: Vector3) -> float:
+	# Check for walls at this grid position
+	# Walls are 3m tall, so check if there's a building node that's wall-like
+	var buildings = get_tree().get_nodes_in_group("building")
+
+	for building in buildings:
+		if not building is Node3D:
+			continue
+
+		# Check if building name contains "wall"
+		if not building.name.contains("wall"):
+			continue
+
+		# Check if building is at approximately the same X,Z position
+		var building_pos = building.global_position
+		var distance_xz = Vector2(position.x - building_pos.x, position.z - building_pos.z).length()
+
+		# If within 2m (half grid), consider it as "at this position"
+		if distance_xz < 2.0:
+			# Wall is 3m tall, so top is at position.y + 1.5m (half height from center)
+			# Walls are centered at ground + 1.5m, so top is at ground + 3m
+			return building_pos.y + 1.5  # Wall center + half wall height
+
+	return 0.0  # No wall found
 
 func _is_ground_like(body: Node3D) -> bool:
 	# Check if this body is ground-like (large, flat)
