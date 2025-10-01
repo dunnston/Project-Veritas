@@ -64,6 +64,8 @@ var interaction_area: Area3D = null
 var is_mining: bool = false
 var current_mining_target: ResourceNode = null
 var mining_timer: Timer = null
+var interact_hold_time: float = 0.0
+const INTERACT_HOLD_THRESHOLD: float = 0.3  # Hold E for 0.3s to mine
 
 # Survival stat depletion timers
 var hunger_timer: Timer
@@ -275,18 +277,15 @@ func _input(event: InputEvent):
 	# Removed world right-click drop functionality
 
 	# Handle interactions (items, workbenches, doors, etc.)
-	if event.is_action_pressed("interact"):
-		interact_with_nearest()
+	# Only trigger on quick tap (released before hold threshold)
+	if event.is_action_released("interact"):
+		if interact_hold_time < INTERACT_HOLD_THRESHOLD:
+			interact_with_nearest()
+		interact_hold_time = 0.0
 
 	# Handle inventory toggle
 	if event.is_action_pressed("inventory"):
 		toggle_inventory()
-
-	# Handle mining
-	if event.is_action_pressed("attack"):  # Left click
-		start_mining()
-	elif event.is_action_released("attack"):
-		stop_mining()
 
 func _physics_process(delta: float):
 	apply_camera_rotation(delta)
@@ -300,6 +299,23 @@ func _physics_process(delta: float):
 	handle_movement(delta)
 	update_animations()
 	rotate_character()
+
+	# Handle mining - hold E to mine (after threshold)
+	if Input.is_action_pressed("interact"):
+		interact_hold_time += delta
+
+		# Start mining after holding for threshold duration
+		if interact_hold_time >= INTERACT_HOLD_THRESHOLD:
+			var nearest_node = find_nearest_resource_node()
+			if nearest_node and not is_mining:
+				start_mining()
+			elif not nearest_node and is_mining:
+				stop_mining()
+	else:
+		# Stop mining when E is released
+		if is_mining:
+			stop_mining()
+		interact_hold_time = 0.0
 
 	move_and_slide()
 
