@@ -370,11 +370,8 @@ func place_building(pos: Vector3):
 		placed_building.add_to_group("building")
 
 	# Position and add to scene
-	var grid_pos = snap_to_grid_3d(pos)
-
-	# The preview already has the correct height adjustment, so use it directly
-	# Don't add another height offset here
-	placed_building.global_position = grid_pos
+	# Use the preview's position directly - it already has correct height adjustment for floors/walls
+	placed_building.global_position = pos
 	placed_building.rotation_degrees = Vector3(0, building_rotation, 0)
 	placed_building.name = current_building_id + "_" + str(Time.get_unix_time_from_system())
 
@@ -391,7 +388,7 @@ func place_building(pos: Vector3):
 	if placed_building.has_method("set_physics_process"):
 		placed_building.set_physics_process(true)
 
-	print("Placed building at position: ", grid_pos)
+	print("Placed building at position: ", pos)
 	print("Building name: ", placed_building.name)
 	print("Building type: ", placed_building.get_class())
 	if placed_building.has_method("interact"):
@@ -405,10 +402,10 @@ func place_building(pos: Vector3):
 		print("WARNING: Building is not in interactable group!")
 
 	# Track placed building
-	var pos_key = grid_pos_to_key(grid_pos)
+	var pos_key = grid_pos_to_key(pos)
 	placed_buildings[pos_key] = {
 		"id": current_building_id,
-		"position": grid_pos,
+		"position": pos,
 		"rotation": building_rotation,
 		"node": placed_building
 	}
@@ -424,8 +421,8 @@ func place_building(pos: Vector3):
 		building_to_move = null
 
 	# Emit signal
-	building_placed.emit(current_building_id, grid_pos)
-	print("Placed 3D building %s at %s" % [current_building_id, grid_pos])
+	building_placed.emit(current_building_id, pos)
+	print("Placed 3D building %s at %s" % [current_building_id, pos])
 
 	# Exit building mode
 	finish_building_mode()
