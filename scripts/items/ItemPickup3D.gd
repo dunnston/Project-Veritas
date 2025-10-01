@@ -137,10 +137,16 @@ func get_item_color(category: String) -> Color:
 			return Color(0.8, 0.8, 0.2)  # Yellow
 		"building":
 			return Color(0.8, 0.4, 0.2)  # Orange
+		"building_material":
+			return Color(0.6, 0.6, 0.7)  # Stone gray
 		"component":
 			return Color(0.8, 0.2, 0.8)  # Magenta
 		"ammo":
 			return Color(0.6, 0.6, 0.6)  # Gray
+		"material":
+			return Color(0.4, 0.7, 0.9)  # Light cyan
+		"organic":
+			return Color(0.5, 0.8, 0.3)  # Lime green
 		_:
 			return Color(0.5, 0.5, 0.8)  # Light blue (default)
 
