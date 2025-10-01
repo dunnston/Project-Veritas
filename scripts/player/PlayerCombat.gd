@@ -46,17 +46,11 @@ func _process(delta: float) -> void:
 			attack_timer = 0.0
 
 func _input(event: InputEvent) -> void:
-	# Debug: Check if we receive input at all
-	if event.is_action_pressed("attack"):
-		print("PlayerCombat: Attack input received - can_attack=%s, is_attacking=%s" % [can_attack, is_attacking])
-
 	# Don't allow attacks when UI is open
 	if is_ui_blocking_input():
-		# Don't print spam, UI blocking is expected when inventory is open
 		return
 
 	if event.is_action_pressed("attack") and can_attack and not is_attacking:
-		print("PlayerCombat: Processing attack input")
 		var weapon_data = get_current_weapon_data()
 
 		if weapon_data.weapon and weapon_data.weapon.is_ranged():
@@ -97,7 +91,6 @@ func perform_melee_attack() -> void:
 		# Play weapon swing animation (white flash for now)
 		_apply_visual_flash(Color(1.5, 1.5, 1.5))
 	else:
-		print("Punching (damage: %d, range: %.1f)" % [weapon_data.damage, weapon_data.range])
 		# Play punch animation for unarmed attacks
 		if player.has_method("play_punch_animation"):
 			player.play_punch_animation()
@@ -127,7 +120,6 @@ func perform_melee_attack() -> void:
 
 func perform_ranged_attack(_target_pos: Vector3) -> void:
 	if not can_attack or is_attacking:
-		print("Cannot attack: can_attack=%s, is_attacking=%s" % [can_attack, is_attacking])
 		return
 
 	var weapon_data = get_current_weapon_data()
@@ -391,17 +383,14 @@ func is_ui_blocking_input() -> bool:
 	# Check if any UI that should block combat input is open
 	var inventory_ui = get_tree().get_first_node_in_group("inventory_ui")
 	if inventory_ui and inventory_ui.visible:
-		print("PlayerCombat: Inventory UI is blocking input (Node: %s, Path: %s)" % [inventory_ui.name, inventory_ui.get_path()])
 		return true
 
 	var build_menu = get_tree().get_first_node_in_group("build_menu")
 	if build_menu and build_menu.visible:
-		print("PlayerCombat: Build menu is blocking input")
 		return true
 
 	var crafting_menu = get_tree().get_first_node_in_group("crafting_menu")
 	if crafting_menu and crafting_menu.visible:
-		print("PlayerCombat: Crafting menu is blocking input")
 		return true
 
 	# Check if any popups are active (like ammo selection)
@@ -410,14 +399,12 @@ func is_ui_blocking_input() -> bool:
 	for weapon_ui in weapon_uis:
 		# Check if the weapon UI has a specific blocking flag
 		if weapon_ui.has_method("is_blocking_input") and weapon_ui.is_blocking_input():
-			print("PlayerCombat: Weapon UI is blocking input")
 			return true
 
 		if weapon_ui.get_child_count() > 0:
 			# Check if there are any popup menus active
 			for child in weapon_ui.get_children():
 				if child is PopupMenu and child.visible:
-					print("PlayerCombat: Found active popup menu")
 					return true
 
 	# Add other UIs that should block input here
