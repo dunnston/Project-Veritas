@@ -275,7 +275,7 @@ func _drop_loot() -> void:
 
 func _spawn_item_drop(item_id: String, quantity: int) -> void:
 	# Use ItemPickup3D similar to resource nodes
-	var pickup_scene = preload("res://scenes/items/ItemPickup3D.tscn")
+	var pickup_scene = preload("res://scenes/items/item_pickup_3d.tscn")
 	var pickup = pickup_scene.instantiate()
 
 	pickup.item_id = item_id
