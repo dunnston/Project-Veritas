@@ -21,7 +21,14 @@ func deal_damage(attacker: Node, target: Node, damage: int, damage_type: String 
 		return
 
 	if target.has_method("take_damage"):
-		target.take_damage(damage, damage_type, attacker)
+		# Check the function signature to pass correct parameters
+		# Animals use: take_damage(amount, attacker)
+		# Other entities might use: take_damage(damage, damage_type)
+		# Try to call with attacker parameter (animals), fallback to just damage
+		if target.has_method("is_in_group") and (target.is_in_group("animals") or target.is_in_group("enemies")):
+			target.take_damage(damage, attacker)
+		else:
+			target.take_damage(damage, damage_type)
 		damage_dealt.emit(attacker, target, damage)
 
 		var log_entry = {
