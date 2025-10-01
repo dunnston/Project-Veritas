@@ -486,11 +486,12 @@ func add_test_items():
 		print("Added test items to inventory for drop testing")
 
 func toggle_inventory():
-	# Toggle inventory UI
-	if GameManager and GameManager.has_method("toggle_inventory"):
-		GameManager.toggle_inventory()
+	# Toggle inventory UI directly
+	var inventory_ui = get_tree().get_first_node_in_group("inventory_ui")
+	if inventory_ui:
+		inventory_ui.toggle_inventory()
 	else:
-		print("Inventory toggle not implemented yet")
+		print("InventoryUI not found")
 
 # 3D Interaction System
 func setup_interaction_area():

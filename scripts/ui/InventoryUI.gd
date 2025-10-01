@@ -240,9 +240,8 @@ func _input(event: InputEvent):
 			# Debug: Show inventory contents (\)
 			debug_show_inventory_contents()
 
-	# Handle inventory toggle
-	if Input.is_action_just_pressed("toggle_inventory"):
-		toggle_inventory()
+	# NOTE: Inventory toggle is handled by player controller (PlayerAnimated3D)
+	# Don't handle it here to avoid duplicate input processing
 
 func setup_inventory_slots():
 	# Clear existing slots
