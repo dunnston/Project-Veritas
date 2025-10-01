@@ -15,6 +15,7 @@ var current_attack_cooldown: float = 0.5
 @onready var combat_system: Node = get_node_or_null("/root/CombatSystem")
 @onready var weapon_manager: Node = get_node_or_null("/root/WeaponManager")
 @onready var projectile_system: Node = get_node_or_null("/root/ProjectileSystem")
+@onready var character_model: Node3D = player.get_node_or_null("CharacterModel")
 
 signal attack_started()
 signal attack_finished()
@@ -30,6 +31,13 @@ func _ready() -> void:
 		weapon_manager.weapon_switched.connect(_on_weapon_switched)
 
 	print("Player combat system initialized")
+
+func _apply_visual_flash(color: Color, duration: float = 0.2) -> void:
+	"""Safely apply a color flash to the character model"""
+	if character_model:
+		character_model.modulate = color
+		await get_tree().create_timer(duration).timeout
+		character_model.modulate = Color.WHITE
 
 func _process(delta: float) -> void:
 	if not can_attack:
@@ -81,7 +89,7 @@ func perform_melee_attack() -> void:
 	if weapon_data.weapon:
 		print("Attacking with %s (damage: %d, range: %.1f)" % [weapon_data.name, weapon_data.damage, weapon_data.range])
 		# Play weapon swing animation (white flash for now)
-		player.modulate = Color(1.5, 1.5, 1.5)
+		_apply_visual_flash(Color(1.5, 1.5, 1.5))
 	else:
 		print("Punching (damage: %d, range: %.1f)" % [weapon_data.damage, weapon_data.range])
 		# Play punch animation for unarmed attacks
@@ -108,7 +116,8 @@ func perform_melee_attack() -> void:
 	else:
 		# Weapon flash effect
 		await get_tree().create_timer(0.2).timeout
-		player.modulate = Color.WHITE
+		if character_model:
+			character_model.modulate = Color.WHITE
 	is_attacking = false
 	attack_finished.emit()
 
@@ -174,10 +183,7 @@ func perform_ranged_attack(_target_pos: Vector3) -> void:
 	weapon_data.weapon.use_weapon()
 
 	# Visual feedback for shooting
-	player.modulate = Color(1.2, 1.2, 0.8)
-
-	await get_tree().create_timer(0.1).timeout
-	player.modulate = Color.WHITE
+	_apply_visual_flash(Color(1.2, 1.2, 0.8), 0.1)
 
 	is_attacking = false
 	attack_finished.emit()
@@ -309,9 +315,7 @@ func cycle_weapons() -> void:
 	weapon_switched.emit()
 
 	# Visual feedback
-	player.modulate = Color(1.2, 1.2, 1.5)
-	await get_tree().create_timer(0.2).timeout
-	player.modulate = Color.WHITE
+	_apply_visual_flash(Color(1.2, 1.2, 1.5))
 
 	# Print what we switched to
 	if next_slot == "PRIMARY_WEAPON":
@@ -352,9 +356,8 @@ func reload_weapon() -> void:
 	if weapon.reload_from_inventory():
 		# Visual feedback for successful reload
 		show_reload_message("RELOADING...")
-		player.modulate = Color(1.2, 1.2, 1.5)  # Blue flash
+		_apply_visual_flash(Color(1.2, 1.2, 1.5), weapon.reload_time)
 		await get_tree().create_timer(weapon.reload_time).timeout
-		player.modulate = Color.WHITE
 		show_reload_message("RELOAD COMPLETE!")
 	else:
 		show_reload_message("NO AMMO TO RELOAD!")
