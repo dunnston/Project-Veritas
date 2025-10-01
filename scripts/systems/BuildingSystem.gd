@@ -149,8 +149,9 @@ func _input(event: InputEvent):
 			get_viewport().set_input_as_handled()
 
 	elif event is InputEventKey and event.pressed:
-		if event.keycode == KEY_ESCAPE:
+		if event.keycode == KEY_ESCAPE or event.keycode == KEY_C:
 			cancel_building()
+			get_viewport().set_input_as_handled()
 
 func _process(_delta):
 	if is_building_mode and building_preview and camera:
