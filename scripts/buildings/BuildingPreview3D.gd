@@ -11,6 +11,7 @@ var material_invalid: StandardMaterial3D
 var overlapping_bodies: Array = []
 var ground_raycast_length: float = 100.0  # How far down to check for ground
 var ground_clearance: float = 0.05  # Small offset above ground to prevent z-fighting
+var last_roof_had_wall: bool = true  # Track roof wall state to reduce spam
 
 signal placement_validity_changed(is_valid: bool)
 
@@ -118,12 +119,10 @@ func update_position(world_pos: Vector3):
 			if wall_height > 0:
 				# Found wall, place roof on top (wall top + half roof thickness)
 				grid_pos.y = wall_height + (mesh_height * 0.5)
-				print("DEBUG Roof: Snapping to wall top at %.3f, roof center at %.3f" % [wall_height, grid_pos.y])
 			else:
-				# No wall found - roof cannot be placed here
-				# Set to a very high invalid position so collision check will fail
-				grid_pos.y = 9999.0
-				print("DEBUG Roof: No wall found - invalid placement")
+				# No wall found - show roof at ground level but mark as invalid
+				# This keeps the preview visible so player can see where they're trying to place
+				grid_pos.y = ground_y + 2.0  # Show at reasonable height for visibility
 		else:
 			# Walls, doors, etc.: offset by half height with standard clearance
 			grid_pos.y = ground_y + (mesh_height * 0.5) + ground_clearance
@@ -136,11 +135,26 @@ func update_position(world_pos: Vector3):
 	# Force immediate validity check after moving
 	# Wait one physics frame for collision updates
 	await get_tree().physics_frame
-	recheck_validity()
 
-	# Special case: Roofs without walls are always invalid
-	if building_id.contains("roof") and grid_pos.y > 9000:
-		set_validity(false)
+	# Special case: Check if roof has wall support BEFORE normal validity check
+	if building_id.contains("roof"):
+		var wall_height = detect_wall_height_at_position(grid_pos)
+		var has_wall = wall_height > 0
+
+		# Only print debug when state changes
+		if has_wall != last_roof_had_wall:
+			if has_wall:
+				print("Roof: Wall support detected at height %.2f" % wall_height)
+			else:
+				print("Roof: No wall support - cannot place here")
+			last_roof_had_wall = has_wall
+
+		if not has_wall:
+			# No wall support - mark as invalid
+			set_validity(false)
+			return  # Skip normal recheck_validity
+
+	recheck_validity()
 
 func recheck_validity():
 	# Let the physics engine update and re-detect overlaps
@@ -279,9 +293,6 @@ func detect_wall_height_at_position(position: Vector3) -> float:
 			# Wall top = wall center Y + half wall height
 			var wall_top = building_pos.y + (wall_height * 0.5)
 			highest_wall_top = max(highest_wall_top, wall_top)
-
-			print("DEBUG: Found wall at XZ distance %.2f, center Y=%.3f, height=%.1f, top=%.3f" %
-				[distance_xz, building_pos.y, wall_height, wall_top])
 
 	return highest_wall_top
 
