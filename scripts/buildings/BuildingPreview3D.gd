@@ -75,12 +75,17 @@ func set_validity(is_valid: bool):
 	placement_validity_changed.emit(is_valid)
 
 func update_position(world_pos: Vector3):
-	# Snap to grid on X and Z axes
+	# Snap to grid on X and Z axes (4m grid for building pieces)
+	var grid_size = 4.0
 	var grid_pos = Vector3(
-		round(world_pos.x / 1.0) * 1.0,
+		round(world_pos.x / grid_size) * grid_size,
 		world_pos.y,  # Temporary Y, will be adjusted by ground raycast
-		round(world_pos.z / 1.0) * 1.0
+		round(world_pos.z / grid_size) * grid_size
 	)
+
+	# Smart snapping for walls: snap to floor edges
+	if building_id.contains("wall"):
+		grid_pos = snap_wall_to_floor_edge(grid_pos, grid_size)
 
 	# Get mesh size for calculations
 	var mesh_height = 1.0
@@ -96,9 +101,13 @@ func update_position(world_pos: Vector3):
 		# For floor pieces (thin, horizontal pieces), place directly on ground
 		# For other pieces (walls, etc.), offset by half height
 		if building_id.contains("floor"):
-			# Floor tiles: place bottom flush with ground, just need half-height offset
-			# No additional clearance - we want it right on the surface
-			grid_pos.y = ground_y + (mesh_height * 0.5)
+			# Floor tiles: Place center at ground level so floor sits ON the ground, not above it
+			# The 0.1m thick floor will extend -0.05 to +0.05 from center
+			# This means bottom will be slightly below ground_y (by 0.05m)
+			# and top will be slightly above (by 0.05m) - this creates a flush floor surface
+			grid_pos.y = ground_y
+			print("DEBUG Floor: ground_y=%.3f, mesh_height=%.3f, final_y=%.3f (bottom at %.3f, top at %.3f)" %
+				[ground_y, mesh_height, grid_pos.y, grid_pos.y - mesh_height * 0.5, grid_pos.y + mesh_height * 0.5])
 		elif building_id.contains("roof") or mesh_height <= 0.2:
 			# Roof or other thin pieces: minimal clearance
 			grid_pos.y = ground_y + (mesh_height * 0.5) + 0.01
@@ -245,6 +254,38 @@ func snap_to_grid_3d(pos: Vector3, grid_size: float = 1.0) -> Vector3:
 		pos.y,  # Keep Y position (height)
 		round(pos.z / grid_size) * grid_size
 	)
+
+func snap_wall_to_floor_edge(wall_pos: Vector3, grid_size: float) -> Vector3:
+	# Check if placing a wall near a floor edge
+	# Walls are 4m wide, so they should align with floor edges at grid + half_wall_width offsets
+	# For a 4m wall on a 4m floor grid, wall can be at:
+	# - Floor center: X = 0, 4, 8, ... (aligned with floor)
+	# - Floor edge: X = 2, 6, 10, ... (offset by 2m = half grid)
+
+	var half_grid = grid_size / 2.0
+
+	# Check current rotation to determine which axis is the wall's length
+	var rotation_y = rotation_degrees.y
+	var is_aligned_with_x = abs(fmod(rotation_y, 180.0)) < 45.0  # Wall runs along X axis
+
+	if is_aligned_with_x:
+		# Wall runs along X axis, so it can snap to Z edges
+		var z_center = round(wall_pos.z / grid_size) * grid_size
+		var z_edge = round((wall_pos.z - half_grid) / grid_size) * grid_size + half_grid
+
+		# Choose whichever is closer
+		if abs(wall_pos.z - z_edge) < abs(wall_pos.z - z_center):
+			return Vector3(wall_pos.x, wall_pos.y, z_edge)
+	else:
+		# Wall runs along Z axis, so it can snap to X edges
+		var x_center = round(wall_pos.x / grid_size) * grid_size
+		var x_edge = round((wall_pos.x - half_grid) / grid_size) * grid_size + half_grid
+
+		# Choose whichever is closer
+		if abs(wall_pos.x - x_edge) < abs(wall_pos.x - x_center):
+			return Vector3(x_edge, wall_pos.y, wall_pos.z)
+
+	return wall_pos
 
 func rotate_building():
 	rotation_degrees.y += 90

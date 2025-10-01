@@ -39,29 +39,29 @@ var building_data: Dictionary = {
 		"collision_shape": Vector3(1, 1, 1),
 		"icon_path": "res://assets/sprites/items/Chest.png"
 	},
-	# Shelter Building Components (3D)
+	# Shelter Building Components (3D) - 4m grid system
 	"basic_wall": {
 		"name": "Basic Wall",
-		"size": Vector3(1, 3, 0.2),
-		"collision_shape": Vector3(1, 3, 0.2),
+		"size": Vector3(4, 3, 0.2),  # 4m wide, 3m tall, 20cm thick
+		"collision_shape": Vector3(4, 3, 0.2),
 		"icon_path": ""
 	},
 	"basic_floor": {
 		"name": "Basic Floor",
-		"size": Vector3(1, 0.1, 1),
-		"collision_shape": Vector3(1, 0.1, 1),
+		"size": Vector3(4, 0.1, 4),  # 4m x 4m floor tile
+		"collision_shape": Vector3(4, 0.1, 4),
 		"icon_path": ""
 	},
 	"basic_roof": {
 		"name": "Basic Roof",
-		"size": Vector3(1, 0.1, 1),
-		"collision_shape": Vector3(1, 0.1, 1),
+		"size": Vector3(4, 0.1, 4),  # 4m x 4m roof tile
+		"collision_shape": Vector3(4, 0.1, 4),
 		"icon_path": ""
 	},
 	"door": {
 		"name": "Door",
-		"size": Vector3(1, 2, 0.2),
-		"collision_shape": Vector3(1, 2, 0.2),
+		"size": Vector3(1.2, 2.4, 0.2),  # Standard door size (1.2m wide x 2.4m tall)
+		"collision_shape": Vector3(1.2, 2.4, 0.2),
 		"icon_path": ""
 	},
 	"reinforced_wall": {
@@ -450,7 +450,7 @@ func finish_building_mode():
 	print("Restored mouse capture for camera control")
 
 # 3D Grid functions
-func snap_to_grid_3d(pos: Vector3, grid_size: float = 1.0) -> Vector3:
+func snap_to_grid_3d(pos: Vector3, grid_size: float = 4.0) -> Vector3:
 	return Vector3(
 		round(pos.x / grid_size) * grid_size,
 		pos.y,  # Keep original Y position from raycast
