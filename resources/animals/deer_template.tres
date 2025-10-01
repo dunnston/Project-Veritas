@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="AnimalTemplate" load_steps=6 format=3 uid="uid://cn3qw8ry5x7mh"]
+
+[ext_resource type="Script" uid="uid://cn061j3cjggur" path="res://scripts/entities/AnimalTemplate.gd" id="1_deer_template"]
+[ext_resource type="PackedScene" uid="uid://dpj7w2xkm8v3r" path="res://scenes/entities/Deer.tscn" id="2_deer_scene"]
+[ext_resource type="Script" uid="uid://uquhx6hk8cyc" path="res://scripts/entities/AnimalDrop.gd" id="3_deer_drop"]
+
+[sub_resource type="Resource" id="Resource_deer_meat"]
+script = ExtResource("3_deer_drop")
+item_id = "raw_meat"
+min_amount = 2
+max_amount = 4
+drop_chance = 0.9
+
+[sub_resource type="Resource" id="Resource_deer_hide"]
+script = ExtResource("3_deer_drop")
+item_id = "leather"
+min_amount = 1
+max_amount = 2
+drop_chance = 0.6
+
+[resource]
+script = ExtResource("1_deer_template")
+animal_name = "Deer"
+scene = ExtResource("2_deer_scene")
+behavior_type = 0
+max_health = 60.0
+move_speed = 7.0
+run_speed = 12.0
+aggro_range = 10.0
+flee_range = 15.0
+attack_range = 1.5
+attack_damage = 8.0
+attack_cooldown = 1.2
+loot_drops = Array[Resource]([SubResource("Resource_deer_meat"), SubResource("Resource_deer_hide")])

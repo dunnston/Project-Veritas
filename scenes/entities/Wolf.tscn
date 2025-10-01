@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2qm7j8hrx3pn"]
+
+[ext_resource type="Script" path="res://scripts/entities/Animal.gd" id="1_wolf"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wolf"]
+radius = 0.5
+height = 1.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wolf"]
+radius = 0.5
+height = 1.5
+radial_segments = 16
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wolf"]
+albedo_color = Color(0.3, 0.3, 0.35, 1)
+
+[node name="Wolf" type="CharacterBody3D" groups=["animals"]]
+collision_layer = 16
+collision_mask = 1
+script = ExtResource("1_wolf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CapsuleShape3D_wolf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("CapsuleMesh_wolf")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_wolf")
+
+[node name="AttackArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CapsuleShape3D_wolf")
