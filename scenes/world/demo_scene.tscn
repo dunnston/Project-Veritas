@@ -201,7 +201,7 @@ offset_bottom = 9.0
 visible = false
 
 [node name="StorageUI" parent="UI" instance=ExtResource("4_storage")]
-visible = true
+visible = false
 
 [node name="CombatHUD" parent="UI" instance=ExtResource("5_combathud")]
 layout_mode = 3
@@ -212,14 +212,14 @@ grow_vertical = 2
 [node name="DevMenu" parent="UI" instance=ExtResource("6_devmenu")]
 
 [node name="BuildMenu" parent="UI" instance=ExtResource("7_tioqf")]
-visible = true
+visible = false
 
 [node name="AttributesUI" parent="UI" instance=ExtResource("8_mxda1")]
 
 [node name="EquipedWeaponUi" parent="UI" instance=ExtResource("9_6j8p0")]
 
 [node name="GeneratorMenu" parent="UI" instance=ExtResource("10_0dfus")]
-visible = true
+visible = false
 
 [node name="SkillDebugUI" parent="UI" instance=ExtResource("11_8occt")]
 
