@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bpl5jqugew5c7"]
+[gd_scene load_steps=5 format=3 uid="uid://bpl5jqugew5c7"]
 
 [ext_resource type="Script" path="res://scripts/player/PlayerAnimated3D.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://r1nhil42wvct" path="res://assets/models/dummy.tscn" id="2_character"]
+[ext_resource type="Script" path="res://scripts/player/PlayerCombat.gd" id="3_combat"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
 radius = 0.3
@@ -26,3 +27,6 @@ margin = 0.2
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 fov = 75.0
+
+[node name="PlayerCombat" type="Node" parent="."]
+script = ExtResource("3_combat")
