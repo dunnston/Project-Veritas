@@ -393,6 +393,12 @@ func is_ui_blocking_input() -> bool:
 	if crafting_menu and crafting_menu.visible:
 		return true
 
+	# Check for debug UIs (dev menu, skill debug panel, etc.)
+	var debug_uis = get_tree().get_nodes_in_group("debug_ui")
+	for debug_ui in debug_uis:
+		if debug_ui is Control and debug_ui.visible:
+			return true
+
 	# Check if any popups are active (like ammo selection)
 	# Check all nodes in the weapon_ui group for active popups
 	var weapon_uis = get_tree().get_nodes_in_group("weapon_ui")
