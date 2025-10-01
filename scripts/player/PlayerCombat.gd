@@ -380,6 +380,11 @@ func get_ammo_ids_of_type(ammo_type: String) -> Array[String]:
 	return result
 
 func is_ui_blocking_input() -> bool:
+	# Check if building mode is active
+	var building_system = get_node_or_null("/root/BuildingSystem")
+	if building_system and building_system.is_building_mode:
+		return true
+
 	# Check if any UI that should block combat input is open
 	var inventory_ui = get_tree().get_first_node_in_group("inventory_ui")
 	if inventory_ui and inventory_ui.visible:
