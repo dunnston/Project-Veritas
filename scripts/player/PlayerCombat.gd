@@ -232,7 +232,10 @@ func get_current_weapon_data(calculate_crit: bool = false) -> Dictionary:
 func check_melee_hit(weapon_data: Dictionary) -> bool:
 	var space_state = player.get_world_3d().direct_space_state
 	var player_pos = player.global_position
-	var facing_direction = -player.global_transform.basis.z  # Forward direction in 3D
+
+	# Get camera's forward direction for third-person aiming
+	var camera = get_viewport().get_camera_3d()
+	var facing_direction = -camera.global_transform.basis.z if camera else -player.global_transform.basis.z
 
 	var attack_center = player_pos + (facing_direction * weapon_data.range * 0.5)
 
