@@ -75,17 +75,21 @@ func set_validity(is_valid: bool):
 	placement_validity_changed.emit(is_valid)
 
 func update_position(world_pos: Vector3):
-	# Snap to grid on X and Z axes (4m grid for building pieces)
+	# Different grid snapping based on building type
 	var grid_size = 4.0
-	var grid_pos = Vector3(
-		round(world_pos.x / grid_size) * grid_size,
-		world_pos.y,  # Temporary Y, will be adjusted by ground raycast
-		round(world_pos.z / grid_size) * grid_size
-	)
+	var grid_pos: Vector3
 
-	# Smart snapping for walls: snap to floor edges
 	if building_id.contains("wall"):
-		grid_pos = snap_wall_to_floor_edge(grid_pos, grid_size)
+		# Walls use 2m grid (half-grid) to sit on floor edges
+		var half_grid = grid_size / 2.0
+		grid_pos = snap_wall_to_floor_edge(world_pos, half_grid)
+	else:
+		# Floors, roofs use full 4m grid
+		grid_pos = Vector3(
+			round(world_pos.x / grid_size) * grid_size,
+			world_pos.y,
+			round(world_pos.z / grid_size) * grid_size
+		)
 
 	# Get mesh size for calculations
 	var mesh_height = 1.0
@@ -255,31 +259,39 @@ func snap_to_grid_3d(pos: Vector3, grid_size: float = 1.0) -> Vector3:
 		round(pos.z / grid_size) * grid_size
 	)
 
-func snap_wall_to_floor_edge(wall_pos: Vector3, grid_size: float) -> Vector3:
-	# Walls should snap to half-grid positions to sit on floor edges
-	# For a 4m grid: floors at 0, 4, 8... and walls at edges: 2, 6, 10...
-	# This makes walls sit on the perimeter of floor tiles
+func snap_wall_to_floor_edge(wall_pos: Vector3, half_grid: float) -> Vector3:
+	# Walls must snap to floor EDGES only, never centers
+	# For 4m floors: centers at 0, 4, 8... edges at 2, 6, 10, -2, -6...
+	# Formula: floor_center ± 2m = floor_edges
+	# So walls snap to: (4n + 2) positions where n is any integer
+	# Examples: ..., -6, -2, 2, 6, 10, 14...
 
-	var half_grid = grid_size / 2.0
+	var full_grid = half_grid * 2.0  # 4m
 
-	# Check current rotation to determine which axis the wall runs along
-	var rotation_y = rotation_degrees.y
-	var normalized_rotation = fmod(rotation_y + 360.0, 360.0)
+	# Snap to nearest 2m position first
+	var x_grid = round(wall_pos.x / half_grid) * half_grid
+	var z_grid = round(wall_pos.z / half_grid) * half_grid
 
-	# Wall orientation: 0/180 = runs along X axis, 90/270 = runs along Z axis
-	var runs_along_x = abs(normalized_rotation) < 45.0 or abs(normalized_rotation - 180.0) < 45.0
+	# Force to edge positions (odd multiples of 2m)
+	# If at a center position (0, 4, 8...), shift by 2m to nearest edge
+	var x_floor_index = round(x_grid / full_grid)
+	var x_at_center = abs(x_grid - (x_floor_index * full_grid)) < 0.1
+	if x_at_center:
+		# At center, move to nearest edge (±2m)
+		if wall_pos.x > x_grid:
+			x_grid += half_grid
+		else:
+			x_grid -= half_grid
 
-	if runs_along_x:
-		# Wall runs along X, snap Z to edge (half-grid positions)
-		# Snap to nearest half-grid: ..., -2, 2, 6, 10, ...
-		var z_snapped = round(wall_pos.z / half_grid) * half_grid
-		return Vector3(wall_pos.x, wall_pos.y, z_snapped)
-	else:
-		# Wall runs along Z, snap X to edge (half-grid positions)
-		var x_snapped = round(wall_pos.x / half_grid) * half_grid
-		return Vector3(x_snapped, wall_pos.y, wall_pos.z)
+	var z_floor_index = round(z_grid / full_grid)
+	var z_at_center = abs(z_grid - (z_floor_index * full_grid)) < 0.1
+	if z_at_center:
+		if wall_pos.z > z_grid:
+			z_grid += half_grid
+		else:
+			z_grid -= half_grid
 
-	return wall_pos
+	return Vector3(x_grid, wall_pos.y, z_grid)
 
 func rotate_building():
 	rotation_degrees.y += 90
