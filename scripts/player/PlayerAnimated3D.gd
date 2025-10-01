@@ -794,16 +794,16 @@ func get_equipped_tool() -> String:
 		return "None"
 
 	# First check TOOL slot (dedicated tool slot)
-	var tool_slot = EquipmentManager.get_equipped_item("TOOL")
-	if tool_slot and not tool_slot.is_empty():
-		var item_data = InventorySystem.get_item_data(tool_slot.item_id)
+	var tool_equipment = EquipmentManager.get_equipped_item("TOOL")
+	if tool_equipment:
+		var item_data = InventorySystem.get_item_data(tool_equipment.item_id)
 		if item_data.has("tool_type"):
 			return item_data.tool_type
 
 	# Fallback to WEAPON slot (for backwards compatibility)
-	var weapon_slot = EquipmentManager.get_equipped_item("WEAPON")
-	if weapon_slot and not weapon_slot.is_empty():
-		var item_data = InventorySystem.get_item_data(weapon_slot.item_id)
+	var weapon_equipment = EquipmentManager.get_equipped_item("WEAPON")
+	if weapon_equipment:
+		var item_data = InventorySystem.get_item_data(weapon_equipment.item_id)
 		if item_data.has("tool_type"):
 			return item_data.tool_type
 
@@ -815,16 +815,16 @@ func get_equipped_tool_level() -> int:
 		return 0
 
 	# First check TOOL slot (dedicated tool slot)
-	var tool_slot = EquipmentManager.get_equipped_item("TOOL")
-	if tool_slot and not tool_slot.is_empty():
-		var item_data = InventorySystem.get_item_data(tool_slot.item_id)
+	var tool_equipment = EquipmentManager.get_equipped_item("TOOL")
+	if tool_equipment:
+		var item_data = InventorySystem.get_item_data(tool_equipment.item_id)
 		if item_data.has("tool_level"):
 			return item_data.tool_level
 
 	# Fallback to WEAPON slot (for backwards compatibility)
-	var weapon_slot = EquipmentManager.get_equipped_item("WEAPON")
-	if weapon_slot and not weapon_slot.is_empty():
-		var item_data = InventorySystem.get_item_data(weapon_slot.item_id)
+	var weapon_equipment = EquipmentManager.get_equipped_item("WEAPON")
+	if weapon_equipment:
+		var item_data = InventorySystem.get_item_data(weapon_equipment.item_id)
 		if item_data.has("tool_level"):
 			return item_data.tool_level
 
