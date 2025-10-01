@@ -17,6 +17,12 @@
 [ext_resource type="PackedScene" uid="uid://cfeodp70flpq1" path="res://scenes/ui/WorkbenchCraftingMenu.tscn" id="12_kmphx"]
 [ext_resource type="PackedScene" uid="uid://bxn3k4p7m8qwe" path="res://scenes/world/nodes/SandstoneNode.tscn" id="16_0dfus"]
 [ext_resource type="Script" uid="uid://b5v7p3r1bhcci" path="res://scripts/world/ResourceDrop.gd" id="17_8occt"]
+[ext_resource type="Script" path="res://scripts/world/EntitySpawner.gd" id="18_spawner"]
+[ext_resource type="Resource" uid="uid://cpf8vx5h4y2bk" path="res://resources/animals/rabbit_template.tres" id="19_rabbit"]
+[ext_resource type="Resource" uid="uid://cn3qw8ry5x7mh" path="res://resources/animals/deer_template.tres" id="20_deer"]
+[ext_resource type="Resource" uid="uid://dnb8wx4ky2pvj" path="res://resources/animals/boar_template.tres" id="21_boar"]
+[ext_resource type="Resource" uid="uid://b8mq3xnv7ht2p" path="res://resources/animals/wolf_template.tres" id="22_wolf"]
+[ext_resource type="Resource" uid="uid://dft8qw2nx4vbp" path="res://resources/animals/bear_template.tres" id="23_bear"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxywg"]
 sky_top_color = Color(0.0862745, 0.0392157, 0.117647, 1)
@@ -250,3 +256,41 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
 [node name="SandstoneNode" parent="." instance=ExtResource("16_0dfus")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98982, 0, -16.795628)
 drop_table = Array[ExtResource("17_8occt")]([SubResource("Resource_kmphx"), SubResource("Resource_lysxd")])
+
+[node name="AnimalSpawners" type="Node3D" parent="."]
+
+[node name="PassiveSpawner" type="Node3D" parent="AnimalSpawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 10)
+script = ExtResource("18_spawner")
+spawn_templates = Array[Resource]([ExtResource("19_rabbit"), ExtResource("20_deer")])
+max_entities = 8
+spawn_frequency_min = 8.0
+spawn_frequency_max = 20.0
+spawn_radius = 25.0
+min_spawn_distance = 8.0
+debug_draw = true
+debug_color = Color(0, 1, 0, 0.3)
+
+[node name="NeutralSpawner" type="Node3D" parent="AnimalSpawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -15)
+script = ExtResource("18_spawner")
+spawn_templates = Array[Resource]([ExtResource("21_boar")])
+max_entities = 5
+spawn_frequency_min = 10.0
+spawn_frequency_max = 25.0
+spawn_radius = 20.0
+min_spawn_distance = 10.0
+debug_draw = true
+debug_color = Color(1, 1, 0, 0.3)
+
+[node name="AggressiveSpawner" type="Node3D" parent="AnimalSpawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 20)
+script = ExtResource("18_spawner")
+spawn_templates = Array[Resource]([ExtResource("22_wolf"), ExtResource("23_bear")])
+max_entities = 4
+spawn_frequency_min = 15.0
+spawn_frequency_max = 35.0
+spawn_radius = 30.0
+min_spawn_distance = 15.0
+debug_draw = true
+debug_color = Color(1, 0, 0, 0.3)

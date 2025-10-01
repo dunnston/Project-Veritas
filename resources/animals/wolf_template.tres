@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="AnimalTemplate" load_steps=6 format=3 uid="uid://b8mq3xnv7ht2p"]
+
+[ext_resource type="Script" path="res://scripts/entities/AnimalTemplate.gd" id="1_wolf_template"]
+[ext_resource type="PackedScene" uid="uid://c2qm7j8hrx3pn" path="res://scenes/entities/Wolf.tscn" id="2_wolf_scene"]
+[ext_resource type="Script" path="res://scripts/entities/AnimalDrop.gd" id="3_wolf_drop"]
+
+[sub_resource type="Resource" id="Resource_wolf_meat"]
+script = ExtResource("3_wolf_drop")
+item_id = "raw_meat"
+min_amount = 1
+max_amount = 3
+drop_chance = 0.75
+
+[sub_resource type="Resource" id="Resource_wolf_hide"]
+script = ExtResource("3_wolf_drop")
+item_id = "leather"
+min_amount = 1
+max_amount = 2
+drop_chance = 0.7
+
+[resource]
+script = ExtResource("1_wolf_template")
+animal_name = "Wolf"
+scene = ExtResource("2_wolf_scene")
+behavior_type = 2
+max_health = 100.0
+move_speed = 6.0
+run_speed = 11.0
+aggro_range = 15.0
+flee_range = 8.0
+attack_range = 2.5
+attack_damage = 20.0
+attack_cooldown = 1.8
+loot_drops = Array[Resource]([SubResource("Resource_wolf_meat"), SubResource("Resource_wolf_hide")])

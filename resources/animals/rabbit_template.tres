@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="AnimalTemplate" load_steps=5 format=3 uid="uid://cpf8vx5h4y2bk"]
+
+[ext_resource type="Script" path="res://scripts/entities/AnimalTemplate.gd" id="1_rabbit_template"]
+[ext_resource type="PackedScene" uid="uid://btgh5yqm4jdxb" path="res://scenes/entities/Rabbit.tscn" id="2_rabbit_scene"]
+[ext_resource type="Script" path="res://scripts/entities/AnimalDrop.gd" id="3_rabbit_drop"]
+
+[sub_resource type="Resource" id="Resource_rabbit_meat"]
+script = ExtResource("3_rabbit_drop")
+item_id = "raw_meat"
+min_amount = 1
+max_amount = 2
+drop_chance = 0.8
+
+[resource]
+script = ExtResource("1_rabbit_template")
+animal_name = "Rabbit"
+scene = ExtResource("2_rabbit_scene")
+behavior_type = 0
+max_health = 30.0
+move_speed = 6.0
+run_speed = 10.0
+aggro_range = 8.0
+flee_range = 12.0
+attack_range = 1.0
+attack_damage = 5.0
+attack_cooldown = 1.0
+loot_drops = Array[Resource]([SubResource("Resource_rabbit_meat")])

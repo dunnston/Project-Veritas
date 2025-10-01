@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5v8nw2xtfh4k"]
+
+[ext_resource type="Script" path="res://scripts/entities/Animal.gd" id="1_bear"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bear"]
+radius = 0.8
+height = 2.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bear"]
+radius = 0.8
+height = 2.5
+radial_segments = 16
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bear"]
+albedo_color = Color(0.3, 0.2, 0.15, 1)
+
+[node name="Bear" type="CharacterBody3D" groups=["animals"]]
+collision_layer = 16
+collision_mask = 1
+script = ExtResource("1_bear")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+shape = SubResource("CapsuleShape3D_bear")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+mesh = SubResource("CapsuleMesh_bear")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_bear")
+
+[node name="AttackArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+shape = SubResource("CapsuleShape3D_bear")
