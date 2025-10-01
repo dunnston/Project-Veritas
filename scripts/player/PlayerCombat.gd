@@ -33,11 +33,10 @@ func _ready() -> void:
 	print("Player combat system initialized")
 
 func _apply_visual_flash(color: Color, duration: float = 0.2) -> void:
-	"""Safely apply a color flash to the character model"""
-	if character_model:
-		character_model.modulate = color
-		await get_tree().create_timer(duration).timeout
-		character_model.modulate = Color.WHITE
+	"""Visual flash effect - disabled due to character model complexity"""
+	# TODO: Implement proper visual feedback with particles or shader effects
+	# Character model has armature/skeleton and doesn't support simple modulate
+	pass
 
 func _process(delta: float) -> void:
 	if not can_attack:
@@ -116,8 +115,6 @@ func perform_melee_attack() -> void:
 	else:
 		# Weapon flash effect
 		await get_tree().create_timer(0.2).timeout
-		if character_model:
-			character_model.modulate = Color.WHITE
 	is_attacking = false
 	attack_finished.emit()
 
