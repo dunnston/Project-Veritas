@@ -773,25 +773,43 @@ func find_nearest_resource_node() -> ResourceNode:
 	return nearest
 
 func get_equipped_tool() -> String:
-	"""Get the currently equipped tool type"""
-	# Check if player has a tool equipped
-	if EquipmentManager and EquipmentManager.has_method("get_equipped_item"):
-		var weapon_slot = EquipmentManager.get_equipped_item("weapon")
-		if weapon_slot and not weapon_slot.is_empty():
-			var item_data = InventorySystem.get_item_data(weapon_slot.item_id)
-			if item_data.has("tool_type"):
-				return item_data.tool_type
+	"""Get the currently equipped tool type - prioritizes TOOL slot over WEAPON slot"""
+	if not EquipmentManager or not EquipmentManager.has_method("get_equipped_item"):
+		return "None"
+
+	# First check TOOL slot (dedicated tool slot)
+	var tool_slot = EquipmentManager.get_equipped_item("TOOL")
+	if tool_slot and not tool_slot.is_empty():
+		var item_data = InventorySystem.get_item_data(tool_slot.item_id)
+		if item_data.has("tool_type"):
+			return item_data.tool_type
+
+	# Fallback to WEAPON slot (for backwards compatibility)
+	var weapon_slot = EquipmentManager.get_equipped_item("WEAPON")
+	if weapon_slot and not weapon_slot.is_empty():
+		var item_data = InventorySystem.get_item_data(weapon_slot.item_id)
+		if item_data.has("tool_type"):
+			return item_data.tool_type
 
 	return "None"
 
 func get_equipped_tool_level() -> int:
-	"""Get the level of the currently equipped tool"""
-	# Check if player has a tool equipped
-	if EquipmentManager and EquipmentManager.has_method("get_equipped_item"):
-		var weapon_slot = EquipmentManager.get_equipped_item("weapon")
-		if weapon_slot and not weapon_slot.is_empty():
-			var item_data = InventorySystem.get_item_data(weapon_slot.item_id)
-			if item_data.has("tool_level"):
-				return item_data.tool_level
+	"""Get the level of the currently equipped tool - prioritizes TOOL slot over WEAPON slot"""
+	if not EquipmentManager or not EquipmentManager.has_method("get_equipped_item"):
+		return 0
+
+	# First check TOOL slot (dedicated tool slot)
+	var tool_slot = EquipmentManager.get_equipped_item("TOOL")
+	if tool_slot and not tool_slot.is_empty():
+		var item_data = InventorySystem.get_item_data(tool_slot.item_id)
+		if item_data.has("tool_level"):
+			return item_data.tool_level
+
+	# Fallback to WEAPON slot (for backwards compatibility)
+	var weapon_slot = EquipmentManager.get_equipped_item("WEAPON")
+	if weapon_slot and not weapon_slot.is_empty():
+		var item_data = InventorySystem.get_item_data(weapon_slot.item_id)
+		if item_data.has("tool_level"):
+			return item_data.tool_level
 
 	return 0
