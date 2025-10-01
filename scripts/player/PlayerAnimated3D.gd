@@ -263,6 +263,10 @@ func play_anim(anim_name: String):
 			print("Animation not found: ", anim_name)
 
 func _input(event: InputEvent):
+	# Debug: Log left mouse clicks
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		print("PlayerAnimated3D: Left mouse clicked - mouse_mode=%s" % Input.mouse_mode)
+
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		camera_rotation.x -= event.relative.x * mouse_sensitivity
 		camera_rotation.y -= event.relative.y * mouse_sensitivity

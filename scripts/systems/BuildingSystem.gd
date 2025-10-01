@@ -115,6 +115,10 @@ func _connect_to_build_menu():
 			print("3D BuildingSystem connected to BuildMenu")
 
 func _input(event: InputEvent):
+	# Debug: Log all mouse button events
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		print("BuildingSystem: Left mouse clicked - is_building_mode=%s, is_demolition_mode=%s" % [is_building_mode, is_demolition_mode])
+
 	# Debug: Add resources with L key
 	if event is InputEventKey and event.pressed and event.keycode == KEY_L:
 		add_debug_resources()

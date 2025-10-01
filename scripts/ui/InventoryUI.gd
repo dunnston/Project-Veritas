@@ -232,6 +232,10 @@ func _ready() -> void:
 	print("InventoryUI: _ready() complete - set visible = false")
 
 func _input(event: InputEvent):
+	# Debug: Log if inventory receives mouse clicks when it shouldn't
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		print("InventoryUI: Left mouse received in _input - visible=%s" % visible)
+
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_SLASH:
 			# Debug: Load equipment items (/)
