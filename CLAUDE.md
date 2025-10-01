@@ -13,26 +13,29 @@ This is a 3D conversion of the 2D Neon Wasteland survival-automation game. The p
 
 ## Migration Status Tracker
 ### ✅ Completed Modules
-- [List will be updated as modules are migrated]
+- **InventorySystem** - Full drag-and-drop UI with equipment slots (docs/inventory_system)
+- **CombatSystem** - Damage dealing and combat management (docs/COMBAT_SYSTEM.md)
+- **PlayerCombat** - Melee and ranged attack handling (docs/COMBAT_SYSTEM.md)
+- **WeaponManager** - Weapon switching and equipment (docs/COMBAT_SYSTEM.md)
+- **AmmoManager** - Ammunition types and management (docs/COMBAT_SYSTEM.md)
+- **ProjectileSystem** - Ranged weapon projectile physics (docs/COMBAT_SYSTEM.md)
+- **AnimalSystem** - AI-driven animal spawning and behavior (docs/ANIMAL_SYSTEM.md)
+- **EntitySpawner** - Template-based entity spawning (docs/SPAWNING_SYSTEM.md)
+- **SurvivalStats** - Hunger, thirst, oxygen, temperature system (see survival stats PR)
 
 ### 🔄 In Progress
-- [Current module being migrated]
+- **BuildingSystem** - Grid-based building placement
+- **CraftingManager** - Recipe-based item crafting
 
 ### 📋 Pending Modules
 - GameManager
-- CraftingManager
-- BuildingManager
 - SaveManager
 - EventBus
 - TimeManager
-- InventorySystem
-- BuildingSystem
-- ItemDropManager
+- BuildingManager
+- ItemDropManager (basic version complete in Animal system)
 - PowerSystem
-- OxygenSystem
-- EquipmentManager
-- WeaponManager
-- AmmoManager
+- OxygenSystem (basic version complete, advanced features pending)
 - AttributeManager
 - SkillSystem
 - StatusEffectSystem
@@ -40,10 +43,7 @@ This is a 3D conversion of the 2D Neon Wasteland survival-automation game. The p
 - ShelterSystem
 - InteriorDetectionSystem
 - RoofVisibilityManager
-- CombatSystem
-- ProjectileSystem
-- LootSystem
-- SpawnerManager
+- LootSystem (basic version complete in Animal system)
 
 ## Project Structure
 ```
