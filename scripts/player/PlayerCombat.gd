@@ -59,6 +59,18 @@ func _unhandled_input(event: InputEvent) -> void:
 		switch_weapon()
 		get_viewport().set_input_as_handled()
 
+	if event.is_action_pressed("equip_primary"):
+		equip_weapon_slot("PRIMARY_WEAPON")
+		get_viewport().set_input_as_handled()
+
+	if event.is_action_pressed("equip_secondary"):
+		equip_weapon_slot("SECONDARY_WEAPON")
+		get_viewport().set_input_as_handled()
+
+	if event.is_action_pressed("unequip_weapon"):
+		unequip_current_weapon()
+		get_viewport().set_input_as_handled()
+
 	if event.is_action_pressed("reload") or (event is InputEventKey and event.pressed and event.keycode == KEY_R):
 		reload_weapon()
 		get_viewport().set_input_as_handled()
@@ -214,7 +226,8 @@ func check_melee_hit(weapon_data: Dictionary) -> bool:
 	var attack_center = player_pos + (facing_direction * weapon_data.range * 0.5)
 
 	var enemies_hit = []
-	var all_bodies = get_tree().get_nodes_in_group("enemies")
+	# Check both enemies and animals
+	var all_bodies = get_tree().get_nodes_in_group("enemies") + get_tree().get_nodes_in_group("animals")
 
 	for enemy in all_bodies:
 		if not is_instance_valid(enemy):
@@ -237,24 +250,26 @@ func check_melee_hit(weapon_data: Dictionary) -> bool:
 
 		hit_enemy.emit(enemy)
 
-		create_hit_effect(enemy.global_position, weapon_data.get("is_critical", false))
+		create_damage_number(enemy.global_position, weapon_data.damage, weapon_data.get("is_critical", false))
 
 	return enemies_hit.size() > 0
 
-func create_hit_effect(pos: Vector3, is_critical: bool = false) -> void:
-	var hit_marker = Label3D.new()
-	hit_marker.text = "CRIT!" if is_critical else "HIT!"
-	hit_marker.modulate = Color.RED if is_critical else Color.YELLOW
-	hit_marker.font_size = 24 if is_critical else 20
-	hit_marker.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	hit_marker.global_position = pos + Vector3(0, 1, 0)
+func create_damage_number(pos: Vector3, damage: int, is_critical: bool = false) -> void:
+	var damage_label = Label3D.new()
+	damage_label.text = str(damage)
+	damage_label.modulate = Color.RED if is_critical else Color.ORANGE
+	damage_label.font_size = 32 if is_critical else 24
+	damage_label.outline_size = 4
+	damage_label.outline_modulate = Color.BLACK
+	damage_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	damage_label.global_position = pos + Vector3(randf_range(-0.3, 0.3), 1.5, randf_range(-0.3, 0.3))
 
-	get_tree().current_scene.add_child(hit_marker)
+	get_tree().current_scene.add_child(damage_label)
 
 	var tween = create_tween()
-	tween.tween_property(hit_marker, "global_position", pos + Vector3(0, 2, 0), 0.5)
-	tween.parallel().tween_property(hit_marker, "modulate:a", 0.0, 0.5)
-	tween.tween_callback(hit_marker.queue_free)
+	tween.tween_property(damage_label, "global_position", damage_label.global_position + Vector3(0, 1, 0), 0.8)
+	tween.parallel().tween_property(damage_label, "modulate:a", 0.0, 0.8)
+	tween.tween_callback(damage_label.queue_free)
 
 func switch_weapon() -> void:
 	if not weapon_manager:
@@ -379,6 +394,34 @@ func show_reload_message(message: String) -> void:
 	tween.tween_property(reload_label, "global_position", reload_label.global_position + Vector3(0, 1, 0), 1.5)
 	tween.parallel().tween_property(reload_label, "modulate:a", 0.0, 1.5)
 	tween.tween_callback(reload_label.queue_free)
+
+func equip_weapon_slot(slot: String) -> void:
+	if not weapon_manager:
+		print("No weapon manager available")
+		return
+
+	weapon_manager.set_active_weapon_slot(slot)
+	var weapon = weapon_manager.get_active_weapon()
+
+	if weapon:
+		print("Equipped %s: %s" % [slot, weapon.name])
+		player.modulate = Color(1.2, 1.2, 1.5)
+		await get_tree().create_timer(0.2).timeout
+		player.modulate = Color.WHITE
+	else:
+		print("No weapon in %s slot" % slot)
+
+func unequip_current_weapon() -> void:
+	if not weapon_manager:
+		print("No weapon manager available")
+		return
+
+	# Set active slot to empty to use fists
+	print("Switched to Fists")
+	weapon_manager.active_weapon_slot = ""
+	player.modulate = Color(1.5, 1.5, 1.5)
+	await get_tree().create_timer(0.2).timeout
+	player.modulate = Color.WHITE
 
 func get_weapon_info() -> String:
 	var weapon_data = get_current_weapon_data()

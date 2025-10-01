@@ -23,6 +23,7 @@
 [ext_resource type="Resource" uid="uid://dnb8wx4ky2pvj" path="res://resources/animals/boar_template.tres" id="21_boar"]
 [ext_resource type="Resource" uid="uid://b8mq3xnv7ht2p" path="res://resources/animals/wolf_template.tres" id="22_wolf"]
 [ext_resource type="Resource" uid="uid://dft8qw2nx4vbp" path="res://resources/animals/bear_template.tres" id="23_bear"]
+[ext_resource type="Script" path="res://scripts/debug/CombatTestHelper.gd" id="24_combat_helper"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxywg"]
 sky_top_color = Color(0.0862745, 0.0392157, 0.117647, 1)
@@ -85,6 +86,9 @@ drop_chance = 0.3
 metadata/_custom_type_script = "uid://b5v7p3r1bhcci"
 
 [node name="DemoScene" type="Node3D"]
+
+[node name="CombatTestHelper" type="Node" parent="."]
+script = ExtResource("24_combat_helper")
 
 [node name="PlayerMixamo" parent="." instance=ExtResource("1_8gvxm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.489066, 0)
