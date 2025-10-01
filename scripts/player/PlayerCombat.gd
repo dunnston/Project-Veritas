@@ -233,10 +233,9 @@ func check_melee_hit(weapon_data: Dictionary) -> bool:
 	var space_state = player.get_world_3d().direct_space_state
 	var player_pos = player.global_position
 
-	# Get both camera direction (where player is looking) and player direction (where character faces)
+	# Use camera direction for aiming (where player is looking)
 	var camera = get_viewport().get_camera_3d()
-	var camera_direction = -camera.global_transform.basis.z if camera else -player.global_transform.basis.z
-	var player_direction = -player.global_transform.basis.z
+	var aim_direction = -camera.global_transform.basis.z if camera else -player.global_transform.basis.z
 
 	var enemies_hit = []
 	# Check both enemies and animals
@@ -252,18 +251,13 @@ func check_melee_hit(weapon_data: Dictionary) -> bool:
 		if distance > weapon_data.range:
 			continue
 
-		# Check if enemy is in front of camera (where player is looking)
-		var angle_to_camera = rad_to_deg(camera_direction.angle_to(to_enemy.normalized()))
-		if abs(angle_to_camera) > attack_arc / 2:
-			continue
+		# Check if enemy is within attack cone from where camera is looking
+		var angle_to_enemy = rad_to_deg(aim_direction.angle_to(to_enemy.normalized()))
 
-		# ALSO check if enemy is in front of player character (not behind)
-		# Use a wider arc (180 degrees) - enemy just needs to be in front half
-		var angle_to_player = rad_to_deg(player_direction.angle_to(to_enemy.normalized()))
-		if abs(angle_to_player) > 90:  # More than 90 degrees = behind the player
-			continue
-
-		enemies_hit.append(enemy)
+		# Use a more generous attack arc for melee (120 degrees total, 60 on each side)
+		var melee_arc = 120.0
+		if abs(angle_to_enemy) <= melee_arc / 2:
+			enemies_hit.append(enemy)
 
 	for enemy in enemies_hit:
 		if combat_system:
