@@ -117,8 +117,13 @@ func update_position(world_pos: Vector3):
 			# Roofs: MUST have walls below to be placeable
 			var wall_height = detect_wall_height_at_position(grid_pos)
 			if wall_height > 0:
-				# Found wall, place roof on top (wall top + half roof thickness)
-				grid_pos.y = wall_height + (mesh_height * 0.5)
+				# Found wall - wall_height is already the TOP of the wall
+				# Place roof slightly overlapping wall top to hide any seams/gaps
+				# Overlap by 0.01m (1cm) to ensure no visible gap
+				grid_pos.y = wall_height + (mesh_height * 0.5) - 0.01
+				var roof_bottom = grid_pos.y - (mesh_height * 0.5)
+				print("Roof placement: wall_top=%.3f, roof_center=%.3f, roof_bottom=%.3f (overlap=%.3f)" %
+					[wall_height, grid_pos.y, roof_bottom, wall_height - roof_bottom])
 			else:
 				# No wall found - show roof at ground level but mark as invalid
 				# This keeps the preview visible so player can see where they're trying to place
