@@ -229,12 +229,8 @@ func _ready() -> void:
 
 	# Start hidden
 	visible = false
-	print("InventoryUI: _ready() complete - set visible = false")
 
 func _input(event: InputEvent):
-	# Debug: Log if inventory receives mouse clicks when it shouldn't
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		print("InventoryUI: Left mouse received in _input - visible=%s" % visible)
 
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_SLASH:
@@ -291,10 +287,7 @@ func setup_inventory_slots():
 		var slot_ui = InventorySlotUI.new(i)
 		inventory_slots_ui.append(slot_ui)
 		grid_container.add_child(slot_ui.panel)
-	
-	print("InventoryUI: Created %d inventory slots (%d base + %d bonus) in %dx%d grid" % [max_slots, inventory_system.BASE_SLOTS, max_slots - inventory_system.BASE_SLOTS, columns, rows])
-	print("InventoryUI: Panel resized to %dx%d" % [panel_width, panel_height])
-	
+
 	# Update display
 	_on_inventory_changed()
 
@@ -324,7 +317,6 @@ func setup_equipment_slots():
 
 func toggle_inventory():
 	visible = not visible
-	print("InventoryUI: toggle_inventory() called - visible is now: %s" % visible)
 
 	if visible:
 		# Release mouse for UI interaction
@@ -393,18 +385,15 @@ func _on_close_button_pressed():
 	GameManager.change_state(GameManager.GameState.IN_GAME)
 
 func _on_game_state_changed(new_state: GameManager.GameState):
-	print("InventoryUI: _on_game_state_changed() called with state: %s" % new_state)
 	# Show/hide inventory based on game state
 	if new_state == GameManager.GameState.INVENTORY:
 		visible = true
-		print("InventoryUI: Set visible = true due to INVENTORY state")
 		# Release mouse for UI interaction
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		# Refresh inventory display when opened
 		_on_inventory_changed()
 	else:
 		visible = false
-		print("InventoryUI: Set visible = false due to state: %s" % new_state)
 		# Recapture mouse for gameplay
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
