@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://baopian0i6isc"]
+
+[ext_resource type="PackedScene" uid="uid://c6m713o3nn4c0" path="res://assets/enviroment/desert/Biomes/PNB_Core/Models/SM_Env_Fog_Ring_01.glb" id="1_cknel"]
+[ext_resource type="Material" uid="uid://bl0n4qcn3kvhi" path="res://assets/enviroment/desert/Biomes/PNB_Core/Material/M_Cloud.tres" id="2_bhi6f"]
+
+[node name = "SM_Env_Fog_Ring_01" instance = ExtResource("1_cknel")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bhi6f")

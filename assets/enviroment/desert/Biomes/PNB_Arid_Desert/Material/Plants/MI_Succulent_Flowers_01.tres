@@ -1,0 +1,43 @@
+[gd_resource type = "ShaderMaterial" load_steps=7 format=3 uid="uid://dtu7jhu5g1ve4"]
+
+[ext_resource type="Shader" uid="uid://5jwyjtdw3yao" path="res://Shaders/MI_Succulent_Flowers_01.tres" id="7_f68lp"]
+[ext_resource type="Texture2D" uid="uid://cdv5y46gpaanp" path="res://Biomes/PNB_Arid_Desert/Textures/T_Succulent_Flowers_01_normals.png" id="1_b0b6l"]
+[ext_resource type="Texture2D" uid="uid://w3wecqhh5b0k" path="res://Biomes/PNB_Arid_Desert/Textures/T_PolygonNatureBiomesS2_AridDesert_01.png" id="2_xtv8a"]
+[ext_resource type="Texture2D" uid="uid://bllhdhc0flabm" path="res://Biomes/PNB_Arid_Desert/Textures/Emissive/T_PolygonNatureBiomesS2_AridDesert_Emissive_01_A.png" id="3_dlll2"]
+[ext_resource type="Texture2D" uid="uid://3vlx2u5xfcac" path="res://Biomes/PNB_Arid_Desert/Textures/T_Succulent_Flowers_01.png" id="4_ychio"]
+[ext_resource type="Texture2D" uid="uid://w3wecqhh5b0k" path="res://Biomes/PNB_Arid_Desert/Textures/T_PolygonNatureBiomesS2_AridDesert_01.png" id="5_xtv8a"]
+[ext_resource type="Texture2D" uid="uid://c0q4ij6sxyhf0" path="res://Biomes/PNB_Core/Textures/T_Noise_Big.png" id="6_cao0a"]
+
+[resource]
+resource_name = "MI_Succulent_Flowers_01"
+render_priority = 0
+shader = ExtResource("7_f68lp")
+shader_parameter/FrostingColour = Vector4(1.000, 1.000, 1.000, 0.000)
+shader_parameter/Leaf_Texture = ExtResource("4_ychio")
+shader_parameter/TexLeaf_U_Tiling = 1.000
+shader_parameter/TexLeaf_V_Tiling = 1.000
+shader_parameter/Leaf_Colour_Overlay = Vector4(0.604, 0.437, 0.000, 1.000)
+shader_parameter/FrostingFalloff = 1.000
+shader_parameter/FrostingAmount = 0.000
+shader_parameter/Trunk_Texture = ExtResource("2_xtv8a")
+shader_parameter/TexTrunk_U_Tiling = 1.000
+shader_parameter/TexTrunk_V_Tiling = 1.000
+shader_parameter/Leaf_Emissive = ExtResource("3_dlll2")
+shader_parameter/LeafEmitColour = Vector4(0.000, 0.138, 1.000, 1.000)
+shader_parameter/LeafEmitIntensity = 0.000
+shader_parameter/TrunkEmitColour = Vector4(0.000, 0.138, 1.000, 1.000)
+shader_parameter/TrunkEmitIntensity = 0.000
+shader_parameter/Leaf_Normal = ExtResource("1_b0b6l")
+shader_parameter/Leaf_Normal_Amount = 1.000
+shader_parameter/Trunk_Normal = ExtResource("2_xtv8a")
+shader_parameter/Trunk_Normal_Amount = 1.000
+shader_parameter/Metallic = 0.000
+shader_parameter/Roughness = 1.000
+shader_parameter/Specular = 0.000
+shader_parameter/Wind_Intensity = 0.150
+shader_parameter/SmallWindIntensityMultiplier = 1.000
+shader_parameter/Wind_Speed = 0.400
+shader_parameter/worldPosScale = 1024.000
+shader_parameter/LargeWindSpeedMultiplier = 0.500
+shader_parameter/Wind_Direction = Vector4(25.000, -25.000, 0.000, 0.000)
+shader_parameter/LargeWindIntensityMultiplier = 200.000

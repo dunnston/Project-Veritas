@@ -1,0 +1,8 @@
+[gd_resource type = "ShaderMaterial" load_steps=1 format=3 uid="uid://cfttxe5h8kkas"]
+
+[ext_resource type="Shader" uid="uid://bnswlgf84d0cg" path="res://Shaders/M_Skybox_01.tres" id="1_cpil8"]
+
+[resource]
+resource_name = "M_Skybox_01"
+render_priority = 0
+shader = ExtResource("1_cpil8")

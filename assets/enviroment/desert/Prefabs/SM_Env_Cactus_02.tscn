@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://4f6ijxtt1x78"]
+
+[ext_resource type="PackedScene" uid="uid://f50kto6lom8t" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Cactus_02.glb" id="1_tcnw4"]
+[ext_resource type="Material" uid="uid://baoekdhng41r" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Material/Plants/MI_Cactus_01.tres" id="2_cftgk"]
+
+[node name = "SM_Env_Cactus_02" instance = ExtResource("1_tcnw4")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_cftgk")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjfshmkwcpnhl"]
+
+[ext_resource type="PackedScene" uid="uid://bo4kwogxl2aa" path="res://Biomes/PNB_Arid_Desert/Models/Props/SM_Prop_Solar_Panels_01_Panel_R.glb" id="1_ckiue"]
+[ext_resource type="Material" uid="uid://cxcqmnu46ia7i" path="res://Biomes/PNB_Arid_Desert/Material/M_PolygonNatureBiomesS2_AridDesert_Texture_01.tres" id="2_5itj4"]
+
+[node name="SM_Prop_Solar_Panels_01_Panel_R" instance=ExtResource("1_ckiue")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_5itj4")

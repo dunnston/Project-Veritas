@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuvc1kj688l5f"]
+
+[ext_resource type="PackedScene" uid="uid://dmowsror2c16g" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Rocks_Spikes_Large_01.glb" id="1_qytgb"]
+[ext_resource type="Material" uid="uid://2gp1yh7r5jew" path="res://Biomes/PNB_Arid_Desert/Material/MI_Rock_Arid_Triplanar_Green_01.tres" id="2_bhl0y"]
+
+[node name="SM_Env_Rocks_Spikes_Large_01_2" instance=ExtResource("1_qytgb")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bhl0y")

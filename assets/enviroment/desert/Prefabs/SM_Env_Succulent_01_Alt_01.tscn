@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://osuhjt1j2exn"]
+
+[ext_resource type="PackedScene" uid="uid://c7brk2v44jyl0" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Succulent_01_Alt_01.glb" id="1_o3pnr"]
+[ext_resource type="Material" uid="uid://y5f1lvsee41d" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Material/Plants/MI_Succulent_Leaves_01.tres" id="2_dos3w"]
+[ext_resource type="Material" uid="uid://cxbujpyhfgmp2" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Material/M_PolygonNatureBiomesS2_AridDesert_Texture_01.tres" id="3_c2dn7"]
+
+[node name = "SM_Env_Succulent_01_Alt_01" instance = ExtResource("1_o3pnr")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_dos3w")
+surface_material_override/1 = ExtResource("3_c2dn7")

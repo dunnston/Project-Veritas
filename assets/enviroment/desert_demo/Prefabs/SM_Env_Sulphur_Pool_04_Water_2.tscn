@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://babdqri5b8alu"]
+
+[ext_resource type="PackedScene" uid="uid://346iu6jwjnlx" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Sulphur_Pool_04_Water.glb" id="1_dctwb"]
+[ext_resource type="Material" uid="uid://cpgnxbcisiiar" path="res://Biomes/PNB_Arid_Desert/Material/MI_SulphurPool_01_01.tres" id="2_tu3ee"]
+
+[node name="SM_Env_Sulphur_Pool_04_Water_2" instance=ExtResource("1_dctwb")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_tu3ee")

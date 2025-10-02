@@ -1,4 +1,4 @@
-[gd_scene load_steps=356 format=3 uid="uid://cj72crc80nr5v"]
+[gd_scene load_steps=352 format=3 uid="uid://dhtfkwwb7dnt1"]
 
 [ext_resource type="PackedScene" uid="uid://mu2ywt7fu8a5" path="res://assets/enviroment/desert_demo/Prefabs/SM_Env_Rock_Pebbles_06.tscn" id="1_csl71"]
 [ext_resource type="PackedScene" uid="uid://c1pfu3o41cnhe" path="res://assets/enviroment/desert_demo/Prefabs/SM_Env_Rock_Pebbles_06_1.tscn" id="2_bajpx"]
@@ -349,12 +349,8 @@
 [ext_resource type="PackedScene" uid="uid://q40vgjrla711" path="res://assets/enviroment/desert_demo/Prefabs/SM_Prop_Bridge_Small_Ramp_01.tscn" id="347_cieqn"]
 [ext_resource type="PackedScene" uid="uid://dbwlg8qfdqeph" path="res://assets/enviroment/desert_demo/Prefabs/SM_Prop_Bridge_Rail_Small_02.tscn" id="348_def2d"]
 [ext_resource type="PackedScene" uid="uid://cr16lkl03ebwc" path="res://assets/enviroment/desert_demo/Prefabs/SM_Prop_Bridge_Rail_Small_01.tscn" id="349_def2b"]
-[ext_resource type="Script" path="res://scripts/world/DesertDemo2Setup.gd" id="999_setup"]
-[ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1000_player"]
-[ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="1001_hotbar"]
-[ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="1002_inventory"]
-[ext_resource type="PackedScene" uid="uid://cwco3dupc62jn" path="res://scenes/ui/HUD.tscn" id="1003_hud"]
 [ext_resource type="PackedScene" uid="uid://dbbeq4jwg3egn" path="res://assets/enviroment/desert_demo/WorldEnvironment.tscn" id="350_dx7tv"]
+[ext_resource type="Script" uid="uid://dqeml4iw2n5ri" path="res://scripts/world/DesertDemo2Setup.gd" id="999_setup"]
 
 [node name="Root" type="Node3D"]
 script = ExtResource("999_setup")

@@ -9,10 +9,10 @@ func _ready():
 	setup_terrain_collision()
 	setup_boundary_walls()
 	setup_desert_material()
-	# Wait a bit for props to spawn, then apply materials
-	await get_tree().create_timer(0.5).timeout
-	apply_materials_to_props()
-	print("Desert scene setup complete - 1000m x 1000m playable area")
+	# DISABLED: Material application destroys proper materials from prefabs
+	# await get_tree().create_timer(0.5).timeout
+	# apply_materials_to_props()
+	print("Desert scene setup complete - 500m x 500m playable area")
 
 func setup_terrain_collision():
 	var ground_plane = get_node_or_null("Terrain/GroundPlane")

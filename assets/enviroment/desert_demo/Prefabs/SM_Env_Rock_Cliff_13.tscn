@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmt8rae8mfwhn"]
+
+[ext_resource type="PackedScene" uid="uid://cc2eqvvixi24b" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Rock_Cliff_13.glb" id="1_mj20b"]
+[ext_resource type="Material" uid="uid://d3g1envinse6d" path="res://Biomes/PNB_Arid_Desert/Material/MI_Rock_Triplanar_01_White.tres" id="2_igvch"]
+
+[node name="SM_Env_Rock_Cliff_13" instance=ExtResource("1_mj20b")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_igvch")

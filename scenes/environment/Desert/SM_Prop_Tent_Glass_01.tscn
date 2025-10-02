@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=4 uid="uid://geme7bmekj5f"]
+
+[ext_resource type="Material" uid="uid://cxbujpyhfgmp2" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Material/M_PolygonNatureBiomesS2_AridDesert_Texture_01.tres" id="1_hee8i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dcfj0"]
+resource_name = "M_PolygonNatureBiomesS2_AridDesert_Texture_01"
+roughness = 0.85
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_a7v4o"]
+_surfaces = [{
+"aabb": AABB(-0.331807, 0.684922, -2.14319, 0.663615, 0.663538, 0.163519),
+"format": 34896613377,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAQADAAIABAAAAAIAAwAFAAIABgAEAAIABQAHAAIACAAGAAIABwAIAAIACQAKAAsACwAKAAwADQAKAAkADAAKAA4ADwAKAA0ADgAKABAAEQAKAA8AEAAKABEA"),
+"name": "M_PolygonNatureBiomesS2_AridDesert_Texture_01",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 18,
+"vertex_data": PackedByteArray("/38AABQfAACB2j4lBEAAAP9/KX+JjwAA//8pf4mPAAB9JT4lBEAAAIHaFNkO3wAAAAApf4mPAAD/f1P+//8AAH0lFNkO3wAAgdrqJvAgAAD/f9WAdXAAAP9/qwEAAAAAfSXqJvAgAAD//9WAdXAAAAAA1YB1cAAAgdrA2vq/AAB9JcDa+r8AAP9////q4AAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_0s50w"]
+resource_name = "SM_Prop_Tent_Glass_01_SM_Prop_Tent_Glass_01"
+_surfaces = [{
+"aabb": AABB(-0.331807, 0.684922, -2.14319, 0.663615, 0.663538, 0.163519),
+"attribute_data": PackedByteArray("0USu/dl+q7ThRL39pG+j2cxEzP3rSqu0vUSv/aRvtI/RRK792X6rtMxEzP3rSqu0r0TE/etKZIC9RK/9pG+0j8xEzP3rSqu0skTg/TImtI+vRMT960pkgMxEzP3rSqu0xkTv/f0Wq7SyROD9Mia0j8xEzP3rSqu02kTo/TImo9nGRO/9/RartMxEzP3rSqu05ETU/etK8+jaROj9Miaj2cxEzP3rSqu04US9/aRvo9nkRNT960rz6MxEzP3rSqu04kS9/e/HT3DNRMz9NqNYS9NErf0l11hL00St/SXXWEvNRMz9NqNYS75Er/3vx2EmvkSv/e/HYSbNRMz9NqNYS7BExP02oxEXsETE/TajERfNRMz9NqNYS7NE4P1+fmEms0Tg/X5+YSbNRMz9NqNYS8dE7/1Ib1hLx0Tv/UhvWEvNRMz9NqNYS9xE6P1+fk9w3ETo/X5+T3DNRMz9NqNYS+VE1P02o59/5UTU/Tajn3/NRMz9NqNYS+JEvf3vx09w"),
+"format": 34896613431,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAFQAWABcAGAAZABoAGwAcAB0AHgAfACAAIQAiACMAJAAlACYAJwAoACkAKgArACwALQAuAC8A"),
+"material": SubResource("StandardMaterial3D_dcfj0"),
+"name": "M_PolygonNatureBiomesS2_AridDesert_Texture_01",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 48,
+"vertex_data": PackedByteArray("/38AABQfVveB2j4lBEBW9/9/KX+Jj1b3fSU+JQRAYff/fwAAFB9h9/9/KX+Jj2H3AAApf4mPVPd9JT4lBEBU9/9/KX+Jj1T3fSUU2Q7fUPcAACl/iY9Q9/9/KX+Jj1D3/39T/v//S/d9JRTZDt9L9/9/KX+Jj0v3gdoU2Q7fRvf/f1P+//9G9/9/KX+Jj0b3//8pf4mPTveB2hTZDt9O9/9/KX+Jj073gdo+JQRAUff//yl/iY9R9/9/KX+Jj1H3gdrqJvAgVvf/f9WAdXBW9/9/qwEAAFb3/3+rAQAAYff/f9WAdXBh930l6ibwIGH3fSXqJvAgVPf/f9WAdXBU9wAA1YB1cFT3AADVgHVwUPf/f9WAdXBQ930lwNr6v1D3fSXA2vq/S/f/f9WAdXBL9/9////q4Ev3/3///+rgRvf/f9WAdXBG94HawNr6v0b3gdrA2vq/Tvf/f9WAdXBO9///1YB1cE73///VgHVwUff/f9WAdXBR94Ha6ibwIFH3qPABb6jwAW+o8AFveO16a3jtemt47XprUvG+b1Lxvm9S8b5vffIJcX3yCXF98glxq/Rzc6v0c3Or9HNztPfQdrT30Ha099B2R/PpcUfz6XFH8+lxUvLZcFLy2XBS8tlwoPD5bqDw+W6g8Pluae1pa2ntaWtp7WlrSPGzb0jxs29I8bNvd/IDcXfyA3F38gNxq/Rzc6v0c3Or9HNzu/fXdrv313a799d2RPPmcUTz5nFE8+ZxTfLUcE3y1HBN8tRw")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_a7v4o")
+
+[node name="SM_Prop_Tent_Glass_01" type="Node3D"]
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_0s50w")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_hee8i")

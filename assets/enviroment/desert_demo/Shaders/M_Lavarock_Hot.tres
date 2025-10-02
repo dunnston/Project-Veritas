@@ -1,0 +1,366 @@
+[gd_resource type="VisualShader" load_steps=16 format=3 uid="uid://caweg55snxdgh"]
+
+[ext_resource type="Texture2D" uid="uid://dj53frra6qhdd" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_Lavawave_FlipTest.png" id="1_ct5xl"]
+[ext_resource type="Texture2D" uid="uid://bpw1uet6fd7v4" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_Lavawave_FlipTest_Emissive.png" id="2_d1emh"]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_bqf6vfga3mfoe"]
+parameter_name = "Roughness"
+default_value_enabled = true
+default_value = 1.0
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_bqhj87s7a065m"]
+parameter_name = "Specular"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_c23v674ffjdka"]
+expanded_output_ports = [0]
+texture = ExtResource("1_ct5xl")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeMultiplyAdd" id="VisualShaderNodeMultiplyAdd_cfq84gutmmklw"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(0.5, 0.5, 0.5), 2, Vector3(0.5, 0.5, 0.5)]
+op_type = 2
+
+[sub_resource type="VisualShaderNodeClamp" id="VisualShaderNodeClamp_1vt8nu8shq2t"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_xauofouqcmgt"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_c24utprism6ce"]
+expanded_output_ports = [0]
+texture = ExtResource("2_d1emh")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_di66tiflvos8y"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1)]
+operator = 2
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_c24el137a6gtx"]
+size = Vector2(980, 1250)
+expression = "//NormalTexture:6(null)
+vec4 Normal6 = texture( input2, input0 );
+Normal6 = Normal6 * vec4(2, 2, 2, 2) - vec4(1, 1, 1, 1);
+output0 = Normal6.xyz;
+output1 = Normal6.x;
+output2 = Normal6.y;
+output3 = Normal6.z;
+output3 = Normal6.w;
+output5 = Normal6;
+"
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_c24elf6gudmdm"]
+parameter_name = "Generated_T_Lavawave_FlipTest_Normals"
+texture_type = 2
+texture_filter = 6
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_j070vq2caer"]
+constant = 1.0
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_bqg5g2a46ap0j"]
+parameter_name = "Metallic"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeGlobalExpression" id="VisualShaderNodeGlobalExpression_kct86u11hmqt"]
+size = Vector2(940, 380)
+expression = "//Exported with UnrealToGodot : https://www.fab.com/listings/61983625-664c-4308-9b26-edfd58d41002
+float saturate(float val)
+{
+	return clamp( val, 0.0, 1.0 );
+}
+vec2 saturate2(vec2 val)
+{
+	return clamp( val, 0.0, 1.0 );
+}
+vec3 saturate3(vec3 val)
+{
+	return clamp( val, 0.0, 1.0 );
+}
+vec2 mul( mat2 mat, vec2 vector )
+{
+	return mat * vector;
+}
+float rcp(float val)
+{
+	return 1.0 / val;
+}
+void sincos( float x, out float s, out float c )
+{
+	s = sin(x);
+	c = cos(x);
+}
+vec2 UnitVectorToOctahedron( vec3 Nparam )
+{
+Nparam.xy /= vec2( dot( vec3(1.0,1.0,1.0), abs(Nparam) ), dot( vec3(1.0,1.0,1.0), abs(Nparam) ) );
+if( Nparam.z <= 0.0 )
+{
+	vec2 val = vec2(-1,-1);	if ( Nparam.x >= 0.0 && Nparam.y >= 0.0 ) val = vec2(1,1);	Nparam.xy = ( 1.0 - abs(Nparam.yx) ) * val;
+}
+return Nparam.xy;
+}
+vec3 RotateAboutAxis(vec4 NormalizedRotationAxisAndAngle, vec3 PositionOnAxis, vec3 Position)
+{
+vec3 ClosestPointOnAxis = PositionOnAxis + NormalizedRotationAxisAndAngle.xyz * dot(NormalizedRotationAxisAndAngle.xyz, Position - PositionOnAxis);
+vec3 UAxis = Position - ClosestPointOnAxis;
+vec3 VAxis = cross(NormalizedRotationAxisAndAngle.xyz, UAxis);
+float CosAngle;
+float SinAngle;
+sincos(NormalizedRotationAxisAndAngle.w, SinAngle, CosAngle); 
+vec3 R = UAxis * CosAngle + VAxis * SinAngle;
+vec3 RotatedPosition = ClosestPointOnAxis + R;
+return RotatedPosition - Position;
+}
+vec3 hash_noise_range_UTG( vec3 p ) {
+p *= mat3(vec3(127.1, 311.7, -53.7), vec3(269.5, 183.3, 77.1), vec3(-301.7, 27.3, 215.3));
+return 2.0 * fract(fract(p)*4375.55) -1.;
+}
+"
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
+
+uniform sampler2D tex_frg_2 : source_color;
+uniform float Metallic = 0.0;
+uniform float Roughness = 1.0;
+uniform float Specular = 0.0;
+uniform sampler2D tex_frg_4 : source_color;
+uniform sampler2D Generated_T_Lavawave_FlipTest_Normals : hint_normal, filter_linear_mipmap_anisotropic;
+
+
+// GlobalExpression:0
+	//Exported with UnrealToGodot : https://www.fab.com/listings/61983625-664c-4308-9b26-edfd58d41002
+	float saturate(float val)
+	{
+		return clamp( val, 0.0, 1.0 );
+	}
+	vec2 saturate2(vec2 val)
+	{
+		return clamp( val, 0.0, 1.0 );
+	}
+	vec3 saturate3(vec3 val)
+	{
+		return clamp( val, 0.0, 1.0 );
+	}
+	vec2 mul( mat2 mat, vec2 vector )
+	{
+		return mat * vector;
+	}
+	float rcp(float val)
+	{
+		return 1.0 / val;
+	}
+	void sincos( float x, out float s, out float c )
+	{
+		s = sin(x);
+		c = cos(x);
+	}
+	vec2 UnitVectorToOctahedron( vec3 Nparam )
+	{
+	Nparam.xy /= vec2( dot( vec3(1.0,1.0,1.0), abs(Nparam) ), dot( vec3(1.0,1.0,1.0), abs(Nparam) ) );
+	if( Nparam.z <= 0.0 )
+	{
+		vec2 val = vec2(-1,-1);	if ( Nparam.x >= 0.0 && Nparam.y >= 0.0 ) val = vec2(1,1);	Nparam.xy = ( 1.0 - abs(Nparam.yx) ) * val;
+	}
+	return Nparam.xy;
+	}
+	vec3 RotateAboutAxis(vec4 NormalizedRotationAxisAndAngle, vec3 PositionOnAxis, vec3 Position)
+	{
+	vec3 ClosestPointOnAxis = PositionOnAxis + NormalizedRotationAxisAndAngle.xyz * dot(NormalizedRotationAxisAndAngle.xyz, Position - PositionOnAxis);
+	vec3 UAxis = Position - ClosestPointOnAxis;
+	vec3 VAxis = cross(NormalizedRotationAxisAndAngle.xyz, UAxis);
+	float CosAngle;
+	float SinAngle;
+	sincos(NormalizedRotationAxisAndAngle.w, SinAngle, CosAngle); 
+	vec3 R = UAxis * CosAngle + VAxis * SinAngle;
+	vec3 RotatedPosition = ClosestPointOnAxis + R;
+	return RotatedPosition - Position;
+	}
+	vec3 hash_noise_range_UTG( vec3 p ) {
+	p *= mat3(vec3(127.1, 311.7, -53.7), vec3(269.5, 183.3, 77.1), vec3(-301.7, 27.3, 215.3));
+	return 2.0 * fract(fract(p)*4375.55) -1.;
+	}
+	
+
+void fragment() {
+// Input:3
+	vec2 n_out3p0 = UV;
+
+
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, n_out3p0);
+
+
+// FloatParameter:9
+	float n_out9p0 = Metallic;
+
+
+// FloatParameter:10
+	float n_out10p0 = Roughness;
+
+
+// FloatParameter:11
+	float n_out11p0 = Specular;
+
+
+// Clamp:23
+	float n_in23p1 = 0.00000;
+	float n_in23p2 = 1.00000;
+	float n_out23p0 = clamp(n_out11p0, n_in23p1, n_in23p2);
+
+
+// Texture2D:4
+	vec4 n_out4p0 = texture(tex_frg_4, n_out3p0);
+
+
+	vec3 n_out6p0;
+	float n_out6p1;
+	float n_out6p2;
+	float n_out6p3;
+	float n_out6p4;
+	vec4 n_out6p5;
+// Expression:6
+	n_out6p0 = vec3(0.0, 0.0, 0.0);
+	n_out6p1 = 0.0;
+	n_out6p2 = 0.0;
+	n_out6p3 = 0.0;
+	n_out6p4 = 0.0;
+	n_out6p5 = vec4(0.0, 0.0, 0.0, 0.0);
+	{
+		//NormalTexture:6(null)
+		vec4 Normal6 = texture( Generated_T_Lavawave_FlipTest_Normals, n_out3p0 );
+		Normal6 = Normal6 * vec4(2, 2, 2, 2) - vec4(1, 1, 1, 1);
+		n_out6p0 = Normal6.xyz;
+		n_out6p1 = Normal6.x;
+		n_out6p2 = Normal6.y;
+		n_out6p3 = Normal6.z;
+		n_out6p3 = Normal6.w;
+		n_out6p5 = Normal6;
+		
+	}
+
+
+// FloatConstant:8
+	float n_out8p0 = 1.000000;
+
+
+// VectorOp:5
+	vec3 n_out5p0 = n_out6p0 * vec3(n_out8p0);
+
+
+// MultiplyAdd:22
+	vec3 n_in22p1 = vec3(0.50000, 0.50000, 0.50000);
+	vec3 n_in22p2 = vec3(0.50000, 0.50000, 0.50000);
+	vec3 n_out22p0 = fma(n_out5p0, n_in22p1, n_in22p2);
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+	METALLIC = n_out9p0;
+	ROUGHNESS = n_out10p0;
+	SPECULAR = n_out23p0;
+	EMISSION = vec3(n_out4p0.xyz);
+	NORMAL_MAP = n_out22p0;
+
+
+}
+"
+graph_offset = Vector2(-523.783, 120.943)
+modes/cull = 2
+flags/depth_prepass_alpha = true
+nodes/vertex/0/position = Vector2(0, 0)
+nodes/vertex/24/node = SubResource("VisualShaderNodeGlobalExpression_kct86u11hmqt")
+nodes/vertex/24/position = Vector2(264, 288)
+nodes/vertex/24/size = Vector2(940, 380)
+nodes/vertex/24/input_ports = ""
+nodes/vertex/24/output_ports = ""
+nodes/vertex/24/expression = "//Exported with UnrealToGodot : https://www.fab.com/listings/61983625-664c-4308-9b26-edfd58d41002
+float saturate(float val)
+{
+	return clamp( val, 0.0, 1.0 );
+}
+vec2 saturate2(vec2 val)
+{
+	return clamp( val, 0.0, 1.0 );
+}
+vec3 saturate3(vec3 val)
+{
+	return clamp( val, 0.0, 1.0 );
+}
+vec2 mul( mat2 mat, vec2 vector )
+{
+	return mat * vector;
+}
+float rcp(float val)
+{
+	return 1.0 / val;
+}
+void sincos( float x, out float s, out float c )
+{
+	s = sin(x);
+	c = cos(x);
+}
+vec2 UnitVectorToOctahedron( vec3 Nparam )
+{
+Nparam.xy /= vec2( dot( vec3(1.0,1.0,1.0), abs(Nparam) ), dot( vec3(1.0,1.0,1.0), abs(Nparam) ) );
+if( Nparam.z <= 0.0 )
+{
+	vec2 val = vec2(-1,-1);	if ( Nparam.x >= 0.0 && Nparam.y >= 0.0 ) val = vec2(1,1);	Nparam.xy = ( 1.0 - abs(Nparam.yx) ) * val;
+}
+return Nparam.xy;
+}
+vec3 RotateAboutAxis(vec4 NormalizedRotationAxisAndAngle, vec3 PositionOnAxis, vec3 Position)
+{
+vec3 ClosestPointOnAxis = PositionOnAxis + NormalizedRotationAxisAndAngle.xyz * dot(NormalizedRotationAxisAndAngle.xyz, Position - PositionOnAxis);
+vec3 UAxis = Position - ClosestPointOnAxis;
+vec3 VAxis = cross(NormalizedRotationAxisAndAngle.xyz, UAxis);
+float CosAngle;
+float SinAngle;
+sincos(NormalizedRotationAxisAndAngle.w, SinAngle, CosAngle); 
+vec3 R = UAxis * CosAngle + VAxis * SinAngle;
+vec3 RotatedPosition = ClosestPointOnAxis + R;
+return RotatedPosition - Position;
+}
+vec3 hash_noise_range_UTG( vec3 p ) {
+p *= mat3(vec3(127.1, 311.7, -53.7), vec3(269.5, 183.3, 77.1), vec3(-301.7, 27.3, 215.3));
+return 2.0 * fract(fract(p)*4375.55) -1.;
+}
+"
+nodes/fragment/0/position = Vector2(0, 0)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_c23v674ffjdka")
+nodes/fragment/2/position = Vector2(-844, -153)
+nodes/fragment/3/node = SubResource("VisualShaderNodeInput_xauofouqcmgt")
+nodes/fragment/3/position = Vector2(-1632, 288)
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_c24utprism6ce")
+nodes/fragment/4/position = Vector2(-844, 153)
+nodes/fragment/5/node = SubResource("VisualShaderNodeVectorOp_di66tiflvos8y")
+nodes/fragment/5/position = Vector2(-268, 460)
+nodes/fragment/6/node = SubResource("VisualShaderNodeExpression_c24el137a6gtx")
+nodes/fragment/6/position = Vector2(-844, 460)
+nodes/fragment/6/size = Vector2(980, 1250)
+nodes/fragment/6/input_ports = "0,3,input0;1,0,input1;2,8,input2;"
+nodes/fragment/6/output_ports = "0,4,output0;1,0,output1;2,0,output2;3,0,output3;4,0,output4;5,5,output5;"
+nodes/fragment/6/expression = "//NormalTexture:6(null)
+vec4 Normal6 = texture( input2, input0 );
+Normal6 = Normal6 * vec4(2, 2, 2, 2) - vec4(1, 1, 1, 1);
+output0 = Normal6.xyz;
+output1 = Normal6.x;
+output2 = Normal6.y;
+output3 = Normal6.z;
+output3 = Normal6.w;
+output5 = Normal6;
+"
+nodes/fragment/7/node = SubResource("VisualShaderNodeTexture2DParameter_c24elf6gudmdm")
+nodes/fragment/7/position = Vector2(-1684, 460)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatConstant_j070vq2caer")
+nodes/fragment/8/position = Vector2(-420, 616)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatParameter_bqg5g2a46ap0j")
+nodes/fragment/9/position = Vector2(-268, 0)
+nodes/fragment/10/node = SubResource("VisualShaderNodeFloatParameter_bqf6vfga3mfoe")
+nodes/fragment/10/position = Vector2(-288, 307)
+nodes/fragment/11/node = SubResource("VisualShaderNodeFloatParameter_bqhj87s7a065m")
+nodes/fragment/11/position = Vector2(-268, 134)
+nodes/fragment/22/node = SubResource("VisualShaderNodeMultiplyAdd_cfq84gutmmklw")
+nodes/fragment/22/position = Vector2(-240, 0)
+nodes/fragment/23/node = SubResource("VisualShaderNodeClamp_1vt8nu8shq2t")
+nodes/fragment/23/position = Vector2(-240, 0)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 3, 0, 2, 0, 9, 0, 0, 2, 10, 0, 0, 3, 11, 0, 23, 0, 4, 0, 0, 5, 3, 0, 4, 0, 5, 0, 22, 0, 6, 0, 5, 0, 7, 0, 6, 2, 3, 0, 6, 0, 8, 0, 5, 1, 22, 0, 0, 9, 23, 0, 0, 4)

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://nldolypjtqkr"]
+
+[ext_resource type="PackedScene" uid="uid://btsww2mwt1u14" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Rock_Pebbles_02.glb" id="1_201ux"]
+[ext_resource type="Material" uid="uid://cmwnqi4ib1rxk" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Material/MI_Rock_Triplanar_01.tres" id="2_wq3re"]
+
+[node name = "SM_Env_Rock_Pebbles_02" instance = ExtResource("1_201ux")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_wq3re")

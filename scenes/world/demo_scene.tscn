@@ -1,12 +1,18 @@
-[gd_scene load_steps=32 format=3 uid="uid://c7xvh2m4qgtjk"]
+[gd_scene load_steps=40 format=3 uid="uid://c7xvh2m4qgtjk"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_8gvxm"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
+[ext_resource type="PackedScene" uid="uid://cnw4osdfk8fec" path="res://scenes/environment/Desert/SM_Prop_Bones_04.tscn" id="2_v46yn"]
 [ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="3_inventory"]
+[ext_resource type="PackedScene" uid="uid://bgqpnrf0u5vw5" path="res://scenes/environment/Desert/SM_Prop_Solar_Panels_01.tscn" id="3_w4crh"]
+[ext_resource type="PackedScene" uid="uid://beb2sdugovcmy" path="res://scenes/environment/Desert/SM_Env_Bush_Bramble_01.tscn" id="4_25i1f"]
 [ext_resource type="PackedScene" uid="uid://c5qxr8jyf4kxm" path="res://scenes/ui/StorageUI.tscn" id="4_storage"]
 [ext_resource type="PackedScene" path="res://scenes/ui/CombatHUD.tscn" id="5_combathud"]
+[ext_resource type="PackedScene" uid="uid://bnsad6xuc765q" path="res://scenes/environment/Desert/SM_Env_Cactus_03.tscn" id="5_mykno"]
+[ext_resource type="PackedScene" uid="uid://b2rmw840g7mnp" path="res://scenes/environment/Desert/SM_Env_Grass_01.tscn" id="6_d857r"]
 [ext_resource type="PackedScene" uid="uid://devmenu" path="res://scenes/ui/DevMenu.tscn" id="6_devmenu"]
 [ext_resource type="PackedScene" path="res://scenes/items/item_pickup_3d.tscn" id="7_item_pickup"]
+[ext_resource type="PackedScene" uid="uid://dwen2wj6osmex" path="res://scenes/environment/Desert/SM_Env_Grass_01_1.tscn" id="7_ocgbg"]
 [ext_resource type="PackedScene" uid="uid://buildmenu" path="res://scenes/ui/BuildMenu.tscn" id="7_tioqf"]
 [ext_resource type="PackedScene" uid="uid://ttributesui" path="res://scenes/ui/AttributesUI.tscn" id="8_mxda1"]
 [ext_resource type="PackedScene" uid="uid://workbench3d" path="res://scenes/buildings/workbench_3d.tscn" id="8_workbench"]
@@ -23,6 +29,8 @@
 [ext_resource type="Resource" uid="uid://dnb8wx4ky2pvj" path="res://resources/animals/boar_template.tres" id="21_boar"]
 [ext_resource type="Resource" uid="uid://b8mq3xnv7ht2p" path="res://resources/animals/wolf_template.tres" id="22_wolf"]
 [ext_resource type="Resource" uid="uid://dft8qw2nx4vbp" path="res://resources/animals/bear_template.tres" id="23_bear"]
+[ext_resource type="PackedScene" uid="uid://bifdxdevq18b6" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_01.tscn" id="24_347k4"]
+[ext_resource type="PackedScene" uid="uid://dkj2p2sy7ud5n" path="res://scenes/environment/Desert/SM_Env_Tree_Dead_02.tscn" id="25_pyxmy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxywg"]
 sky_top_color = Color(0.0862745, 0.0392157, 0.117647, 1)
@@ -109,6 +117,24 @@ surface_material_override/0 = SubResource("StandardMaterial3D_qe3jh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("BoxShape3D_hjomk")
+
+[node name="SM_Prop_Bones_04" parent="Ground" instance=ExtResource("2_v46yn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47282, 1.27437, 11.1134)
+
+[node name="SM_Prop_Solar_Panels_01" parent="Ground" instance=ExtResource("3_w4crh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.69642, 0.5, 24.229)
+
+[node name="SM_Env_Bush_Bramble_01" parent="Ground" instance=ExtResource("4_25i1f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7172, 0.592784, 19.1766)
+
+[node name="SM_Env_Cactus_03" parent="Ground" instance=ExtResource("5_mykno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.97226, 0.760661, 15.4772)
+
+[node name="SM_Env_Grass_01" parent="Ground" instance=ExtResource("6_d857r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4291, 0.555079, 24.6718)
+
+[node name="SM_Env_Grass_01_1" parent="Ground" instance=ExtResource("7_ocgbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2019, 0.555079, 15.9331)
 
 [node name="TestGeometry" type="Node3D" parent="."]
 
@@ -292,3 +318,9 @@ spawn_frequency_max = 35.0
 spawn_radius = 30.0
 min_spawn_distance = 15.0
 debug_color = Color(1, 0, 0, 0.3)
+
+[node name="SM_Env_Rock_Cliff_01" parent="." instance=ExtResource("24_347k4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.6377, 0, 0)
+
+[node name="SM_Env_Tree_Dead_02" parent="." instance=ExtResource("25_pyxmy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.91407, 0.654809, 23.9913)

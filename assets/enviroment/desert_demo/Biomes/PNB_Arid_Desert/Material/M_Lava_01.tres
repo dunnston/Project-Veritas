@@ -1,0 +1,12 @@
+[gd_resource type = "ShaderMaterial" load_steps=4 format=3 uid="uid://bn7bdpeoabynb"]
+
+[ext_resource type="Shader" uid="uid://dpb2fsbnwrwhi" path="res://Shaders/M_Lava_01.tres" id="4_beym0"]
+[ext_resource type="Texture2D" uid="uid://dq1xg1vi4ex6c" path="res://Biomes/PNB_Arid_Desert/Textures/T_Lavawave_normals.png" id="1_cqa8u"]
+[ext_resource type="Texture2D" uid="uid://b212ted6x7cqn" path="res://Biomes/PNB_Arid_Desert/Textures/T_Lavawave_Hot_Emissive.png" id="2_cpxxd"]
+[ext_resource type="Texture2D" uid="uid://cs4tdu3bke80j" path="res://Biomes/PNB_Arid_Desert/Textures/T_Lavawave_Hot.png" id="3_d0j40"]
+
+[resource]
+resource_name = "M_Lava_01"
+render_priority = 0
+shader = ExtResource("4_beym0")
+shader_parameter/Generated_T_Lavawave_normals = ExtResource("1_cqa8u")

@@ -1,0 +1,14 @@
+[gd_resource type = "ShaderMaterial" load_steps=3 format=3 uid="uid://cohqxdvg0rbkd"]
+
+[ext_resource type="Shader" uid="uid://b5g1detoj0u5g" path="res://Shaders/M_Grass_01.tres" id="3_0wkhq"]
+[ext_resource type="Texture2D" uid="uid://ca5b2hhv0ki6t" path="res://Biomes/PNB_Core/Textures/T_Grass_01_Normals.png" id="1_gl2ui"]
+[ext_resource type="Texture2D" uid="uid://xcfudhj3e15g" path="res://Biomes/PNB_Core/Textures/T_Grass_01.png" id="2_jsa4t"]
+
+[resource]
+resource_name = "M_Grass_01"
+render_priority = 0
+shader = ExtResource("3_0wkhq")
+shader_parameter/Generated_T_Grass_01_Normals = ExtResource("1_gl2ui")
+shader_parameter/Metallic = 0.000
+shader_parameter/Roughness = 1.000
+shader_parameter/Specular = 0.000

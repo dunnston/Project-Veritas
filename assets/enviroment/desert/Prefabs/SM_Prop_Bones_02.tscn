@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bg17qcaqbt3u6"]
+
+[ext_resource type="PackedScene" uid="uid://csygnmh42jy3w" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Props/SM_Prop_Bones_02.glb" id="1_dykcs"]
+[ext_resource type="Material" uid="uid://cxbujpyhfgmp2" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Material/M_PolygonNatureBiomesS2_AridDesert_Texture_01.tres" id="2_c2dn7"]
+
+[node name = "SM_Prop_Bones_02" instance = ExtResource("1_dykcs")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c2dn7")

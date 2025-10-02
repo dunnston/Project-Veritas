@@ -1,20 +1,89 @@
-[gd_scene load_steps=22 format=3 uid="uid://cowdyxaa0m4vf"]
+[gd_scene load_steps=91 format=3 uid="uid://cowdyxaa0m4vf"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
 [ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="3_inventory"]
+[ext_resource type="PackedScene" uid="uid://4ecytrmjhsph" path="res://scenes/environment/Desert/SM_Env_Crater_01.tscn" id="3_mq3yy"]
+[ext_resource type="PackedScene" uid="uid://bucoo6bgkdkk7" path="res://scenes/environment/Desert/SM_Env_Cactus_02.tscn" id="3_vsfnk"]
+[ext_resource type="PackedScene" uid="uid://bnsad6xuc765q" path="res://scenes/environment/Desert/SM_Env_Cactus_03.tscn" id="4_a85wv"]
+[ext_resource type="PackedScene" uid="uid://b2rmw840g7mnp" path="res://scenes/environment/Desert/SM_Env_Grass_01.tscn" id="4_qk5pi"]
 [ext_resource type="PackedScene" uid="uid://c5qxr8jyf4kxm" path="res://scenes/ui/StorageUI.tscn" id="4_storage"]
 [ext_resource type="PackedScene" path="res://scenes/ui/CombatHUD.tscn" id="5_combathud"]
+[ext_resource type="PackedScene" uid="uid://baedaktxqlplp" path="res://scenes/environment/Desert/SM_Env_GroundCover_01.tscn" id="5_j7bxh"]
+[ext_resource type="PackedScene" uid="uid://fk0l6kgg8vyb" path="res://scenes/environment/Desert/SM_Env_Crater_03.tscn" id="5_w46yq"]
+[ext_resource type="PackedScene" uid="uid://2urlah3stwht" path="res://scenes/environment/Desert/SM_Env_Rock_02.tscn" id="6_345nk"]
 [ext_resource type="PackedScene" uid="uid://devmenu" path="res://scenes/ui/DevMenu.tscn" id="6_devmenu"]
 [ext_resource type="PackedScene" uid="uid://buildmenu" path="res://scenes/ui/BuildMenu.tscn" id="7_buildmenu"]
+[ext_resource type="PackedScene" uid="uid://c553uegvcmt5c" path="res://scenes/environment/Desert/SM_Env_Rock_05.tscn" id="7_hj4hj"]
+[ext_resource type="PackedScene" uid="uid://dbxl7d2bgyp6p" path="res://scenes/environment/Desert/SM_Env_GroundCover_02.tscn" id="7_rcccy"]
 [ext_resource type="PackedScene" uid="uid://ttributesui" path="res://scenes/ui/AttributesUI.tscn" id="8_attributes"]
+[ext_resource type="PackedScene" uid="uid://dp5wj0ebcgff6" path="res://scenes/environment/Desert/SM_Env_Ground_Mound_Large_01.tscn" id="8_o3i1o"]
+[ext_resource type="PackedScene" uid="uid://davl8r1aatm7r" path="res://scenes/environment/Desert/SM_Env_Rock_Arch_01.tscn" id="8_u8if3"]
+[ext_resource type="PackedScene" uid="uid://dxjcr5lwff1nm" path="res://scenes/environment/Desert/SM_Env_Ground_Mound_Small_01.tscn" id="9_fkv1l"]
+[ext_resource type="PackedScene" uid="uid://c6ejg1md5v2x0" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_02.tscn" id="9_r6jng"]
 [ext_resource type="PackedScene" uid="uid://b7gl23jy6jhi3" path="res://scenes/ui/EquipedWeaponUI.tscn" id="9_weapon"]
 [ext_resource type="PackedScene" uid="uid://b8hgax2kqw7lr" path="res://scenes/ui/GeneratorMenu.tscn" id="10_generator"]
+[ext_resource type="PackedScene" uid="uid://nhkl26b53nm3" path="res://scenes/environment/Desert/SM_Env_Rocks_Spikes_Large_01.tscn" id="10_o22v4"]
+[ext_resource type="PackedScene" uid="uid://bdok4utj56rgg" path="res://scenes/environment/Desert/SM_Env_Rocks_Spikes_Large_02.tscn" id="11_ifutr"]
 [ext_resource type="PackedScene" uid="uid://dd2xhpgk2eax2" path="res://scenes/ui/SkillDebugUI.tscn" id="11_skill"]
 [ext_resource type="PackedScene" uid="uid://cwco3dupc62jn" path="res://scenes/ui/HUD.tscn" id="12_hud"]
+[ext_resource type="PackedScene" uid="uid://cfv62nwj8u6hv" path="res://scenes/environment/Desert/SM_Env_Rocks_Spikes_Large_03.tscn" id="12_l14a3"]
+[ext_resource type="PackedScene" uid="uid://cefy5fngcaa46" path="res://scenes/environment/Desert/SM_Env_Rocks_Spikey_01.tscn" id="13_vj2tm"]
 [ext_resource type="PackedScene" uid="uid://cfeodp70flpq1" path="res://scenes/ui/WorkbenchCraftingMenu.tscn" id="13_workbench"]
-[ext_resource type="Script" path="res://scripts/world/DesertSceneSetup.gd" id="14_setup"]
+[ext_resource type="Script" uid="uid://vjnl6gg506cw" path="res://scripts/world/DesertSceneSetup.gd" id="14_setup"]
+[ext_resource type="PackedScene" uid="uid://bgqcc2xnob64i" path="res://scenes/environment/Desert/SM_Env_Rocks_Spikey_02.tscn" id="14_sknf5"]
+[ext_resource type="PackedScene" uid="uid://ck1c4v7rih0wg" path="res://scenes/environment/Desert/SM_Env_Rocks_Spikey_03.tscn" id="15_2lpym"]
 [ext_resource type="PackedScene" uid="uid://bxn3k4p7m8qwe" path="res://scenes/world/nodes/SandstoneNode.tscn" id="15_sandstone"]
+[ext_resource type="PackedScene" uid="uid://1pywt2esw55p" path="res://scenes/environment/Desert/SM_Env_Rocks_Spikey_04.tscn" id="16_3q2ld"]
+[ext_resource type="PackedScene" uid="uid://xjaln41rg80j" path="res://scenes/environment/Desert/SM_Env_Rocks_Spikey_05.tscn" id="17_luupx"]
+[ext_resource type="PackedScene" uid="uid://dloadpndniroo" path="res://scenes/environment/Desert/SM_Env_Rocks_Spikey_06.tscn" id="18_jaaej"]
+[ext_resource type="PackedScene" uid="uid://cmjxaovmlqt04" path="res://scenes/environment/Desert/SM_Env_Rock_01.tscn" id="19_i66il"]
+[ext_resource type="PackedScene" uid="uid://dpqb7mm2oxok5" path="res://scenes/environment/Desert/SM_Env_Rock_04.tscn" id="20_l2eti"]
+[ext_resource type="PackedScene" uid="uid://ds8jix30df2gy" path="res://scenes/environment/Desert/SM_Env_Rock_06.tscn" id="22_npsuw"]
+[ext_resource type="PackedScene" uid="uid://3hhr66nuoyih" path="res://scenes/environment/Desert/SM_Env_Rock_07.tscn" id="23_p4ojp"]
+[ext_resource type="PackedScene" uid="uid://di4fqggn8wlf2" path="res://scenes/environment/Desert/SM_Env_Rock_08.tscn" id="24_niqu7"]
+[ext_resource type="PackedScene" uid="uid://rhjxq85ldxwl" path="res://scenes/environment/Desert/SM_Env_Rock_11.tscn" id="25_e85se"]
+[ext_resource type="PackedScene" uid="uid://mraeic8nwktb" path="res://scenes/environment/Desert/SM_Env_Rock_12.tscn" id="26_ed4o0"]
+[ext_resource type="PackedScene" uid="uid://bhqvnjwxtcxpf" path="res://scenes/environment/Desert/SM_Env_Rock_13.tscn" id="27_a27ec"]
+[ext_resource type="PackedScene" uid="uid://bifdxdevq18b6" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_01.tscn" id="28_5iile"]
+[ext_resource type="PackedScene" uid="uid://dydjsxgqfjikh" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_03.tscn" id="30_rulbq"]
+[ext_resource type="PackedScene" uid="uid://2upvsskidenu" path="res://scenes/environment/Desert/SM_Env_Backrgound_Hill_01.tscn" id="35_8ngba"]
+[ext_resource type="PackedScene" uid="uid://b8qqe5s0o5mfd" path="res://scenes/environment/Desert/SM_Env_Backrgound_Hill_02.tscn" id="36_ndbxa"]
+[ext_resource type="PackedScene" uid="uid://c2xgysbkbk25b" path="res://scenes/environment/Desert/sm_env_cactus_01.tscn" id="37_tnfli"]
+[ext_resource type="PackedScene" uid="uid://d2htcjqkoh0on" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_04.tscn" id="51_f3fra"]
+[ext_resource type="PackedScene" uid="uid://bh327udo2cyn2" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_05.tscn" id="52_xvuhf"]
+[ext_resource type="PackedScene" uid="uid://bwagr1j65gkxa" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_06.tscn" id="53_x6afp"]
+[ext_resource type="PackedScene" uid="uid://cwxvconiudacf" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_14.tscn" id="54_tsbh7"]
+[ext_resource type="PackedScene" uid="uid://bpxafh3ms5xt8" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_13.tscn" id="55_f1inl"]
+[ext_resource type="PackedScene" uid="uid://yhwu14iar1at" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_12.tscn" id="56_oo2ta"]
+[ext_resource type="PackedScene" uid="uid://b3t21cof3et1m" path="res://scenes/environment/Desert/SM_Env_Rock_Pebbles_03.tscn" id="57_egkx3"]
+[ext_resource type="PackedScene" uid="uid://8si062gd3ce3" path="res://scenes/environment/Desert/SM_Env_Rock_Pebbles_05.tscn" id="58_hxxo5"]
+[ext_resource type="PackedScene" uid="uid://dumg8hwr4pubx" path="res://scenes/environment/Desert/SM_Env_Rock_Pebbles_06.tscn" id="59_slwdm"]
+[ext_resource type="PackedScene" uid="uid://djps4hfsgyg01" path="res://scenes/environment/Desert/SM_Env_Rock_Pebbles_07.tscn" id="60_u51og"]
+[ext_resource type="PackedScene" uid="uid://24qc8q5k6hl2" path="res://scenes/environment/Desert/SM_Env_Succulent_02.tscn" id="61_dfwlk"]
+[ext_resource type="PackedScene" uid="uid://cx7vrpjs1mew3" path="res://scenes/environment/Desert/SM_Env_Succulent_03.tscn" id="62_osoge"]
+[ext_resource type="PackedScene" uid="uid://b14dinau2vu0q" path="res://scenes/environment/Desert/SM_Env_Succulent_05_Flowers_01.tscn" id="63_7p8cq"]
+[ext_resource type="PackedScene" uid="uid://c43a5x5atylpg" path="res://scenes/environment/Desert/SM_Prop_Artefact_01.tscn" id="64_ga7yj"]
+[ext_resource type="PackedScene" uid="uid://bxn6cqq3p6bqo" path="res://scenes/environment/Desert/SM_Prop_Bones_01.tscn" id="65_qhse0"]
+[ext_resource type="PackedScene" uid="uid://c8wwcx6llx4v7" path="res://scenes/environment/Desert/SM_Prop_Bones_02.tscn" id="66_uixrq"]
+[ext_resource type="PackedScene" uid="uid://db2rj06ri33fd" path="res://scenes/environment/Desert/SM_Prop_Bones_03.tscn" id="67_4f8bi"]
+[ext_resource type="PackedScene" uid="uid://cnw4osdfk8fec" path="res://scenes/environment/Desert/SM_Prop_Bones_04.tscn" id="68_vjww7"]
+[ext_resource type="PackedScene" uid="uid://fi63j86jn8wd" path="res://scenes/environment/Desert/SM_Prop_Bones_05.tscn" id="69_ytt4w"]
+[ext_resource type="PackedScene" uid="uid://cxf1nv5qsjvid" path="res://scenes/environment/Desert/SM_Prop_Bones_06.tscn" id="70_s3b8u"]
+[ext_resource type="PackedScene" uid="uid://cq423mna218ix" path="res://scenes/environment/Desert/SM_Prop_Bones_07.tscn" id="71_hxexs"]
+[ext_resource type="PackedScene" uid="uid://b1btgjwpfr20w" path="res://scenes/environment/Desert/SM_Prop_Bones_08.tscn" id="72_xj5xb"]
+[ext_resource type="PackedScene" uid="uid://cjtosmauew8ux" path="res://scenes/environment/Desert/SM_Prop_Marker_Beacon_01.tscn" id="73_ccsdl"]
+[ext_resource type="PackedScene" uid="uid://dd142qkt186jg" path="res://scenes/environment/Desert/SM_Prop_Pipe_01.tscn" id="74_0x58r"]
+[ext_resource type="PackedScene" uid="uid://7wny0y76fqoc" path="res://scenes/environment/Desert/SM_Prop_Satellite_01.tscn" id="75_ar7dr"]
+[ext_resource type="PackedScene" uid="uid://dacauesrv3i7p" path="res://scenes/environment/Desert/SM_Prop_Satellite_01_Dish_01.tscn" id="76_4wnxb"]
+[ext_resource type="PackedScene" uid="uid://cq6p7pb3v3r1c" path="res://scenes/environment/Desert/SM_Prop_Sign_01.tscn" id="77_ijtl2"]
+[ext_resource type="PackedScene" uid="uid://bebbvhqi1hbfi" path="res://scenes/environment/Desert/SM_Prop_Solar_Panels_01_Anemometer_L.tscn" id="78_5jx2m"]
+[ext_resource type="PackedScene" uid="uid://68q5bfksek47" path="res://scenes/environment/Desert/SM_Prop_Tent_01.tscn" id="79_a1pvb"]
+[ext_resource type="PackedScene" uid="uid://bvx5plskn0unk" path="res://scenes/environment/Desert/SM_Prop_Wind_Turbine_01_Propeller_01.tscn" id="80_rva58"]
+[ext_resource type="PackedScene" uid="uid://bwlkwsuwieay" path="res://scenes/environment/Desert/SM_Prop_Tumbleweed_01.tscn" id="81_6g7ub"]
+[ext_resource type="PackedScene" uid="uid://c6hjdabnarjm0" path="res://assets/enviroment/desert_demo/Prefabs/SM_Env_Tree_Dead_01.tscn" id="82_n200d"]
+[ext_resource type="PackedScene" uid="uid://cpva7pjw03ei1" path="res://assets/enviroment/desert_demo/Prefabs/SM_Env_Tree_Dead_02.tscn" id="83_ve10h"]
+[ext_resource type="PackedScene" uid="uid://bfl5rvy786abv" path="res://assets/enviroment/desert_demo/Prefabs/SM_Prop_Survey_Level_Camera_01.tscn" id="84_cqqr6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_desert"]
 sky_top_color = Color(0.4, 0.6, 0.9, 1)
@@ -47,10 +116,8 @@ fog_aerial_perspective = 0.2
 fog_sky_affect = 0.3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sand"]
-albedo_color = Color(0.85, 0.75, 0.55, 1)
-metallic = 0.0
-roughness = 0.9
 shading_mode = 0
+albedo_color = Color(0.85, 0.75, 0.55, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
 material = SubResource("StandardMaterial3D_sand")
@@ -87,6 +154,255 @@ mesh = SubResource("PlaneMesh_ground")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_ground")
 
+[node name="SM_Env_Cactus_02" parent="Ground" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.20612, 0.0349032, 27.5855)
+
+[node name="SM_Env_Cactus_03" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8705, 0.260661, -12.7172)
+
+[node name="SM_Env_Cactus_04" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2891, 0.260661, -22.2826)
+
+[node name="SM_Env_Cactus_05" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.28037, 0.260661, 34.6141)
+
+[node name="SM_Env_Cactus_06" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66.6875, 0.260661, -24.8223)
+
+[node name="SM_Env_Cactus_07" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.124, 0.260661, -29.8832)
+
+[node name="SM_Env_Cactus_08" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.7128, 0.260661, -78.9627)
+
+[node name="SM_Env_Cactus_09" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80.6113, 0.260661, 50.3745)
+
+[node name="SM_Env_Cactus_10" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120.084, 0.260661, -72.7501)
+
+[node name="SM_Env_Cactus_11" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.0153, 0.260661, 103.079)
+
+[node name="SM_Env_Cactus_12" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.3531, 0.260661, 94.4142)
+
+[node name="SM_Env_Cactus_13" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3607, 0.260661, 72.6185)
+
+[node name="SM_Env_Cactus_14" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.1613, 0.260661, 51.025)
+
+[node name="SM_Env_Cactus_15" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -123.628, 0.260661, 20.0207)
+
+[node name="SM_Env_Cactus_16" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -182.697, 0.260661, -152.253)
+
+[node name="SM_Env_Cactus_17" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132.871, 0.260661, 45.4188)
+
+[node name="SM_Env_Cactus_18" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.6808, 0.260661, 109.836)
+
+[node name="SM_Env_Cactus_19" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.7393, 0.260661, 113.151)
+
+[node name="SM_Env_Cactus_20" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.4806, 0.260661, 68.7256)
+
+[node name="SM_Env_Cactus_21" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91.4339, 0.260661, 86.522)
+
+[node name="SM_Env_Cactus_22" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -188.882, 0.260661, -95.9754)
+
+[node name="SM_Env_Cactus_23" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.317, 0.260661, 22.1766)
+
+[node name="SM_Env_Cactus_24" parent="Ground" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.0393, 0.0349032, 88.7028)
+
+[node name="SM_Env_Cactus_25" parent="Ground" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.201, 0.0349032, 30.2249)
+
+[node name="SM_Env_Cactus_26" parent="Ground" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90.1353, 0.0349032, -13.2379)
+
+[node name="SM_Env_Cactus_27" parent="Ground" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.1675, 0.0349032, 96.995)
+
+[node name="SM_Env_Cactus_28" parent="Ground" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.9305, 0.0349032, 72.5459)
+
+[node name="SM_Env_Cactus_29" parent="Ground" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 158.09, 0.0349032, -18.7985)
+
+[node name="SM_Env_Cactus_30" parent="Ground" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 173.329, 0.0349032, -88.8217)
+
+[node name="SM_Env_Cactus_31" parent="Ground" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -111.792, 0.0349032, -137.089)
+
+[node name="SM_Env_Cactus_32" parent="Ground" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.6866, 0.0349032, 89.0956)
+
+[node name="SM_Env_Cactus_33" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.6856, 0.260661, 91.3583)
+
+[node name="SM_Env_Cactus_34" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.62643, 0.260661, 85.6422)
+
+[node name="SM_Env_Cactus_35" parent="Ground" instance=ExtResource("4_a85wv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.586, 0.260661, -16.389)
+
+[node name="SM_Env_Crater_03" parent="Ground" instance=ExtResource("5_w46yq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.1564, 1.14441e-06, 74.3045)
+
+[node name="SM_Env_Grass_01" parent="Ground" instance=ExtResource("4_qk5pi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.9825, 0.0550789, 58.0233)
+
+[node name="SM_Env_Grass_02" parent="Ground" instance=ExtResource("4_qk5pi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8429, 0.0550789, 23.6628)
+
+[node name="SM_Env_Grass_03" parent="Ground" instance=ExtResource("4_qk5pi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.8415, 0.0550789, 74.658)
+
+[node name="SM_Env_Grass_04" parent="Ground" instance=ExtResource("4_qk5pi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.3138, 0.0550789, -48.1113)
+
+[node name="SM_Env_Grass_05" parent="Ground" instance=ExtResource("4_qk5pi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.0987, 0.0550789, 49.6499)
+
+[node name="SM_Env_Grass_06" parent="Ground" instance=ExtResource("4_qk5pi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.2543, 0.0550789, -65.5293)
+
+[node name="SM_Env_GroundCover_02" parent="Ground" instance=ExtResource("7_rcccy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.1191, 0.0473013, 83.4618)
+
+[node name="SM_Env_GroundCover_03" parent="Ground" instance=ExtResource("7_rcccy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.8823, 0.0473013, 94.1592)
+
+[node name="SM_Env_GroundCover_04" parent="Ground" instance=ExtResource("7_rcccy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.3339, 0.0472975, 24.0815)
+
+[node name="SM_Env_GroundCover_05" parent="Ground" instance=ExtResource("7_rcccy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 165.361, 0.0473013, -62.5192)
+
+[node name="SM_Env_GroundCover_06" parent="Ground" instance=ExtResource("7_rcccy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.4131, 0.0473013, -28.2368)
+
+[node name="SM_Env_Ground_Mound_Large_01" parent="Ground" instance=ExtResource("8_o3i1o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.4051, 1.24186, 139.052)
+
+[node name="SM_Env_Ground_Mound_Large_02" parent="Ground" instance=ExtResource("8_o3i1o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -131.406, 1.24186, 80.3383)
+
+[node name="SM_Env_Ground_Mound_Large_03" parent="Ground" instance=ExtResource("8_o3i1o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.7517, 1.24186, 164.44)
+
+[node name="SM_Env_Ground_Mound_Small_01" parent="Ground" instance=ExtResource("9_fkv1l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -155.953, 4.85105e-17, -41.9687)
+
+[node name="SM_Env_Rocks_Spikes_Large_01" parent="Ground" instance=ExtResource("10_o22v4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.3877, 0.716764, 146.219)
+
+[node name="SM_Env_Rocks_Spikes_Large_02" parent="Ground" instance=ExtResource("11_ifutr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 93.8585, 0.716764, 100.793)
+
+[node name="SM_Env_Rocks_Spikes_Large_03" parent="Ground" instance=ExtResource("12_l14a3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.779, 0.716764, -106.738)
+
+[node name="SM_Env_Rocks_Spikey_01" parent="Ground" instance=ExtResource("13_vj2tm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.3654, 0.232199, 150.622)
+
+[node name="SM_Env_Rocks_Spikey_02" parent="Ground" instance=ExtResource("14_sknf5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.2267, 0.352793, 148.901)
+
+[node name="SM_Env_Rocks_Spikey_03" parent="Ground" instance=ExtResource("15_2lpym")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82.3589, 0.286688, 151.992)
+
+[node name="SM_Env_Rocks_Spikey_04" parent="Ground" instance=ExtResource("16_3q2ld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1324, 0.111541, 96.9448)
+
+[node name="SM_Env_Rocks_Spikey_05" parent="Ground" instance=ExtResource("17_luupx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87.5857, 0.152807, 101.837)
+
+[node name="SM_Env_Rocks_Spikes_Large_04" parent="Ground" instance=ExtResource("11_ifutr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.7962, 0.716764, 66.1029)
+
+[node name="SM_Env_Rocks_Spikes_Large_05" parent="Ground" instance=ExtResource("10_o22v4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.1737, 0.716764, -53.5896)
+
+[node name="SM_Env_Rocks_Spikey_06" parent="Ground" instance=ExtResource("14_sknf5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5203, 0.352793, -68.7583)
+
+[node name="SM_Env_Rocks_Spikey_07" parent="Ground" instance=ExtResource("16_3q2ld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132.864, 0.111541, 194.146)
+
+[node name="SM_Env_Rocks_Spikey_08" parent="Ground" instance=ExtResource("17_luupx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.1785, 0.152807, 205.28)
+
+[node name="SM_Env_Rocks_Spikey_09" parent="Ground" instance=ExtResource("18_jaaej")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.9759, 0.100361, 205.724)
+
+[node name="SM_Env_Rock_01" parent="Ground" instance=ExtResource("19_i66il")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.085, 0.415401, 158.335)
+
+[node name="SM_Env_Rock_04" parent="Ground" instance=ExtResource("20_l2eti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5193, 0.194039, 132.295)
+
+[node name="SM_Env_Rock_05" parent="Ground" instance=ExtResource("7_hj4hj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 137.256, 0.276574, -95.2443)
+
+[node name="SM_Env_Rock_06" parent="Ground" instance=ExtResource("22_npsuw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.5983, 0.26061, 138.99)
+
+[node name="SM_Env_Rock_07" parent="Ground" instance=ExtResource("23_p4ojp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.29512, 0.85798, 183.136)
+
+[node name="SM_Env_Rock_08" parent="Ground" instance=ExtResource("23_p4ojp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.7032, 0.85798, -43.1354)
+
+[node name="SM_Env_Rock_09" parent="Ground" instance=ExtResource("23_p4ojp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.4289, 0.85798, 21.6573)
+
+[node name="SM_Env_Rock_10" parent="Ground" instance=ExtResource("24_niqu7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -119.573, 0.85798, 219.685)
+
+[node name="SM_Env_Rock_11" parent="Ground" instance=ExtResource("25_e85se")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.3135, 0.85798, 187.089)
+
+[node name="SM_Env_Rock_12" parent="Ground" instance=ExtResource("26_ed4o0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105.19, 0.85798, 90.2203)
+
+[node name="SM_Env_Rock_13" parent="Ground" instance=ExtResource("26_ed4o0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -164.697, 0.85798, 94.5437)
+
+[node name="SM_Env_Rock_14" parent="Ground" instance=ExtResource("27_a27ec")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145.87, 0.85798, 165.117)
+
+[node name="SM_Env_Rock_15" parent="Ground" instance=ExtResource("26_ed4o0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 99.539, 0.85798, 149.144)
+
+[node name="SM_Env_Rock_16" parent="Ground" instance=ExtResource("26_ed4o0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.4495, 0.857972, 69.0851)
+
+[node name="SM_Env_Rock_17" parent="Ground" instance=ExtResource("25_e85se")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.175125, 0.85798, 53.6)
+
+[node name="SM_Env_Rock_18" parent="Ground" instance=ExtResource("27_a27ec")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0686, 0.85798, 100.529)
+
+[node name="SM_Env_Rock_Cliff_01" parent="Ground" instance=ExtResource("28_5iile")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.8867, 1.30097, 245.327)
+
+[node name="SM_Env_Rock_Cliff_02" parent="Ground" instance=ExtResource("9_r6jng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5634, 1.30098, 247.78)
+
+[node name="SM_Env_Rock_Cliff_03" parent="Ground" instance=ExtResource("30_rulbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.20015, 1.30097, 247.592)
+
 [node name="Boundaries" type="Node3D" parent="."]
 
 [node name="NorthWall" type="StaticBody3D" parent="Boundaries"]
@@ -110,6 +426,66 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -250, 25, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries/WestWall"]
 
 [node name="EnvironmentProps" type="Node3D" parent="."]
+
+[node name="SM_Env_Crater_01" parent="EnvironmentProps" instance=ExtResource("3_mq3yy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.38097, 0, 0)
+
+[node name="SM_Env_Grass_01" parent="EnvironmentProps" instance=ExtResource("4_qk5pi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.30427, 0, 0)
+
+[node name="SM_Env_GroundCover_01" parent="EnvironmentProps" instance=ExtResource("5_j7bxh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.09489)
+
+[node name="SM_Env_Rock_02" parent="EnvironmentProps" instance=ExtResource("6_345nk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.03379, 0, 0)
+
+[node name="SM_Env_Rock_05" parent="EnvironmentProps" instance=ExtResource("7_hj4hj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.5538)
+
+[node name="SM_Env_Rock_Arch_01" parent="EnvironmentProps" instance=ExtResource("8_u8if3")]
+transform = Transform3D(0.139536, 0, 0.990217, 0, 1, 0, -0.990217, 0, 0.139536, -28.6397, 0, 0)
+
+[node name="SM_Env_Rock_Cliff_02" parent="EnvironmentProps" instance=ExtResource("9_r6jng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.4316, 0, 20.1733)
+
+[node name="SM_Env_Backrgound_Hill_01" parent="EnvironmentProps" instance=ExtResource("35_8ngba")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.7424, 0, 0)
+
+[node name="SM_Env_Backrgound_Hill_02" parent="EnvironmentProps" instance=ExtResource("36_ndbxa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -137.212)
+
+[node name="SM_Env_Cactus_01" parent="EnvironmentProps" instance=ExtResource("37_tnfli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.45706, 0.152029, 8.64415)
+
+[node name="SM_Env_Cactus_02" parent="EnvironmentProps" instance=ExtResource("37_tnfli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9265, 0.152028, -7.50754)
+
+[node name="SM_Env_Cactus_03" parent="EnvironmentProps" instance=ExtResource("37_tnfli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90276, 0.15203, -17.1309)
+
+[node name="SM_Env_Cactus_04" parent="EnvironmentProps" instance=ExtResource("37_tnfli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.9226, 0.15203, 11.6563)
+
+[node name="SM_Env_Cactus_05" parent="EnvironmentProps" instance=ExtResource("37_tnfli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9657, 0.152029, -40.0437)
+
+[node name="SM_Env_Cactus_06" parent="EnvironmentProps" instance=ExtResource("37_tnfli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.2494, 0.152028, -64.0686)
+
+[node name="SM_Env_Cactus_07" parent="EnvironmentProps" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.29958, 0.0349032, 23.688)
+
+[node name="SM_Env_Cactus_08" parent="EnvironmentProps" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.1596, 0.0349042, -34.6235)
+
+[node name="SM_Env_Cactus_09" parent="EnvironmentProps" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.1929, 0.0349022, -74.5698)
+
+[node name="SM_Env_Cactus_10" parent="EnvironmentProps" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9966, 0.0349042, 35.7121)
+
+[node name="SM_Env_Cactus_11" parent="EnvironmentProps" instance=ExtResource("3_vsfnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.2926, 0.0349032, 22.394)
 
 [node name="ResourceNodes" type="Node3D" parent="."]
 
@@ -136,6 +512,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 0, 100)
 [node name="CombatHUD" parent="UI" instance=ExtResource("5_combathud")]
 layout_mode = 3
 anchors_preset = 15
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="DevMenu" parent="UI" instance=ExtResource("6_devmenu")]
 
@@ -155,3 +533,228 @@ anchors_preset = 15
 layer = 10
 
 [node name="Hotbar" parent="HotbarLayer" instance=ExtResource("2_hotbar")]
+
+[node name="SM_Env_Rock_Cliff_04" parent="." instance=ExtResource("51_f3fra")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.279, 1.68466, 244.908)
+
+[node name="SM_Env_Rock_Cliff_05" parent="." instance=ExtResource("52_xvuhf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.4766, 1.57212, 239.047)
+
+[node name="SM_Env_Rock_Cliff_06" parent="." instance=ExtResource("53_x6afp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.2563, 1.57212, 227.123)
+
+[node name="SM_Env_Rock_Cliff_14" parent="." instance=ExtResource("54_tsbh7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5367, 4.24657, 248.43)
+
+[node name="SM_Env_Rock_Cliff_13" parent="." instance=ExtResource("55_f1inl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.154, 3.70946, 241.463)
+
+[node name="SM_Env_Rock_Cliff_12" parent="." instance=ExtResource("56_oo2ta")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.1022, 1.57212, 239.009)
+
+[node name="SM_Env_Rock_Cliff_15" parent="." instance=ExtResource("55_f1inl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.0296, 3.70946, 235.523)
+
+[node name="SM_Env_Rock_Cliff_16" parent="." instance=ExtResource("54_tsbh7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.7544, 4.24657, 239.619)
+
+[node name="SM_Env_Rock_Cliff_17" parent="." instance=ExtResource("54_tsbh7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.164, 4.24657, 235.525)
+
+[node name="SM_Env_Rock_Pebbles_03" parent="." instance=ExtResource("57_egkx3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7322, 0.0191615, 134.613)
+
+[node name="SM_Env_Rock_Pebbles_04" parent="." instance=ExtResource("57_egkx3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -143.259, 0.0191577, 120.253)
+
+[node name="SM_Env_Rock_Pebbles_05" parent="." instance=ExtResource("58_hxxo5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.2755, 0.0669498, 163.185)
+
+[node name="SM_Env_Rock_Pebbles_06" parent="." instance=ExtResource("59_slwdm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 185.703, 0.121587, -87.176)
+
+[node name="SM_Env_Rock_Pebbles_07" parent="." instance=ExtResource("60_u51og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -137.702, 0.121583, 117.568)
+
+[node name="SM_Env_Succulent_02" parent="." instance=ExtResource("61_dfwlk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.904, 0.0238302, 191.338)
+
+[node name="SM_Env_Succulent_03" parent="." instance=ExtResource("61_dfwlk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.0833, 0.023834, 31.0593)
+
+[node name="SM_Env_Succulent_04" parent="." instance=ExtResource("61_dfwlk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.71441, 0.0238302, 131.164)
+
+[node name="SM_Env_Succulent_05" parent="." instance=ExtResource("61_dfwlk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70.7836, 0.0238302, 38.9361)
+
+[node name="SM_Env_Succulent_06" parent="." instance=ExtResource("62_osoge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 123.338, 0.365187, 102.512)
+
+[node name="SM_Env_Succulent_07" parent="." instance=ExtResource("62_osoge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 115.541, 0.365187, -20.3951)
+
+[node name="SM_Env_Succulent_08" parent="." instance=ExtResource("62_osoge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.9913, 0.365187, -34.8413)
+
+[node name="SM_Env_Succulent_05_Flowers_01" parent="." instance=ExtResource("63_7p8cq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.8162, 0, 102.656)
+
+[node name="SM_Env_Succulent_05_Flowers_02" parent="." instance=ExtResource("63_7p8cq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.2116, 0, 118.535)
+
+[node name="SM_Env_Succulent_05_Flowers_03" parent="." instance=ExtResource("63_7p8cq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.7337, 0, 117.061)
+
+[node name="SM_Prop_Artefact_01" parent="." instance=ExtResource("64_ga7yj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.2357, 2.52474, 135.78)
+
+[node name="SM_Prop_Bones_01" parent="." instance=ExtResource("65_qhse0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.7129, 0.000140789, 75.4426)
+
+[node name="SM_Prop_Bones_02" parent="." instance=ExtResource("66_uixrq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.6214, 0.00732017, 81.1552)
+
+[node name="SM_Prop_Bones_03" parent="." instance=ExtResource("67_4f8bi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.3627, -3.8147e-06, 23.1072)
+
+[node name="SM_Prop_Bones_04" parent="." instance=ExtResource("68_vjww7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.1834, 0.77437, -7.18495)
+
+[node name="SM_Prop_Bones_05" parent="." instance=ExtResource("69_ytt4w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5225, 0.00321501, -47.8716)
+
+[node name="SM_Prop_Bones_06" parent="." instance=ExtResource("69_ytt4w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.455, 0.00321501, 39.3125)
+
+[node name="SM_Prop_Bones_07" parent="." instance=ExtResource("70_s3b8u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.01213, 3.7692e-17, 45.0763)
+
+[node name="SM_Prop_Bones_08" parent="." instance=ExtResource("71_hxexs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.8477, 0.0189854, 33.7125)
+
+[node name="SM_Prop_Bones_09" parent="." instance=ExtResource("72_xj5xb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.6603, 0.0321551, 44.9473)
+
+[node name="SM_Prop_Marker_Beacon_01" parent="." instance=ExtResource("73_ccsdl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.8793, 5.29954e-19, 7.43625)
+
+[node name="SM_Prop_Marker_Beacon_02" parent="." instance=ExtResource("73_ccsdl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.3177, 5.29954e-19, -0.722841)
+
+[node name="SM_Prop_Pipe_01" parent="." instance=ExtResource("74_0x58r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.6919, 0.591934, 16.3881)
+
+[node name="SM_Prop_Satellite_01" parent="." instance=ExtResource("75_ar7dr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.8719, 0.00920127, -3.24658)
+
+[node name="SM_Prop_Satellite_01_Dish_01" parent="." instance=ExtResource("76_4wnxb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.3794, 0.128296, 14.5359)
+
+[node name="SM_Prop_Sign_01" parent="." instance=ExtResource("77_ijtl2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.801, 0.0277448, 2.79695)
+
+[node name="SM_Prop_Solar_Panels_01_Anemometer_L" parent="." instance=ExtResource("78_5jx2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.72682, 0.0707824, -9.94881)
+
+[node name="SM_Prop_Tent_01" parent="." instance=ExtResource("79_a1pvb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.864, 1.41548e-16, 7.06201)
+
+[node name="SM_Prop_Wind_Turbine_01_Propeller_01" parent="." instance=ExtResource("80_rva58")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.3707, 4.93188, 27.821)
+
+[node name="SM_Prop_Wind_Turbine_01_Propeller_02" parent="." instance=ExtResource("80_rva58")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.9497, 4.93188, 32.2207)
+
+[node name="SM_Prop_Wind_Turbine_01_Propeller_03" parent="." instance=ExtResource("80_rva58")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.2237, 4.93188, 37.656)
+
+[node name="SM_Prop_Tumbleweed_01" parent="." instance=ExtResource("81_6g7ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.667, 0.311374, 8.64936)
+
+[node name="SM_Prop_Tumbleweed_02" parent="." instance=ExtResource("81_6g7ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.8999, 0.311374, 44.2235)
+
+[node name="SM_Prop_Tumbleweed_03" parent="." instance=ExtResource("81_6g7ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.5754, 0.311374, 57.6399)
+
+[node name="SM_Prop_Tumbleweed_04" parent="." instance=ExtResource("81_6g7ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.538, 0.311374, -88.5465)
+
+[node name="SM_Prop_Tumbleweed_05" parent="." instance=ExtResource("81_6g7ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.7888, 0.311374, -4.35863)
+
+[node name="SM_Prop_Tumbleweed_06" parent="." instance=ExtResource("81_6g7ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.9851, 0.311374, 43.5262)
+
+[node name="SM_Prop_Tumbleweed_07" parent="." instance=ExtResource("81_6g7ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.1152, 0.311374, 39.858)
+
+[node name="SM_Env_Tree_Dead_01" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.4012, 0.287469, 4.50478)
+
+[node name="SM_Env_Tree_Dead_02" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86624, 0.287469, -32.9026)
+
+[node name="SM_Env_Tree_Dead_03" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3988, 0.287469, 45.0047)
+
+[node name="SM_Env_Tree_Dead_04" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.9168, 0.287469, 40.3166)
+
+[node name="SM_Env_Tree_Dead_05" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.8314, 0.287469, 27.6329)
+
+[node name="SM_Env_Tree_Dead_06" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.1269, 0.287469, -18.8454)
+
+[node name="SM_Env_Tree_Dead_07" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.7482, 0.287469, 61.0383)
+
+[node name="SM_Env_Tree_Dead_08" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.62, 0.287469, 40.231)
+
+[node name="SM_Env_Tree_Dead_09" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5452, 0.287469, -105.986)
+
+[node name="SM_Env_Tree_Dead_10" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.3128, 0.287469, -93.5115)
+
+[node name="SM_Env_Tree_Dead_11" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.2163, 0.287469, -62.1078)
+
+[node name="SM_Env_Tree_Dead_12" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -128.241, 0.287469, -4.59362)
+
+[node name="SM_Env_Tree_Dead_13" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -143.248, 0.287469, -112.585)
+
+[node name="SM_Env_Tree_Dead_14" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.2207, 0.287469, 74.7332)
+
+[node name="SM_Env_Tree_Dead_15" parent="." instance=ExtResource("82_n200d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.047, 0.287469, 121.998)
+
+[node name="SM_Env_Tree_Dead_16" parent="." instance=ExtResource("83_ve10h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.4974, 0.154809, 47.806)
+
+[node name="SM_Env_Tree_Dead_17" parent="." instance=ExtResource("83_ve10h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.188, 0.154809, 51.9919)
+
+[node name="SM_Env_Tree_Dead_18" parent="." instance=ExtResource("83_ve10h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.0886, 0.154809, 11.5807)
+
+[node name="SM_Env_Tree_Dead_19" parent="." instance=ExtResource("83_ve10h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -95.5694, 0.154809, -168.973)
+
+[node name="SM_Env_Tree_Dead_20" parent="." instance=ExtResource("83_ve10h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 105.867, 0.154809, -40.4204)
+
+[node name="SM_Env_Tree_Dead_21" parent="." instance=ExtResource("83_ve10h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -157.936, 0.154809, 60.0737)
+
+[node name="SM_Env_Tree_Dead_22" parent="." instance=ExtResource("83_ve10h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.2136, 0.154809, -96.4338)
+
+[node name="SM_Prop_Survey_Level_Camera_01" parent="." instance=ExtResource("84_cqqr6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.2306, 0, 76.0559)
