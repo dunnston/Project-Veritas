@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bb4von4ibp0tx"]
+[gd_scene load_steps=33 format=3 uid="uid://cowdyxaa0m4vf"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
@@ -13,11 +13,21 @@
 [ext_resource type="PackedScene" uid="uid://dd2xhpgk2eax2" path="res://scenes/ui/SkillDebugUI.tscn" id="11_skill"]
 [ext_resource type="PackedScene" uid="uid://cwco3dupc62jn" path="res://scenes/ui/HUD.tscn" id="12_hud"]
 [ext_resource type="PackedScene" uid="uid://cfeodp70flpq1" path="res://scenes/ui/WorkbenchCraftingMenu.tscn" id="13_workbench"]
-[ext_resource type="Script" uid="uid://vjnl6gg506cw" path="res://scripts/world/DesertSceneSetup.gd" id="14_setup"]
-[ext_resource type="Script" uid="uid://n55lxbko5ceh" path="res://scripts/world/DesertPropSpawner.gd" id="15_spawner"]
+[ext_resource type="Script" path="res://scripts/world/DesertSceneSetup.gd" id="14_setup"]
+[ext_resource type="Script" path="res://scripts/world/DesertPropSpawner.gd" id="15_spawner"]
 [ext_resource type="PackedScene" uid="uid://bxn3k4p7m8qwe" path="res://scenes/world/nodes/SandstoneNode.tscn" id="16_sandstone"]
-[ext_resource type="PackedScene" uid="uid://cke75dednrifq" path="res://assets/models/environment/core/Env_CloudRing_Larger_02.fbx" id="17_clouds"]
-[ext_resource type="PackedScene" uid="uid://bxll2hlmtlcaf" path="res://assets/models/environment/core/SM_Env_Fog_Ring_01.fbx" id="18_fog"]
+[ext_resource type="PackedScene" uid="uid://cfykajolkefab" path="res://assets/models/environment/core/Env_CloudRing_Larger_02.fbx" id="17_clouds"]
+[ext_resource type="PackedScene" uid="uid://c4f6ceqmm1jt1" path="res://assets/models/environment/core/SM_Env_Fog_Ring_01.fbx" id="18_fog"]
+[ext_resource type="PackedScene" uid="uid://bb5iaoauwaj8b" path="res://assets/models/environment/desert/SM_Env_Cactus_01.fbx" id="19_cactus1"]
+[ext_resource type="PackedScene" uid="uid://nlcryulsk5t5" path="res://assets/models/environment/desert/SM_Env_Cactus_02.fbx" id="20_cactus2"]
+[ext_resource type="PackedScene" uid="uid://chxyfalaqvpdl" path="res://assets/models/environment/desert/SM_Env_Cactus_03.fbx" id="21_cactus3"]
+[ext_resource type="PackedScene" uid="uid://bypyw60v7lqp8" path="res://assets/models/environment/desert/SM_Env_Rock_01.fbx" id="22_rock1"]
+[ext_resource type="PackedScene" uid="uid://c35nu2jte3dp3" path="res://assets/models/environment/desert/SM_Env_Rock_02.fbx" id="23_rock2"]
+[ext_resource type="PackedScene" uid="uid://o1o8rf66ongg" path="res://assets/models/environment/desert/SM_Env_Rock_03.fbx" id="24_rock3"]
+[ext_resource type="PackedScene" uid="uid://dloutkc25xpk6" path="res://assets/models/environment/desert/SM_Env_Rock_04.fbx" id="25_rock4"]
+[ext_resource type="PackedScene" uid="uid://b1ckxy8lhe6kn" path="res://assets/models/environment/desert/SM_Env_Backrgound_Hill_01.fbx" id="26_hill1"]
+[ext_resource type="PackedScene" uid="uid://bxg2x5ue52wsu" path="res://assets/models/environment/desert/SM_Env_Backrgound_Hill_02.fbx" id="27_hill2"]
+[ext_resource type="PackedScene" uid="uid://c3l7bis0oc4k2" path="res://assets/models/environment/desert/SM_Env_Backrgound_Hill_03.fbx" id="28_hill3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_desert"]
 sky_top_color = Color(0.4, 0.6, 0.9, 1)
@@ -108,40 +118,40 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -500, 25, 0)
 [node name="EnvironmentProps" type="Node3D" parent="."]
 script = ExtResource("15_spawner")
 
-[node name="Cactus_01" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Cactus_01.fbx"]
+[node name="Cactus_01" parent="EnvironmentProps" instance=ExtResource("19_cactus1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0, 30)
 
-[node name="Cactus_02" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Cactus_02.fbx"]
+[node name="Cactus_02" parent="EnvironmentProps" instance=ExtResource("20_cactus2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, -60)
 
-[node name="Cactus_03" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Cactus_03.fbx"]
+[node name="Cactus_03" parent="EnvironmentProps" instance=ExtResource("21_cactus3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0, -90)
 
-[node name="Rock_01" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Rock_01.fbx"]
+[node name="Rock_01" parent="EnvironmentProps" instance=ExtResource("22_rock1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 120)
 
-[node name="Rock_02" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Rock_02.fbx"]
+[node name="Rock_02" parent="EnvironmentProps" instance=ExtResource("23_rock2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, 0, 150)
 
-[node name="Rock_03" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Rock_03.fbx"]
+[node name="Rock_03" parent="EnvironmentProps" instance=ExtResource("24_rock3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150, 0, -180)
 
-[node name="Rock_04" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Rock_04.fbx"]
+[node name="Rock_04" parent="EnvironmentProps" instance=ExtResource("25_rock4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, -200)
 
-[node name="Hill_01" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Backrgound_Hill_01.fbx"]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -26.401276, 0.05848503, -30.667183)
+[node name="Hill_01" parent="EnvironmentProps" instance=ExtResource("26_hill1")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -26.4013, 0.058485, -30.6672)
 
-[node name="Hill_04" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Backrgound_Hill_01.fbx"]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 120.371445, 0.05848503, -30.667183)
+[node name="Hill_04" parent="EnvironmentProps" instance=ExtResource("26_hill1")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 120.371, 0.058485, -30.6672)
 
-[node name="Hill_05" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Backrgound_Hill_01.fbx"]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -26.695135, -0.63183403, 62.61863)
+[node name="Hill_05" parent="EnvironmentProps" instance=ExtResource("26_hill1")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -26.6951, -0.631834, 62.6186)
 
-[node name="Hill_02" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Backrgound_Hill_02.fbx"]
+[node name="Hill_02" parent="EnvironmentProps" instance=ExtResource("27_hill2")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 400, 0, 400)
 
-[node name="Hill_03" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Backrgound_Hill_03.fbx"]
+[node name="Hill_03" parent="EnvironmentProps" instance=ExtResource("28_hill3")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -350, 0, 380)
 
 [node name="ResourceNodes" type="Node3D" parent="."]
@@ -170,6 +180,10 @@ visible = false
 [node name="StorageUI" parent="UI" instance=ExtResource("4_storage")]
 
 [node name="CombatHUD" parent="UI" instance=ExtResource("5_combathud")]
+layout_mode = 3
+anchors_preset = 15
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="DevMenu" parent="UI" instance=ExtResource("6_devmenu")]
 
@@ -191,7 +205,7 @@ layer = 10
 [node name="Hotbar" parent="HotbarLayer" instance=ExtResource("2_hotbar")]
 
 [node name="Env_CloudRing_Larger_02" parent="." instance=ExtResource("17_clouds")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.7025, 80.09983, 78.35043)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.7025, 80.0998, 78.3504)
 
 [node name="SM_Env_Fog_Ring_01" parent="." instance=ExtResource("18_fog")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2191925, 5.5842667, 28.376068)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.21919, 5.58427, 28.3761)
