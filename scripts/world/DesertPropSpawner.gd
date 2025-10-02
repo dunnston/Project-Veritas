@@ -75,6 +75,9 @@ func spawn_desert_props():
 			prop_instance.rotation_degrees.y = randf_range(0, 360)
 			prop_instance.scale = Vector3.ONE * scale_factor
 
+			# Add collision to prop
+			add_collision_to_prop(prop_instance)
+
 			add_child(prop_instance)
 			spawned_positions.append(pos)
 		else:
@@ -93,3 +96,45 @@ func is_position_valid(pos: Vector3) -> bool:
 		return false
 
 	return true
+
+func add_collision_to_prop(prop: Node3D):
+	# Wrap the imported FBX in a StaticBody3D with collision
+	var static_body = StaticBody3D.new()
+	static_body.name = "PropCollision"
+
+	# Find all MeshInstance3D nodes and add collision shapes
+	var mesh_instances = find_mesh_instances(prop)
+
+	for mesh_inst in mesh_instances:
+		if mesh_inst.mesh:
+			var collision_shape = CollisionShape3D.new()
+
+			# Create a convex collision shape from the mesh
+			var shape = mesh_inst.mesh.create_convex_shape()
+			if shape:
+				collision_shape.shape = shape
+
+				# Match the mesh instance's transform
+				collision_shape.transform = mesh_inst.transform
+				static_body.add_child(collision_shape)
+
+	# If we created collision shapes, wrap the prop
+	if static_body.get_child_count() > 0:
+		# Reparent the prop under the static body
+		var parent = prop.get_parent()
+		parent.remove_child(prop)
+		static_body.add_child(prop)
+		parent.add_child(static_body)
+		static_body.global_position = prop.global_position
+		prop.position = Vector3.ZERO
+
+func find_mesh_instances(node: Node) -> Array[MeshInstance3D]:
+	var meshes: Array[MeshInstance3D] = []
+
+	if node is MeshInstance3D:
+		meshes.append(node)
+
+	for child in node.get_children():
+		meshes.append_array(find_mesh_instances(child))
+
+	return meshes

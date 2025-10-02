@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://desert_demo"]
+[gd_scene load_steps=21 format=3 uid="uid://bb4von4ibp0tx"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
@@ -13,8 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://dd2xhpgk2eax2" path="res://scenes/ui/SkillDebugUI.tscn" id="11_skill"]
 [ext_resource type="PackedScene" uid="uid://cwco3dupc62jn" path="res://scenes/ui/HUD.tscn" id="12_hud"]
 [ext_resource type="PackedScene" uid="uid://cfeodp70flpq1" path="res://scenes/ui/WorkbenchCraftingMenu.tscn" id="13_workbench"]
-[ext_resource type="Script" path="res://scripts/world/DesertSceneSetup.gd" id="14_setup"]
-[ext_resource type="Script" path="res://scripts/world/DesertPropSpawner.gd" id="15_spawner"]
+[ext_resource type="Script" uid="uid://vjnl6gg506cw" path="res://scripts/world/DesertSceneSetup.gd" id="14_setup"]
+[ext_resource type="Script" uid="uid://n55lxbko5ceh" path="res://scripts/world/DesertPropSpawner.gd" id="15_spawner"]
 [ext_resource type="PackedScene" uid="uid://bxn3k4p7m8qwe" path="res://scenes/world/nodes/SandstoneNode.tscn" id="16_sandstone"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_desert"]
@@ -22,7 +22,6 @@ sky_top_color = Color(0.4, 0.6, 0.9, 1)
 sky_horizon_color = Color(0.9, 0.7, 0.5, 1)
 ground_bottom_color = Color(0.6, 0.5, 0.4, 1)
 ground_horizon_color = Color(0.9, 0.7, 0.5, 1)
-sun_angle_max = 30.0
 sun_curve = 0.1
 
 [sub_resource type="Sky" id="Sky_desert"]
@@ -162,6 +161,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0, 50)
 [node name="StorageUI" parent="UI" instance=ExtResource("4_storage")]
 
 [node name="CombatHUD" parent="UI" instance=ExtResource("5_combathud")]
+layout_mode = 3
+anchors_preset = 15
 
 [node name="DevMenu" parent="UI" instance=ExtResource("6_devmenu")]
 

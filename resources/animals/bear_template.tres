@@ -21,8 +21,6 @@ drop_chance = 0.8
 [sub_resource type="Resource" id="Resource_bear_bone"]
 script = ExtResource("3_bear_drop")
 item_id = "bone"
-min_amount = 1
-max_amount = 3
 drop_chance = 0.5
 
 [resource]
@@ -31,8 +29,6 @@ animal_name = "Bear"
 scene = ExtResource("2_bear_scene")
 behavior_type = 2
 max_health = 200.0
-move_speed = 5.0
-run_speed = 8.0
 aggro_range = 12.0
 flee_range = 5.0
 attack_range = 3.0
