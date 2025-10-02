@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=4 uid="uid://v7g7e6euf8hg"]
+
+[ext_resource type="Material" uid="uid://tl6e1fn81eao" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Material/MI_SulphurPool_01_01.tres" id="1_h7dr0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3yipv"]
+resource_name = "MI_SulphurPool_01_01"
+transparency = 4
+roughness = 0.477
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_kcfev"]
+_surfaces = [{
+"aabb": AABB(-3.16016, 0.829538, -2.6436, 6.67001, 0.736668, 5.38272),
+"format": 34896613377,
+"index_count": 108,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAQAAAAQAAwABAAUABgABAAQAAQAHAAUAAQAGAAgAAQAJAAcAAQAIAAoAAQALAAkAAQAKAAwACwABAAwADQAOAA8ADgAQAA8ADgANABEAEAAOABIAEwAOABEADgAUABIADgATABUADgAWABQADgAVABcADgAYABYADgAXABkAGAAOABkAGgAbABwAGwAdABwAGwAaAB4AHQAbAB8AIAAbAB4AGwAhAB8AGwAgACIAGwAjACEAGwAiACQAGwAlACMAGwAkACYAJQAbACYA"),
+"name": "MI_SulphurPool_01_01",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 39,
+"vertex_data": PackedByteArray("oiz//+wUAADFWv//GE4AAL8b//8rOQAAvxv//wVjAADiSf//AAAAAKIs//9EhwAAqGv//wAAAADiSf//MZwAAOiI///sFAAAqGv//zGcAADLmf//KzkAAOiI//9EhwAAy5n//wVjAADWERlhHXEAAJJCGWGBrQAAAAAZYWaXAAAAABlhm8MAALswGWEDWwAA1hEZYeTpAABoVBlhA1sAALswGWH//wAATXMZYR1xAABoVBlh//8AACSFGWFmlwAATXMZYeTpAAAkhRlhm8MAAKxvAAB3PgAArKwAAAyKAABZWQAAYm4AAFlZAAC3pQAAWJYAAMwiAACsbwAAotUAAP/CAADMIgAAWJYAAE3xAACr6QAAdz4AAP/CAABN8QAA//8AAGJuAACr6QAAotUAAP//AAC3pQAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_4xlev"]
+resource_name = "SM_Env_Sulphur_Pool_02_Water_SM_Env_Sulphur_Pool_02_Water"
+_surfaces = [{
+"aabb": AABB(-3.16016, 0.829538, -2.6436, 6.67001, 0.736668, 5.38272),
+"attribute_data": PackedByteArray("fSV9Jf933CFtVv9XqVUyRFwE3l46YksVvj73sqlVMkRcBCChGElLFVwE3l46YksVXAQgoRhJSxW+PveyqVUyRH0lgdpTM9whvj73sqlVMkTeXqL7wiagN30lgdpTM9whyHHzralVMkQgoaL7wibDUN5eovvCJqA3xMwGn6lVMkSB2oHaUzOHZiChovvCJsNQgdqB2lMzh2bEzAafqVUyRKL7IKEYSRlzxMwGn6lVMkSi+95eOmIZc6L7IKEYSRlzz68KZKlVMkSB2n0l/3eHZqL73l46Yhlze3QALqlVMkQgoVwEkITDUIHafSX/d4dmIKFcBJCEw1B7dAAuqVUyRN5eXASQhKA3e3QALqlVMkR9JX0l/3fcId5eXASQhKA3fSV9JSyTSR1tVv9XcbeOQVwE3l7mhUc0vj73snG3jkFcBCCh5oXUTlwE3l7mhUc0XAQgoeaF1E6+PveycbeOQX0lgdosk9Jlvj73snG3jkHeXqL7KqoZc30lgdosk9JlyHHzrXG3jkEgoaL7t8QZc95eovsqqhlzxMwGn3G3jkGB2oHatdvSZSChovu3xBlzgdqB2rXb0mXEzAafcbeOQaL7IKH86NROxMwGn3G3jkGi+95e/OhHNKL7IKH86NROz68KZHG3jkGB2n0ltdtJHaL73l786Ec0e3QALnG3jkEgoVwEt8QDEIHafSW120kdIKFcBLfEAxB7dAAucbeOQd5eXAQqqgMQe3QALnG3jkF9JX0lLJNJHd5eXAQqqgMQfSV9JZsglYRtVv9XAE76sVwE3l7+D1yhvj73sgBO+rFcBCCh/g+XwlwE3l7+D1yhXAQgof4Pl8K+PveyAE76sX0lgdqbIF/fvj73sgBO+rHeXqL7Yz38730lgdqbIF/fyHHzrQBO+rEgoaL7nl78795eovtjPfzvxMwGnwBO+rGB2oHaZXtf3yChovueXvzvgdqB2mV7X9/EzAafAE76saL7IKEDjJfCxMwGnwBO+rGi+95eA4xcoaL7IKEDjJfCz68KZABO+rGB2n0lZXuVhKL73l4DjFyhe3QALgBO+rEgoVwEnl73c4HafSVle5WEIKFcBJ5e93N7dAAuAE76sd5eXARjPfdze3QALgBO+rF9JX0lmyCVhN5eXARjPfdz"),
+"format": 34896613431,
+"index_count": 108,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAFQAWABcAGAAZABoAGwAcAB0AHgAfACAAIQAiACMAJAAlACYAJwAoACkAKgArACwALQAuAC8AMAAxADIAMwA0ADUANgA3ADgAOQA6ADsAPAA9AD4APwBAAEEAQgBDAEQARQBGAEcASABJAEoASwBMAE0ATgBPAFAAUQBSAFMAVABVAFYAVwBYAFkAWgBbAFwAXQBeAF8AYABhAGIAYwBkAGUAZgBnAGgAaQBqAGsA"),
+"material": SubResource("StandardMaterial3D_3yipv"),
+"name": "MI_SulphurPool_01_01",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 108,
+"vertex_data": PackedByteArray("oiz//+wUasLFWv//GE4Mwb8b//8rOQLAxVr//xhOacG/G///BWOpwb8b//8rOQLAvxv//wVjqcHFWv//GE5pwaIs//9Eh1nBxVr//xhOacHiSf//MZw9wKIs//9Eh1nBxVr//xhO/7+oa///MZwPwOJJ//8xnD3AxVr//xhOeMDoiP//RIdowKhr//8xnA/A6Ij//0SHaMDFWv//GE54wMuZ//8FY5rAxVr//xhOeMDLmf//Kzn/v8uZ//8FY5rAxVr//xhOecDoiP//7BTvwcuZ//8rOf+/xVr//xhO/7+oa///AAAaweiI///sFO/BqGv//wAAGsHFWv//GE7/v+JJ//8AABrBxVr//xhO/7+iLP//7BRqwuJJ//8AABrB1hEZYR1xasKSQhlhga0MwQAAGWFmlwLAkkIZYYGtacEAABlhm8OpwQAAGWFmlwLAAAAZYZvDqcGSQhlhga1pwdYRGWHk6VnBkkIZYYGtacG7MBlh//89wNYRGWHk6VnBkkIZYYGt/79oVBlh//8PwLswGWH//z3AkkIZYYGteMBNcxlh5OlowGhUGWH//w/ATXMZYeTpaMCSQhlhga14wCSFGWGbw5rAkkIZYYGteMAkhRlhZpf/vySFGWGbw5rAkkIZYYGtecBNcxlhHXHvwSSFGWFml/+/kkIZYYGt/79oVBlhA1sawU1zGWEdce/BaFQZYQNbGsGSQhlhga3/v7swGWEDWxrBkkIZYYGt/7/WERlhHXFqwrswGWEDWxrBrG8AAHc+asKsrAAADIoMwVlZAABibgLArKwAAAyKacFZWQAAt6WpwVlZAABibgLAWVkAALelqcGsrAAADIppwaxvAACi1VnBrKwAAAyKacFYlgAATfE9wKxvAACi1VnBrKwAAAyK/7//wgAATfEPwFiWAABN8T3ArKwAAAyKeMCr6QAAotVowP/CAABN8Q/Aq+kAAKLVaMCsrAAADIp4wP//AAC3pZrArKwAAAyKeMD//wAAYm7/v///AAC3pZrArKwAAAyKecCr6QAAdz7vwf//AABibv+/rKwAAAyK/7//wgAAzCIawavpAAB3Pu/B/8IAAMwiGsGsrAAADIr/v1iWAADMIhrBrKwAAAyK/7+sbwAAdz5qwliWAADMIhrBMdVmlZLgtY/g/cN7Z+7QXE7tnVrg/cN7Tu2dWmfu0Fyx7mNdZ+7QXGP3x26x7mNd////f5H2toRj98duLOloi33qwIqR9raEferAiizpaIu65qGMLOloizH+5oC65qGMiPQSaTvseFgx/uaA/v//f/nv81877HhY+e/zX/7//3/z3wWQ/v//fzHVZpXz3wWQMdVmlZLgtY/g/cN7Z+7QXE7tnVrg/cN7Tu2dWmfu0Fyx7mNdZ+7QXGP3x26x7mNd////f5H2toRj98duLOloi33qwIqR9raEferAiizpaIu65qGMLOloizH+5oC65qGMiPQSaTvseFgx/uaA/v//f/nv81877HhY+e/zX/7//3/z3wWQ/v//fzHVZpXz3wWQMdVmlZLgtY/g/cN7Z+7QXE7tnVrg/cN7Tu2dWmfu0Fyx7mNdZ+7QXGP3x26x7mNd////f5H2toRj98duLOloi33qwIqR9raEferAiizpaIu65qGMLOloizH+5oC65qGMiPQSaTvseFgx/uaA/v//f/nv81877HhY+e/zX/7//3/z3wWQ/v//fzHVZpXz3wWQ")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_kcfev")
+
+[node name="SM_Env_Sulphur_Pool_02_Water" type="Node3D"]
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_4xlev")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_h7dr0")

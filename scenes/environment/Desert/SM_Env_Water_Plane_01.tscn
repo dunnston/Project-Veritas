@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://bu46vsnuorf41"]
+
+[ext_resource type="Material" uid="uid://cg1tv1cqbxn1q" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Material/MI_SulphurPool_01_A.tres" id="1_ej7fi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nxe7o"]
+resource_name = "MI_SulphurPool_01_A"
+transparency = 4
+metallic = 2.0
+roughness = 0.4
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_cvp84"]
+_surfaces = [{
+"aabb": AABB(-5, -3.06162e-16, -5, 10, 1e-05, 10),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 1, 0, 3, 0, 2, 0),
+"name": "MI_SulphurPool_01_A",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray(255, 255, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_42qn6"]
+resource_name = "SM_Env_Water_Plane_01_SM_Env_Water_Plane_01"
+_surfaces = [{
+"aabb": AABB(-5, -3.06162e-16, -5, 10, 1e-05, 10),
+"attribute_data": PackedByteArray(255, 255, 255, 255, 215, 249, 218, 249, 0, 0, 255, 255, 35, 6, 218, 249, 255, 255, 0, 0, 215, 249, 38, 6, 0, 0, 0, 0, 35, 6, 38, 6),
+"format": 34896613431,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 1, 0, 3, 0, 2, 0),
+"material": SubResource("StandardMaterial3D_nxe7o"),
+"name": "MI_SulphurPool_01_A",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray(255, 255, 0, 0, 255, 255, 255, 191, 0, 0, 0, 0, 255, 255, 255, 191, 255, 255, 0, 0, 0, 0, 255, 191, 0, 0, 0, 0, 0, 0, 255, 191, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127)
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_cvp84")
+
+[node name="SM_Env_Water_Plane_01" type="Node3D"]
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_42qn6")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_ej7fi")

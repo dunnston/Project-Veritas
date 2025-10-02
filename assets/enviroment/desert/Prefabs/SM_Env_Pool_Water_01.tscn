@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7yw1p0ksne0n"]
+
+[ext_resource type="PackedScene" uid="uid://6bdjedv651w6" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Pool_Water_01.glb" id="1_bem1p"]
+[ext_resource type="Material" uid="uid://cqd1yp7e8f66f" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Material/MI_SulphurPool_01_B.tres" id="2_dbyu1"]
+
+[node name = "SM_Env_Pool_Water_01" instance = ExtResource("1_bem1p")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_dbyu1")

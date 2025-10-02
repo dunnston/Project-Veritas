@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw34c8gn81pfk"]
+
+[ext_resource type="PackedScene" uid="uid://bl1agypgmulb1" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Lava_Spread_03.glb" id="1_bxq2p"]
+[ext_resource type="Material" uid="uid://p6jkjrb2qan2" path="res://Biomes/PNB_Arid_Desert/Material/M_Lavawave_Cold.tres" id="2_c02jb"]
+
+[node name="SM_Env_Lava_Spread_03" instance=ExtResource("1_bxq2p")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c02jb")

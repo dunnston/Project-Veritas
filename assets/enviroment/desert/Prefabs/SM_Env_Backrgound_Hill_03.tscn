@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://kaoeqrlsyuob"]
+
+[ext_resource type="PackedScene" uid="uid://c4ag2mdrymhln" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Backrgound_Hill_03.glb" id="1_lq063"]
+[ext_resource type="Material" uid="uid://cxbujpyhfgmp2" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Material/M_PolygonNatureBiomesS2_AridDesert_Texture_01.tres" id="2_c2dn7"]
+
+[node name = "SM_Env_Backrgound_Hill_03" instance = ExtResource("1_lq063")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c2dn7")

@@ -1,0 +1,13 @@
+[gd_resource type = "ShaderMaterial" load_steps=2 format=3 uid="uid://bi56fi3bxeikf"]
+
+[ext_resource type="Shader" uid="uid://0wrox13ywyfl" path="res://Shaders/M_Cloud.tres" id="2_ivrxj"]
+[ext_resource type="Texture2D" uid="uid://nprprtx4omy6" path="res://Biomes/PNB_Core/Textures/T_Noise_Big_02.png" id="1_3jscw"]
+
+[resource]
+resource_name = "M_Cloud"
+render_priority = 0
+shader = ExtResource("2_ivrxj")
+shader_parameter/Param = Vector4(0.888, 0.552, 0.451, 1.000)
+shader_parameter/Metallic = 0.000
+shader_parameter/Roughness = 1.000
+shader_parameter/Specular = 0.000

@@ -3,36 +3,49 @@ extends Node3D
 # Spawns desert props randomly across the map
 # Attach this to the EnvironmentProps node
 
-@export var spawn_count: int = 100
-@export var map_size: float = 900.0  # Leave 100m buffer from edges
+@export var spawn_count: int = 50
+@export var map_size: float = 450.0  # 500m map with 50m buffer from edges
 @export var min_distance_between_props: float = 10.0
 
-# Prop paths
+# Prop paths - using new GLB assets
 var cactus_props = [
-	"res://assets/models/environment/desert/SM_Env_Cactus_01.fbx",
-	"res://assets/models/environment/desert/SM_Env_Cactus_02.fbx",
-	"res://assets/models/environment/desert/SM_Env_Cactus_03.fbx"
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Cactus_01.glb",
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Cactus_02.glb",
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Cactus_03.glb"
 ]
 
 var rock_props = [
-	"res://assets/models/environment/desert/SM_Env_Rock_01.fbx",
-	"res://assets/models/environment/desert/SM_Env_Rock_02.fbx",
-	"res://assets/models/environment/desert/SM_Env_Rock_03.fbx",
-	"res://assets/models/environment/desert/SM_Env_Rock_04.fbx"
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Rock_01.glb",
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Rock_02.glb",
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Rock_03.glb",
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Rock_04.glb",
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Rocks_Spikey_01.glb",
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Rocks_Spikey_02.glb",
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Rocks_Spikey_03.glb"
 ]
 
 var bush_props = [
-	"res://assets/models/environment/desert/SM_Env_Bush_Bramble_01.fbx",
-	"res://assets/models/environment/desert/SM_Env_Bush_Bramble_02.fbx"
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Bush_Bramble_01.glb",
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Bush_Bramble_02.glb"
+]
+
+var ground_cover_props = [
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_GroundCover_01.glb",
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_GroundCover_02.glb",
+	"res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_GroundCover_03.glb"
 ]
 
 var spawned_positions: Array[Vector3] = []
 
 func _ready():
 	# Add collision to manually placed props first
-	add_collision_to_existing_props()
-	# Then spawn additional random props
-	spawn_desert_props()
+	# DISABLED: The converted scene prefabs already have proper structure
+	# add_collision_to_existing_props()
+
+	# Spawn additional random props
+	# TEMPORARILY DISABLED FOR DEBUGGING
+	# spawn_desert_props()
+	print("DesertPropSpawner: Spawning disabled for debugging")
 
 func add_collision_to_existing_props():
 	# Add collision to all manually placed child nodes
@@ -83,15 +96,18 @@ func spawn_desert_props():
 		var prop_path = ""
 		var scale_factor = 1.0
 
-		if rand_val < 0.4:  # 40% rocks
+		if rand_val < 0.35:  # 35% rocks
 			prop_path = rock_props[randi() % rock_props.size()]
 			scale_factor = randf_range(0.8, 1.5)
-		elif rand_val < 0.7:  # 30% cacti
+		elif rand_val < 0.6:  # 25% cacti
 			prop_path = cactus_props[randi() % cactus_props.size()]
 			scale_factor = randf_range(0.9, 1.3)
-		else:  # 30% bushes
+		elif rand_val < 0.8:  # 20% bushes
 			prop_path = bush_props[randi() % bush_props.size()]
 			scale_factor = randf_range(0.7, 1.2)
+		else:  # 20% ground cover
+			prop_path = ground_cover_props[randi() % ground_cover_props.size()]
+			scale_factor = randf_range(1.5, 2.5)
 
 		# Load and instance prop
 		if ResourceLoader.exists(prop_path):

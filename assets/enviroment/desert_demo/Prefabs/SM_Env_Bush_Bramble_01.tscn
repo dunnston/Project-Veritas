@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvmku6o802e1y"]
+
+[ext_resource type="PackedScene" uid="uid://dgvyv1brur0ik" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Bush_Bramble_01.glb" id="1_dq83t"]
+[ext_resource type="Material" uid="uid://cxcqmnu46ia7i" path="res://Biomes/PNB_Arid_Desert/Material/M_PolygonNatureBiomesS2_AridDesert_Texture_01.tres" id="2_5itj4"]
+[ext_resource type="Material" uid="uid://bmvtwo0pxr7kd" path="res://Biomes/PNB_Arid_Desert/Material/Plants/MI_Brambles_01.tres" id="3_b647i"]
+
+[node name="SM_Env_Bush_Bramble_01" instance=ExtResource("1_dq83t")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_5itj4")
+surface_material_override/1 = ExtResource("3_b647i")

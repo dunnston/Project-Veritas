@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctekknmxykdxg"]
+
+[ext_resource type="PackedScene" uid="uid://cptlg3rwh232g" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Grass_01.glb" id="1_cg2pw"]
+[ext_resource type="Material" uid="uid://bwq5q0w641le0" path="res://Biomes/PNB_Arid_Desert/Material/Plants/MI_AridDesert_Grass_01.tres" id="2_b80gi"]
+
+[node name="SM_Env_Grass_01" instance=ExtResource("1_cg2pw")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_b80gi")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dehfp8o2afi3i"]
+
+[ext_resource type="PackedScene" uid="uid://btnp00bvv1kf7" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_DirtRoad_End_01.glb" id="1_b6j1p"]
+[ext_resource type="Material" uid="uid://cxbujpyhfgmp2" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Material/M_PolygonNatureBiomesS2_AridDesert_Texture_01.tres" id="2_c2dn7"]
+
+[node name = "SM_Env_DirtRoad_End_01" instance = ExtResource("1_b6j1p")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c2dn7")

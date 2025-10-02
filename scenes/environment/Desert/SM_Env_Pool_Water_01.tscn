@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=4 uid="uid://xvn8yvup5frw"]
+
+[ext_resource type="Material" uid="uid://cqd1yp7e8f66f" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Material/MI_SulphurPool_01_B.tres" id="1_ck06b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_662r5"]
+resource_name = "MI_SulphurPool_01_B"
+transparency = 4
+metallic = 2.0
+roughness = 0.4
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_d8jmo"]
+_surfaces = [{
+"aabb": AABB(-1.62475, -9.9487e-17, -1.62475, 3.24949, 1e-05, 3.24949),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAQAAAAQAAwABAAUABgABAAQAAQAHAAUAAQAGAAgAAQAJAAcAAQAIAAoAAQALAAkAAQAKAAwACwABAAwA"),
+"name": "MI_SulphurPool_01_B",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 13,
+"vertex_data": PackedByteArray("TCIAAEwiAAD/fwAA/38AAAAAAACzXQAAAAAAAEuiAACzXQAAAAAAAEwiAACy3QAAS6IAAAAAAACzXQAA//8AALLdAABMIgAAS6IAAP//AAD//wAAs10AALLdAACy3QAA//8AAEuiAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ob6dj"]
+resource_name = "SM_Env_Pool_Water_01_SM_Env_Pool_Water_01"
+_surfaces = [{
+"aabb": AABB(-1.62475, -9.9487e-17, -1.62475, 3.24949, 1e-05, 3.24949),
+"attribute_data": PackedByteArray("fSV9JckmzCZtVv9X/X8AgFwE3l4jBllfvj73sv1/AIBcBCChIwamoFwE3l4jBllfXAQgoSMGpqC+Pvey/X8AgH0lgdrJJjPZvj73sv1/AIDeXqL7V1/a+X0lgdrJJjPZyHHzrf1/AIAgoaL7o6Da+d5eovtXX9r5xMwGn/1/AICB2oHaMdkz2SChovujoNr5gdqB2jHZM9nEzAaf/X8AgKL7IKHX+aagxMwGn/1/AICi+95e1/lZX6L7IKHX+aagz68KZP1/AICB2n0lMdnMJqL73l7X+Vlfe3QALv1/AIAgoVwEo6AmBoHafSUx2cwmIKFcBKOgJgZ7dAAu/X8AgN5eXARXXyYGe3QALv1/AIB9JX0lySbMJt5eXARXXyYG"),
+"format": 34896613431,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAFQAWABcAGAAZABoAGwAcAB0AHgAfACAAIQAiACMA"),
+"material": SubResource("StandardMaterial3D_662r5"),
+"name": "MI_SulphurPool_01_B",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("TCIAAEwiasL/fwAA/38MwQAAAACzXQLA/38AAP9/acEAAAAAS6KpwQAAAACzXQLAAAAAAEuiqcH/fwAA/39pwUwiAACy3VnB/38AAP9/acGzXQAA//89wEwiAACy3VnB/38AAP9//79LogAA//8PwLNdAAD//z3A/38AAP9/eMCy3QAAst1owEuiAAD//w/Ast0AALLdaMD/fwAA/394wP//AABLoprA/38AAP9/eMD//wAAs13/v///AABLoprA/38AAP9/ecCy3QAATCLvwf//AACzXf+//38AAP9//79LogAAAAAawbLdAABMIu/BS6IAAAAAGsH/fwAA/3//v7NdAAAAABrB/38AAP9//79MIgAATCJqwrNdAAAAABrBMdVmlZLgtY/g/cN7Z+7QXE7tnVrg/cN7Tu2dWmfu0Fyx7mNdZ+7QXGP3x26x7mNd////f5H2toRj98duLOloi33qwIqR9raEferAiizpaIu65qGMLOloizH+5oC65qGMiPQSaTvseFgx/uaA/v//f/nv81877HhY+e/zX/7//3/z3wWQ/v//fzHVZpXz3wWQ")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_d8jmo")
+
+[node name="SM_Env_Pool_Water_01" type="Node3D"]
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_ob6dj")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_ck06b")

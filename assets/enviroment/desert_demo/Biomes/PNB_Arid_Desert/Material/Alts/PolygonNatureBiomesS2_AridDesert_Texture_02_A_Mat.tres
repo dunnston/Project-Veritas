@@ -1,0 +1,13 @@
+[gd_resource type = "ShaderMaterial" load_steps=3 format=3 uid="uid://gabcf1pn6rb0"]
+
+[ext_resource type="Shader" uid="uid://cb6p0xg0wth4h" path="res://Shaders/PolygonNatureBiomesS2_AridDesert_Texture_02_A_Mat.tres" id="3_xc544"]
+[ext_resource type="Texture2D" uid="uid://b2bh83xhubi2s" path="res://Biomes/PNB_Arid_Desert/Textures/Emissive/T_PolygonNatureBiomesS2_AridDesert_Emissive_02_A.png" id="1_dq4gb"]
+[ext_resource type="Texture2D" uid="uid://bms5g30w3gwhl" path="res://Biomes/PNB_Arid_Desert/Textures/Alts/T_PolygonNatureBiomesS2_AridDesert_Texture_02_A.png" id="2_csbg6"]
+
+[resource]
+resource_name = "PolygonNatureBiomesS2_AridDesert_Texture_02_A_Mat"
+render_priority = 0
+shader = ExtResource("3_xc544")
+shader_parameter/Metallic = 0.000
+shader_parameter/Roughness = 0.850
+shader_parameter/Specular = 0.000
