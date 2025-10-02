@@ -128,7 +128,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150, 0, -180)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, -200)
 
 [node name="Hill_01" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Backrgound_Hill_01.fbx"]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -400, 0, -400)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -102.34564, 0, -132.71973)
 
 [node name="Hill_02" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Backrgound_Hill_02.fbx"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 400, 0, 400)
@@ -154,7 +154,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0, 50)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
+[node name="HUD" parent="UI" instance=ExtResource("12_hud")]
+
 [node name="InventoryUI" parent="UI" instance=ExtResource("3_inventory")]
+visible = false
 
 [node name="StorageUI" parent="UI" instance=ExtResource("4_storage")]
 
@@ -171,8 +174,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0, 50)
 [node name="GeneratorMenu" parent="UI" instance=ExtResource("10_generator")]
 
 [node name="SkillDebugUI" parent="UI" instance=ExtResource("11_skill")]
-
-[node name="HUD" parent="UI" instance=ExtResource("12_hud")]
 
 [node name="WorkbenchCraftingMenu" parent="UI" instance=ExtResource("13_workbench")]
 
