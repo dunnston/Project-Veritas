@@ -1,9 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://cowdyxaa0m4vf"]
+[gd_scene load_steps=18 format=3 uid="uid://cowdyxaa0m4vf"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
 [ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="3_inventory"]
-[ext_resource type="PackedScene" uid="uid://3o73sov7wxe6" path="res://assets/enviroment/desert/Prefabs/SM_Env_Backrgound_Hill_01.tscn" id="4_f6e1f"]
 [ext_resource type="PackedScene" uid="uid://c5qxr8jyf4kxm" path="res://scenes/ui/StorageUI.tscn" id="4_storage"]
 [ext_resource type="PackedScene" path="res://scenes/ui/CombatHUD.tscn" id="5_combathud"]
 [ext_resource type="PackedScene" uid="uid://devmenu" path="res://scenes/ui/DevMenu.tscn" id="6_devmenu"]
@@ -15,9 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cwco3dupc62jn" path="res://scenes/ui/HUD.tscn" id="12_hud"]
 [ext_resource type="PackedScene" uid="uid://cfeodp70flpq1" path="res://scenes/ui/WorkbenchCraftingMenu.tscn" id="13_workbench"]
 [ext_resource type="Script" path="res://scripts/world/DesertSceneSetup.gd" id="14_setup"]
-[ext_resource type="Script" uid="uid://n55lxbko5ceh" path="res://scripts/world/DesertPropSpawner.gd" id="15_spawner"]
-[ext_resource type="PackedScene" uid="uid://bxn3k4p7m8qwe" path="res://scenes/world/nodes/SandstoneNode.tscn" id="16_sandstone"]
-[ext_resource type="PackedScene" uid="uid://bd6htdywglpbc" path="res://assets/enviroment/desert/Prefabs/SM_Env_Bush_Bramble_02.tscn" id="34_652yl"]
+[ext_resource type="PackedScene" uid="uid://bxn3k4p7m8qwe" path="res://scenes/world/nodes/SandstoneNode.tscn" id="15_sandstone"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_desert"]
 sky_top_color = Color(0.4, 0.6, 0.9, 1)
@@ -50,7 +47,10 @@ fog_aerial_perspective = 0.2
 fog_sky_affect = 0.3
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
-size = Vector2(1000, 1000)
+size = Vector2(500, 500)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(500, 1, 500)
 
 [node name="DesertDemoScene" type="Node3D"]
 script = ExtResource("14_setup")
@@ -65,82 +65,66 @@ environment = SubResource("Environment_desert")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 50, 0)
-light_color = Color(1, 0.95, 0.85, 1)
-light_energy = 1.2
 shadow_enabled = true
-shadow_opacity = 0.7
+shadow_bias = 0.05
 shadow_blur = 2.0
-directional_shadow_mode = 1
-directional_shadow_max_distance = 500.0
 
-[node name="Terrain" type="Node3D" parent="."]
+[node name="Ground" type="StaticBody3D" parent="."]
 
-[node name="GroundPlane" type="StaticBody3D" parent="Terrain"]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/GroundPlane"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
 mesh = SubResource("PlaneMesh_ground")
-skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/GroundPlane"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_ground")
 
 [node name="Boundaries" type="Node3D" parent="."]
 
 [node name="NorthWall" type="StaticBody3D" parent="Boundaries"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, -500)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 250)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries/NorthWall"]
 
 [node name="SouthWall" type="StaticBody3D" parent="Boundaries"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 500)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, -250)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries/SouthWall"]
 
 [node name="EastWall" type="StaticBody3D" parent="Boundaries"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 500, 25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 250, 25, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries/EastWall"]
 
 [node name="WestWall" type="StaticBody3D" parent="Boundaries"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -500, 25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -250, 25, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries/WestWall"]
 
 [node name="EnvironmentProps" type="Node3D" parent="."]
-script = ExtResource("15_spawner")
-
-[node name="SM_Env_Backrgound_Hill_01" parent="EnvironmentProps" instance=ExtResource("4_f6e1f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.645, -0.0217075, -1.73064)
 
 [node name="ResourceNodes" type="Node3D" parent="."]
 
-[node name="SandstoneNode1" parent="ResourceNodes" instance=ExtResource("16_sandstone")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 15)
+[node name="SandstoneNode1" parent="ResourceNodes" instance=ExtResource("15_sandstone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 30)
 
-[node name="SandstoneNode2" parent="ResourceNodes" instance=ExtResource("16_sandstone")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 0, -25)
+[node name="SandstoneNode2" parent="ResourceNodes" instance=ExtResource("15_sandstone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, -50)
 
-[node name="SandstoneNode3" parent="ResourceNodes" instance=ExtResource("16_sandstone")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, -40)
+[node name="SandstoneNode3" parent="ResourceNodes" instance=ExtResource("15_sandstone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 120, 0, -80)
 
-[node name="SandstoneNode4" parent="ResourceNodes" instance=ExtResource("16_sandstone")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0, 50)
-
-[node name="Buildings3D" type="Node3D" parent="."]
+[node name="SandstoneNode4" parent="ResourceNodes" instance=ExtResource("15_sandstone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 0, 100)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="UI" instance=ExtResource("12_hud")]
 
 [node name="InventoryUI" parent="UI" instance=ExtResource("3_inventory")]
-visible = false
 
 [node name="StorageUI" parent="UI" instance=ExtResource("4_storage")]
 
 [node name="CombatHUD" parent="UI" instance=ExtResource("5_combathud")]
-layout_mode = 3
-anchors_preset = 15
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="DevMenu" parent="UI" instance=ExtResource("6_devmenu")]
 
@@ -160,6 +144,3 @@ grow_vertical = 2
 layer = 10
 
 [node name="Hotbar" parent="HotbarLayer" instance=ExtResource("2_hotbar")]
-
-[node name="SM_Env_Bush_Bramble_02" parent="." instance=ExtResource("34_652yl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.25949, 0, 0)
