@@ -9,27 +9,55 @@ extends Node3D
 
 # Prop paths
 var cactus_props = [
-	"res://3d Assets/FBX/Environment/SM_Env_Cactus_01.fbx",
-	"res://3d Assets/FBX/Environment/SM_Env_Cactus_02.fbx",
-	"res://3d Assets/FBX/Environment/SM_Env_Cactus_03.fbx"
+	"res://assets/models/environment/desert/SM_Env_Cactus_01.fbx",
+	"res://assets/models/environment/desert/SM_Env_Cactus_02.fbx",
+	"res://assets/models/environment/desert/SM_Env_Cactus_03.fbx"
 ]
 
 var rock_props = [
-	"res://3d Assets/FBX/Environment/SM_Env_Rock_01.fbx",
-	"res://3d Assets/FBX/Environment/SM_Env_Rock_02.fbx",
-	"res://3d Assets/FBX/Environment/SM_Env_Rock_03.fbx",
-	"res://3d Assets/FBX/Environment/SM_Env_Rock_04.fbx"
+	"res://assets/models/environment/desert/SM_Env_Rock_01.fbx",
+	"res://assets/models/environment/desert/SM_Env_Rock_02.fbx",
+	"res://assets/models/environment/desert/SM_Env_Rock_03.fbx",
+	"res://assets/models/environment/desert/SM_Env_Rock_04.fbx"
 ]
 
 var bush_props = [
-	"res://3d Assets/FBX/Environment/SM_Env_Bush_Bramble_01.fbx",
-	"res://3d Assets/FBX/Environment/SM_Env_Bush_Bramble_02.fbx"
+	"res://assets/models/environment/desert/SM_Env_Bush_Bramble_01.fbx",
+	"res://assets/models/environment/desert/SM_Env_Bush_Bramble_02.fbx"
 ]
 
 var spawned_positions: Array[Vector3] = []
 
 func _ready():
+	# Add collision to manually placed props first
+	add_collision_to_existing_props()
+	# Then spawn additional random props
 	spawn_desert_props()
+
+func add_collision_to_existing_props():
+	# Add collision to all manually placed child nodes
+	print("Adding collision to manually placed props...")
+	var children = get_children().duplicate()  # Duplicate to avoid modification during iteration
+	var processed = 0
+
+	for child in children:
+		if child is Node3D and not child is StaticBody3D:
+			# Save original transform
+			var original_transform = child.transform
+
+			# Remove from parent temporarily
+			remove_child(child)
+
+			# Wrap in collision
+			var collision_wrapper = create_collision_wrapper(child)
+
+			# Add back with correct transform
+			add_child(collision_wrapper)
+			collision_wrapper.transform = original_transform
+
+			processed += 1
+
+	print("Added collision to %d manually placed props" % processed)
 
 func spawn_desert_props():
 	print("Spawning %d desert props across %fm map..." % [spawn_count, map_size])

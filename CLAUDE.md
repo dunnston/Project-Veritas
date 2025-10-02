@@ -11,6 +11,14 @@ This is a 3D conversion of the 2D Neon Wasteland survival-automation game. The p
 - ALWAYS prefer editing existing files to creating new ones
 - NEVER proactively create documentation files unless explicitly requested
 
+## Git Status Verification
+**CRITICAL:** Never state git sync status with certainty without verification.
+- ALWAYS verify with `git fetch origin && git log origin/main --oneline -5` and `git log main --oneline -5`
+- Compare commit hashes between local and remote before stating sync status
+- The message "Your branch is up to date with 'origin/main'" only reflects local knowledge
+- Local can be behind remote if git fetch hasn't been run recently
+- Being out of sync can cause merge conflicts and lost work
+
 ## Migration Status Tracker
 ### ✅ Completed Modules
 - **InventorySystem** - Full drag-and-drop UI with equipment slots (docs/inventory_system)
