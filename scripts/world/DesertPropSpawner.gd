@@ -70,15 +70,15 @@ func spawn_desert_props():
 			var prop_scene = load(prop_path)
 			var prop_instance = prop_scene.instantiate()
 
-			# Set position and rotation
-			prop_instance.global_position = pos
-			prop_instance.rotation_degrees.y = randf_range(0, 360)
-			prop_instance.scale = Vector3.ONE * scale_factor
+			# Wrap in collision body BEFORE adding to scene
+			var collision_wrapper = create_collision_wrapper(prop_instance)
 
-			# Add collision to prop
-			add_collision_to_prop(prop_instance)
+			# Set position and rotation on the wrapper
+			collision_wrapper.global_position = pos
+			collision_wrapper.rotation_degrees.y = randf_range(0, 360)
+			collision_wrapper.scale = Vector3.ONE * scale_factor
 
-			add_child(prop_instance)
+			add_child(collision_wrapper)
 			spawned_positions.append(pos)
 		else:
 			push_warning("Prop not found: " + prop_path)
@@ -97,10 +97,13 @@ func is_position_valid(pos: Vector3) -> bool:
 
 	return true
 
-func add_collision_to_prop(prop: Node3D):
-	# Wrap the imported FBX in a StaticBody3D with collision
+func create_collision_wrapper(prop: Node3D) -> Node3D:
+	# Create a StaticBody3D to wrap the prop with collision
 	var static_body = StaticBody3D.new()
-	static_body.name = "PropCollision"
+	static_body.name = "PropWithCollision"
+
+	# Add the prop as a child first
+	static_body.add_child(prop)
 
 	# Find all MeshInstance3D nodes and add collision shapes
 	var mesh_instances = find_mesh_instances(prop)
@@ -118,15 +121,13 @@ func add_collision_to_prop(prop: Node3D):
 				collision_shape.transform = mesh_inst.transform
 				static_body.add_child(collision_shape)
 
-	# If we created collision shapes, wrap the prop
-	if static_body.get_child_count() > 0:
-		# Reparent the prop under the static body
-		var parent = prop.get_parent()
-		parent.remove_child(prop)
-		static_body.add_child(prop)
-		parent.add_child(static_body)
-		static_body.global_position = prop.global_position
-		prop.position = Vector3.ZERO
+	# Return the wrapper (or just the prop if no collision was created)
+	if static_body.get_child_count() > 1:  # Has prop + collision shapes
+		return static_body
+	else:
+		# No collision shapes created, just return the prop
+		static_body.remove_child(prop)
+		return prop
 
 func find_mesh_instances(node: Node) -> Array[MeshInstance3D]:
 	var meshes: Array[MeshInstance3D] = []
