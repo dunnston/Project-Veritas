@@ -16,8 +16,8 @@
 [ext_resource type="Script" uid="uid://vjnl6gg506cw" path="res://scripts/world/DesertSceneSetup.gd" id="14_setup"]
 [ext_resource type="Script" uid="uid://n55lxbko5ceh" path="res://scripts/world/DesertPropSpawner.gd" id="15_spawner"]
 [ext_resource type="PackedScene" uid="uid://bxn3k4p7m8qwe" path="res://scenes/world/nodes/SandstoneNode.tscn" id="16_sandstone"]
-[ext_resource type="PackedScene" uid="uid://cke75dednrifq" path="res://3d Assets/FBX/Core/Env_CloudRing_Larger_02.fbx" id="17_clouds"]
-[ext_resource type="PackedScene" uid="uid://bxll2hlmtlcaf" path="res://3d Assets/FBX/Core/SM_Env_Fog_Ring_01.fbx" id="18_fog"]
+[ext_resource type="PackedScene" uid="uid://cke75dednrifq" path="res://assets/models/environment/core/Env_CloudRing_Larger_02.fbx" id="17_clouds"]
+[ext_resource type="PackedScene" uid="uid://bxll2hlmtlcaf" path="res://assets/models/environment/core/SM_Env_Fog_Ring_01.fbx" id="18_fog"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_desert"]
 sky_top_color = Color(0.4, 0.6, 0.9, 1)
@@ -108,40 +108,40 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -500, 25, 0)
 [node name="EnvironmentProps" type="Node3D" parent="."]
 script = ExtResource("15_spawner")
 
-[node name="Cactus_01" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Cactus_01.fbx"]
+[node name="Cactus_01" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Cactus_01.fbx"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0, 30)
 
-[node name="Cactus_02" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Cactus_02.fbx"]
+[node name="Cactus_02" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Cactus_02.fbx"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, -60)
 
-[node name="Cactus_03" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Cactus_03.fbx"]
+[node name="Cactus_03" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Cactus_03.fbx"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0, -90)
 
-[node name="Rock_01" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Rock_01.fbx"]
+[node name="Rock_01" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Rock_01.fbx"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 120)
 
-[node name="Rock_02" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Rock_02.fbx"]
+[node name="Rock_02" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Rock_02.fbx"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, 0, 150)
 
-[node name="Rock_03" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Rock_03.fbx"]
+[node name="Rock_03" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Rock_03.fbx"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150, 0, -180)
 
-[node name="Rock_04" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Rock_04.fbx"]
+[node name="Rock_04" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Rock_04.fbx"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, -200)
 
-[node name="Hill_01" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Backrgound_Hill_01.fbx"]
+[node name="Hill_01" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Backrgound_Hill_01.fbx"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -26.401276, 0.05848503, -30.667183)
 
-[node name="Hill_04" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Backrgound_Hill_01.fbx"]
+[node name="Hill_04" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Backrgound_Hill_01.fbx"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 120.371445, 0.05848503, -30.667183)
 
-[node name="Hill_05" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Backrgound_Hill_01.fbx"]
+[node name="Hill_05" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Backrgound_Hill_01.fbx"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -26.695135, -0.63183403, 62.61863)
 
-[node name="Hill_02" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Backrgound_Hill_02.fbx"]
+[node name="Hill_02" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Backrgound_Hill_02.fbx"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 400, 0, 400)
 
-[node name="Hill_03" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Backrgound_Hill_03.fbx"]
+[node name="Hill_03" parent="EnvironmentProps" instance_placeholder="res://assets/models/environment/desert/SM_Env_Backrgound_Hill_03.fbx"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -350, 0, 380)
 
 [node name="ResourceNodes" type="Node3D" parent="."]
