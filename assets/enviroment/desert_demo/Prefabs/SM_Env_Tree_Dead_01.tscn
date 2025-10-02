@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c6hjdabnarjm0"]
 
-[ext_resource type="PackedScene" uid="uid://dt8hmac6q4kjj" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Tree_Dead_01.glb" id="1_c50x2"]
-[ext_resource type="Material" uid="uid://cxcqmnu46ia7i" path="res://Biomes/PNB_Arid_Desert/Material/M_PolygonNatureBiomesS2_AridDesert_Texture_01.tres" id="2_5itj4"]
+[ext_resource type="PackedScene" uid="uid://dt8hmac6q4kjj" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Tree_Dead_01.glb" id="1_c50x2"]
+[ext_resource type="Material" uid="uid://cxcqmnu46ia7i" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Material/M_PolygonNatureBiomesS2_AridDesert_Texture_01.tres" id="2_5itj4"]
 
 [node name="SM_Env_Tree_Dead_01" instance=ExtResource("1_c50x2")]
 
