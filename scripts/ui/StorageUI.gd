@@ -8,7 +8,7 @@ class_name StorageUI
 @onready var move_button: Button = $StoragePanel/VBoxContainer/ButtonContainer/MoveButton
 @onready var destroy_button: Button = $StoragePanel/VBoxContainer/ButtonContainer/DestroyButton
 
-var current_storage: StorageBox = null
+var current_storage = null  # Can be StorageBox (2D) or StorageBox3D (3D)
 var storage_slots: Array[Button] = []
 
 # Drag and drop state
@@ -197,7 +197,7 @@ func transfer_from_storage_to_inventory(slot_index: int, amount: int):
 	else:
 		print("Inventory full, cannot transfer item")
 
-func open_storage_interface(storage: StorageBox):
+func open_storage_interface(storage):
 	current_storage = storage
 	
 	# First, open the player's inventory if not already open

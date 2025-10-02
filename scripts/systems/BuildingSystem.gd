@@ -95,6 +95,9 @@ var camera: Camera3D = null
 var raycast_layer_mask: int = 0x1  # Layer 1 - Ground/World collision layer
 var placed_buildings: Dictionary = {}
 
+# Storage box data persistence for moving
+var pending_storage_data: Dictionary = {}
+
 # Door functionality for 3D doors
 var door_states: Dictionary = {}
 var player_nearby_door: Area3D = null
@@ -390,9 +393,16 @@ func place_building(pos: Vector3):
 		print("Scene path empty or doesn't exist: ", scene_path)
 
 	if not placed_building:
-		# Fallback: create simple 3D building
-		placed_building = StaticBody3D.new()
-		placed_building.add_to_group("building")
+		# Special case: Storage box needs special script
+		if current_building_id == "storage_box":
+			# Load the StorageBox3D script
+			var storage_script = load("res://scripts/buildings/StorageBox3D.gd")
+			placed_building = storage_script.new()
+			print("Created StorageBox3D instance")
+		else:
+			# Fallback: create simple 3D building
+			placed_building = StaticBody3D.new()
+			placed_building.add_to_group("building")
 
 		# Special case: Door frame uses CSG for cutout
 		if current_building_id == "door_frame" or current_building_id == "door_frame_with_door":
@@ -455,6 +465,8 @@ func place_building(pos: Vector3):
 				material.albedo_color = Color(0.4, 0.5, 0.8)
 			elif current_building_id.contains("door"):
 				material.albedo_color = Color(0.7, 0.5, 0.3)
+			elif current_building_id.contains("storage"):
+				material.albedo_color = Color(0.6, 0.4, 0.2)  # Brown for storage
 			else:
 				material.albedo_color = Color(0.5, 0.5, 0.5)
 

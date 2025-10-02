@@ -312,7 +312,7 @@ func get_icon_path_for_recipe(recipe_id: String) -> String:
 		"solar_panel": "res://assets/sprites/buildings/solar_panel.png",
 		"food_processor": "res://assets/sprites/buildings/food_processor.png",
 		"water_purifier": "res://assets/sprites/buildings/water_purifier.png",
-		"storage_box": "res://assets/sprites/buildings/storage_box.png",
+		"storage_box": "res://assets/sprites/items/Chest.png",
 		"basic_wall": "res://assets/sprites/buildings/basic_wall.png",
 		"basic_floor": "res://assets/sprites/buildings/basic_floor.png"
 	}
