@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cowdyxaa0m4vf"]
+[gd_scene load_steps=22 format=3 uid="uid://cowdyxaa0m4vf"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
@@ -46,8 +46,17 @@ fog_density = 0.0008
 fog_aerial_perspective = 0.2
 fog_sky_affect = 0.3
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sand"]
+albedo_color = Color(0.85, 0.75, 0.55, 1)
+metallic = 0.0
+roughness = 0.9
+shading_mode = 0
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+material = SubResource("StandardMaterial3D_sand")
 size = Vector2(500, 500)
+subdivide_width = 20
+subdivide_depth = 20
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
 size = Vector3(500, 1, 500)
@@ -125,6 +134,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 0, 100)
 [node name="StorageUI" parent="UI" instance=ExtResource("4_storage")]
 
 [node name="CombatHUD" parent="UI" instance=ExtResource("5_combathud")]
+layout_mode = 3
+anchors_preset = 15
 
 [node name="DevMenu" parent="UI" instance=ExtResource("6_devmenu")]
 
