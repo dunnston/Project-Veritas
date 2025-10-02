@@ -41,22 +41,31 @@ func setup_materials():
 func setup_preview(id: String, mesh: Mesh = null):
 	building_id = id
 
-	# Create mesh instance if not exists
-	if not mesh_instance:
-		mesh_instance = MeshInstance3D.new()
-		add_child(mesh_instance)
-
-	# Use provided mesh or create default
 	var box_size = Vector3(2, 1, 1)  # Default size
+
+	# Only create mesh_instance if mesh is provided (not CSG-based)
 	if mesh:
+		if not mesh_instance:
+			mesh_instance = MeshInstance3D.new()
+			add_child(mesh_instance)
+
 		mesh_instance.mesh = mesh
 		if mesh is BoxMesh:
 			box_size = (mesh as BoxMesh).size
-	else:
-		# Create default box mesh for workbench
+	elif not has_node("CSGBox3D"):
+		# No mesh and no CSG = create default mesh for workbench/etc
+		if not mesh_instance:
+			mesh_instance = MeshInstance3D.new()
+			add_child(mesh_instance)
+
 		var box_mesh = BoxMesh.new()
 		box_mesh.size = box_size
 		mesh_instance.mesh = box_mesh
+	else:
+		# CSG-based preview - get size from CSG node
+		var csg_node = get_node("CSGBox3D")
+		if csg_node and csg_node is CSGBox3D:
+			box_size = csg_node.size
 
 	# Create collision detection area
 	setup_collision_area(box_size)
@@ -67,11 +76,20 @@ func setup_preview(id: String, mesh: Mesh = null):
 func set_validity(is_valid: bool):
 	can_place = is_valid
 
+	# Apply material to mesh_instance if it exists
 	if mesh_instance:
 		if is_valid:
 			mesh_instance.material_override = material_valid
 		else:
 			mesh_instance.material_override = material_invalid
+	else:
+		# For CSG-based previews (like door_frame), find and apply material to CSG node
+		var csg_node = get_node_or_null("CSGBox3D")
+		if csg_node:
+			if is_valid:
+				csg_node.material = material_valid
+			else:
+				csg_node.material = material_invalid
 
 	placement_validity_changed.emit(is_valid)
 
@@ -80,10 +98,13 @@ func update_position(world_pos: Vector3):
 	var grid_size = 4.0
 	var grid_pos: Vector3
 
-	if building_id.contains("wall"):
-		# Walls use 2m grid (half-grid) to sit on floor edges
+	if building_id.contains("wall") or building_id.contains("door_frame"):
+		# Walls and door frames use 2m grid (half-grid) to sit on floor edges
 		var half_grid = grid_size / 2.0
 		grid_pos = snap_wall_to_floor_edge(world_pos, half_grid)
+	elif building_id == "door":
+		# Doors snap to door_frame openings
+		grid_pos = snap_door_to_frame(world_pos)
 	else:
 		# Floors, roofs use full 4m grid
 		grid_pos = Vector3(
@@ -94,19 +115,22 @@ func update_position(world_pos: Vector3):
 
 	# Get mesh size for calculations
 	var mesh_height = 1.0
-	print("DEBUG: mesh_instance exists: ", mesh_instance != null)
-	if mesh_instance:
-		print("DEBUG: mesh_instance.mesh exists: ", mesh_instance.mesh != null)
-		if mesh_instance.mesh:
-			print("DEBUG: mesh type: ", mesh_instance.mesh.get_class())
-			print("DEBUG: is BoxMesh: ", mesh_instance.mesh is BoxMesh)
+	print("DEBUG %s: mesh_instance exists: %s" % [building_id, mesh_instance != null])
 
+	# Try to get height from mesh_instance first
 	if mesh_instance and mesh_instance.mesh and mesh_instance.mesh is BoxMesh:
 		var box_mesh = mesh_instance.mesh as BoxMesh
 		mesh_height = box_mesh.size.y
-		print("DEBUG: Detected mesh size: ", box_mesh.size)
+		print("DEBUG %s: Detected mesh size from mesh_instance: %s (height=%.2f)" % [building_id, box_mesh.size, mesh_height])
 	else:
-		print("DEBUG: No mesh or not BoxMesh - using default height 1.0")
+		# Check for CSG-based preview (like door_frame)
+		var csg_node = get_node_or_null("CSGBox3D")
+		print("DEBUG %s: Looking for CSG node, found: %s" % [building_id, csg_node != null])
+		if csg_node and csg_node is CSGBox3D:
+			mesh_height = csg_node.size.y
+			print("DEBUG %s: Detected mesh size from CSG: %s (height=%.2f)" % [building_id, csg_node.size, mesh_height])
+		else:
+			print("DEBUG %s: No mesh or CSG - using default height 1.0" % building_id)
 
 	# Perform downward raycast to find the actual ground below this position
 	var ground_y = find_ground_below(grid_pos)
@@ -217,6 +241,22 @@ func recheck_validity():
 					if _is_ground_like(collider):
 						print("    -> Skipped: ground-like")
 						continue
+					# SPECIAL CASE: Walls can overlap with roofs
+					if building_id.contains("wall") and collider.name.contains("roof"):
+						print("    -> Skipped: wall can overlap with roof")
+						continue
+					# SPECIAL CASE: Walls can overlap with door_frame_with_door
+					if building_id.contains("wall") and collider.name.contains("door_frame_with_door"):
+						print("    -> Skipped: wall can overlap with door_frame_with_door")
+						continue
+					# SPECIAL CASE: Doors can overlap with door_frames
+					if building_id == "door" and collider.name.contains("door_frame"):
+						print("    -> Skipped: door can overlap with door_frame")
+						continue
+					# SPECIAL CASE: Door frames can overlap with doors
+					if building_id.contains("door_frame") and collider.name.contains("door"):
+						print("    -> Skipped: door_frame can overlap with door")
+						continue
 
 					print("    -> ADDED from shape query")
 					if not overlapping_bodies.has(collider):
@@ -236,6 +276,22 @@ func recheck_validity():
 			# Skip large flat surfaces (likely ground)
 			if _is_ground_like(body):
 				print("    -> Skipped: ground-like")
+				continue
+			# SPECIAL CASE: Walls can overlap with roofs
+			if building_id.contains("wall") and body.name.contains("roof"):
+				print("    -> Skipped: wall can overlap with roof")
+				continue
+			# SPECIAL CASE: Walls can overlap with door_frame_with_door
+			if building_id.contains("wall") and body.name.contains("door_frame_with_door"):
+				print("    -> Skipped: wall can overlap with door_frame_with_door")
+				continue
+			# SPECIAL CASE: Doors can overlap with door_frames
+			if building_id == "door" and body.name.contains("door_frame"):
+				print("    -> Skipped: door can overlap with door_frame")
+				continue
+			# SPECIAL CASE: Door frames can overlap with doors
+			if building_id.contains("door_frame") and body.name.contains("door"):
+				print("    -> Skipped: door_frame can overlap with door")
 				continue
 
 			print("    -> ADDED body to overlapping_bodies")
@@ -342,10 +398,12 @@ func snap_to_grid_3d(pos: Vector3, grid_size: float = 1.0) -> Vector3:
 func snap_wall_to_floor_edge(wall_pos: Vector3, half_grid: float) -> Vector3:
 	# Wall snapping logic:
 	# - Along wall length: snap to FULL 4m grid (to align corners with floors)
-	# - Perpendicular to wall: snap to EDGE positions (2m offset from floor center)
-	# - Wall center placed exactly at edge, so inner edge aligns with floor edge
+	# - Perpendicular to wall: position so INNER face sits flush with floor edge
+	# - For a 0.2m thick wall on a 4m floor: inner face at ±2m, center at ±2.1m
 
-	var full_grid = half_grid * 2.0  # 4m
+	var full_grid = half_grid * 2.0  # 4m (floor tile size)
+	var wall_thickness = 0.2  # Wall thickness from building_data
+	var wall_offset = half_grid + (wall_thickness / 2.0)  # 2.1m from floor center
 
 	# Determine wall orientation
 	var rotation_y = rotation_degrees.y
@@ -360,25 +418,62 @@ func snap_wall_to_floor_edge(wall_pos: Vector3, half_grid: float) -> Vector3:
 		# X: Snap to full 4m grid for corner alignment
 		x_snapped = round(wall_pos.x / full_grid) * full_grid
 
-		# Z: Snap to floor edge (odd multiples of 2m)
-		z_snapped = round(wall_pos.z / half_grid) * half_grid
-		var z_at_center = abs(z_snapped - round(z_snapped / full_grid) * full_grid) < 0.1
-		if z_at_center:
-			# At floor center, shift to nearest edge
-			z_snapped += half_grid if wall_pos.z > z_snapped else -half_grid
+		# Z: Position wall so inner face is flush with floor edge
+		# Find nearest floor center in Z
+		var nearest_floor_z = round(wall_pos.z / full_grid) * full_grid
+		# Determine which side of floor we're on
+		if wall_pos.z >= nearest_floor_z:
+			z_snapped = nearest_floor_z + wall_offset  # North side
+		else:
+			z_snapped = nearest_floor_z - wall_offset  # South side
 	else:
 		# Wall runs along Z axis (4m wide wall extends in Z direction)
 		# Z: Snap to full 4m grid for corner alignment
 		z_snapped = round(wall_pos.z / full_grid) * full_grid
 
-		# X: Snap to floor edge (odd multiples of 2m)
-		x_snapped = round(wall_pos.x / half_grid) * half_grid
-		var x_at_center = abs(x_snapped - round(x_snapped / full_grid) * full_grid) < 0.1
-		if x_at_center:
-			# At floor center, shift to nearest edge
-			x_snapped += half_grid if wall_pos.x > x_snapped else -half_grid
+		# X: Position wall so inner face is flush with floor edge
+		# Find nearest floor center in X
+		var nearest_floor_x = round(wall_pos.x / full_grid) * full_grid
+		# Determine which side of floor we're on
+		if wall_pos.x >= nearest_floor_x:
+			x_snapped = nearest_floor_x + wall_offset  # East side
+		else:
+			x_snapped = nearest_floor_x - wall_offset  # West side
 
 	return Vector3(x_snapped, wall_pos.y, z_snapped)
+
+func snap_door_to_frame(door_pos: Vector3) -> Vector3:
+	# Find nearby door_frame buildings
+	var buildings = get_tree().get_nodes_in_group("building")
+	var closest_frame = null
+	var closest_distance = 999999.0
+
+	for building in buildings:
+		if not building.name.contains("door_frame"):
+			continue
+
+		var building_pos = building.global_position
+		var distance = door_pos.distance_to(building_pos)
+
+		if distance < closest_distance and distance < 3.0:  # Within 3m
+			closest_distance = distance
+			closest_frame = building
+
+	if closest_frame:
+		# Snap to the door frame's X/Z position, but keep the door_pos Y (from raycast to floor)
+		var frame_pos = closest_frame.global_position
+		var snapped_pos = Vector3(frame_pos.x, door_pos.y, frame_pos.z)
+
+		# Match the door frame's rotation
+		rotation_degrees.y = closest_frame.rotation_degrees.y
+
+		print("Door snapping to frame at: %s with rotation: %.1f° (Y from raycast: %.2f)" % [snapped_pos, rotation_degrees.y, door_pos.y])
+		return snapped_pos
+	else:
+		# No frame nearby, use wall-like snapping
+		print("No door frame nearby, using default snapping")
+		var half_grid = 2.0
+		return snap_wall_to_floor_edge(door_pos, half_grid)
 
 func rotate_building():
 	rotation_degrees.y += 90
@@ -395,16 +490,50 @@ func setup_collision_area(size: Vector3):
 	collision_area.name = "CollisionDetection"
 	add_child(collision_area)
 
-	# Create collision shape
-	var collision_shape = CollisionShape3D.new()
-	var box_shape = BoxShape3D.new()
-	# Use FULL size for accurate collision detection - no reductions
-	# We filter out ground using name/group checks instead
-	box_shape.size = size
-	collision_shape.shape = box_shape
-	# No offset - collision box matches mesh exactly
-	collision_shape.position = Vector3.ZERO
-	collision_area.add_child(collision_shape)
+	# Special case: Door frame needs multiple collision shapes to avoid door opening
+	if building_id == "door_frame":
+		# Create 3 collision boxes: left wall, right wall, top section
+		# Door opening is 1.2m wide, centered
+		var wall_thickness = 0.2
+		var door_width = 1.2
+		var door_height = 2.4
+		var total_width = size.x  # 4m
+		var total_height = size.y  # 3m
+
+		var side_width = (total_width - door_width) / 2.0  # 1.4m each side
+
+		# Left wall section
+		var left_shape = CollisionShape3D.new()
+		var left_box = BoxShape3D.new()
+		left_box.size = Vector3(side_width, total_height, wall_thickness)
+		left_shape.shape = left_box
+		left_shape.position = Vector3(-(door_width/2.0 + side_width/2.0), 0, 0)
+		collision_area.add_child(left_shape)
+
+		# Right wall section
+		var right_shape = CollisionShape3D.new()
+		var right_box = BoxShape3D.new()
+		right_box.size = Vector3(side_width, total_height, wall_thickness)
+		right_shape.shape = right_box
+		right_shape.position = Vector3(door_width/2.0 + side_width/2.0, 0, 0)
+		collision_area.add_child(right_shape)
+
+		# Top section (above door)
+		var top_height = total_height - door_height
+		var top_shape = CollisionShape3D.new()
+		var top_box = BoxShape3D.new()
+		top_box.size = Vector3(door_width, top_height, wall_thickness)
+		top_shape.shape = top_box
+		top_shape.position = Vector3(0, door_height/2.0 + top_height/2.0, 0)
+		collision_area.add_child(top_shape)
+	else:
+		# Standard single collision shape
+		var collision_shape = CollisionShape3D.new()
+		var box_shape = BoxShape3D.new()
+		box_shape.size = size
+		collision_shape.shape = box_shape
+		collision_shape.position = Vector3.ZERO
+		collision_area.add_child(collision_shape)
 
 	# Set collision layers
 	collision_area.collision_layer = 0  # Preview doesn't collide
@@ -435,6 +564,29 @@ func _on_body_entered(body: Node3D):
 	# Check if it's ground-like geometry
 	if _is_ground_like(body):
 		print("  -> Ignored: ground-like geometry")
+		return
+
+	# SPECIAL CASE: Walls can overlap with roofs
+	# Allow walls to be placed even when they intersect with roofs
+	if building_id.contains("wall") and body.name.contains("roof"):
+		print("  -> Allowed: wall can overlap with roof")
+		return
+
+	# SPECIAL CASE: Walls can overlap with door_frame_with_door
+	if building_id.contains("wall") and body.name.contains("door_frame_with_door"):
+		print("  -> Allowed: wall can overlap with door_frame_with_door")
+		return
+
+	# SPECIAL CASE: Doors can overlap with door_frames
+	# Allow doors to be placed in door frame openings
+	if building_id == "door" and body.name.contains("door_frame"):
+		print("  -> Allowed: door can overlap with door_frame")
+		return
+
+	# SPECIAL CASE: Door frames can overlap with doors
+	# Allow door frames to be placed around existing doors
+	if building_id.contains("door_frame") and body.name.contains("door"):
+		print("  -> Allowed: door_frame can overlap with door")
 		return
 
 	# Check if it's an actual obstacle

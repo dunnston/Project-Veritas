@@ -71,6 +71,35 @@
 		},
 		"workbench_required": false
 	},
+	"door_frame": {
+		"category": "building",
+		"craft_time": 2.5,
+		"description": "Wall with a door-sized opening. Snap a door into the frame.",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 4.0
+		},
+		"name": "Door Frame",
+		"output": {
+			"door_frame": 1.0
+		},
+		"workbench_required": false
+	},
+	"door_frame_with_door": {
+		"category": "building",
+		"craft_time": 4.0,
+		"description": "Wall with door frame and working door. Press E to open/close.",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 8.0,
+			"ELECTRONICS": 1.0
+		},
+		"name": "Door Frame with Door",
+		"output": {
+			"door_frame_with_door": 1.0
+		},
+		"workbench_required": false
+	},
 	"door": {
 		"category": "building",
 		"craft_time": 3.0,
