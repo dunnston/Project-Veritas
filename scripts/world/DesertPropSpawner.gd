@@ -3,8 +3,8 @@ extends Node3D
 # Spawns desert props randomly across the map
 # Attach this to the EnvironmentProps node
 
-@export var spawn_count: int = 100
-@export var map_size: float = 900.0  # Leave 100m buffer from edges
+@export var spawn_count: int = 50
+@export var map_size: float = 450.0  # 500m map with 50m buffer from edges
 @export var min_distance_between_props: float = 10.0
 
 # Prop paths - using new GLB assets
