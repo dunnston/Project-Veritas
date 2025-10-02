@@ -154,15 +154,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0, 50)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Hotbar" parent="UI" instance=ExtResource("2_hotbar")]
-
 [node name="InventoryUI" parent="UI" instance=ExtResource("3_inventory")]
 
 [node name="StorageUI" parent="UI" instance=ExtResource("4_storage")]
 
 [node name="CombatHUD" parent="UI" instance=ExtResource("5_combathud")]
-layout_mode = 3
-anchors_preset = 15
 
 [node name="DevMenu" parent="UI" instance=ExtResource("6_devmenu")]
 
@@ -179,3 +175,8 @@ anchors_preset = 15
 [node name="HUD" parent="UI" instance=ExtResource("12_hud")]
 
 [node name="WorkbenchCraftingMenu" parent="UI" instance=ExtResource("13_workbench")]
+
+[node name="HotbarLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Hotbar" parent="HotbarLayer" instance=ExtResource("2_hotbar")]
