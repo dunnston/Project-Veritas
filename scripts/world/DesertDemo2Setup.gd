@@ -4,6 +4,9 @@ extends Node3D
 # This script dynamically adds player, camera, and UI to the scene
 
 func _ready():
+	# Add ground collision first
+	add_ground_collision()
+
 	# Add player
 	var player_scene = load("res://scenes/player/player_procedural.tscn")
 	var player = player_scene.instantiate()
@@ -89,3 +92,32 @@ func _ready():
 	ui_layer.add_child(workbench)
 
 	print("Desert Demo Scene 2 setup complete - Player, Camera, and UI added")
+
+func add_ground_collision():
+	# Create a large ground plane with collision
+	var ground = StaticBody3D.new()
+	ground.name = "Ground"
+	add_child(ground)
+
+	# Add collision shape
+	var collision = CollisionShape3D.new()
+	var box_shape = BoxShape3D.new()
+	box_shape.size = Vector3(2000, 1, 2000)  # Large flat plane
+	collision.shape = box_shape
+	collision.position = Vector3(0, -0.5, 0)  # Half below ground level
+	ground.add_child(collision)
+
+	# Add visual mesh (optional, for debugging)
+	var mesh_instance = MeshInstance3D.new()
+	var plane_mesh = PlaneMesh.new()
+	plane_mesh.size = Vector2(2000, 2000)
+	mesh_instance.mesh = plane_mesh
+	mesh_instance.position = Vector3(0, 0, 0)
+	ground.add_child(mesh_instance)
+
+	# Apply a simple material so we can see it
+	var material = StandardMaterial3D.new()
+	material.albedo_color = Color(0.8, 0.7, 0.5)  # Sandy color
+	mesh_instance.material_override = material
+
+	print("Ground collision added at Y=0 with 2000x2000 size")
