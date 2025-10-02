@@ -1,0 +1,183 @@
+[gd_scene load_steps=21 format=3 uid="uid://bb4von4ibp0tx"]
+
+[ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
+[ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="3_inventory"]
+[ext_resource type="PackedScene" uid="uid://c5qxr8jyf4kxm" path="res://scenes/ui/StorageUI.tscn" id="4_storage"]
+[ext_resource type="PackedScene" path="res://scenes/ui/CombatHUD.tscn" id="5_combathud"]
+[ext_resource type="PackedScene" uid="uid://devmenu" path="res://scenes/ui/DevMenu.tscn" id="6_devmenu"]
+[ext_resource type="PackedScene" uid="uid://buildmenu" path="res://scenes/ui/BuildMenu.tscn" id="7_buildmenu"]
+[ext_resource type="PackedScene" uid="uid://ttributesui" path="res://scenes/ui/AttributesUI.tscn" id="8_attributes"]
+[ext_resource type="PackedScene" uid="uid://b7gl23jy6jhi3" path="res://scenes/ui/EquipedWeaponUI.tscn" id="9_weapon"]
+[ext_resource type="PackedScene" uid="uid://b8hgax2kqw7lr" path="res://scenes/ui/GeneratorMenu.tscn" id="10_generator"]
+[ext_resource type="PackedScene" uid="uid://dd2xhpgk2eax2" path="res://scenes/ui/SkillDebugUI.tscn" id="11_skill"]
+[ext_resource type="PackedScene" uid="uid://cwco3dupc62jn" path="res://scenes/ui/HUD.tscn" id="12_hud"]
+[ext_resource type="PackedScene" uid="uid://cfeodp70flpq1" path="res://scenes/ui/WorkbenchCraftingMenu.tscn" id="13_workbench"]
+[ext_resource type="Script" uid="uid://vjnl6gg506cw" path="res://scripts/world/DesertSceneSetup.gd" id="14_setup"]
+[ext_resource type="Script" uid="uid://n55lxbko5ceh" path="res://scripts/world/DesertPropSpawner.gd" id="15_spawner"]
+[ext_resource type="PackedScene" uid="uid://bxn3k4p7m8qwe" path="res://scenes/world/nodes/SandstoneNode.tscn" id="16_sandstone"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_desert"]
+sky_top_color = Color(0.4, 0.6, 0.9, 1)
+sky_horizon_color = Color(0.9, 0.7, 0.5, 1)
+ground_bottom_color = Color(0.6, 0.5, 0.4, 1)
+ground_horizon_color = Color(0.9, 0.7, 0.5, 1)
+sun_curve = 0.1
+
+[sub_resource type="Sky" id="Sky_desert"]
+sky_material = SubResource("ProceduralSkyMaterial_desert")
+
+[sub_resource type="Environment" id="Environment_desert"]
+background_mode = 2
+sky = SubResource("Sky_desert")
+ambient_light_source = 3
+ambient_light_color = Color(0.95, 0.85, 0.7, 1)
+ambient_light_energy = 0.6
+tonemap_mode = 2
+ssao_enabled = true
+ssao_radius = 2.0
+ssao_intensity = 1.5
+glow_enabled = true
+glow_intensity = 0.3
+glow_strength = 0.8
+glow_bloom = 0.15
+fog_enabled = true
+fog_light_color = Color(0.95, 0.8, 0.6, 1)
+fog_density = 0.0008
+fog_aerial_perspective = 0.2
+fog_sky_affect = 0.3
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(1000, 1000)
+
+[node name="DesertDemoScene" type="Node3D"]
+script = ExtResource("14_setup")
+
+[node name="PlayerMixamo" parent="." instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_desert")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 50, 0)
+light_color = Color(1, 0.95, 0.85, 1)
+light_energy = 1.2
+shadow_enabled = true
+shadow_opacity = 0.7
+shadow_blur = 2.0
+directional_shadow_mode = 1
+directional_shadow_max_distance = 500.0
+
+[node name="Terrain" type="Node3D" parent="."]
+
+[node name="GroundPlane" type="StaticBody3D" parent="Terrain"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/GroundPlane"]
+mesh = SubResource("PlaneMesh_ground")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/GroundPlane"]
+
+[node name="Boundaries" type="Node3D" parent="."]
+
+[node name="NorthWall" type="StaticBody3D" parent="Boundaries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, -500)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries/NorthWall"]
+
+[node name="SouthWall" type="StaticBody3D" parent="Boundaries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 500)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries/SouthWall"]
+
+[node name="EastWall" type="StaticBody3D" parent="Boundaries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 500, 25, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries/EastWall"]
+
+[node name="WestWall" type="StaticBody3D" parent="Boundaries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -500, 25, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries/WestWall"]
+
+[node name="EnvironmentProps" type="Node3D" parent="."]
+script = ExtResource("15_spawner")
+
+[node name="Cactus_01" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Cactus_01.fbx"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0, 30)
+
+[node name="Cactus_02" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Cactus_02.fbx"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, -60)
+
+[node name="Cactus_03" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Cactus_03.fbx"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120, 0, -90)
+
+[node name="Rock_01" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Rock_01.fbx"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 120)
+
+[node name="Rock_02" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Rock_02.fbx"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, 0, 150)
+
+[node name="Rock_03" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Rock_03.fbx"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150, 0, -180)
+
+[node name="Rock_04" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Rock_04.fbx"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, -200)
+
+[node name="Hill_01" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Backrgound_Hill_01.fbx"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -102.34564, 0, -132.71973)
+
+[node name="Hill_02" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Backrgound_Hill_02.fbx"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 400, 0, 400)
+
+[node name="Hill_03" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Backrgound_Hill_03.fbx"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -350, 0, 380)
+
+[node name="ResourceNodes" type="Node3D" parent="."]
+
+[node name="SandstoneNode1" parent="ResourceNodes" instance=ExtResource("16_sandstone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 15)
+
+[node name="SandstoneNode2" parent="ResourceNodes" instance=ExtResource("16_sandstone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 0, -25)
+
+[node name="SandstoneNode3" parent="ResourceNodes" instance=ExtResource("16_sandstone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, -40)
+
+[node name="SandstoneNode4" parent="ResourceNodes" instance=ExtResource("16_sandstone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0, 50)
+
+[node name="Buildings3D" type="Node3D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("12_hud")]
+
+[node name="InventoryUI" parent="UI" instance=ExtResource("3_inventory")]
+visible = false
+
+[node name="StorageUI" parent="UI" instance=ExtResource("4_storage")]
+
+[node name="CombatHUD" parent="UI" instance=ExtResource("5_combathud")]
+
+[node name="DevMenu" parent="UI" instance=ExtResource("6_devmenu")]
+
+[node name="BuildMenu" parent="UI" instance=ExtResource("7_buildmenu")]
+
+[node name="AttributesUI" parent="UI" instance=ExtResource("8_attributes")]
+
+[node name="EquipedWeaponUI" parent="UI" instance=ExtResource("9_weapon")]
+
+[node name="GeneratorMenu" parent="UI" instance=ExtResource("10_generator")]
+
+[node name="SkillDebugUI" parent="UI" instance=ExtResource("11_skill")]
+
+[node name="WorkbenchCraftingMenu" parent="UI" instance=ExtResource("13_workbench")]
+
+[node name="HotbarLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Hotbar" parent="HotbarLayer" instance=ExtResource("2_hotbar")]
