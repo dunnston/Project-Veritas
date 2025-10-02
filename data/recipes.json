@@ -371,7 +371,7 @@
 		"craft_time": 3.0,
 		"description": "Basic container for storing items",
 		"icon": "Chest.png",
-		"include_in_build_menu": false,
+		"include_in_build_menu": true,
 		"ingredients": {
 			"SCRAP_METAL": 2.0,
 			"WOOD_SCRAPS": 5.0
