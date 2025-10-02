@@ -1,0 +1,32 @@
+[gd_resource type = "ShaderMaterial" load_steps=5 format=3 uid="uid://d1rxtwxrxxf5u"]
+
+[ext_resource type="Shader" uid="uid://dk3m6lqrajajp" path="res://Shaders/MI_Rock_Triplanar_Yellow_01.tres" id="5_ilgpf"]
+[ext_resource type="Texture2D" uid="uid://vslnm07n01ti" path="res://Biomes/PNB_Arid_Desert/Textures/T_RockWall_Normals_01.png" id="1_lvh62"]
+[ext_resource type="Texture2D" uid="uid://d4j4os7swqu1m" path="res://Biomes/PNB_Arid_Desert/Textures/T_Ground_Normals.png" id="2_csr2s"]
+[ext_resource type="Texture2D" uid="uid://biya48fpbsa08" path="res://Biomes/PNB_Arid_Desert/Textures/T_Dirt_Texture_Red_01.png" id="3_c0ns2"]
+[ext_resource type="Texture2D" uid="uid://cy3w8ewxffud5" path="res://Biomes/PNB_Arid_Desert/Textures/T_SulphurRock.png" id="4_bx574"]
+
+[resource]
+resource_name = "MI_Rock_Triplanar_Yellow_01"
+render_priority = 0
+shader = ExtResource("5_ilgpf")
+shader_parameter/Tiling = 200.000
+shader_parameter/Bottom_Texture = ExtResource("3_c0ns2")
+shader_parameter/SideMetalic = 0.000
+shader_parameter/SideSmoothness = 1.000
+shader_parameter/Bottom_Normal = ExtResource("1_lvh62")
+shader_parameter/Top_texture = ExtResource("4_bx574")
+shader_parameter/TopMetalic = 0.000
+shader_parameter/TopSmoothness = 1.000
+shader_parameter/Top_Normal = ExtResource("2_csr2s")
+shader_parameter/Falloff = 0.000
+shader_parameter/Tiling_VS = 200.000
+shader_parameter/Bottom_Texture_VS = ExtResource("3_c0ns2")
+shader_parameter/SideMetalic_VS = 0.000
+shader_parameter/SideSmoothness_VS = 1.000
+shader_parameter/Bottom_Normal_VS = ExtResource("1_lvh62")
+shader_parameter/Top_texture_VS = ExtResource("4_bx574")
+shader_parameter/TopMetalic_VS = 0.000
+shader_parameter/TopSmoothness_VS = 1.000
+shader_parameter/Top_Normal_VS = ExtResource("2_csr2s")
+shader_parameter/Falloff_VS = 0.000

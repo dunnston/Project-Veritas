@@ -1,0 +1,14 @@
+[gd_resource type = "ShaderMaterial" load_steps=3 format=3 uid="uid://bchcwcd8rs8oy"]
+
+[ext_resource type="Shader" uid="uid://bpbyo5pst81hn" path="res://Shaders/M_Lavarock.tres" id="3_c7kvw"]
+[ext_resource type="Texture2D" uid="uid://cgjvc83h1qprw" path="res://Biomes/PNB_Arid_Desert/Textures/T_LavaRock_Normals.png" id="1_5jnym"]
+[ext_resource type="Texture2D" uid="uid://cttj3t48gvg8v" path="res://Biomes/PNB_Arid_Desert/Textures/T_Lavarock_Texture.png" id="2_mn04x"]
+
+[resource]
+resource_name = "M_Lavarock"
+render_priority = 0
+shader = ExtResource("3_c7kvw")
+shader_parameter/Generated_T_LavaRock_Normals = ExtResource("1_5jnym")
+shader_parameter/Metallic = 0.000
+shader_parameter/Roughness = 0.850
+shader_parameter/Specular = 0.000

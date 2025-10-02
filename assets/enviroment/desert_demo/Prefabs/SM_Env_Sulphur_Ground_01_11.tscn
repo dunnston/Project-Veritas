@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5n5fvuy7gd87"]
+
+[ext_resource type="PackedScene" uid="uid://d0v7re7yskq8p" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Sulphur_Ground_01.glb" id="1_bkplc"]
+[ext_resource type="Material" uid="uid://d1rxtwxrxxf5u" path="res://Biomes/PNB_Arid_Desert/Material/MI_Rock_Triplanar_Yellow_01.tres" id="2_bfwuo"]
+
+[node name="SM_Env_Sulphur_Ground_01_11" instance=ExtResource("1_bkplc")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bfwuo")

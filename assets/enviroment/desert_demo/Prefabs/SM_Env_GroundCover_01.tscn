@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct5po6bjj74kq"]
+
+[ext_resource type="PackedScene" uid="uid://ddpk3xwfykisa" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_GroundCover_01.glb" id="1_crcsu"]
+[ext_resource type="Material" uid="uid://b64t266ugsg66" path="res://Biomes/PNB_Arid_Desert/Material/Plants/MI_AridDesert_GroundCover_01.tres" id="2_cas5s"]
+
+[node name="SM_Env_GroundCover_01" instance=ExtResource("1_crcsu")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_cas5s")

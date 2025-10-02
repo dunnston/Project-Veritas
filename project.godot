@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Project Veritas"
 run/main_scene="res://scenes/world/demo_scene.tscn"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -46,6 +46,10 @@ RoofVisibilityManager="*res://scripts/systems/RoofVisibilityManager.gd"
 DoorSystem="*res://scripts/systems/DoorSystem.gd"
 EmergencySystem="*res://scripts/systems/EmergencySystem.gd"
 DragPreviewManager="*res://scripts/ui/DragPreviewManager.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/unidot/plugin.cfg")
 
 [input]
 

@@ -1,0 +1,17 @@
+[gd_resource type = "ShaderMaterial" load_steps=1 format=3 uid="uid://cpgnxbcisiiar"]
+
+[ext_resource type="Shader" uid="uid://ds1bd0p3getw1" path="res://Shaders/MI_SulphurPool_01_01.tres" id="1_s5ar8"]
+
+[resource]
+resource_name = "MI_SulphurPool_01_01"
+render_priority = 0
+shader = ExtResource("1_s5ar8")
+shader_parameter/Shallow_Color = Vector4(1.000, 0.736, 0.000, 1.000)
+shader_parameter/Deep_Color = Vector4(0.498, 0.000, 0.000, 1.000)
+shader_parameter/Opacity = 0.400
+shader_parameter/FadeDistance = 30.000
+shader_parameter/Color_Falloff = 0.500
+shader_parameter/Object_Opacity = 0.850
+shader_parameter/Metallic = 0.000
+shader_parameter/Roughness = 0.477
+shader_parameter/Specular = 0.400

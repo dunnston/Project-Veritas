@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjtvisjlslw1r"]
+
+[ext_resource type="PackedScene" uid="uid://undbtcddj4h5" path="res://Biomes/PNB_Core/Models/SM_Env_Cloud_Ring_01.glb" id="1_c4ssw"]
+[ext_resource type="Material" uid="uid://bl0n4qcn3kvhi" path="res://Biomes/PNB_Core/Material/M_Cloud.tres" id="2_bhi6f"]
+
+[node name = "SM_Env_Cloud_Ring_01" instance = ExtResource("1_c4ssw")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bhi6f")

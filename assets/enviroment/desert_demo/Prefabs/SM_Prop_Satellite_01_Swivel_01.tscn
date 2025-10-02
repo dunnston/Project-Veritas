@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn2fe0udd4d0e"]
+
+[ext_resource type="PackedScene" uid="uid://clgm26kd2f4l" path="res://Biomes/PNB_Arid_Desert/Models/Props/SM_Prop_Satellite_01_Swivel_01.glb" id="1_bq0wj"]
+[ext_resource type="Material" uid="uid://cxcqmnu46ia7i" path="res://Biomes/PNB_Arid_Desert/Material/M_PolygonNatureBiomesS2_AridDesert_Texture_01.tres" id="2_5itj4"]
+
+[node name="SM_Prop_Satellite_01_Swivel_01" instance=ExtResource("1_bq0wj")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_5itj4")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://colujjowtigex"]
+
+[ext_resource type="PackedScene" uid="uid://ceg7e0il1rte6" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Succulent_05_Flowers_01.glb" id="1_djt8c"]
+[ext_resource type="Material" uid="uid://bt2f0jhcj6b7w" path="res://Biomes/PNB_Arid_Desert/Material/Plants/MI_Succulent_Flowers_01.tres" id="2_cncl6"]
+
+[node name="SM_Env_Succulent_05_Flowers_01" instance=ExtResource("1_djt8c")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_cncl6")

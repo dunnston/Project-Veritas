@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkrdicrw3ds7v"]
+
+[ext_resource type="PackedScene" uid="uid://d4auwos2ku2ky" path="res://Biomes/PNB_Core/Models/SM_Env_Skydome_01.glb" id="1_qsxs1"]
+[ext_resource type="Material" uid="uid://bc43urt4k6ns8" path="res://Biomes/PNB_Core/Material/M_Skybox_01.tres" id="2_bc63o"]
+
+[node name = "SM_Env_Skydome_01" instance = ExtResource("1_qsxs1")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bc63o")

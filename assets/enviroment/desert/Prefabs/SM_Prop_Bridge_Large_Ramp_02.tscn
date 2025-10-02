@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0q3ovnadpnc5"]
+
+[ext_resource type="PackedScene" uid="uid://dfrotqknn3le8" path="res://Biomes/PNB_Arid_Desert/Models/Props/SM_Prop_Bridge_Large_Ramp_02.glb" id="1_0hy3h"]
+[ext_resource type="Material" uid="uid://cxbujpyhfgmp2" path="res://Biomes/PNB_Arid_Desert/Material/M_PolygonNatureBiomesS2_AridDesert_Texture_01.tres" id="2_c2dn7"]
+
+[node name = "SM_Prop_Bridge_Large_Ramp_02" instance = ExtResource("1_0hy3h")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c2dn7")

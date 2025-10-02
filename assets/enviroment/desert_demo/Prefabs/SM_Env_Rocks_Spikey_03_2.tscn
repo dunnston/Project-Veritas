@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dghv4fyeeuenh"]
+
+[ext_resource type="PackedScene" uid="uid://qjtbkid7udrc" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Rocks_Spikey_03.glb" id="1_bafgo"]
+[ext_resource type="Material" uid="uid://c85jba3fonvsu" path="res://Biomes/PNB_Arid_Desert/Material/MI_Rock_Triplanar_Red_02.tres" id="2_pvwg4"]
+
+[node name="SM_Env_Rocks_Spikey_03_2" instance=ExtResource("1_bafgo")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_pvwg4")

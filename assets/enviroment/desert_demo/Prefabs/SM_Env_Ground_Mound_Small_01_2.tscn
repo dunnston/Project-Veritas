@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c68xabwr2o8lw"]
+
+[ext_resource type="PackedScene" uid="uid://cnk7gdve0hpjb" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Ground_Mound_Small_01.glb" id="1_cj24i"]
+[ext_resource type="Material" uid="uid://b7es7jha1v1ls" path="res://Biomes/PNB_Arid_Desert/Material/MI_Rock_Triplanar_Dark_01.tres" id="2_b25bf"]
+
+[node name="SM_Env_Ground_Mound_Small_01_2" instance=ExtResource("1_cj24i")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_b25bf")

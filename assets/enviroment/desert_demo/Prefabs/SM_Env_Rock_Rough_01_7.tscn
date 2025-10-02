@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://23rn0wnr6g3t"]
+
+[ext_resource type="PackedScene" uid="uid://dbravuoy0rghx" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Rock_Rough_01.glb" id="1_clyo8"]
+[ext_resource type="Material" uid="uid://dmo01k7o3lxuy" path="res://Biomes/PNB_Arid_Desert/Material/Alts/PolygonNatureBiomesS2_AridDesert_Texture_02_B_Mat.tres" id="2_cqdee"]
+
+[node name="SM_Env_Rock_Rough_01_7" instance=ExtResource("1_clyo8")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_cqdee")

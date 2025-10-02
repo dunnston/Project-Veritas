@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2qp20iew31fp"]
+
+[ext_resource type="PackedScene" uid="uid://b7as51nb7enyr" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Lava_River_05.glb" id="1_d3hvw"]
+[ext_resource type="Material" uid="uid://bn7bdpeoabynb" path="res://Biomes/PNB_Arid_Desert/Material/M_Lava_01.tres" id="2_dqgtd"]
+
+[node name="SM_Env_Lava_River_05" instance=ExtResource("1_d3hvw")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_dqgtd")

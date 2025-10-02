@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj3fvw37iahnb"]
+
+[ext_resource type="PackedScene" uid="uid://dhcdirwln8yf3" path="res://Biomes/PNB_Arid_Desert/Models/Props/SM_Prop_Artefact_01.glb" id="1_dwfxa"]
+[ext_resource type="Material" uid="uid://cxbujpyhfgmp2" path="res://Biomes/PNB_Arid_Desert/Material/M_PolygonNatureBiomesS2_AridDesert_Texture_01.tres" id="2_c2dn7"]
+
+[node name = "SM_Prop_Artefact_01" instance = ExtResource("1_dwfxa")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c2dn7")

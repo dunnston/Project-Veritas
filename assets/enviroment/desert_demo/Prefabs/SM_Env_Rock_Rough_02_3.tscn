@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://42jq5md1aal5"]
+
+[ext_resource type="PackedScene" uid="uid://oiw84k5h6mcu" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_Rock_Rough_02.glb" id="1_dq8ri"]
+[ext_resource type="Material" uid="uid://d3g1envinse6d" path="res://Biomes/PNB_Arid_Desert/Material/MI_Rock_Triplanar_01_White.tres" id="2_igvch"]
+
+[node name="SM_Env_Rock_Rough_02_3" instance=ExtResource("1_dq8ri")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_igvch")

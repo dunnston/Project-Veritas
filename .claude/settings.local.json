@@ -17,7 +17,8 @@
       "Bash(git restore:*)",
       "Bash(copy:*)",
       "Bash(find:*)",
-      "Read(//c/**)"
+      "Read(//c/**)",
+      "Bash(git stash push:*)"
     ],
     "deny": [],
     "ask": []

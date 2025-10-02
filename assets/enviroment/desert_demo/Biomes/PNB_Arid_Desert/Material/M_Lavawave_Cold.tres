@@ -1,0 +1,14 @@
+[gd_resource type = "ShaderMaterial" load_steps=3 format=3 uid="uid://p6jkjrb2qan2"]
+
+[ext_resource type="Shader" uid="uid://dnrk2clkdop1a" path="res://Shaders/M_Lavawave_Cold.tres" id="3_cs3bv"]
+[ext_resource type="Texture2D" uid="uid://chx38wnjnymxm" path="res://Biomes/PNB_Arid_Desert/Textures/T_Lavawave_FlipTest_Normals.png" id="1_by1l6"]
+[ext_resource type="Texture2D" uid="uid://bjp0nmqb6q53e" path="res://Biomes/PNB_Arid_Desert/Textures/T_Lavawave_Cold.png" id="2_u5skp"]
+
+[resource]
+resource_name = "M_Lavawave_Cold"
+render_priority = 0
+shader = ExtResource("3_cs3bv")
+shader_parameter/Generated_T_Lavawave_FlipTest_Normals = ExtResource("1_by1l6")
+shader_parameter/Metallic = 0.000
+shader_parameter/Roughness = 1.000
+shader_parameter/Specular = 0.000

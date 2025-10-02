@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://rbrqgdqy71rn"]
+
+[ext_resource type="PackedScene" uid="uid://beekgq83mxohl" path="res://Biomes/PNB_Arid_Desert/Models/Environment/SM_Env_DirtRoad_Slope_Down_01.glb" id="1_7hlph"]
+[ext_resource type="Material" uid="uid://cxbujpyhfgmp2" path="res://Biomes/PNB_Arid_Desert/Material/M_PolygonNatureBiomesS2_AridDesert_Texture_01.tres" id="2_c2dn7"]
+
+[node name = "SM_Env_DirtRoad_Slope_Down_01" instance = ExtResource("1_7hlph")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c2dn7")
