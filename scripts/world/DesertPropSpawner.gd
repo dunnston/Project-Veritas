@@ -3,33 +3,74 @@ extends Node3D
 # Spawns desert props randomly across the map
 # Attach this to the EnvironmentProps node
 
-@export var spawn_count: int = 100
+@export var spawn_count: int = 0  # Disabled for now - set to 100 to enable random spawning
 @export var map_size: float = 900.0  # Leave 100m buffer from edges
 @export var min_distance_between_props: float = 10.0
 
 # Prop paths
 var cactus_props = [
-	"res://3d Assets/FBX/Environment/SM_Env_Cactus_01.fbx",
-	"res://3d Assets/FBX/Environment/SM_Env_Cactus_02.fbx",
-	"res://3d Assets/FBX/Environment/SM_Env_Cactus_03.fbx"
+	"res://assets/models/environment/desert/SM_Env_Cactus_01.fbx",
+	"res://assets/models/environment/desert/SM_Env_Cactus_02.fbx",
+	"res://assets/models/environment/desert/SM_Env_Cactus_03.fbx"
 ]
 
 var rock_props = [
-	"res://3d Assets/FBX/Environment/SM_Env_Rock_01.fbx",
-	"res://3d Assets/FBX/Environment/SM_Env_Rock_02.fbx",
-	"res://3d Assets/FBX/Environment/SM_Env_Rock_03.fbx",
-	"res://3d Assets/FBX/Environment/SM_Env_Rock_04.fbx"
+	"res://assets/models/environment/desert/SM_Env_Rock_01.fbx",
+	"res://assets/models/environment/desert/SM_Env_Rock_02.fbx",
+	"res://assets/models/environment/desert/SM_Env_Rock_03.fbx",
+	"res://assets/models/environment/desert/SM_Env_Rock_04.fbx"
 ]
 
 var bush_props = [
-	"res://3d Assets/FBX/Environment/SM_Env_Bush_Bramble_01.fbx",
-	"res://3d Assets/FBX/Environment/SM_Env_Bush_Bramble_02.fbx"
+	"res://assets/models/environment/desert/SM_Env_Bush_Bramble_01.fbx",
+	"res://assets/models/environment/desert/SM_Env_Bush_Bramble_02.fbx"
 ]
 
 var spawned_positions: Array[Vector3] = []
 
 func _ready():
+	# Add collision to manually placed props first
+	add_collision_to_existing_props()
+	# Then spawn additional random props
 	spawn_desert_props()
+
+func add_collision_to_existing_props():
+	# Add collision to all manually placed child nodes
+	print("Adding collision to manually placed props...")
+	var children = get_children()
+	var processed = 0
+
+	for child in children:
+		if child is Node3D:
+			# Find all mesh instances in this prop
+			var mesh_instances = find_mesh_instances(child)
+
+			if mesh_instances.size() > 0:
+				# Create a StaticBody3D parent
+				var static_body = StaticBody3D.new()
+				static_body.name = child.name + "_WithCollision"
+				static_body.transform = child.transform
+
+				# Add collision shapes for each mesh
+				for mesh_inst in mesh_instances:
+					if mesh_inst.mesh:
+						var collision_shape = CollisionShape3D.new()
+						var shape = mesh_inst.mesh.create_convex_shape()
+
+						if shape:
+							collision_shape.shape = shape
+							collision_shape.transform = mesh_inst.global_transform.affine_inverse() * static_body.global_transform
+							static_body.add_child(collision_shape)
+
+				# Replace child with collision-enabled version
+				if static_body.get_child_count() > 0:
+					remove_child(child)
+					add_child(static_body)
+					static_body.add_child(child)
+					child.transform = Transform3D.IDENTITY
+					processed += 1
+
+	print("Added collision to %d props" % processed)
 
 func spawn_desert_props():
 	print("Spawning %d desert props across %fm map..." % [spawn_count, map_size])
