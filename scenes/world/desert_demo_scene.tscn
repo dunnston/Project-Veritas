@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bb4von4ibp0tx"]
+[gd_scene load_steps=23 format=3 uid="uid://bb4von4ibp0tx"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
@@ -16,6 +16,8 @@
 [ext_resource type="Script" uid="uid://vjnl6gg506cw" path="res://scripts/world/DesertSceneSetup.gd" id="14_setup"]
 [ext_resource type="Script" uid="uid://n55lxbko5ceh" path="res://scripts/world/DesertPropSpawner.gd" id="15_spawner"]
 [ext_resource type="PackedScene" uid="uid://bxn3k4p7m8qwe" path="res://scenes/world/nodes/SandstoneNode.tscn" id="16_sandstone"]
+[ext_resource type="PackedScene" uid="uid://cke75dednrifq" path="res://3d Assets/FBX/Core/Env_CloudRing_Larger_02.fbx" id="18_asrny"]
+[ext_resource type="PackedScene" uid="uid://bxll2hlmtlcaf" path="res://3d Assets/FBX/Core/SM_Env_Fog_Ring_01.fbx" id="18_f6e1f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_desert"]
 sky_top_color = Color(0.4, 0.6, 0.9, 1)
@@ -128,7 +130,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150, 0, -180)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, -200)
 
 [node name="Hill_01" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Backrgound_Hill_01.fbx"]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -102.34564, 0, -132.71973)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -26.401276, 0.05848503, -30.667183)
+
+[node name="Hill_04" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Backrgound_Hill_01.fbx"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 120.371445, 0.05848503, -30.667183)
+
+[node name="Hill_05" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Backrgound_Hill_01.fbx"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -26.695135, -0.63183403, 62.61863)
 
 [node name="Hill_02" parent="EnvironmentProps" instance_placeholder="res://3d Assets/FBX/Environment/SM_Env_Backrgound_Hill_02.fbx"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 400, 0, 400)
@@ -162,6 +170,8 @@ visible = false
 [node name="StorageUI" parent="UI" instance=ExtResource("4_storage")]
 
 [node name="CombatHUD" parent="UI" instance=ExtResource("5_combathud")]
+layout_mode = 3
+anchors_preset = 15
 
 [node name="DevMenu" parent="UI" instance=ExtResource("6_devmenu")]
 
@@ -181,3 +191,9 @@ visible = false
 layer = 10
 
 [node name="Hotbar" parent="HotbarLayer" instance=ExtResource("2_hotbar")]
+
+[node name="Env_CloudRing_Larger_02" parent="." instance=ExtResource("18_asrny")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.7025, 80.09983, 78.35043)
+
+[node name="SM_Env_Fog_Ring_01" parent="." instance=ExtResource("18_f6e1f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2191925, 5.5842667, 28.376068)
