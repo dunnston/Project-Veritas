@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://doorframe3d_scene_001"]
+
+[ext_resource type="Script" path="res://scripts/buildings/DoorFrame3D.gd" id="1_script"]
+
+[node name="DoorFrame3D" type="StaticBody3D"]
+script = ExtResource("1_script")
+frame_width = 1.2
+frame_height = 2.2
+frame_thickness = 0.1
+wall_depth = 0.2
+has_door = true
+door_on_left = true

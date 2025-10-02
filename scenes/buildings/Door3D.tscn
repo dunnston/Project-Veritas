@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://door3d_scene_001"]
+
+[ext_resource type="Script" path="res://scripts/buildings/Door3D.gd" id="1_script"]
+
+[node name="Door3D" type="Node3D"]
+script = ExtResource("1_script")
+interaction_range = 3.0
+open_angle = 90.0
+animation_duration = 0.5
