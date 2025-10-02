@@ -39,8 +39,10 @@ var spawned_positions: Array[Vector3] = []
 
 func _ready():
 	# Add collision to manually placed props first
-	add_collision_to_existing_props()
-	# Then spawn additional random props
+	# DISABLED: The converted scene prefabs already have proper structure
+	# add_collision_to_existing_props()
+
+	# Spawn additional random props
 	spawn_desert_props()
 
 func add_collision_to_existing_props():
