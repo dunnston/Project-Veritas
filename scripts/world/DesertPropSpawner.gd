@@ -43,7 +43,9 @@ func _ready():
 	# add_collision_to_existing_props()
 
 	# Spawn additional random props
-	spawn_desert_props()
+	# TEMPORARILY DISABLED FOR DEBUGGING
+	# spawn_desert_props()
+	print("DesertPropSpawner: Spawning disabled for debugging")
 
 func add_collision_to_existing_props():
 	# Add collision to all manually placed child nodes
