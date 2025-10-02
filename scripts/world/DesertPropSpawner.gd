@@ -3,7 +3,7 @@ extends Node3D
 # Spawns desert props randomly across the map
 # Attach this to the EnvironmentProps node
 
-@export var spawn_count: int = 0  # Disabled for now - set to 100 to enable random spawning
+@export var spawn_count: int = 100
 @export var map_size: float = 900.0  # Leave 100m buffer from edges
 @export var min_distance_between_props: float = 10.0
 
@@ -37,40 +37,27 @@ func _ready():
 func add_collision_to_existing_props():
 	# Add collision to all manually placed child nodes
 	print("Adding collision to manually placed props...")
-	var children = get_children()
+	var children = get_children().duplicate()  # Duplicate to avoid modification during iteration
 	var processed = 0
 
 	for child in children:
-		if child is Node3D:
-			# Find all mesh instances in this prop
-			var mesh_instances = find_mesh_instances(child)
+		if child is Node3D and not child is StaticBody3D:
+			# Save original transform
+			var original_transform = child.transform
 
-			if mesh_instances.size() > 0:
-				# Create a StaticBody3D parent
-				var static_body = StaticBody3D.new()
-				static_body.name = child.name + "_WithCollision"
-				static_body.transform = child.transform
+			# Remove from parent temporarily
+			remove_child(child)
 
-				# Add collision shapes for each mesh
-				for mesh_inst in mesh_instances:
-					if mesh_inst.mesh:
-						var collision_shape = CollisionShape3D.new()
-						var shape = mesh_inst.mesh.create_convex_shape()
+			# Wrap in collision
+			var collision_wrapper = create_collision_wrapper(child)
 
-						if shape:
-							collision_shape.shape = shape
-							collision_shape.transform = mesh_inst.global_transform.affine_inverse() * static_body.global_transform
-							static_body.add_child(collision_shape)
+			# Add back with correct transform
+			add_child(collision_wrapper)
+			collision_wrapper.transform = original_transform
 
-				# Replace child with collision-enabled version
-				if static_body.get_child_count() > 0:
-					remove_child(child)
-					add_child(static_body)
-					static_body.add_child(child)
-					child.transform = Transform3D.IDENTITY
-					processed += 1
+			processed += 1
 
-	print("Added collision to %d props" % processed)
+	print("Added collision to %d manually placed props" % processed)
 
 func spawn_desert_props():
 	print("Spawning %d desert props across %fm map..." % [spawn_count, map_size])
