@@ -84,22 +84,41 @@ func unequip_item(slot: String, update_stats: bool = true) -> Equipment:
 	if not slot in EQUIPMENT_SLOTS:
 		push_error("Invalid equipment slot: " + slot)
 		return null
-	
+
 	var equipment = equipped_items[slot]
 	if equipment:
+		# Check if unequipping this item would lose inventory slots with items in them
+		if equipment.stats.has("inventory_slots") and InventorySystem:
+			var bonus_slots_to_lose = int(equipment.stats.inventory_slots)
+			if bonus_slots_to_lose > 0:
+				var current_max = InventorySystem.get_max_slots()
+				var new_max = current_max - bonus_slots_to_lose
+
+				# Check if any items exist in slots that would be lost
+				var items_in_bonus_slots = false
+				for i in range(new_max, current_max):
+					if i < InventorySystem.inventory_slots.size():
+						if not InventorySystem.inventory_slots[i].is_empty():
+							items_in_bonus_slots = true
+							break
+
+				if items_in_bonus_slots:
+					push_warning("Cannot unequip %s - items are in the bonus inventory slots! Empty those slots first." % equipment.name)
+					return null
+
 		equipment.is_equipped = false
 		equipped_items[slot] = null
-		
+
 		if update_stats:
 			update_total_stats()
-		
+
 		equipment_changed.emit(slot, null)
-		
+
 		# Add back to inventory system
 		if InventorySystem:
 			InventorySystem.add_item(equipment.id, 1)
 			print("Returned %s to inventory" % equipment.name)
-	
+
 	return equipment
 
 func get_equipped_item(slot: String) -> Equipment:

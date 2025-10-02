@@ -265,7 +265,13 @@ func clear_inventory():
 ## Dynamic Inventory Sizing
 func get_max_slots() -> int:
 	var base_slots = config.base_slots if config else DEFAULT_BASE_SLOTS
-	return base_slots  # Fixed slot count for now
+	var bonus_slots = 0
+
+	# Get bonus slots from equipped items (backpacks, cargo pants, etc.)
+	if EquipmentManager:
+		bonus_slots = EquipmentManager.get_bonus_inventory_slots()
+
+	return base_slots + bonus_slots
 
 func update_inventory_size():
 	var target_size = get_max_slots()
