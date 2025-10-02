@@ -1,5 +1,29 @@
 # Tool Scripts
 
+## fix_prefab_paths.gd **← RUN THIS FIRST!**
+
+Fixes incorrect asset paths in desert prefab files that cause textures to not load at runtime.
+
+### How to Run:
+
+1. Open Godot Editor
+2. Open the script: `scripts/tools/fix_prefab_paths.gd`
+3. Click **File > Run** (or press Ctrl+Shift+X)
+4. Check the Output panel for results
+
+### What it does:
+
+- Scans all 177 prefab files in `assets/enviroment/desert/Prefabs/`
+- Changes incorrect paths from `res://Biomes/` to `res://assets/enviroment/desert/Biomes/`
+- Fixes both GLB model references and material references
+- Prints progress for each file fixed
+
+### Why this is needed:
+
+The prefabs were created with incorrect relative paths. When Godot tries to load them at runtime, it can't find the GLB files or materials, resulting in meshes with no textures (appearing gray/white).
+
+---
+
 ## convert_prefabs_to_scenes.gd
 
 Converts all prefab files from `assets/enviroment/desert/Prefabs/` into inherited scenes in `scenes/environment/desert/`.
