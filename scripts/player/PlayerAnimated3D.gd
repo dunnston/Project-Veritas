@@ -21,6 +21,10 @@ extends CharacterBody3D
 @export var max_thirst: int = 100
 @export var max_radiation_damage: float = 100.0
 
+@export_group("Grapple Settings")
+@export var grapple_range: float = 75.0
+@export var grapple_speed: float = 40.0
+
 # Current survival stats
 var health: int = 100
 var energy: int = 100
@@ -45,6 +49,9 @@ var bonus_inventory_slots: int = 0
 @onready var camera_3d: Camera3D = $CameraPivot/SpringArm3D/Camera3D
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 @onready var character_model: Node3D = $CharacterModel
+@onready var grapple_raycast: RayCast3D = $CameraPivot/SpringArm3D/Camera3D/GrappleRayCast
+@onready var grapple_hook_point: Node3D = $GrappleHookPoint
+@onready var grapple_rope: MeshInstance3D = $GrappleRope
 
 var animation_player: AnimationPlayer
 var camera_rotation: Vector2 = Vector2.ZERO
@@ -79,6 +86,10 @@ var thirst_timer: Timer
 const HUNGER_DEPLETION_RATE: float = 60.0  # Lose 1 hunger every 60 seconds
 const THIRST_DEPLETION_RATE: float = 45.0  # Lose 1 thirst every 45 seconds
 
+# Grappling hook system
+var is_grappling: bool = false
+var grapple_point: Vector3 = Vector3.ZERO
+
 # Animation names (will be detected from AnimationPlayer)
 var idle_anim: String = ""
 var walk_anim: String = ""
@@ -90,6 +101,10 @@ var fall_anim: String = ""
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+	# Add player to grapple raycast exceptions
+	grapple_raycast.add_exception(self)
+
 	add_to_group("player")
 
 	# Initialize survival stats
@@ -276,29 +291,39 @@ func play_anim(anim_name: String, blend_time: float = 0.2):
 			print("Animation not found: ", anim_name)
 
 func _input(event: InputEvent):
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		camera_rotation.x -= event.relative.x * mouse_sensitivity
-		camera_rotation.y -= event.relative.y * mouse_sensitivity
-		camera_rotation.y = clamp(camera_rotation.y, -1.4, 1.4)
+	# Handle mouse look
+	if event is InputEventMouseMotion:
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			camera_rotation.x -= event.relative.x * mouse_sensitivity
+			camera_rotation.y -= event.relative.y * mouse_sensitivity
+			camera_rotation.y = clamp(camera_rotation.y, -1.4, 1.4)
+		return
 
-	if event.is_action_pressed("menu"):
+	# Menu toggle
+	if event.is_action("menu") and event.is_action_pressed("menu"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-	# Removed world right-click drop functionality
-
 	# Handle interactions (items, workbenches, doors, etc.)
 	# Only trigger on quick tap (released before hold threshold)
-	if event.is_action_released("interact"):
+	if event.is_action("interact") and event.is_action_released("interact"):
 		if interact_hold_time < INTERACT_HOLD_THRESHOLD:
 			interact_with_nearest()
 		interact_hold_time = 0.0
 
 	# Handle inventory toggle
-	if event.is_action_pressed("inventory"):
+	if event.is_action("inventory") and event.is_action_pressed("inventory"):
 		toggle_inventory()
+
+	# Handle grappling hook
+	if event.is_action("grapple"):
+		if event.is_action_pressed("grapple"):
+			fire_grapple()
+		elif event.is_action_released("grapple"):
+			if is_grappling:
+				release_grapple()
 
 func _physics_process(delta: float):
 	apply_camera_rotation(delta)
@@ -306,31 +331,40 @@ func _physics_process(delta: float):
 	# Track floor state changes
 	var on_floor_now = is_on_floor()
 
-	if not on_floor_now:
-		velocity += get_gravity() * delta
-
-	handle_movement(delta)
-	update_animations()
-	rotate_character()
-	update_collision_shape(delta)
-
-	# Handle mining - hold E to mine (after threshold)
-	if Input.is_action_pressed("interact"):
-		interact_hold_time += delta
-
-		# Start mining after holding for threshold duration
-		if interact_hold_time >= INTERACT_HOLD_THRESHOLD:
-			var nearest_node = find_nearest_resource_node()
-			if nearest_node and not is_mining:
-				start_mining()
-			elif not nearest_node and is_mining:
-				stop_mining()
+	if is_grappling:
+		# ---- GRAPPLING HOOK MOVEMENT ----
+		handle_grapple_movement(delta)
 	else:
-		# Stop mining when E is released
-		if is_mining:
-			stop_mining()
-		interact_hold_time = 0.0
+		# ---- NORMAL MOVEMENT LOGIC ----
+		if not on_floor_now:
+			velocity += get_gravity() * delta
 
+		handle_movement(delta)
+		update_animations()
+		rotate_character()
+		update_collision_shape(delta)
+
+		# Handle mining - hold E to mine (after threshold)
+		if Input.is_action_pressed("interact"):
+			interact_hold_time += delta
+
+			# Start mining after holding for threshold duration
+			if interact_hold_time >= INTERACT_HOLD_THRESHOLD:
+				var nearest_node = find_nearest_resource_node()
+				if nearest_node and not is_mining:
+					start_mining()
+				elif not nearest_node and is_mining:
+					stop_mining()
+		else:
+			# Stop mining when E is released
+			if is_mining:
+				stop_mining()
+			interact_hold_time = 0.0
+
+	# Update floor state for next frame
+	was_on_floor = on_floor_now
+
+	# This must be called in both cases
 	move_and_slide()
 
 	# Keep character model at base position to prevent animation drift
@@ -347,9 +381,6 @@ func _physics_process(delta: float):
 		character_model.position.y = lerp(character_model.position.y, target_y, 5.0 * delta)
 		character_model.position.x = model_base_position.x
 		character_model.position.z = model_base_position.z
-
-	# Update floor state for next frame
-	was_on_floor = on_floor_now
 
 func apply_camera_rotation(delta: float):
 	camera_pivot.rotation.y = lerp_angle(camera_pivot.rotation.y, camera_rotation.x, 10.0 * delta)
@@ -912,3 +943,88 @@ func get_equipped_tool_level() -> int:
 				return equipment_data.tool_level
 
 	return 0
+
+# ============================================================================
+# GRAPPLING HOOK SYSTEM
+# ============================================================================
+
+func fire_grapple() -> void:
+	"""Fire the grappling hook"""
+	if is_grappling:
+		return
+
+	# Check if raycast hits something
+	if grapple_raycast.is_colliding():
+		var collision_point = grapple_raycast.get_collision_point()
+		var distance = global_position.distance_to(collision_point)
+
+		# Check if within range
+		if distance <= grapple_range:
+			is_grappling = true
+			grapple_point = collision_point
+
+			# Show hook point at collision
+			grapple_hook_point.global_position = collision_point
+			grapple_hook_point.visible = true
+
+			# Show rope
+			grapple_rope.visible = true
+			update_grapple_rope()
+
+			print("Grapple fired! Distance: %.1f" % distance)
+
+func release_grapple() -> void:
+	"""Release the grappling hook"""
+	if not is_grappling:
+		return
+
+	is_grappling = false
+	grapple_hook_point.visible = false
+	grapple_rope.visible = false
+
+	# Give a small upward boost when releasing
+	velocity.y = jump_velocity * 0.5
+
+	print("Grapple released!")
+
+func handle_grapple_movement(delta: float) -> void:
+	"""Handle player movement while grappling"""
+	if not is_grappling:
+		return
+
+	# Calculate direction to grapple point
+	var direction = (grapple_point - global_position).normalized()
+
+	# Pull player toward grapple point
+	var target_velocity = direction * grapple_speed
+	velocity = velocity.lerp(target_velocity, delta * 5.0) # Smoothly accelerate	
+
+	# Update rope visual
+	update_grapple_rope()
+
+	# Check if player is close enough to stop grappling
+	if global_position.distance_to(grapple_point) < 2.0:
+		release_grapple()
+
+func update_grapple_rope() -> void:
+	"""Update the rope mesh to stretch between player and hook"""
+	if not is_grappling:
+		return
+
+	# Calculate midpoint and distance
+	var start_pos = global_position + Vector3(0, 1.5, 0)  # From player's chest area
+	var end_pos = grapple_hook_point.global_position
+	var midpoint = (start_pos + end_pos) / 2.0
+	var distance = start_pos.distance_to(end_pos)
+
+	# Position rope at midpoint
+	grapple_rope.global_position = midpoint
+
+	# Scale rope to match distance
+	var rope_mesh = grapple_rope.mesh as CylinderMesh
+	if rope_mesh:
+		rope_mesh.height = distance
+
+	# Rotate rope to point from player to hook
+	grapple_rope.look_at(end_pos, Vector3.UP)
+	grapple_rope.rotate_object_local(Vector3.RIGHT, PI / 2)  # Cylinders are vertical by default
