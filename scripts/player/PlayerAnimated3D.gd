@@ -62,6 +62,12 @@ var is_crouching: bool = false
 var model_base_position: Vector3 = Vector3.ZERO
 var is_jumping: bool = false
 var was_on_floor: bool = true
+var crouch_offset: float = -0.45  # Adjust this value until the feet look right
+
+# Collision shape height management for crouching
+var stand_height: float = 1.8  # Default capsule height (standing)
+var crouch_height: float = 1.8 # Target height when crouched
+var stand_collider_position: Vector3  # Store original collider position
 
 # Interaction system for 3D
 var nearby_interactables: Array = []
@@ -90,6 +96,7 @@ var walk_anim: String = ""
 var run_anim: String = ""
 var jump_anim: String = ""
 var crouch_anim: String = ""
+var crouch_walk_anim: String = ""
 var fall_anim: String = ""
 
 func _ready():
@@ -107,6 +114,7 @@ func _ready():
 	call_deferred("_register_with_game_manager")
 	# Store the original position of the character model
 	model_base_position = character_model.position
+	stand_collider_position = collision_shape.position
 	call_deferred("setup_animations")
 
 	# Connect to inventory system if available
@@ -181,7 +189,11 @@ func setup_animations():
 			var lower = anim_name.to_lower()
 			# print("Checking animation: ", anim_name, " (", lower, ")")  # Debug: Setup only
 
-			if "crouch" in lower:
+			# Check for crouch walk first (more specific than just "crouch")
+			if "crouch" in lower and ("walk" in lower or "forward" in lower or "move" in lower):
+				crouch_walk_anim = anim_name
+				# print("  -> Mapped as CROUCH_WALK")  # Debug: Setup only
+			elif "crouch" in lower:
 				crouch_anim = anim_name
 				# print("  -> Mapped as CROUCH")  # Debug: Setup only
 			elif "jump" in lower:
@@ -252,8 +264,8 @@ func remove_position_tracks(animation: Animation, anim_name: String):
 				tracks_to_remove.append(i)
 				print("  Removing root position track: ", path_str)
 			elif "Root" in path_str or "Hips" in path_str or "Pelvis" in path_str:
-				# For hip/pelvis, we might want to keep vertical movement but remove horizontal
-				# For now, let's remove it entirely to prevent sliding
+				# Remove all position tracks to prevent sliding/floating
+				# We'll handle crouch lowering manually via model offset
 				tracks_to_remove.append(i)
 				# print("  Removing body position track: ", path_str)  # Debug: Setup only
 
@@ -262,17 +274,18 @@ func remove_position_tracks(animation: Animation, anim_name: String):
 	for track_idx in tracks_to_remove:
 		animation.remove_track(track_idx)
 
-func play_anim(anim_name: String):
+func play_anim(anim_name: String, blend_time: float = 0.2):
 	if animation_player and anim_name != "":
 		if animation_player.has_animation(anim_name):
 			# Only restart animation if it's a different one
 			if anim_name != current_anim:
-				animation_player.play(anim_name)
+				# Use smooth blending between animations
+				animation_player.play(anim_name, blend_time)
 				current_anim = anim_name
 				# print("Playing animation: ", anim_name)
 			# If same animation and not playing, restart it (for looping)
 			elif not animation_player.is_playing():
-				animation_player.play(anim_name)
+				animation_player.play(anim_name, blend_time)
 				print("Restarting animation: ", anim_name)
 		else:
 			print("Animation not found: ", anim_name)
@@ -315,17 +328,21 @@ func _input(event: InputEvent):
 func _physics_process(delta: float):
 	apply_camera_rotation(delta)
 
+	# Track floor state changes
+	var on_floor_now = is_on_floor()
+
 	if is_grappling:
+		# ---- GRAPPLING HOOK MOVEMENT ----
 		handle_grapple_movement(delta)
 	else:
 		# ---- NORMAL MOVEMENT LOGIC ----
-		var on_floor_now = is_on_floor()
 		if not on_floor_now:
 			velocity += get_gravity() * delta
 
 		handle_movement(delta)
 		update_animations()
 		rotate_character()
+		update_collision_shape(delta)
 
 		# Handle mining - hold E to mine (after threshold)
 		if Input.is_action_pressed("interact"):
@@ -344,15 +361,26 @@ func _physics_process(delta: float):
 				stop_mining()
 			interact_hold_time = 0.0
 
-		# Update floor state for next frame
-		was_on_floor = on_floor_now
+	# Update floor state for next frame
+	was_on_floor = on_floor_now
 
 	# This must be called in both cases
 	move_and_slide()
 
 	# Keep character model at base position to prevent animation drift
+	# Apply crouch offset when crouching with smooth transition
 	if character_model:
-		character_model.position = model_base_position
+		var target_y = model_base_position.y
+		if is_crouching:
+			# Use a smaller offset if moving
+			if movement_speed > 0.1:
+				target_y += crouch_offset / 2.0  # Less crouch when moving
+			else:
+				target_y += crouch_offset
+		# Smoother lerp for crouch transition (slower speed = 5.0 instead of 10.0)
+		character_model.position.y = lerp(character_model.position.y, target_y, 5.0 * delta)
+		character_model.position.x = model_base_position.x
+		character_model.position.z = model_base_position.z
 
 func apply_camera_rotation(delta: float):
 	camera_pivot.rotation.y = lerp_angle(camera_pivot.rotation.y, camera_rotation.x, 10.0 * delta)
@@ -428,7 +456,7 @@ func update_animations():
 
 	var target_anim = ""
 
-	# Priority order: Jump (active) -> Fall -> Crouch -> Movement -> Idle
+	# Priority order: Jump (active) -> Fall -> Crouch (moving/idle) -> Movement -> Idle
 	if is_jumping and jump_anim != "":
 		# Keep playing jump animation while jumping
 		if not animation_player.is_playing() or current_anim != jump_anim:
@@ -442,8 +470,15 @@ func update_animations():
 			target_anim = fall_anim
 		else:
 			target_anim = idle_anim
-	elif is_crouching and crouch_anim != "":
-		target_anim = crouch_anim
+	elif is_crouching:
+		# Check if moving while crouched
+		if movement_speed > 0.1 and crouch_walk_anim != "":
+			target_anim = crouch_walk_anim
+		elif crouch_anim != "":
+			target_anim = crouch_anim
+		else:
+			# Fallback to regular idle if no crouch animations
+			target_anim = idle_anim
 	elif movement_speed > 0.2:
 		if movement_speed > 0.7 and run_anim != "":
 			target_anim = run_anim
@@ -457,10 +492,54 @@ func update_animations():
 	if target_anim != "" and target_anim != current_anim:
 		play_anim(target_anim)
 
+	# Sync animation speed with movement speed
+	sync_animation_speed()
+
+func sync_animation_speed():
+	"""Sync animation playback speed with movement speed to prevent foot sliding"""
+	if not animation_player:
+		return
+
+	# Only sync movement animations
+	if current_anim in [walk_anim, run_anim, crouch_walk_anim]:
+		# Calculate speed scale based on actual velocity
+		var horizontal_velocity = Vector2(velocity.x, velocity.z).length()
+
+		# Get the expected speed for the current animation
+		var expected_speed = walk_speed
+		if current_anim == run_anim:
+			expected_speed = run_speed
+		elif current_anim == crouch_walk_anim:
+			expected_speed = walk_speed * 0.5  # Crouch speed
+
+		# Calculate speed scale with tighter clamping to avoid extreme speeds
+		var raw_scale = horizontal_velocity / expected_speed if expected_speed > 0 else 1.0
+		var speed_scale = clamp(raw_scale, 0.8, 1.2)  # Limit between 80% and 120% speed
+
+		# Apply speed scale
+		animation_player.speed_scale = speed_scale
+	else:
+		# Reset to normal speed for non-movement animations
+		animation_player.speed_scale = 1.0
+
 func rotate_character():
 	if character_model and last_direction.length() > 0.1:
 		var target_rotation = atan2(last_direction.x, last_direction.z)
 		character_model.rotation.y = lerp_angle(character_model.rotation.y, target_rotation, 0.15)
+
+func update_collision_shape(delta: float):
+	"""Smoothly adjust collision shape height AND position when crouching/standing"""
+	var target_height = stand_height if not is_crouching else crouch_height
+
+	if collision_shape.shape is CapsuleShape3D:
+		var current_shape: CapsuleShape3D = collision_shape.shape
+
+		# Smoothly interpolate the height
+		current_shape.height = lerp(current_shape.height, target_height, 10.0 * delta)
+
+		# Smoothly interpolate the position to keep the bottom of the capsule on the floor
+		var target_pos_y = stand_collider_position.y + (stand_height - current_shape.height) / 2.0
+		collision_shape.position.y = lerp(collision_shape.position.y, target_pos_y, 10.0 * delta)
 
 # Item Interaction Functions
 func drop_selected_item():
