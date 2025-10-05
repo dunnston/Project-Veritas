@@ -63,7 +63,7 @@ text = "INVENTORY"
 horizontal_alignment = 1
 
 [node name="TopSpacer" type="Control" parent="MainPanel/MainContainer/InventoryPanel"]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="MainPanel/MainContainer/InventoryPanel"]
@@ -99,9 +99,9 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 60.0
-offset_top = 30.0
+offset_top = 10.0
 offset_right = 124.0
-offset_bottom = 94.0
+offset_bottom = 74.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
@@ -115,32 +115,21 @@ theme_override_constants/margin_bottom = 4
 [node name="HeadLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 layout_mode = 0
 offset_left = 60.0
-offset_top = 10.0
+offset_top = 76.0
 offset_right = 124.0
-offset_bottom = 26.0
+offset_bottom = 92.0
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
 theme_override_font_sizes/font_size = 10
 text = "Head"
-horizontal_alignment = 1
-
-[node name="Trinket1Label" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
-layout_mode = 0
-offset_left = 136.0
-offset_top = 10.0
-offset_right = 200.0
-offset_bottom = 26.0
-theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-theme_override_font_sizes/font_size = 10
-text = "Trinket 1"
 horizontal_alignment = 1
 
 [node name="EquipmentSlot2" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 136.0
-offset_top = 30.0
+offset_top = 10.0
 offset_right = 200.0
-offset_bottom = 94.0
+offset_bottom = 74.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
@@ -151,24 +140,24 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="TrinketLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+[node name="Trinket1Label" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 layout_mode = 0
-offset_left = 212.0
-offset_top = 10.0
-offset_right = 276.0
-offset_bottom = 26.0
+offset_left = 136.0
+offset_top = 76.0
+offset_right = 200.0
+offset_bottom = 92.0
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
 theme_override_font_sizes/font_size = 10
-text = "Trinket"
+text = "Trinket 1"
 horizontal_alignment = 1
 
 [node name="EquipmentSlot3" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 212.0
-offset_top = 30.0
+offset_top = 10.0
 offset_right = 276.0
-offset_bottom = 94.0
+offset_bottom = 74.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
@@ -179,24 +168,24 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="ChestLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+[node name="TrinketLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 layout_mode = 0
-offset_left = 60.0
-offset_top = 86.0
-offset_right = 124.0
-offset_bottom = 102.0
+offset_left = 212.0
+offset_top = 76.0
+offset_right = 276.0
+offset_bottom = 92.0
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
 theme_override_font_sizes/font_size = 10
-text = "Chest"
+text = "Trinket"
 horizontal_alignment = 1
 
 [node name="EquipmentSlot4" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 60.0
-offset_top = 106.0
+offset_top = 105.0
 offset_right = 124.0
-offset_bottom = 170.0
+offset_bottom = 169.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
@@ -207,24 +196,24 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="PantsLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+[node name="ChestLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 layout_mode = 0
 offset_left = 60.0
-offset_top = 162.0
+offset_top = 171.0
 offset_right = 124.0
-offset_bottom = 178.0
+offset_bottom = 187.0
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
 theme_override_font_sizes/font_size = 10
-text = "Pants"
+text = "Chest"
 horizontal_alignment = 1
 
 [node name="EquipmentSlot5" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 60.0
-offset_top = 182.0
+offset_top = 200.0
 offset_right = 124.0
-offset_bottom = 246.0
+offset_bottom = 264.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
@@ -235,24 +224,24 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="FeetLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+[node name="PantsLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 layout_mode = 0
 offset_left = 60.0
-offset_top = 238.0
+offset_top = 266.0
 offset_right = 124.0
-offset_bottom = 254.0
+offset_bottom = 282.0
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
 theme_override_font_sizes/font_size = 10
-text = "Feet"
+text = "Pants"
 horizontal_alignment = 1
 
 [node name="EquipmentSlot6" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 60.0
-offset_top = 258.0
+offset_top = 295.0
 offset_right = 124.0
-offset_bottom = 322.0
+offset_bottom = 359.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
@@ -263,24 +252,24 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="PrimaryLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+[node name="FeetLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 layout_mode = 0
-offset_left = 136.0
-offset_top = 238.0
-offset_right = 200.0
-offset_bottom = 254.0
+offset_left = 60.0
+offset_top = 361.0
+offset_right = 124.0
+offset_bottom = 377.0
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
 theme_override_font_sizes/font_size = 10
-text = "Primary"
+text = "Feet"
 horizontal_alignment = 1
 
 [node name="EquipmentSlot7" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 136.0
-offset_top = 258.0
+offset_top = 295.0
 offset_right = 200.0
-offset_bottom = 322.0
+offset_bottom = 359.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
@@ -291,24 +280,24 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="SecondaryLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+[node name="PrimaryLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 layout_mode = 0
-offset_left = 212.0
-offset_top = 238.0
-offset_right = 276.0
-offset_bottom = 254.0
+offset_left = 136.0
+offset_top = 361.0
+offset_right = 200.0
+offset_bottom = 377.0
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
 theme_override_font_sizes/font_size = 10
-text = "Secondary"
+text = "Primary"
 horizontal_alignment = 1
 
 [node name="EquipmentSlot8" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 212.0
-offset_top = 258.0
+offset_top = 295.0
 offset_right = 276.0
-offset_bottom = 322.0
+offset_bottom = 359.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
@@ -319,24 +308,24 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="ToolLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+[node name="SecondaryLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 layout_mode = 0
 offset_left = 212.0
-offset_top = 86.0
+offset_top = 361.0
 offset_right = 276.0
-offset_bottom = 102.0
+offset_bottom = 377.0
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
 theme_override_font_sizes/font_size = 10
-text = "Tool"
+text = "Secondary"
 horizontal_alignment = 1
 
 [node name="ToolSlot" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 212.0
-offset_top = 106.0
+offset_top = 105.0
 offset_right = 276.0
-offset_bottom = 170.0
+offset_bottom = 169.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
@@ -347,24 +336,24 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="BackpackLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+[node name="ToolLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 layout_mode = 0
 offset_left = 212.0
-offset_top = 162.0
+offset_top = 171.0
 offset_right = 276.0
-offset_bottom = 178.0
+offset_bottom = 187.0
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
 theme_override_font_sizes/font_size = 10
-text = "Backpack"
+text = "Tool"
 horizontal_alignment = 1
 
 [node name="EquipmentSlot10" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 212.0
-offset_top = 182.0
+offset_top = 200.0
 offset_right = 276.0
-offset_bottom = 246.0
+offset_bottom = 264.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
@@ -375,13 +364,24 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
+[node name="BackpackLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 266.0
+offset_right = 276.0
+offset_bottom = 282.0
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 10
+text = "Backpack"
+horizontal_alignment = 1
+
 [node name="CharacterImage" type="TextureRect" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 layout_mode = 2
-offset_left = 152.0
-offset_top = 118.0
-offset_right = 184.0
-offset_bottom = 150.0
-scale = Vector2(2.0, 2.0)
+offset_left = 144.0
+offset_top = 128.0
+offset_right = 176.0
+offset_bottom = 160.0
+scale = Vector2(2.5, 2.5)
 pivot_offset = Vector2(16, 16)
 texture = ExtResource("6_wgv8v")
 expand_mode = 1
