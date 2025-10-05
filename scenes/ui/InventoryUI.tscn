@@ -323,13 +323,15 @@ text = "Backpack"
 
 [node name="CharacterImage" type="TextureRect" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 layout_mode = 2
-offset_left = 136.0
-offset_top = 86.0
-offset_right = 200.0
+offset_left = 152.0
+offset_top = 118.0
+offset_right = 184.0
 offset_bottom = 150.0
-scale = Vector2(2.16, 2.16)
+scale = Vector2(2.0, 2.0)
+pivot_offset = Vector2(16, 16)
 texture = ExtResource("6_wgv8v")
-expand_mode = 2
+expand_mode = 1
+stretch_mode = 5
 
 [node name="TooltipPanel" type="PanelContainer" parent="."]
 visible = false
