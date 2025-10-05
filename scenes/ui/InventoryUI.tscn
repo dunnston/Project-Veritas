@@ -1,15 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvvrkfbrg3h80"]
+[gd_scene load_steps=5 format=3 uid="uid://dvvrkfbrg3h80"]
 
-[ext_resource type="Texture2D" uid="uid://dah1ti0ueqxqk" path="res://assets/sprites/PostApocalypsePack/UI/Inventory/Inventory_1.png" id="1_bg"]
-[ext_resource type="Texture2D" uid="uid://cojtewl7u5oov" path="res://assets/sprites/PostApocalypsePack/UI/Inventory/Inventory_Close_Not-Pressed.png" id="3_close"]
+[ext_resource type="Theme" uid="uid://c7iy4gmnqvk7r" path="res://resources/themes/neon_wasteland_theme.tres" id="1_theme"]
 [ext_resource type="Texture2D" uid="uid://bs887m54op843" path="res://assets/sprites/PostApocalypsePack/UI/Inventory/Inventory-Cell.png" id="4_lvuwj"]
 [ext_resource type="Script" uid="uid://duyiak64ebg2m" path="res://scripts/ui/InventoryUI.gd" id="4_script"]
 [ext_resource type="Texture2D" uid="uid://ctxp17ybqvobm" path="res://assets/sprites/player/animations/breathing-idle/south/frame_000.png" id="6_wgv8v"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ufdhg"]
-texture = ExtResource("1_bg")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1"]
 
 [node name="InventoryUI" type="Control"]
 layout_mode = 3
@@ -35,7 +29,7 @@ grow_vertical = 2
 mouse_filter = 1
 color = Color(0, 0, 0, 0.7)
 
-[node name="InventoryPanel" type="NinePatchRect" parent="."]
+[node name="InventoryPanel" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -48,58 +42,36 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_bg")
+theme = ExtResource("1_theme")
 
-[node name="CloseButton" type="TextureButton" parent="InventoryPanel"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -12.0
-offset_top = 6.0
-offset_right = 8.0
-offset_bottom = 26.0
-grow_horizontal = 0
-texture_normal = ExtResource("3_close")
-
-[node name="GridContainer" type="GridContainer" parent="InventoryPanel"]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 60.0
-offset_right = 370.0
-offset_bottom = 320.0
-theme_override_constants/h_separation = 5
-theme_override_constants/v_separation = 5
-columns = 5
-
-[node name="PannelLabelContainer" type="PanelContainer" parent="InventoryPanel"]
-layout_mode = 0
-offset_left = 149.0
-offset_top = -40.0
-offset_right = 255.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_ufdhg")
-
-[node name="MarginContainer" type="MarginContainer" parent="InventoryPanel/PannelLabelContainer"]
+[node name="CloseButton" type="Button" parent="InventoryPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 20
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "X"
+custom_minimum_size = Vector2(32, 32)
 
-[node name="TitleLabel" type="Label" parent="InventoryPanel/PannelLabelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InventoryPanel"]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 18
+
+[node name="TitleContainer" type="HBoxContainer" parent="InventoryPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="InventoryPanel/VBoxContainer/TitleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
 text = "INVENTORY"
 horizontal_alignment = 1
 
-[node name="ItemInfoPanel" type="PanelContainer" parent="InventoryPanel"]
-layout_mode = 0
-offset_left = -466.0
-offset_top = 41.0
-offset_right = -126.0
-offset_bottom = 91.0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_1")
+[node name="GridContainer" type="GridContainer" parent="InventoryPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 5
+
+[node name="ItemInfoPanel" type="PanelContainer" parent="InventoryPanel/VBoxContainer"]
+layout_mode = 2
 
 [node name="ItemInfoLabel" type="RichTextLabel" parent="InventoryPanel/ItemInfoPanel"]
 layout_mode = 2
@@ -109,7 +81,7 @@ bbcode_enabled = true
 text = "[center]Hover over items for details[/center]"
 fit_content = true
 
-[node name="EquipmentPanel" type="NinePatchRect" parent="."]
+[node name="EquipmentPanel" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -122,41 +94,31 @@ offset_right = 706.0
 offset_bottom = 204.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_bg")
+theme = ExtResource("1_theme")
 
-[node name="CloseButton" type="TextureButton" parent="EquipmentPanel"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -12.0
-offset_top = 6.0
-offset_right = 8.0
-offset_bottom = 26.0
-grow_horizontal = 0
-texture_normal = ExtResource("3_close")
-
-[node name="PannelLabelContainer" type="PanelContainer" parent="EquipmentPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="EquipmentPanel"]
 layout_mode = 2
-offset_left = 149.0
-offset_top = -40.0
-offset_right = 255.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_ufdhg")
 
-[node name="MarginContainer" type="MarginContainer" parent="EquipmentPanel/PannelLabelContainer"]
+[node name="TitleContainer" type="HBoxContainer" parent="EquipmentPanel/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_right = 20
 
-[node name="TitleLabel" type="Label" parent="EquipmentPanel/PannelLabelContainer/MarginContainer"]
+[node name="TitleLabel" type="Label" parent="EquipmentPanel/VBoxContainer/TitleContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 18
-text = "Equipment"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "EQUIPMENT"
 horizontal_alignment = 1
 
-[node name="EquipmentSlot1" type="TextureRect" parent="EquipmentPanel"]
+[node name="CloseButton" type="Button" parent="EquipmentPanel/VBoxContainer/TitleContainer"]
+layout_mode = 2
+text = "X"
+custom_minimum_size = Vector2(32, 32)
+
+[node name="EquipmentContainer" type="Control" parent="EquipmentPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EquipmentSlot1" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
 layout_mode = 2
 offset_left = 83.0
 offset_top = 40.0
@@ -174,7 +136,7 @@ offset_bottom = 87.0
 theme_override_font_sizes/font_size = 16
 text = "Head"
 
-[node name="EquipmentSlot2" type="TextureRect" parent="EquipmentPanel"]
+[node name="EquipmentSlot2" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
 layout_mode = 2
 offset_left = 167.0
 offset_top = 38.0
@@ -192,7 +154,7 @@ offset_bottom = 87.0
 theme_override_font_sizes/font_size = 16
 text = "Trinket 1"
 
-[node name="EquipmentSlot3" type="TextureRect" parent="EquipmentPanel"]
+[node name="EquipmentSlot3" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
 layout_mode = 2
 offset_left = 253.0
 offset_top = 40.0
@@ -210,7 +172,7 @@ offset_bottom = 87.0
 theme_override_font_sizes/font_size = 16
 text = "Trinket"
 
-[node name="EquipmentSlot4" type="TextureRect" parent="EquipmentPanel"]
+[node name="EquipmentSlot4" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
 layout_mode = 2
 offset_left = 82.0
 offset_top = 124.0
@@ -228,7 +190,7 @@ offset_bottom = 87.0
 theme_override_font_sizes/font_size = 16
 text = "Chest"
 
-[node name="EquipmentSlot5" type="TextureRect" parent="EquipmentPanel"]
+[node name="EquipmentSlot5" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
 layout_mode = 2
 offset_left = 85.0
 offset_top = 209.0
@@ -246,7 +208,7 @@ offset_bottom = 87.0
 theme_override_font_sizes/font_size = 16
 text = "Pants"
 
-[node name="EquipmentSlot6" type="TextureRect" parent="EquipmentPanel"]
+[node name="EquipmentSlot6" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
 layout_mode = 2
 offset_left = 86.0
 offset_top = 288.0
@@ -264,7 +226,7 @@ offset_bottom = 87.0
 theme_override_font_sizes/font_size = 16
 text = "Feet"
 
-[node name="EquipmentSlot7" type="TextureRect" parent="EquipmentPanel"]
+[node name="EquipmentSlot7" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
 layout_mode = 2
 offset_left = 173.0
 offset_top = 286.0
@@ -282,7 +244,7 @@ offset_bottom = 87.0
 theme_override_font_sizes/font_size = 16
 text = "Primary"
 
-[node name="EquipmentSlot8" type="TextureRect" parent="EquipmentPanel"]
+[node name="EquipmentSlot8" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
 layout_mode = 2
 offset_left = 256.0
 offset_top = 283.0
@@ -300,7 +262,7 @@ offset_bottom = 87.0
 theme_override_font_sizes/font_size = 16
 text = "Secondary"
 
-[node name="ToolSlot" type="TextureRect" parent="EquipmentPanel"]
+[node name="ToolSlot" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
 layout_mode = 2
 offset_left = 252.0
 offset_top = 131.0
@@ -318,7 +280,7 @@ offset_bottom = 87.0
 theme_override_font_sizes/font_size = 16
 text = "Tool"
 
-[node name="EquipmentSlot10" type="TextureRect" parent="EquipmentPanel"]
+[node name="EquipmentSlot10" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
 layout_mode = 2
 offset_left = 256.0
 offset_top = 207.0
@@ -336,7 +298,7 @@ offset_bottom = 87.0
 theme_override_font_sizes/font_size = 16
 text = "Backpack"
 
-[node name="CharacterImage" type="TextureRect" parent="EquipmentPanel"]
+[node name="CharacterImage" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
 layout_mode = 2
 offset_left = 128.0
 offset_top = 124.0
@@ -347,4 +309,4 @@ texture = ExtResource("6_wgv8v")
 expand_mode = 2
 
 [connection signal="pressed" from="InventoryPanel/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="EquipmentPanel/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="EquipmentPanel/VBoxContainer/TitleContainer/CloseButton" to="." method="_on_close_button_pressed"]
