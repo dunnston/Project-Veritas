@@ -29,265 +29,299 @@ grow_vertical = 2
 mouse_filter = 1
 color = Color(0, 0, 0, 0.7)
 
-[node name="InventoryPanel" type="PanelContainer" parent="."]
+[node name="MainPanel" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -200.0
-offset_right = 200.0
-offset_bottom = 200.0
+offset_left = -450.0
+offset_top = -250.0
+offset_right = 450.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_theme")
 
-[node name="CloseButton" type="Button" parent="InventoryPanel"]
+[node name="MainContainer" type="HBoxContainer" parent="MainPanel"]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-text = "X"
-custom_minimum_size = Vector2(32, 32)
+theme_override_constants/separation = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InventoryPanel"]
+[node name="InventoryPanel" type="VBoxContainer" parent="MainPanel/MainContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="TitleContainer" type="HBoxContainer" parent="InventoryPanel/VBoxContainer"]
+[node name="TitleContainer" type="HBoxContainer" parent="MainPanel/MainContainer/InventoryPanel"]
 layout_mode = 2
 
-[node name="TitleLabel" type="Label" parent="InventoryPanel/VBoxContainer/TitleContainer"]
+[node name="TitleLabel" type="Label" parent="MainPanel/MainContainer/InventoryPanel/TitleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "INVENTORY"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="InventoryPanel/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="MainPanel/MainContainer/InventoryPanel"]
 layout_mode = 2
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 5
 
-[node name="EquipmentPanel" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 306.0
-offset_top = -196.0
-offset_right = 706.0
-offset_bottom = 204.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_theme")
+[node name="EquipmentPanel" type="VBoxContainer" parent="MainPanel/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="EquipmentPanel"]
+[node name="TitleContainer" type="HBoxContainer" parent="MainPanel/MainContainer/EquipmentPanel"]
 layout_mode = 2
 
-[node name="TitleContainer" type="HBoxContainer" parent="EquipmentPanel/VBoxContainer"]
-layout_mode = 2
-
-[node name="TitleLabel" type="Label" parent="EquipmentPanel/VBoxContainer/TitleContainer"]
+[node name="TitleLabel" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/TitleContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "EQUIPMENT"
 horizontal_alignment = 1
 
-[node name="CloseButton" type="Button" parent="EquipmentPanel/VBoxContainer/TitleContainer"]
+[node name="CloseButton" type="Button" parent="MainPanel/MainContainer/EquipmentPanel/TitleContainer"]
 layout_mode = 2
 text = "X"
 custom_minimum_size = Vector2(32, 32)
 
-[node name="EquipmentContainer" type="Control" parent="EquipmentPanel/VBoxContainer"]
+[node name="EquipmentContainer" type="Control" parent="MainPanel/MainContainer/EquipmentPanel"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="EquipmentSlot1" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
+[node name="EquipmentSlot1" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_left = 83.0
 offset_top = 40.0
 offset_right = 147.0
 offset_bottom = 104.0
-texture = ExtResource("4_lvuwj")
-expand_mode = 2
 
-[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot1"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 59.0
-offset_right = 78.0
-offset_bottom = 87.0
-theme_override_font_sizes/font_size = 16
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot1"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot1"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 10
 text = "Head"
 
-[node name="EquipmentSlot2" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
+[node name="EquipmentSlot2" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_left = 167.0
 offset_top = 38.0
 offset_right = 231.0
 offset_bottom = 102.0
-texture = ExtResource("4_lvuwj")
-expand_mode = 2
 
-[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot2"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 59.0
-offset_right = 78.0
-offset_bottom = 87.0
-theme_override_font_sizes/font_size = 16
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot2"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 10
 text = "Trinket 1"
 
-[node name="EquipmentSlot3" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
+[node name="EquipmentSlot3" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_left = 253.0
 offset_top = 40.0
 offset_right = 317.0
 offset_bottom = 104.0
-texture = ExtResource("4_lvuwj")
-expand_mode = 2
 
-[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot3"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 59.0
-offset_right = 78.0
-offset_bottom = 87.0
-theme_override_font_sizes/font_size = 16
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot3"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot3"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 10
 text = "Trinket"
 
-[node name="EquipmentSlot4" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
+[node name="EquipmentSlot4" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_left = 82.0
 offset_top = 124.0
 offset_right = 146.0
 offset_bottom = 188.0
-texture = ExtResource("4_lvuwj")
-expand_mode = 2
 
-[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot4"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 59.0
-offset_right = 78.0
-offset_bottom = 87.0
-theme_override_font_sizes/font_size = 16
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot4"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot4"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 10
 text = "Chest"
 
-[node name="EquipmentSlot5" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
+[node name="EquipmentSlot5" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_left = 85.0
 offset_top = 209.0
 offset_right = 149.0
 offset_bottom = 273.0
-texture = ExtResource("4_lvuwj")
-expand_mode = 2
 
-[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot5"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 59.0
-offset_right = 78.0
-offset_bottom = 87.0
-theme_override_font_sizes/font_size = 16
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot5"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot5"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 10
 text = "Pants"
 
-[node name="EquipmentSlot6" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
+[node name="EquipmentSlot6" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_left = 86.0
 offset_top = 288.0
 offset_right = 150.0
 offset_bottom = 352.0
-texture = ExtResource("4_lvuwj")
-expand_mode = 2
 
-[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot6"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 59.0
-offset_right = 78.0
-offset_bottom = 87.0
-theme_override_font_sizes/font_size = 16
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot6"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot6"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 10
 text = "Feet"
 
-[node name="EquipmentSlot7" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
+[node name="EquipmentSlot7" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_left = 173.0
 offset_top = 286.0
 offset_right = 237.0
 offset_bottom = 350.0
-texture = ExtResource("4_lvuwj")
-expand_mode = 2
 
-[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot7"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 59.0
-offset_right = 78.0
-offset_bottom = 87.0
-theme_override_font_sizes/font_size = 16
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot7"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot7"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 10
 text = "Primary"
 
-[node name="EquipmentSlot8" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
+[node name="EquipmentSlot8" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_left = 256.0
 offset_top = 283.0
 offset_right = 320.0
 offset_bottom = 347.0
-texture = ExtResource("4_lvuwj")
-expand_mode = 2
 
-[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot8"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 59.0
-offset_right = 78.0
-offset_bottom = 87.0
-theme_override_font_sizes/font_size = 16
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot8"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot8"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 10
 text = "Secondary"
 
-[node name="ToolSlot" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
+[node name="ToolSlot" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_left = 252.0
 offset_top = 131.0
 offset_right = 316.0
 offset_bottom = 195.0
-texture = ExtResource("4_lvuwj")
-expand_mode = 2
 
-[node name="Label" type="Label" parent="EquipmentPanel/ToolSlot"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 59.0
-offset_right = 76.0
-offset_bottom = 87.0
-theme_override_font_sizes/font_size = 16
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/ToolSlot"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/ToolSlot"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 10
 text = "Tool"
 
-[node name="EquipmentSlot10" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
+[node name="EquipmentSlot10" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_left = 256.0
 offset_top = 207.0
 offset_right = 320.0
 offset_bottom = 271.0
-texture = ExtResource("4_lvuwj")
-expand_mode = 2
 
-[node name="Label" type="Label" parent="EquipmentPanel/EquipmentSlot10"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 59.0
-offset_right = 78.0
-offset_bottom = 87.0
-theme_override_font_sizes/font_size = 16
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot10"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot10"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 10
 text = "Backpack"
 
-[node name="CharacterImage" type="TextureRect" parent="EquipmentPanel/VBoxContainer/EquipmentContainer"]
+[node name="CharacterImage" type="TextureRect" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 layout_mode = 2
 offset_left = 128.0
 offset_top = 124.0
@@ -324,5 +358,4 @@ text = "[center]Hover over items for details[/center]"
 fit_content = true
 scroll_active = false
 
-[connection signal="pressed" from="InventoryPanel/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="EquipmentPanel/VBoxContainer/TitleContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MainPanel/MainContainer/EquipmentPanel/TitleContainer/CloseButton" to="." method="_on_close_button_pressed"]

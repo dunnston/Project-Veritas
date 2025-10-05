@@ -1,10 +1,11 @@
 extends Control
 class_name InventoryUI
 
-@onready var inventory_panel: PanelContainer = $InventoryPanel
-@onready var equipment_panel: PanelContainer = $EquipmentPanel
-@onready var grid_container: GridContainer = $InventoryPanel/VBoxContainer/GridContainer
-@onready var close_button: Button = $InventoryPanel/CloseButton
+@onready var main_panel: PanelContainer = $MainPanel
+@onready var inventory_panel: VBoxContainer = $MainPanel/MainContainer/InventoryPanel
+@onready var equipment_panel: VBoxContainer = $MainPanel/MainContainer/EquipmentPanel
+@onready var grid_container: GridContainer = $MainPanel/MainContainer/InventoryPanel/GridContainer
+@onready var close_button: Button = $MainPanel/MainContainer/EquipmentPanel/TitleContainer/CloseButton
 @onready var tooltip_panel: PanelContainer = $TooltipPanel
 @onready var item_info_label: RichTextLabel = $TooltipPanel/TooltipLabel
 
@@ -13,33 +14,28 @@ var inventory_slots_ui: Array[InventorySlotUI] = []
 var equipment_slots_ui: Dictionary = {}
 
 class EquipmentSlotUI:
-	var background: TextureRect
+	var background: PanelContainer
 	var icon: TextureRect
 	var slot_type: String
 	var equipped_item: Equipment
-	
-	func _init(slot_name: String, background_node: TextureRect):
+
+	func _init(slot_name: String, background_node: PanelContainer):
 		slot_type = slot_name
 		background = background_node
 		setup_ui()
-	
+
 	func setup_ui():
+		# Get or create the MarginContainer for icon
+		var margin_container = background.get_node_or_null("MarginContainer")
+		if not margin_container:
+			return
+
 		# Create icon display for equipment
 		icon = TextureRect.new()
 		icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		icon.anchor_left = 0.5
-		icon.anchor_top = 0.5
-		icon.anchor_right = 0.5
-		icon.anchor_bottom = 0.5
-		icon.offset_left = -20
-		icon.offset_top = -20
-		icon.offset_right = 20
-		icon.offset_bottom = 20
-		icon.grow_horizontal = Control.GROW_DIRECTION_BOTH
-		icon.grow_vertical = Control.GROW_DIRECTION_BOTH
-		background.add_child(icon)
-		
+		margin_container.add_child(icon)
+
 		# Connect mouse events
 		background.gui_input.connect(_on_equipment_slot_input)
 		background.mouse_entered.connect(_on_equipment_slot_mouse_entered)
@@ -295,16 +291,16 @@ func setup_inventory_slots():
 func setup_equipment_slots():
 	# Map slot names to their TextureRect nodes
 	var slot_mappings = {
-		"HEAD": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot1"),
-		"TRINKET_1": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot2"),
-		"TRINKET_2": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot3"),
-		"CHEST": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot4"),
-		"PANTS": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot5"),
-		"FEET": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot6"),
-		"PRIMARY_WEAPON": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot7"),
-		"SECONDARY_WEAPON": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot8"),
-		"TOOL": equipment_panel.get_node("VBoxContainer/EquipmentContainer/ToolSlot"),
-		"BACKPACK": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot10")
+		"HEAD": equipment_panel.get_node("EquipmentContainer/EquipmentSlot1"),
+		"TRINKET_1": equipment_panel.get_node("EquipmentContainer/EquipmentSlot2"),
+		"TRINKET_2": equipment_panel.get_node("EquipmentContainer/EquipmentSlot3"),
+		"CHEST": equipment_panel.get_node("EquipmentContainer/EquipmentSlot4"),
+		"PANTS": equipment_panel.get_node("EquipmentContainer/EquipmentSlot5"),
+		"FEET": equipment_panel.get_node("EquipmentContainer/EquipmentSlot6"),
+		"PRIMARY_WEAPON": equipment_panel.get_node("EquipmentContainer/EquipmentSlot7"),
+		"SECONDARY_WEAPON": equipment_panel.get_node("EquipmentContainer/EquipmentSlot8"),
+		"TOOL": equipment_panel.get_node("EquipmentContainer/ToolSlot"),
+		"BACKPACK": equipment_panel.get_node("EquipmentContainer/EquipmentSlot10")
 	}
 	
 	for slot_name in slot_mappings:
