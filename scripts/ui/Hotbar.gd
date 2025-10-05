@@ -73,12 +73,12 @@ func clear_slot(slot_index: int):
 func update_slot_display(slot_index: int):
 	if slot_index >= slot_buttons.size():
 		return
-	
+
 	var slot_button = slot_buttons[slot_index]
 	var slot_data = hotbar_data[slot_index]
-	var item_icon = slot_button.get_node_or_null("ItemIcon")
+	var item_icon = slot_button.get_node_or_null("MarginContainer/ItemIcon")
 	var stack_label = slot_button.get_node("Stack Number")
-	
+
 	if not item_icon:
 		print("Warning: ItemIcon not found for slot %d" % slot_index)
 		return

@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfyxd4d8bxygd"]
+
+[ext_resource type="Theme" uid="uid://c7iy4gmnqvk7r" path="res://resources/themes/neon_wasteland_theme.tres" id="1_theme"]
+
+[node name="StandardPanel" type="PanelContainer"]
+theme = ExtResource("1_theme")
+custom_minimum_size = Vector2(200, 100)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Content" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2

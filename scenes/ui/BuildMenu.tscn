@@ -1,14 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://buildmenu"]
+[gd_scene load_steps=2 format=3 uid="uid://buildmenu"]
 
 [ext_resource type="Script" path="res://scripts/ui/BuildMenu.gd" id="1_script"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
-bg_color = Color(0.2, 0.2, 0.2, 0.9)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.4, 0.4, 0.4, 1)
+[ext_resource type="Theme" uid="uid://c7iy4gmnqvk7r" path="res://resources/themes/neon_wasteland_theme.tres" id="2_theme"]
 
 [node name="BuildMenu" type="Control"]
 visible = false
@@ -19,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0
+theme = ExtResource("2_theme")
 script = ExtResource("1_script")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -44,7 +38,6 @@ offset_right = 400.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BuildPanel"]
 layout_mode = 2
@@ -55,8 +48,7 @@ layout_mode = 2
 [node name="TitleLabel" type="Label" parent="BuildPanel/VBoxContainer/TitleBar"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 20
 text = "BUILD MENU"
 horizontal_alignment = 1
 
@@ -149,8 +141,7 @@ layout_mode = 2
 
 [node name="ItemTitle" type="Label" parent="BuildPanel/VBoxContainer/MainContainer/RightPanel/ItemInfoPanel/ItemInfoContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 16
 text = "Select an item"
 horizontal_alignment = 1
 
@@ -170,8 +161,6 @@ fit_content = true
 
 [node name="RequiredResourcesLabel" type="Label" parent="BuildPanel/VBoxContainer/MainContainer/RightPanel/ItemInfoPanel/ItemInfoContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 14
 text = "Required Materials:"
 
 [node name="ResourcesList" type="VBoxContainer" parent="BuildPanel/VBoxContainer/MainContainer/RightPanel/ItemInfoPanel/ItemInfoContainer"]

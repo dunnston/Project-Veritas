@@ -1,44 +1,41 @@
 extends Control
 class_name InventoryUI
 
-@onready var inventory_panel: NinePatchRect = $InventoryPanel
-@onready var equipment_panel: NinePatchRect = $EquipmentPanel
-@onready var grid_container: GridContainer = $InventoryPanel/GridContainer
-@onready var close_button: TextureButton = $InventoryPanel/CloseButton
-@onready var item_info_label: RichTextLabel = $InventoryPanel/ItemInfoPanel/ItemInfoLabel
+@onready var main_panel: PanelContainer = $MainPanel
+@onready var inventory_panel: VBoxContainer = $MainPanel/MainContainer/InventoryPanel
+@onready var equipment_panel: VBoxContainer = $MainPanel/MainContainer/EquipmentPanel
+@onready var grid_container: GridContainer = $MainPanel/MainContainer/InventoryPanel/GridContainer
+@onready var close_button: Button = $MainPanel/MainContainer/EquipmentPanel/TitleContainer/CloseButton
+@onready var tooltip_panel: PanelContainer = $TooltipPanel
+@onready var item_info_label: RichTextLabel = $TooltipPanel/TooltipLabel
 
 var inventory_system: Node
 var inventory_slots_ui: Array[InventorySlotUI] = []
 var equipment_slots_ui: Dictionary = {}
 
 class EquipmentSlotUI:
-	var background: TextureRect
+	var background: PanelContainer
 	var icon: TextureRect
 	var slot_type: String
 	var equipped_item: Equipment
-	
-	func _init(slot_name: String, background_node: TextureRect):
+
+	func _init(slot_name: String, background_node: PanelContainer):
 		slot_type = slot_name
 		background = background_node
 		setup_ui()
-	
+
 	func setup_ui():
+		# Get or create the MarginContainer for icon
+		var margin_container = background.get_node_or_null("MarginContainer")
+		if not margin_container:
+			return
+
 		# Create icon display for equipment
 		icon = TextureRect.new()
 		icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		icon.anchor_left = 0.5
-		icon.anchor_top = 0.5
-		icon.anchor_right = 0.5
-		icon.anchor_bottom = 0.5
-		icon.offset_left = -20
-		icon.offset_top = -20
-		icon.offset_right = 20
-		icon.offset_bottom = 20
-		icon.grow_horizontal = Control.GROW_DIRECTION_BOTH
-		icon.grow_vertical = Control.GROW_DIRECTION_BOTH
-		background.add_child(icon)
-		
+		margin_container.add_child(icon)
+
 		# Connect mouse events
 		background.gui_input.connect(_on_equipment_slot_input)
 		background.mouse_entered.connect(_on_equipment_slot_mouse_entered)
@@ -294,16 +291,16 @@ func setup_inventory_slots():
 func setup_equipment_slots():
 	# Map slot names to their TextureRect nodes
 	var slot_mappings = {
-		"HEAD": equipment_panel.get_node("EquipmentSlot1"),
-		"TRINKET_1": equipment_panel.get_node("EquipmentSlot2"),
-		"TRINKET_2": equipment_panel.get_node("EquipmentSlot3"),
-		"CHEST": equipment_panel.get_node("EquipmentSlot4"),
-		"PANTS": equipment_panel.get_node("EquipmentSlot5"),
-		"FEET": equipment_panel.get_node("EquipmentSlot6"),
-		"PRIMARY_WEAPON": equipment_panel.get_node("EquipmentSlot7"),
-		"SECONDARY_WEAPON": equipment_panel.get_node("EquipmentSlot8"),
-		"TOOL": equipment_panel.get_node("ToolSlot"),
-		"BACKPACK": equipment_panel.get_node("EquipmentSlot10")
+		"HEAD": equipment_panel.get_node("EquipmentContainer/EquipmentSlot1"),
+		"TRINKET_1": equipment_panel.get_node("EquipmentContainer/EquipmentSlot2"),
+		"TRINKET_2": equipment_panel.get_node("EquipmentContainer/EquipmentSlot3"),
+		"CHEST": equipment_panel.get_node("EquipmentContainer/EquipmentSlot4"),
+		"PANTS": equipment_panel.get_node("EquipmentContainer/EquipmentSlot5"),
+		"FEET": equipment_panel.get_node("EquipmentContainer/EquipmentSlot6"),
+		"PRIMARY_WEAPON": equipment_panel.get_node("EquipmentContainer/EquipmentSlot7"),
+		"SECONDARY_WEAPON": equipment_panel.get_node("EquipmentContainer/EquipmentSlot8"),
+		"TOOL": equipment_panel.get_node("EquipmentContainer/ToolSlot"),
+		"BACKPACK": equipment_panel.get_node("EquipmentContainer/EquipmentSlot10")
 	}
 	
 	for slot_name in slot_mappings:
@@ -324,6 +321,8 @@ func toggle_inventory():
 		# Refresh inventory display when opened
 		_on_inventory_changed()
 	else:
+		# Hide tooltip when closing inventory
+		tooltip_panel.visible = false
 		# Recapture mouse for gameplay
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -380,6 +379,8 @@ func start_drag_from_equipment(slot_type: String):
 
 func _on_close_button_pressed():
 	visible = false
+	# Hide tooltip when closing inventory
+	tooltip_panel.visible = false
 	# Recapture mouse for gameplay
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	GameManager.change_state(GameManager.GameState.IN_GAME)
@@ -394,6 +395,8 @@ func _on_game_state_changed(new_state: GameManager.GameState):
 		_on_inventory_changed()
 	else:
 		visible = false
+		# Hide tooltip when closing inventory
+		tooltip_panel.visible = false
 		# Recapture mouse for gameplay
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -406,11 +409,14 @@ func _on_inventory_changed():
 func show_item_info(slot_index: int):
 	if slot_index >= inventory_system.inventory_slots.size():
 		return
-	
+
 	var slot = inventory_system.inventory_slots[slot_index]
 	if slot.is_empty():
-		item_info_label.text = "[center]Hover over items for details[/center]"
+		tooltip_panel.visible = false
 		return
+
+	# Show the tooltip panel
+	tooltip_panel.visible = true
 	
 	# Get item data from appropriate manager
 	var item_data = {}
@@ -554,7 +560,7 @@ func show_item_info(slot_index: int):
 	item_info_label.text = info_text
 
 func hide_item_info():
-	item_info_label.text = "[center]Hover over items for details[/center]"
+	tooltip_panel.visible = false
 
 func transfer_item_to_storage(slot_index: int):
 	print("Inventory slot %d clicked - attempting to transfer to storage" % slot_index)
@@ -903,6 +909,9 @@ func update_equipment_display():
 			slot_ui.update_display(equipped_item)
 
 func show_equipment_info(slot_type: String):
+	# Show the tooltip panel
+	tooltip_panel.visible = true
+
 	# Check if this is a weapon slot
 	if slot_type == "PRIMARY_WEAPON" or slot_type == "SECONDARY_WEAPON":
 		var equipped_weapon = WeaponManager.get_equipped_weapon(slot_type)

@@ -1,14 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfeodp70flpq1"]
+[gd_scene load_steps=2 format=3 uid="uid://cfeodp70flpq1"]
 
 [ext_resource type="Script" path="res://scripts/ui/WorkbenchCraftingMenu.gd" id="1_script"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
-bg_color = Color(0.15, 0.15, 0.15, 0.95)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.5, 0.5, 0.5, 1)
+[ext_resource type="Theme" uid="uid://c7iy4gmnqvk7r" path="res://resources/themes/neon_wasteland_theme.tres" id="2_theme"]
 
 [node name="WorkbenchCraftingMenu" type="Control"]
 visible = false
@@ -19,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme = ExtResource("2_theme")
 script = ExtResource("1_script")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -44,7 +38,6 @@ offset_right = 400.0
 offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CraftingPanel"]
 layout_mode = 2
@@ -55,8 +48,7 @@ layout_mode = 2
 [node name="TitleLabel" type="Label" parent="CraftingPanel/VBoxContainer/TitleBar"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 20
 text = "WORKBENCH CRAFTING"
 horizontal_alignment = 1
 
@@ -74,8 +66,7 @@ size_flags_horizontal = 3
 
 [node name="RecipesLabel" type="Label" parent="CraftingPanel/VBoxContainer/MainContainer/LeftPanel"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 16
 text = "Available Recipes"
 
 [node name="RecipesList" type="ScrollContainer" parent="CraftingPanel/VBoxContainer/MainContainer/LeftPanel"]
@@ -99,8 +90,7 @@ layout_mode = 2
 
 [node name="ItemTitle" type="Label" parent="CraftingPanel/VBoxContainer/MainContainer/RightPanel/ItemInfoPanel/ItemInfoContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 16
 text = "Select a recipe"
 horizontal_alignment = 1
 
@@ -122,8 +112,6 @@ fit_content = true
 
 [node name="RequiredResourcesLabel" type="Label" parent="CraftingPanel/VBoxContainer/MainContainer/RightPanel/ItemInfoPanel/ItemInfoContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 14
 text = "Required Materials:"
 
 [node name="ResourcesList" type="VBoxContainer" parent="CraftingPanel/VBoxContainer/MainContainer/RightPanel/ItemInfoPanel/ItemInfoContainer"]

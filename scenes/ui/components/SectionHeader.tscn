@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dml6psxx13a7q"]
+
+[ext_resource type="Theme" uid="uid://c7iy4gmnqvk7r" path="res://resources/themes/neon_wasteland_theme.tres" id="1_theme"]
+
+[node name="SectionHeader" type="Label"]
+theme = ExtResource("1_theme")
+theme_override_colors/font_color = Color(0.3, 0.7, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Section Title"
+horizontal_alignment = 1
