@@ -94,10 +94,10 @@ size_flags_vertical = 3
 [node name="EquipmentSlot1" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-offset_left = 80.0
-offset_top = 20.0
-offset_right = 144.0
-offset_bottom = 84.0
+offset_left = 88.0
+offset_top = 10.0
+offset_right = 152.0
+offset_bottom = 74.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot1"]
 layout_mode = 2
@@ -118,9 +118,9 @@ text = "Head"
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_left = 168.0
-offset_top = 20.0
+offset_top = 10.0
 offset_right = 232.0
-offset_bottom = 84.0
+offset_bottom = 74.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot2"]
 layout_mode = 2
@@ -140,10 +140,10 @@ text = "Trinket 1"
 [node name="EquipmentSlot3" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-offset_left = 256.0
-offset_top = 20.0
-offset_right = 320.0
-offset_bottom = 84.0
+offset_left = 248.0
+offset_top = 10.0
+offset_right = 312.0
+offset_bottom = 74.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot3"]
 layout_mode = 2
@@ -163,10 +163,10 @@ text = "Trinket"
 [node name="EquipmentSlot4" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-offset_left = 80.0
-offset_top = 96.0
-offset_right = 144.0
-offset_bottom = 160.0
+offset_left = 88.0
+offset_top = 86.0
+offset_right = 152.0
+offset_bottom = 150.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot4"]
 layout_mode = 2
@@ -186,10 +186,10 @@ text = "Chest"
 [node name="EquipmentSlot5" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-offset_left = 80.0
-offset_top = 172.0
-offset_right = 144.0
-offset_bottom = 236.0
+offset_left = 88.0
+offset_top = 162.0
+offset_right = 152.0
+offset_bottom = 226.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot5"]
 layout_mode = 2
@@ -209,10 +209,10 @@ text = "Pants"
 [node name="EquipmentSlot6" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-offset_left = 80.0
-offset_top = 248.0
-offset_right = 144.0
-offset_bottom = 312.0
+offset_left = 88.0
+offset_top = 238.0
+offset_right = 152.0
+offset_bottom = 302.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot6"]
 layout_mode = 2
@@ -233,9 +233,9 @@ text = "Feet"
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_left = 168.0
-offset_top = 248.0
+offset_top = 238.0
 offset_right = 232.0
-offset_bottom = 312.0
+offset_bottom = 302.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot7"]
 layout_mode = 2
@@ -255,10 +255,10 @@ text = "Primary"
 [node name="EquipmentSlot8" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-offset_left = 256.0
-offset_top = 248.0
-offset_right = 320.0
-offset_bottom = 312.0
+offset_left = 248.0
+offset_top = 238.0
+offset_right = 312.0
+offset_bottom = 302.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot8"]
 layout_mode = 2
@@ -278,10 +278,10 @@ text = "Secondary"
 [node name="ToolSlot" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-offset_left = 256.0
-offset_top = 96.0
-offset_right = 320.0
-offset_bottom = 160.0
+offset_left = 248.0
+offset_top = 86.0
+offset_right = 312.0
+offset_bottom = 150.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/ToolSlot"]
 layout_mode = 2
@@ -301,10 +301,10 @@ text = "Tool"
 [node name="EquipmentSlot10" type="PanelContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-offset_left = 256.0
-offset_top = 172.0
-offset_right = 320.0
-offset_bottom = 236.0
+offset_left = 248.0
+offset_top = 162.0
+offset_right = 312.0
+offset_bottom = 226.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer/EquipmentSlot10"]
 layout_mode = 2
@@ -323,10 +323,10 @@ text = "Backpack"
 
 [node name="CharacterImage" type="TextureRect" parent="MainPanel/MainContainer/EquipmentPanel/EquipmentContainer"]
 layout_mode = 2
-offset_left = 156.0
-offset_top = 96.0
-offset_right = 220.0
-offset_bottom = 160.0
+offset_left = 168.0
+offset_top = 86.0
+offset_right = 232.0
+offset_bottom = 150.0
 scale = Vector2(2.16, 2.16)
 texture = ExtResource("6_wgv8v")
 expand_mode = 2
