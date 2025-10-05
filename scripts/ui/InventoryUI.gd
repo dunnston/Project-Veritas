@@ -5,7 +5,7 @@ class_name InventoryUI
 @onready var equipment_panel: PanelContainer = $EquipmentPanel
 @onready var grid_container: GridContainer = $InventoryPanel/VBoxContainer/GridContainer
 @onready var close_button: Button = $InventoryPanel/CloseButton
-@onready var item_info_label: RichTextLabel = $InventoryPanel/VBoxContainer/ItemInfoPanel/ItemInfoLabel
+@onready var item_info_label: RichTextLabel = $"InventoryPanel/VBoxContainer/ItemInfoPanel/ItemInfoLabel"
 
 var inventory_system: Node
 var inventory_slots_ui: Array[InventorySlotUI] = []

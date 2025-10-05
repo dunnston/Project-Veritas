@@ -73,7 +73,7 @@ columns = 5
 [node name="ItemInfoPanel" type="PanelContainer" parent="InventoryPanel/VBoxContainer"]
 layout_mode = 2
 
-[node name="ItemInfoLabel" type="RichTextLabel" parent="InventoryPanel/ItemInfoPanel"]
+[node name="ItemInfoLabel" type="RichTextLabel" parent="InventoryPanel/VBoxContainer/ItemInfoPanel"]
 layout_mode = 2
 theme_override_colors/default_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/normal_font_size = 12
