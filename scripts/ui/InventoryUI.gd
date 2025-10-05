@@ -1,11 +1,11 @@
 extends Control
 class_name InventoryUI
 
-@onready var inventory_panel: NinePatchRect = $InventoryPanel
-@onready var equipment_panel: NinePatchRect = $EquipmentPanel
-@onready var grid_container: GridContainer = $InventoryPanel/GridContainer
-@onready var close_button: TextureButton = $InventoryPanel/CloseButton
-@onready var item_info_label: RichTextLabel = $InventoryPanel/ItemInfoPanel/ItemInfoLabel
+@onready var inventory_panel: PanelContainer = $InventoryPanel
+@onready var equipment_panel: PanelContainer = $EquipmentPanel
+@onready var grid_container: GridContainer = $InventoryPanel/VBoxContainer/GridContainer
+@onready var close_button: Button = $InventoryPanel/CloseButton
+@onready var item_info_label: RichTextLabel = $InventoryPanel/VBoxContainer/ItemInfoPanel/ItemInfoLabel
 
 var inventory_system: Node
 var inventory_slots_ui: Array[InventorySlotUI] = []
@@ -294,16 +294,16 @@ func setup_inventory_slots():
 func setup_equipment_slots():
 	# Map slot names to their TextureRect nodes
 	var slot_mappings = {
-		"HEAD": equipment_panel.get_node("EquipmentSlot1"),
-		"TRINKET_1": equipment_panel.get_node("EquipmentSlot2"),
-		"TRINKET_2": equipment_panel.get_node("EquipmentSlot3"),
-		"CHEST": equipment_panel.get_node("EquipmentSlot4"),
-		"PANTS": equipment_panel.get_node("EquipmentSlot5"),
-		"FEET": equipment_panel.get_node("EquipmentSlot6"),
-		"PRIMARY_WEAPON": equipment_panel.get_node("EquipmentSlot7"),
-		"SECONDARY_WEAPON": equipment_panel.get_node("EquipmentSlot8"),
-		"TOOL": equipment_panel.get_node("ToolSlot"),
-		"BACKPACK": equipment_panel.get_node("EquipmentSlot10")
+		"HEAD": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot1"),
+		"TRINKET_1": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot2"),
+		"TRINKET_2": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot3"),
+		"CHEST": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot4"),
+		"PANTS": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot5"),
+		"FEET": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot6"),
+		"PRIMARY_WEAPON": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot7"),
+		"SECONDARY_WEAPON": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot8"),
+		"TOOL": equipment_panel.get_node("VBoxContainer/EquipmentContainer/ToolSlot"),
+		"BACKPACK": equipment_panel.get_node("VBoxContainer/EquipmentContainer/EquipmentSlot10")
 	}
 	
 	for slot_name in slot_mappings:
