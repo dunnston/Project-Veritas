@@ -5,7 +5,8 @@ class_name InventoryUI
 @onready var equipment_panel: PanelContainer = $EquipmentPanel
 @onready var grid_container: GridContainer = $InventoryPanel/VBoxContainer/GridContainer
 @onready var close_button: Button = $InventoryPanel/CloseButton
-@onready var item_info_label: RichTextLabel = $"InventoryPanel/VBoxContainer/ItemInfoPanel/ItemInfoLabel"
+@onready var tooltip_panel: PanelContainer = $TooltipPanel
+@onready var item_info_label: RichTextLabel = $TooltipPanel/TooltipLabel
 
 var inventory_system: Node
 var inventory_slots_ui: Array[InventorySlotUI] = []
@@ -324,6 +325,8 @@ func toggle_inventory():
 		# Refresh inventory display when opened
 		_on_inventory_changed()
 	else:
+		# Hide tooltip when closing inventory
+		tooltip_panel.visible = false
 		# Recapture mouse for gameplay
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -380,6 +383,8 @@ func start_drag_from_equipment(slot_type: String):
 
 func _on_close_button_pressed():
 	visible = false
+	# Hide tooltip when closing inventory
+	tooltip_panel.visible = false
 	# Recapture mouse for gameplay
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	GameManager.change_state(GameManager.GameState.IN_GAME)
@@ -394,6 +399,8 @@ func _on_game_state_changed(new_state: GameManager.GameState):
 		_on_inventory_changed()
 	else:
 		visible = false
+		# Hide tooltip when closing inventory
+		tooltip_panel.visible = false
 		# Recapture mouse for gameplay
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -406,11 +413,14 @@ func _on_inventory_changed():
 func show_item_info(slot_index: int):
 	if slot_index >= inventory_system.inventory_slots.size():
 		return
-	
+
 	var slot = inventory_system.inventory_slots[slot_index]
 	if slot.is_empty():
-		item_info_label.text = "[center]Hover over items for details[/center]"
+		tooltip_panel.visible = false
 		return
+
+	# Show the tooltip panel
+	tooltip_panel.visible = true
 	
 	# Get item data from appropriate manager
 	var item_data = {}
@@ -554,7 +564,7 @@ func show_item_info(slot_index: int):
 	item_info_label.text = info_text
 
 func hide_item_info():
-	item_info_label.text = "[center]Hover over items for details[/center]"
+	tooltip_panel.visible = false
 
 func transfer_item_to_storage(slot_index: int):
 	print("Inventory slot %d clicked - attempting to transfer to storage" % slot_index)
@@ -903,6 +913,9 @@ func update_equipment_display():
 			slot_ui.update_display(equipped_item)
 
 func show_equipment_info(slot_type: String):
+	# Show the tooltip panel
+	tooltip_panel.visible = true
+
 	# Check if this is a weapon slot
 	if slot_type == "PRIMARY_WEAPON" or slot_type == "SECONDARY_WEAPON":
 		var equipped_weapon = WeaponManager.get_equipped_weapon(slot_type)
