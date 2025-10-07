@@ -1,0 +1,329 @@
+[gd_scene load_steps=40 format=3 uid="uid://di5sdik0ckdd5"]
+
+[ext_resource type="PackedScene" path="res://scenes/player/player_radiation_godot.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://cnw4osdfk8fec" path="res://scenes/environment/Desert/SM_Prop_Bones_04.tscn" id="2_ugp8u"]
+[ext_resource type="PackedScene" uid="uid://bgqpnrf0u5vw5" path="res://scenes/environment/Desert/SM_Prop_Solar_Panels_01.tscn" id="3_adqnk"]
+[ext_resource type="PackedScene" uid="uid://beb2sdugovcmy" path="res://scenes/environment/Desert/SM_Env_Bush_Bramble_01.tscn" id="4_n0np3"]
+[ext_resource type="PackedScene" uid="uid://bnsad6xuc765q" path="res://scenes/environment/Desert/SM_Env_Cactus_03.tscn" id="5_p07qj"]
+[ext_resource type="PackedScene" uid="uid://b2rmw840g7mnp" path="res://scenes/environment/Desert/SM_Env_Grass_01.tscn" id="6_x4p03"]
+[ext_resource type="PackedScene" uid="uid://dwen2wj6osmex" path="res://scenes/environment/Desert/SM_Env_Grass_01_1.tscn" id="7_d7dkh"]
+[ext_resource type="PackedScene" uid="uid://cwco3dupc62jn" path="res://scenes/ui/HUD.tscn" id="8_6opf8"]
+[ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="9_2q27w"]
+[ext_resource type="PackedScene" uid="uid://c5qxr8jyf4kxm" path="res://scenes/ui/StorageUI.tscn" id="10_aq8ra"]
+[ext_resource type="PackedScene" path="res://scenes/ui/CombatHUD.tscn" id="11_s2c5q"]
+[ext_resource type="PackedScene" uid="uid://devmenu" path="res://scenes/ui/DevMenu.tscn" id="12_lph72"]
+[ext_resource type="PackedScene" uid="uid://buildmenu" path="res://scenes/ui/BuildMenu.tscn" id="13_o1fge"]
+[ext_resource type="PackedScene" uid="uid://ttributesui" path="res://scenes/ui/AttributesUI.tscn" id="14_qtxo1"]
+[ext_resource type="PackedScene" uid="uid://b7gl23jy6jhi3" path="res://scenes/ui/EquipedWeaponUI.tscn" id="15_s7e4x"]
+[ext_resource type="PackedScene" uid="uid://b8hgax2kqw7lr" path="res://scenes/ui/GeneratorMenu.tscn" id="16_wybuj"]
+[ext_resource type="PackedScene" uid="uid://dd2xhpgk2eax2" path="res://scenes/ui/SkillDebugUI.tscn" id="17_4sxyn"]
+[ext_resource type="PackedScene" uid="uid://cfeodp70flpq1" path="res://scenes/ui/WorkbenchCraftingMenu.tscn" id="18_2mjbp"]
+[ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="19_082uj"]
+[ext_resource type="PackedScene" path="res://scenes/items/item_pickup_3d.tscn" id="20_bfnvs"]
+[ext_resource type="PackedScene" uid="uid://workbench3d" path="res://scenes/buildings/workbench_3d.tscn" id="21_wly88"]
+[ext_resource type="PackedScene" uid="uid://bxn3k4p7m8qwe" path="res://scenes/world/nodes/SandstoneNode.tscn" id="22_p2dwj"]
+[ext_resource type="Script" uid="uid://b5v7p3r1bhcci" path="res://scripts/world/ResourceDrop.gd" id="23_gev2w"]
+[ext_resource type="Script" uid="uid://c72syhu85ya17" path="res://scripts/world/EntitySpawner.gd" id="24_y6w5h"]
+[ext_resource type="Resource" uid="uid://cpf8vx5h4y2bk" path="res://resources/animals/rabbit_template.tres" id="25_7jjo2"]
+[ext_resource type="Resource" uid="uid://cn3qw8ry5x7mh" path="res://resources/animals/deer_template.tres" id="26_6bc38"]
+[ext_resource type="Resource" uid="uid://dnb8wx4ky2pvj" path="res://resources/animals/boar_template.tres" id="27_eqfft"]
+[ext_resource type="Resource" uid="uid://b8mq3xnv7ht2p" path="res://resources/animals/wolf_template.tres" id="28_dnb7v"]
+[ext_resource type="Resource" uid="uid://dft8qw2nx4vbp" path="res://resources/animals/bear_template.tres" id="29_6ty2t"]
+[ext_resource type="PackedScene" uid="uid://bifdxdevq18b6" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_01.tscn" id="30_x5d50"]
+[ext_resource type="PackedScene" uid="uid://dkj2p2sy7ud5n" path="res://scenes/environment/Desert/SM_Env_Tree_Dead_02.tscn" id="31_ewrdl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxywg"]
+sky_top_color = Color(0.0862745, 0.0392157, 0.117647, 1)
+sky_horizon_color = Color(0.301961, 0.0862745, 0.286275, 1)
+ground_bottom_color = Color(0.0313726, 0.00784314, 0.0313726, 1)
+ground_horizon_color = Color(0.301961, 0.0862745, 0.286275, 1)
+ground_curve = 0.1
+
+[sub_resource type="Sky" id="Sky_1d7tg"]
+sky_material = SubResource("ProceduralSkyMaterial_vxywg")
+
+[sub_resource type="Environment" id="Environment_qvfmy"]
+background_mode = 2
+sky = SubResource("Sky_1d7tg")
+ambient_light_source = 3
+ambient_light_color = Color(0.607843, 0.290196, 0.858824, 1)
+ambient_light_energy = 0.3
+tonemap_mode = 2
+glow_enabled = true
+glow_strength = 1.15
+glow_bloom = 0.1
+glow_blend_mode = 0
+fog_enabled = true
+fog_light_color = Color(0.517647, 0.254902, 0.627451, 1)
+fog_density = 0.005
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.8, 0.4, 1, 1)
+volumetric_fog_emission = Color(0.301961, 0.0862745, 0.427451, 1)
+volumetric_fog_emission_energy = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_7iyfv"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qe3jh"]
+albedo_color = Color(0.156863, 0.0784314, 0.235294, 1)
+metallic = 0.8
+roughness = 0.4
+emission_enabled = true
+emission = Color(0.501961, 0, 0.752941, 1)
+emission_energy_multiplier = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hjomk"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="Resource" id="Resource_kmphx"]
+script = ExtResource("23_gev2w")
+item_id = "STONE"
+min_amount = 1
+max_amount = 3
+drop_chance = 1.0
+metadata/_custom_type_script = "uid://b5v7p3r1bhcci"
+
+[sub_resource type="Resource" id="Resource_lysxd"]
+script = ExtResource("23_gev2w")
+item_id = "METAL_SCRAPS"
+min_amount = 1
+max_amount = 2
+drop_chance = 0.3
+metadata/_custom_type_script = "uid://b5v7p3r1bhcci"
+
+[node name="DemoScene" type="Node3D"]
+
+[node name="PlayerAnimated" parent="." instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 10, 0)
+light_color = Color(1, 0.686275, 0.960784, 1)
+light_energy = 0.8
+shadow_enabled = true
+shadow_blur = 1.5
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_qvfmy")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_7iyfv")
+surface_material_override/0 = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_hjomk")
+
+[node name="SM_Prop_Bones_04" parent="Ground" instance=ExtResource("2_ugp8u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.47282, 1.27437, 11.1134)
+
+[node name="SM_Prop_Solar_Panels_01" parent="Ground" instance=ExtResource("3_adqnk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.69642, 0.5, 24.229)
+
+[node name="SM_Env_Bush_Bramble_01" parent="Ground" instance=ExtResource("4_n0np3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7172, 0.592784, 19.1766)
+
+[node name="SM_Env_Cactus_03" parent="Ground" instance=ExtResource("5_p07qj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.97226, 0.760661, 15.4772)
+
+[node name="SM_Env_Grass_01" parent="Ground" instance=ExtResource("6_x4p03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4291, 0.555079, 24.6718)
+
+[node name="SM_Env_Grass_01_1" parent="Ground" instance=ExtResource("7_d7dkh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2019, 0.555079, 15.9331)
+
+[node name="TestGeometry" type="Node3D" parent="."]
+
+[node name="Platform1" type="CSGBox3D" parent="TestGeometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, 0)
+use_collision = true
+size = Vector3(5, 4, 5)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Platform2" type="CSGBox3D" parent="TestGeometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, -10)
+use_collision = true
+size = Vector3(8, 6, 8)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Ramp" type="CSGPolygon3D" parent="TestGeometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+use_collision = true
+polygon = PackedVector2Array(0, 0, 8, 0, 8, 3, 0, 0)
+depth = 4.0
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Wall1" type="CSGBox3D" parent="TestGeometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 3, 5)
+use_collision = true
+size = Vector3(1, 6, 10)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Wall2" type="CSGBox3D" parent="TestGeometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 3, -5)
+use_collision = true
+size = Vector3(1, 6, 15)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Stairs" type="Node3D" parent="TestGeometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
+
+[node name="Step1" type="CSGBox3D" parent="TestGeometry/Stairs"]
+use_collision = true
+size = Vector3(4, 0.5, 2)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Step2" type="CSGBox3D" parent="TestGeometry/Stairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1)
+use_collision = true
+size = Vector3(4, 0.5, 2)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Step3" type="CSGBox3D" parent="TestGeometry/Stairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
+use_collision = true
+size = Vector3(4, 0.5, 2)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="Step4" type="CSGBox3D" parent="TestGeometry/Stairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3)
+use_collision = true
+size = Vector3(4, 0.5, 2)
+material = SubResource("StandardMaterial3D_qe3jh")
+
+[node name="NeonLights" type="Node3D" parent="."]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="NeonLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 5)
+light_color = Color(0, 1, 1, 1)
+light_energy = 2.0
+omni_range = 15.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="NeonLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 5, -5)
+light_color = Color(1, 0, 1, 1)
+light_energy = 2.0
+omni_range = 15.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="NeonLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 4, -10)
+light_color = Color(1, 1, 0, 1)
+light_energy = 1.5
+omni_range = 10.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("8_6opf8")]
+offset_left = -1.0
+offset_top = 9.0
+offset_right = -1.0
+offset_bottom = 9.0
+
+[node name="InventoryUI" parent="UI" instance=ExtResource("9_2q27w")]
+visible = false
+
+[node name="StorageUI" parent="UI" instance=ExtResource("10_aq8ra")]
+
+[node name="CombatHUD" parent="UI" instance=ExtResource("11_s2c5q")]
+layout_mode = 3
+anchors_preset = 15
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DevMenu" parent="UI" instance=ExtResource("12_lph72")]
+visible = false
+
+[node name="BuildMenu" parent="UI" instance=ExtResource("13_o1fge")]
+
+[node name="AttributesUI" parent="UI" instance=ExtResource("14_qtxo1")]
+visible = false
+
+[node name="EquipedWeaponUi" parent="UI" instance=ExtResource("15_s7e4x")]
+
+[node name="GeneratorMenu" parent="UI" instance=ExtResource("16_wybuj")]
+
+[node name="SkillDebugUI" parent="UI" instance=ExtResource("17_4sxyn")]
+visible = false
+
+[node name="WorkbenchCraftingMenu" parent="UI" instance=ExtResource("18_2mjbp")]
+
+[node name="HotbarLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Hotbar" parent="HotbarLayer" instance=ExtResource("19_082uj")]
+
+[node name="TestItems" type="Node3D" parent="."]
+
+[node name="TestItem1" parent="TestItems" instance=ExtResource("20_bfnvs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 0)
+item_id = "WOOD_SCRAPS"
+amount = 5
+
+[node name="TestItem2" parent="TestItems" instance=ExtResource("20_bfnvs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 0)
+item_id = "METAL_SCRAPS"
+amount = 3
+
+[node name="TestItem3" parent="TestItems" instance=ExtResource("20_bfnvs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
+item_id = "GEARS"
+
+[node name="TestItem4" parent="TestItems" instance=ExtResource("20_bfnvs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
+item_id = "SPRING"
+amount = 2
+
+[node name="TestWorkbench" type="Node3D" parent="."]
+
+[node name="Workbench3D" parent="TestWorkbench" instance=ExtResource("21_wly88")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
+
+[node name="SandstoneNode" parent="." instance=ExtResource("22_p2dwj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98982, 0, -16.7956)
+drop_table = Array[ExtResource("23_gev2w")]([SubResource("Resource_kmphx"), SubResource("Resource_lysxd")])
+
+[node name="AnimalSpawners" type="Node3D" parent="."]
+
+[node name="PassiveSpawner" type="Node3D" parent="AnimalSpawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 10)
+script = ExtResource("24_y6w5h")
+spawn_templates = Array[Resource]([ExtResource("25_7jjo2"), ExtResource("26_6bc38")])
+max_entities = 8
+spawn_frequency_min = 8.0
+spawn_frequency_max = 20.0
+spawn_radius = 25.0
+min_spawn_distance = 8.0
+
+[node name="NeutralSpawner" type="Node3D" parent="AnimalSpawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -15)
+script = ExtResource("24_y6w5h")
+spawn_templates = Array[Resource]([ExtResource("27_eqfft")])
+max_entities = 5
+spawn_frequency_min = 10.0
+spawn_frequency_max = 25.0
+min_spawn_distance = 10.0
+debug_color = Color(1, 1, 0, 0.3)
+
+[node name="AggressiveSpawner" type="Node3D" parent="AnimalSpawners"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 20)
+script = ExtResource("24_y6w5h")
+spawn_templates = Array[Resource]([ExtResource("28_dnb7v"), ExtResource("29_6ty2t")])
+max_entities = 4
+spawn_frequency_min = 15.0
+spawn_frequency_max = 35.0
+spawn_radius = 30.0
+min_spawn_distance = 15.0
+debug_color = Color(1, 0, 0, 0.3)
+
+[node name="SM_Env_Rock_Cliff_01" parent="." instance=ExtResource("30_x5d50")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.6377, 0, 0)
+
+[node name="SM_Env_Tree_Dead_02" parent="." instance=ExtResource("31_ewrdl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.91407, 0.654809, 23.9913)
+
+[editable path="PlayerAnimated"]
+[editable path="PlayerAnimated/CharacterModel"]
