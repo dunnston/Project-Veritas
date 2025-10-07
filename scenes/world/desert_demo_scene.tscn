@@ -1,6 +1,6 @@
 [gd_scene load_steps=91 format=3 uid="uid://cowdyxaa0m4vf"]
 
-[ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/player/player_radiation_suit.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
 [ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="3_inventory"]
 [ext_resource type="PackedScene" uid="uid://4ecytrmjhsph" path="res://scenes/environment/Desert/SM_Env_Crater_01.tscn" id="3_mq3yy"]
@@ -131,8 +131,8 @@ size = Vector3(500, 1, 500)
 [node name="DesertDemoScene" type="Node3D"]
 script = ExtResource("14_setup")
 
-[node name="PlayerMixamo" parent="." instance=ExtResource("1_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="PlayerAnimated" parent="." instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="Environment" type="Node3D" parent="."]
 

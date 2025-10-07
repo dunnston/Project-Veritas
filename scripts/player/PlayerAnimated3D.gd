@@ -1,9 +1,9 @@
 extends CharacterBody3D
 
-@export var walk_speed: float = 3.0
-@export var run_speed: float = 6.0
-@export var sprint_speed: float = 9.0
-@export var jump_velocity: float = 8.0
+@export var walk_speed: float = 6.0
+@export var run_speed: float = 9.0
+@export var sprint_speed: float = 12.0
+@export var jump_velocity: float = 6.5
 @export var mouse_sensitivity: float = 0.002
 
 @export_group("Interaction Settings")
@@ -98,6 +98,8 @@ var jump_anim: String = ""
 var crouch_anim: String = ""
 var crouch_walk_anim: String = ""
 var fall_anim: String = ""
+var grapple_anim: String = ""
+var death_anim: String = ""
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -160,9 +162,31 @@ func setup_animations():
 	animation_player = find_animation_player(character_model)
 
 	if animation_player:
-		# print("✅ Found AnimationPlayer with animations:")  # Debug: Setup only
-		var all_anims = animation_player.get_animation_list()
-		# print("Available animations: ", all_anims)  # Debug: Setup only
+		print("✅ Found AnimationPlayer with animations:")  # Debug: Setup only
+
+		# Check if using animation libraries (like RadiationAnims)
+		var all_anims = []
+		var libraries = animation_player.get_animation_library_list()
+
+		if libraries.size() > 0:
+			print("Animation libraries found: ", libraries)
+			# Get animations from all libraries
+			for lib_name in libraries:
+				var lib = animation_player.get_animation_library(lib_name)
+				if lib:
+					var lib_anims = lib.get_animation_list()
+					print("Library '", lib_name, "' animations: ", lib_anims)
+					# Prefix animations with library name if not default
+					for anim in lib_anims:
+						if lib_name != "":
+							all_anims.append(lib_name + "/" + anim)
+						else:
+							all_anims.append(anim)
+		else:
+			# Fallback to old method
+			all_anims = animation_player.get_animation_list()
+
+		print("Available animations: ", all_anims)  # Debug: Setup only
 
 		# Disable root motion if AnimationPlayer supports it
 		if animation_player.has_method("set_root_motion_track"):
@@ -171,69 +195,102 @@ func setup_animations():
 
 		# Ensure animations are set to loop where appropriate
 		for anim_name in all_anims:
-			var animation = animation_player.get_animation(anim_name)
+			# Get animation from library if needed
+			var animation = null
+			if "/" in anim_name:
+				var parts = anim_name.split("/")
+				if parts.size() == 2:
+					var lib = animation_player.get_animation_library(parts[0])
+					if lib:
+						animation = lib.get_animation(parts[1])
+			else:
+				animation = animation_player.get_animation(anim_name)
+
 			if animation:
 				var lower = anim_name.to_lower()
 				# Set looping for continuous animations
-				if "idle" in lower or "walk" in lower or "run" in lower or "crouch" in lower:
+				if "idle" in lower or "walk" in lower or "run" in lower or "crouch" in lower or "grapple" in lower or "hook" in lower:
 					animation.loop_mode = Animation.LOOP_LINEAR
 					# print("Set ", anim_name, " to loop")  # Debug: Setup only
 					# Remove position tracks that cause jumping
 					remove_position_tracks(animation, anim_name)
-				elif "jump" in lower:
+				elif "jump" in lower or "death" in lower or "die" in lower:
 					animation.loop_mode = Animation.LOOP_NONE
 					# print("Set ", anim_name, " to play once")  # Debug: Setup only
 
 		# Map animations based on common naming patterns
+		# Process in order: specific patterns first, then general
 		for anim_name in all_anims:
 			var lower = anim_name.to_lower()
-			# print("Checking animation: ", anim_name, " (", lower, ")")  # Debug: Setup only
+			print("Checking animation: ", anim_name, " (", lower, ")")  # Debug: Setup only
 
 			# Check for crouch walk first (more specific than just "crouch")
 			if "crouch" in lower and ("walk" in lower or "forward" in lower or "move" in lower):
 				crouch_walk_anim = anim_name
-				# print("  -> Mapped as CROUCH_WALK")  # Debug: Setup only
-			elif "crouch" in lower:
+				print("  -> Mapped as CROUCH_WALK")  # Debug: Setup only
+			elif "crouch" in lower and "idle" in lower:
 				crouch_anim = anim_name
-				# print("  -> Mapped as CROUCH")  # Debug: Setup only
+				print("  -> Mapped as CROUCH")  # Debug: Setup only
 			elif "jump" in lower:
 				jump_anim = anim_name
-				# print("  -> Mapped as JUMP")  # Debug: Setup only
-			elif "run" in lower and "walk" not in lower:
-				run_anim = anim_name
-				# print("  -> Mapped as RUN")  # Debug: Setup only
-			elif "walk" in lower:
-				walk_anim = anim_name
-				# print("  -> Mapped as WALK")  # Debug: Setup only
+				print("  -> Mapped as JUMP")  # Debug: Setup only
 			elif "fall" in lower:
 				fall_anim = anim_name
-				# print("  -> Mapped as FALL")  # Debug: Setup only
-			elif "idle" in lower or "breathing" in lower:
+				print("  -> Mapped as FALL")  # Debug: Setup only
+			elif "grapple" in lower or "grappling" in lower or "hook" in lower:
+				grapple_anim = anim_name
+				print("  -> Mapped as GRAPPLE")  # Debug: Setup only
+			elif "death" in lower or "die" in lower or "dead" in lower:
+				death_anim = anim_name
+				print("  -> Mapped as DEATH")  # Debug: Setup only
+			# Map plain "_run" without shoot as RUN
+			elif (lower.ends_with("_run") or lower.ends_with("/run")) and "shoot" not in lower:
+				run_anim = anim_name
+				print("  -> Mapped as RUN")  # Debug: Setup only
+			# Map "runshoot" as sprint (faster run)
+			elif "shoot" in lower and "run" in lower:
+				# This is sprint/combat run, don't use it for regular run
+				print("  -> Skipped (runshoot for sprint/combat)")  # Debug: Setup only
+			elif "walk" in lower or "walkforward" in lower or "walkcycle" in lower or "walking" in lower:
+				walk_anim = anim_name
+				print("  -> Mapped as WALK")  # Debug: Setup only
+			elif "idle" in lower and "crouch" not in lower:
 				idle_anim = anim_name
-				# print("  -> Mapped as IDLE")  # Debug: Setup only
+				print("  -> Mapped as IDLE")  # Debug: Setup only
+			elif "breathing" in lower:
+				if idle_anim == "":
+					idle_anim = anim_name
+					print("  -> Mapped as IDLE (breathing)")  # Debug: Setup only
 
-		# print("\nFinal animation mapping:")  # Debug: Setup only
-		# print("  Idle: ", idle_anim)
-		# print("  Walk: ", walk_anim)
-		# print("  Run: ", run_anim)
-		# print("  Jump: ", jump_anim)
-		# print("  Crouch: ", crouch_anim)
-		# print("  Fall: ", fall_anim)
+		# If no walk animation found, use run animation for both walk and run
+		if walk_anim == "" and run_anim != "":
+			walk_anim = run_anim
+			print("  WARNING: No walk animation found, using run animation for walking")
+
+		print("\nFinal animation mapping:")  # Debug: Setup only
+		print("  Idle: ", idle_anim)
+		print("  Walk: ", walk_anim)
+		print("  Run: ", run_anim)
+		print("  Jump: ", jump_anim)
+		print("  Crouch: ", crouch_anim)
+		print("  Fall: ", fall_anim)
+		print("  Grapple: ", grapple_anim)
+		print("  Death: ", death_anim)
 
 		# Ensure we start with idle animation, not first in list
 		if idle_anim != "":
+			print("Starting with idle animation: ", idle_anim)
 			animation_player.play(idle_anim)
 			current_anim = idle_anim
-			# print("Starting with idle animation: ", idle_anim)  # Debug: Setup only
 		elif walk_anim != "":
+			print("No idle found, starting with walk: ", walk_anim)
 			animation_player.play(walk_anim)
 			current_anim = walk_anim
-			print("No idle found, starting with walk: ", walk_anim)
 		elif all_anims.size() > 0:
 			# Only use first animation as last resort
+			print("Using first available animation: ", all_anims[0])
 			animation_player.play(all_anims[0])
 			current_anim = all_anims[0]
-			print("Using first available animation: ", all_anims[0])
 	else:
 		print("❌ No AnimationPlayer found in character model")
 
@@ -276,17 +333,35 @@ func remove_position_tracks(animation: Animation, anim_name: String):
 
 func play_anim(anim_name: String, blend_time: float = 0.2):
 	if animation_player and anim_name != "":
-		if animation_player.has_animation(anim_name):
+		# Check if animation exists (handles both library/name and plain name formats)
+		var anim_exists = false
+		if "/" in anim_name:
+			# Library format: "LibraryName/AnimationName"
+			var parts = anim_name.split("/")
+			if parts.size() == 2:
+				var lib = animation_player.get_animation_library(parts[0])
+				if lib and lib.has_animation(parts[1]):
+					anim_exists = true
+		else:
+			# Plain name format
+			anim_exists = animation_player.has_animation(anim_name)
+
+		if anim_exists:
 			# Only restart animation if it's a different one
 			if anim_name != current_anim:
 				# Use smooth blending between animations
 				animation_player.play(anim_name, blend_time)
 				current_anim = anim_name
-				# print("Playing animation: ", anim_name)
+				print("Playing animation: ", anim_name)
+				print("  -> Current: ", animation_player.current_animation)
+				print("  -> Is playing: ", animation_player.is_playing())
+				print("  -> Speed scale: ", animation_player.speed_scale)
 			# If same animation and not playing, restart it (for looping)
 			elif not animation_player.is_playing():
 				animation_player.play(anim_name, blend_time)
 				print("Restarting animation: ", anim_name)
+				print("  -> Current: ", animation_player.current_animation)
+				print("  -> Is playing: ", animation_player.is_playing())
 		else:
 			print("Animation not found: ", anim_name)
 
@@ -334,6 +409,8 @@ func _physics_process(delta: float):
 	if is_grappling:
 		# ---- GRAPPLING HOOK MOVEMENT ----
 		handle_grapple_movement(delta)
+		update_animations()  # Update animations during grappling to show grapple animation
+		rotate_character()
 	else:
 		# ---- NORMAL MOVEMENT LOGIC ----
 		if not on_floor_now:
@@ -436,8 +513,6 @@ func handle_movement(delta: float):
 	if is_crouching:
 		target_speed = walk_speed * 0.5
 	elif Input.is_action_pressed("sprint") and has_input:
-		target_speed = sprint_speed
-	elif has_input and input_dir.length() > 0.7:
 		target_speed = run_speed
 
 	# Apply movement
@@ -456,8 +531,15 @@ func update_animations():
 
 	var target_anim = ""
 
-	# Priority order: Jump (active) -> Fall -> Crouch (moving/idle) -> Movement -> Idle
-	if is_jumping and jump_anim != "":
+	# Priority order: Grapple -> Jump (active) -> Fall -> Crouch (moving/idle) -> Movement -> Idle
+	if is_grappling and grapple_anim != "":
+		# Keep playing grapple animation while grappling
+		if not animation_player.is_playing() or current_anim != grapple_anim:
+			target_anim = grapple_anim
+		else:
+			# Let grapple animation continue playing
+			return
+	elif is_jumping and jump_anim != "":
 		# Keep playing jump animation while jumping
 		if not animation_player.is_playing() or current_anim != jump_anim:
 			target_anim = jump_anim
@@ -480,7 +562,8 @@ func update_animations():
 			# Fallback to regular idle if no crouch animations
 			target_anim = idle_anim
 	elif movement_speed > 0.2:
-		if movement_speed > 0.7 and run_anim != "":
+		# Use target_speed to determine animation (sprint uses run_speed)
+		if Input.is_action_pressed("sprint") and run_anim != "":
 			target_anim = run_anim
 		elif walk_anim != "":
 			target_anim = walk_anim
@@ -789,6 +872,19 @@ func _on_thirst_timer_timeout() -> void:
 func die() -> void:
 	"""Handle player death"""
 	print("Player died!")
+
+	# Play death animation if available
+	if death_anim != "" and animation_player:
+		animation_player.play(death_anim)
+		current_anim = death_anim
+		# Disable player controls during death
+		set_physics_process(false)
+		# Wait for animation to complete before respawning
+		if animation_player.has_animation(death_anim):
+			var anim_length = animation_player.get_animation(death_anim).length
+			await get_tree().create_timer(anim_length).timeout
+		set_physics_process(true)
+
 	# TODO: Implement death handling (respawn, game over, etc.)
 	# For now, just reset health
 	health = max_health

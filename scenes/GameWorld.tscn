@@ -1,15 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnd16r6dua5b5"]
+[gd_scene load_steps=6 format=3 uid="uid://cnd16r6dua5b5"]
 
-[ext_resource type="Script" uid="uid://to1mnlnoxf0y" path="res://scripts/GameWorld.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2"]
 [ext_resource type="Script" uid="uid://dgkcljrwp4v3k" path="res://scripts/environment/WeatherSystem.gd" id="3"]
 [ext_resource type="Script" uid="uid://cr1hhdwbh2ejq" path="res://scripts/ui/HUD.gd" id="4"]
 [ext_resource type="Script" uid="uid://duyiak64ebg2m" path="res://scripts/ui/InventoryUI.gd" id="5"]
-[ext_resource type="PackedScene" path="res://scenes/ui/AttributesUI.tscn" id="6"]
-[ext_resource type="PackedScene" path="res://scenes/ui/RoofDebugUI.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://ttributesui" path="res://scenes/ui/AttributesUI.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://vumvrpb4wru6" path="res://scenes/ui/RoofDebugUI.tscn" id="7"]
 
 [node name="GameWorld" type="Node2D"]
-script = ExtResource("1")
 
 [node name="Environment" type="Node2D" parent="."]
 
@@ -22,7 +19,17 @@ script = ExtResource("3")
 
 [node name="Resources" type="Node2D" parent="."]
 
-[node name="Player" parent="." instance=ExtResource("2")]
+[node name="Player" parent="."]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = null
 
 [node name="UI" type="CanvasLayer" parent="."]
 
