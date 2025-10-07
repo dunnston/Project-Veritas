@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ljuxbiy3ef1f"]
+
+[ext_resource type="PackedScene" uid="uid://42v1y413see" path="res://scenes/world/nodes/DamageArea.tscn" id="1_cueh8"]
+
+[node name="AcidPool" instance=ExtResource("1_cueh8")]
+damage_amount = 5

@@ -1,7 +1,7 @@
 [gd_scene load_steps=92 format=3 uid="uid://cowdyxaa0m4vf"]
 
-[ext_resource type="Script" uid="uid://dro765f4xjskh" path="res://scripts/world/AddCollisionsRuntime.gd" id="1_collision"]
-[ext_resource type="PackedScene" uid="uid://djyak4m7p8qrt" path="res://scenes/player/player_radiation_suit.tscn" id="1_player"]
+[ext_resource type="Script" path="res://scripts/world/AddCollisionsRuntime.gd" id="1_collision"]
+[ext_resource type="PackedScene" path="res://scenes/player/player_radiation_suit.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
 [ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="3_inventory"]
 [ext_resource type="PackedScene" uid="uid://4ecytrmjhsph" path="res://scenes/environment/Desert/SM_Env_Crater_01.tscn" id="3_mq3yy"]

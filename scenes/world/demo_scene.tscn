@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://c7xvh2m4qgtjk"]
+[gd_scene load_steps=41 format=3 uid="uid://c7xvh2m4qgtjk"]
 
 [ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_8gvxm"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
@@ -31,6 +31,7 @@
 [ext_resource type="Resource" uid="uid://dft8qw2nx4vbp" path="res://resources/animals/bear_template.tres" id="23_bear"]
 [ext_resource type="PackedScene" uid="uid://bifdxdevq18b6" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_01.tscn" id="24_347k4"]
 [ext_resource type="PackedScene" uid="uid://dkj2p2sy7ud5n" path="res://scenes/environment/Desert/SM_Env_Tree_Dead_02.tscn" id="25_pyxmy"]
+[ext_resource type="PackedScene" uid="uid://ljuxbiy3ef1f" path="res://scenes/world/nodes/acid_pool.tscn" id="32_w4crh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxywg"]
 sky_top_color = Color(0.0862745, 0.0392157, 0.117647, 1)
@@ -112,6 +113,7 @@ environment = SubResource("Environment_qvfmy")
 [node name="Ground" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0673656, -0.514797, 1.45961)
 mesh = SubResource("BoxMesh_7iyfv")
 surface_material_override/0 = SubResource("StandardMaterial3D_qe3jh")
 
@@ -324,3 +326,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.6377, 0, 0)
 
 [node name="SM_Env_Tree_Dead_02" parent="." instance=ExtResource("25_pyxmy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.91407, 0.654809, 23.9913)
+
+[node name="AcidPool" parent="." instance=ExtResource("32_w4crh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5694, 0.429926, 2.32663)
