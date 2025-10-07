@@ -15,7 +15,7 @@ func _ready():
 	print("Desert scene setup complete - 500m x 500m playable area")
 
 func setup_terrain_collision():
-	var ground_plane = get_node_or_null("Terrain/GroundPlane")
+	var ground_plane = get_node_or_null("Ground")
 	if not ground_plane:
 		push_error("Ground plane not found!")
 		return
@@ -53,7 +53,7 @@ func setup_wall(path: String, size: Vector3):
 		collision_shape.shape = box_shape
 
 func setup_desert_material():
-	var ground_mesh = get_node_or_null("Terrain/GroundPlane/MeshInstance3D")
+	var ground_mesh = get_node_or_null("Ground/MeshInstance3D")
 	if not ground_mesh:
 		push_error("Ground mesh not found!")
 		return

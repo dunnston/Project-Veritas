@@ -18,10 +18,10 @@ var transition_speed: float = 0.3  # Seconds for transition
 func _ready():
 	# Get reference to interior detection system - delay to ensure it's loaded
 	call_deferred("setup_interior_connection")
-	
-	# Create tween for smooth transitions (Godot 4 style)
-	tween = create_tween()
-	
+
+	# NOTE: Don't create tween here - only create when needed in transition_roof_visibility()
+	# Creating an empty tween causes "started with no Tweeners" error
+
 	# Scan for existing roofs
 	call_deferred("scan_existing_roofs")
 
