@@ -1,6 +1,5 @@
 [gd_scene load_steps=40 format=3 uid="uid://c7xvh2m4qgtjk"]
 
-[ext_resource type="PackedScene" uid="uid://bpl5jqugew5c7" path="res://scenes/player/player_procedural.tscn" id="1_8gvxm"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
 [ext_resource type="PackedScene" uid="uid://cnw4osdfk8fec" path="res://scenes/environment/Desert/SM_Prop_Bones_04.tscn" id="2_v46yn"]
 [ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="3_inventory"]
@@ -31,6 +30,7 @@
 [ext_resource type="Resource" uid="uid://dft8qw2nx4vbp" path="res://resources/animals/bear_template.tres" id="23_bear"]
 [ext_resource type="PackedScene" uid="uid://bifdxdevq18b6" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_01.tscn" id="24_347k4"]
 [ext_resource type="PackedScene" uid="uid://dkj2p2sy7ud5n" path="res://scenes/environment/Desert/SM_Env_Tree_Dead_02.tscn" id="25_pyxmy"]
+[ext_resource type="PackedScene" uid="uid://djyak4m7p8qrt" path="res://scenes/player/player_radiation_suit.tscn" id="32_w4crh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxywg"]
 sky_top_color = Color(0.0862745, 0.0392157, 0.117647, 1)
@@ -79,23 +79,19 @@ size = Vector3(100, 1, 100)
 [sub_resource type="Resource" id="Resource_kmphx"]
 script = ExtResource("17_8occt")
 item_id = "STONE"
-min_amount = 1
-max_amount = 3
-drop_chance = 1.0
 metadata/_custom_type_script = "uid://b5v7p3r1bhcci"
 
 [sub_resource type="Resource" id="Resource_lysxd"]
 script = ExtResource("17_8occt")
 item_id = "METAL_SCRAPS"
-min_amount = 1
 max_amount = 2
 drop_chance = 0.3
 metadata/_custom_type_script = "uid://b5v7p3r1bhcci"
 
 [node name="DemoScene" type="Node3D"]
 
-[node name="PlayerMixamo" parent="." instance=ExtResource("1_8gvxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.489066, 0)
+[node name="PlayerAnimated" parent="." instance=ExtResource("32_w4crh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="Environment" type="Node3D" parent="."]
 
