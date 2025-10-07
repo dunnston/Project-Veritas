@@ -32,17 +32,34 @@ func _ready() -> void:
 	add_to_group("hud")
 	
 	# Safely get node references
-	health_bar = get_node_or_null("StatsPanel/HealthBar")
-	energy_bar = get_node_or_null("StatsPanel/EnergyBar")
-	hunger_bar = get_node_or_null("StatsPanel/HungerBar")
-	thirst_bar = get_node_or_null("StatsPanel/ThirstBar")
-	radiation_bar = get_node_or_null("StatsPanel/RadiationBar")
-	health_label = get_node_or_null("StatsPanel/HealthLabel")
-	energy_label = get_node_or_null("StatsPanel/EnergyLabel")
-	hunger_label = get_node_or_null("StatsPanel/HungerLabel")
-	thirst_label = get_node_or_null("StatsPanel/ThirstLabel")
-	radiation_label = get_node_or_null("StatsPanel/RadiationLabel")
-	radiation_status_label = get_node_or_null("StatsPanel/RadiationStatusLabel")
+	print("DEBUG: Looking for UI elements...")
+	var stats_panel = get_node_or_null("StatsPanel")
+	if stats_panel:
+		print("  StatsPanel found, exploring hierarchy:")
+		for child in stats_panel.get_children():
+			print("    - %s (%s)" % [child.name, child.get_class()])
+			if child is VBoxContainer:
+				print("      VBoxContainer children:")
+				for grandchild in child.get_children():
+					print("        - %s (%s)" % [grandchild.name, grandchild.get_class()])
+	else:
+		print("  ERROR: StatsPanel not found!")
+
+	# Try the nested path with VBoxContainer
+	health_bar = get_node_or_null("StatsPanel/VBoxContainer/HealthBar")
+	energy_bar = get_node_or_null("StatsPanel/VBoxContainer/EnergyBar")
+	hunger_bar = get_node_or_null("StatsPanel/VBoxContainer/HungerBar")
+	thirst_bar = get_node_or_null("StatsPanel/VBoxContainer/ThirstBar")
+	radiation_bar = get_node_or_null("StatsPanel/VBoxContainer/RadiationBar")
+	health_label = get_node_or_null("StatsPanel/VBoxContainer/HealthLabel")
+	energy_label = get_node_or_null("StatsPanel/VBoxContainer/EnergyLabel")
+	hunger_label = get_node_or_null("StatsPanel/VBoxContainer/HungerLabel")
+	thirst_label = get_node_or_null("StatsPanel/VBoxContainer/ThirstLabel")
+	radiation_label = get_node_or_null("StatsPanel/VBoxContainer/RadiationLabel")
+	radiation_status_label = get_node_or_null("StatsPanel/VBoxContainer/RadiationStatusLabel")
+
+	print("  health_bar found: %s" % (health_bar != null))
+	print("  health_label found: %s" % (health_label != null))
 	
 	# Environmental stats are now in the scene file, no need to create programmatically
 	# create_environmental_stats_display()
@@ -79,12 +96,25 @@ func _ready() -> void:
 func connect_signals() -> void:
 	if GameManager.player_node:
 		print("DEBUG: HUD connecting to player signals...")
-		GameManager.player_node.health_changed.connect(_on_health_changed)
-		GameManager.player_node.energy_changed.connect(_on_energy_changed)
-		GameManager.player_node.hunger_changed.connect(_on_hunger_changed)
-		GameManager.player_node.thirst_changed.connect(_on_thirst_changed)
+		print("  Player node: %s" % GameManager.player_node.name)
+		print("  Player has health_changed signal: %s" % GameManager.player_node.has_signal("health_changed"))
+
+		# Check if already connected to avoid duplicate connections
+		if not GameManager.player_node.health_changed.is_connected(_on_health_changed):
+			GameManager.player_node.health_changed.connect(_on_health_changed)
+			print("  ✓ Connected health_changed signal")
+		else:
+			print("  Already connected to health_changed signal")
+
+		if not GameManager.player_node.energy_changed.is_connected(_on_energy_changed):
+			GameManager.player_node.energy_changed.connect(_on_energy_changed)
+		if not GameManager.player_node.hunger_changed.is_connected(_on_hunger_changed):
+			GameManager.player_node.hunger_changed.connect(_on_hunger_changed)
+		if not GameManager.player_node.thirst_changed.is_connected(_on_thirst_changed):
+			GameManager.player_node.thirst_changed.connect(_on_thirst_changed)
 		if GameManager.player_node.has_signal("radiation_changed"):
-			GameManager.player_node.radiation_changed.connect(_on_radiation_changed)
+			if not GameManager.player_node.radiation_changed.is_connected(_on_radiation_changed):
+				GameManager.player_node.radiation_changed.connect(_on_radiation_changed)
 		print("DEBUG: HUD signals connected successfully")
 	else:
 		print("DEBUG: HUD cannot connect - GameManager.player_node is null, will retry...")
@@ -176,10 +206,16 @@ func update_time_display() -> void:
 		day_label.text = TimeManager.get_day_string()
 
 func _on_health_changed(new_health: int) -> void:
+	print("HUD: _on_health_changed called with value: %d" % new_health)
+	print("  health_bar exists: %s" % (health_bar != null))
 	if health_bar:
+		print("  Setting health_bar.value to %d (current: %d)" % [new_health, health_bar.value])
 		health_bar.value = new_health
+		print("  health_bar.value is now: %d" % health_bar.value)
 	if health_label and GameManager.player_node:
-		health_label.text = "Health: %d/%d" % [new_health, GameManager.player_node.max_health]
+		var text = "Health: %d/%d" % [new_health, GameManager.player_node.max_health]
+		print("  Setting health_label.text to: %s" % text)
+		health_label.text = text
 
 func _on_energy_changed(new_energy: int) -> void:
 	if energy_bar:
