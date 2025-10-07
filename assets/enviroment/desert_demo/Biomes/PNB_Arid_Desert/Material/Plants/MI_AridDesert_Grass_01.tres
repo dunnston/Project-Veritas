@@ -1,12 +1,12 @@
 [gd_resource type = "ShaderMaterial" load_steps=7 format=3 uid="uid://bwq5q0w641le0"]
 
-[ext_resource type="Shader" uid="uid://cnrvby56pxuq8" path="res://Shaders/MI_AridDesert_Grass_01.tres" id="7_nkgiw"]
-[ext_resource type="Texture2D" uid="uid://c5rgws85mq3r" path="res://Biomes/PNB_Arid_Desert/Textures/T_AridDesert_Grass_01_normals.png" id="1_b8fhu"]
-[ext_resource type="Texture2D" uid="uid://bi1skua326bel" path="res://Biomes/PNB_Arid_Desert/Textures/T_PolygonNatureBiomesS2_AridDesert_01.png" id="2_xtv8a"]
-[ext_resource type="Texture2D" uid="uid://dbylehlybrug8" path="res://Biomes/PNB_Arid_Desert/Textures/Emissive/T_PolygonNatureBiomesS2_AridDesert_Emissive_01_A.png" id="3_dlll2"]
-[ext_resource type="Texture2D" uid="uid://di70ie7hgvnvm" path="res://Biomes/PNB_Arid_Desert/Textures/T_AridDesert_Grass_01.png" id="4_faavh"]
-[ext_resource type="Texture2D" uid="uid://bi1skua326bel" path="res://Biomes/PNB_Arid_Desert/Textures/T_PolygonNatureBiomesS2_AridDesert_01.png" id="5_xtv8a"]
-[ext_resource type="Texture2D" uid="uid://0j7b3ahy5jow" path="res://Biomes/PNB_Core/Textures/T_Noise_Big.png" id="6_cao0a"]
+[ext_resource type="Shader" uid="uid://cnrvby56pxuq8" path="res://assets/enviroment/desert_demo/Shaders/MI_AridDesert_Grass_01.tres" id="7_nkgiw"]
+[ext_resource type="Texture2D" uid="uid://c5rgws85mq3r" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_AridDesert_Grass_01_normals.png" id="1_b8fhu"]
+[ext_resource type="Texture2D" uid="uid://bi1skua326bel" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_PolygonNatureBiomesS2_AridDesert_01.png" id="2_xtv8a"]
+[ext_resource type="Texture2D" uid="uid://dbylehlybrug8" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/Emissive/T_PolygonNatureBiomesS2_AridDesert_Emissive_01_A.png" id="3_dlll2"]
+[ext_resource type="Texture2D" uid="uid://di70ie7hgvnvm" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_AridDesert_Grass_01.png" id="4_faavh"]
+[ext_resource type="Texture2D" uid="uid://bi1skua326bel" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_PolygonNatureBiomesS2_AridDesert_01.png" id="5_xtv8a"]
+[ext_resource type="Texture2D" uid="uid://0j7b3ahy5jow" path="res://assets/enviroment/desert_demo/Biomes/PNB_Core/Textures/T_Noise_Big.png" id="6_cao0a"]
 
 [resource]
 resource_name = "MI_AridDesert_Grass_01"

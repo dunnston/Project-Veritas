@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=270 format=3 uid="uid://dian4y88qur3s"]
 
-[ext_resource type="Texture2D" uid="uid://c0q4ij6sxyhf0" path="res://Biomes/PNB_Core/Textures/T_Noise_Big.png" id="1_cao0a"]
+[ext_resource type="Texture2D" uid="uid://c0q4ij6sxyhf0" path="res://assets/enviroment/desert/Biomes/PNB_Core/Textures/T_Noise_Big.png" id="1_cao0a"]
 
 [sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_dgcrcl4rwkmkr"]
 size = Vector2(980, 1340)

@@ -1,7 +1,7 @@
 [gd_resource type="VisualShader" load_steps=12 format=3 uid="uid://dofq5lrhku16h"]
 
-[ext_resource type="Texture2D" uid="uid://dqbbptp3nw1hc" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_PolygonNatureBiomesS2_AridDesert_01.png" id="1_xtv8a"]
-[ext_resource type="Texture2D" uid="uid://dkc2u5tsomkv6" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/Emissive/T_PolygonNatureBiomesS2_AridDesert_Emissive_04_C.png" id="2_bll3x"]
+[ext_resource type="Texture2D" uid="uid://daoxgq2i5xap3" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_PolygonNatureBiomesS2_AridDesert_01.png" id="1_xtv8a"]
+[ext_resource type="Texture2D" uid="uid://ubm34tluh7eb" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/Emissive/T_PolygonNatureBiomesS2_AridDesert_Emissive_04_C.png" id="2_bll3x"]
 
 [sub_resource type="VisualShaderNodeClamp" id="VisualShaderNodeClamp_dbqdc4krgj0h3"]
 
@@ -92,7 +92,7 @@ return 2.0 * fract(fract(p)*4375.55) -1.;
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
 
 uniform sampler2D tex_frg_2 : source_color;
 uniform float Metallic = 0.0;
@@ -200,7 +200,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-523.783, 120.943)
 modes/cull = 2
 flags/depth_prepass_alpha = true
 nodes/vertex/0/position = Vector2(0, 0)

@@ -1,7 +1,7 @@
 [gd_resource type = "ShaderMaterial" load_steps=2 format=3 uid="uid://bl0n4qcn3kvhi"]
 
-[ext_resource type="Shader" uid="uid://0wrox13ywyfl" path="res://Shaders/M_Cloud.tres" id="2_ivrxj"]
-[ext_resource type="Texture2D" uid="uid://cswj8hhifvqca" path="res://Biomes/PNB_Core/Textures/T_Noise_Big_02.png" id="1_3jscw"]
+[ext_resource type="Shader" uid="uid://0wrox13ywyfl" path="res://assets/enviroment/desert/Shaders/M_Cloud.tres" id="2_ivrxj"]
+[ext_resource type="Texture2D" uid="uid://cswj8hhifvqca" path="res://assets/enviroment/desert/Biomes/PNB_Core/Textures/T_Noise_Big_02.png" id="1_3jscw"]
 
 [resource]
 resource_name = "M_Cloud"
