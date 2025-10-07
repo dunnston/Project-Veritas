@@ -1,6 +1,6 @@
 [gd_resource type = "ShaderMaterial" load_steps=1 format=3 uid="uid://cj7ji5y81sntu"]
 
-[ext_resource type="Shader" uid="uid://dxvb6k1felvp0" path="res://Shaders/MI_SulphurPool_01_B.tres" id="1_b2lx1"]
+[ext_resource type="Shader" uid="uid://dxvb6k1felvp0" path="res://assets/enviroment/desert_demo/Shaders/MI_SulphurPool_01_B.tres" id="1_b2lx1"]
 
 [resource]
 resource_name = "MI_SulphurPool_01_B"

@@ -1,10 +1,10 @@
 [gd_resource type="VisualShader" load_steps=30 format=3 uid="uid://dpb2fsbnwrwhi"]
 
-[ext_resource type="Texture2D" uid="uid://bii03k06j60p7" path="res://Biomes/PNB_Arid_Desert/Textures/T_Lavawave_Hot.png" id="1_d0j40"]
+[ext_resource type="Texture2D" uid="uid://bii03k06j60p7" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Textures/T_Lavawave_Hot.png" id="1_d0j40"]
 
-[ext_resource type="Texture2D" uid="uid://du4kmcm3vg0yw" path="res://Biomes/PNB_Arid_Desert/Textures/T_Lavawave_Hot_Emissive.png" id="2_cpxxd"]
+[ext_resource type="Texture2D" uid="uid://du4kmcm3vg0yw" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Textures/T_Lavawave_Hot_Emissive.png" id="2_cpxxd"]
 
-[ext_resource type="Texture2D" uid="uid://yfmcg5e51jq0" path="res://Biomes/PNB_Arid_Desert/Textures/T_Lavawave_normals.png" id="3_cqa8u"]
+[ext_resource type="Texture2D" uid="uid://yfmcg5e51jq0" path="res://assets/enviroment/desert/Biomes/PNB_Arid_Desert/Textures/T_Lavawave_normals.png" id="3_cqa8u"]
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_c23v674ffjdka"]
 texture = ExtResource("1_d0j40")

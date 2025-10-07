@@ -1,6 +1,6 @@
 [gd_resource type = "ShaderMaterial" load_steps=1 format=3 uid="uid://cfttxe5h8kkas"]
 
-[ext_resource type="Shader" uid="uid://bnswlgf84d0cg" path="res://Shaders/M_Skybox_01.tres" id="1_cpil8"]
+[ext_resource type="Shader" uid="uid://bnswlgf84d0cg" path="res://assets/enviroment/desert_demo/Shaders/M_Skybox_01.tres" id="1_cpil8"]
 
 [resource]
 resource_name = "M_Skybox_01"

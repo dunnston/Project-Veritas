@@ -1,9 +1,9 @@
 [gd_resource type = "ShaderMaterial" load_steps=4 format=3 uid="uid://dnqjcwecuhu5i"]
 
-[ext_resource type="Shader" uid="uid://caweg55snxdgh" path="res://Shaders/M_Lavarock_Hot.tres" id="4_cvi5f"]
-[ext_resource type="Texture2D" uid="uid://chx38wnjnymxm" path="res://Biomes/PNB_Arid_Desert/Textures/T_Lavawave_FlipTest_Normals.png" id="1_by1l6"]
-[ext_resource type="Texture2D" uid="uid://bpw1uet6fd7v4" path="res://Biomes/PNB_Arid_Desert/Textures/T_Lavawave_FlipTest_Emissive.png" id="2_d1emh"]
-[ext_resource type="Texture2D" uid="uid://dj53frra6qhdd" path="res://Biomes/PNB_Arid_Desert/Textures/T_Lavawave_FlipTest.png" id="3_ct5xl"]
+[ext_resource type="Shader" uid="uid://caweg55snxdgh" path="res://assets/enviroment/desert_demo/Shaders/M_Lavarock_Hot.tres" id="4_cvi5f"]
+[ext_resource type="Texture2D" uid="uid://chx38wnjnymxm" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_Lavawave_FlipTest_Normals.png" id="1_by1l6"]
+[ext_resource type="Texture2D" uid="uid://bpw1uet6fd7v4" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_Lavawave_FlipTest_Emissive.png" id="2_d1emh"]
+[ext_resource type="Texture2D" uid="uid://dj53frra6qhdd" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_Lavawave_FlipTest.png" id="3_ct5xl"]
 
 [resource]
 resource_name = "M_Lavarock_Hot"

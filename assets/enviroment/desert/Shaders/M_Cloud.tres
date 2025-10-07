@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=24 format=3 uid="uid://0wrox13ywyfl"]
 
-[ext_resource type="Texture2D" uid="uid://cswj8hhifvqca" path="res://Biomes/PNB_Core/Textures/T_Noise_Big_02.png" id="1_3jscw"]
+[ext_resource type="Texture2D" uid="uid://cswj8hhifvqca" path="res://assets/enviroment/desert/Biomes/PNB_Core/Textures/T_Noise_Big_02.png" id="1_3jscw"]
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_di66svhuguyrn"]
 operator = 2

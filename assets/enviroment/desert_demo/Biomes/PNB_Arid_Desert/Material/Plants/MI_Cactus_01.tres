@@ -1,12 +1,12 @@
 [gd_resource type = "ShaderMaterial" load_steps=7 format=3 uid="uid://bb00a0b8wqedo"]
 
-[ext_resource type="Shader" uid="uid://ctrp203guqbpg" path="res://Shaders/MI_Cactus_01.tres" id="7_ecg0d"]
-[ext_resource type="Texture2D" uid="uid://wuk8kobcxsh3" path="res://Biomes/PNB_Arid_Desert/Textures/Cards/T_Cactus_01_normals.png" id="1_iqnia"]
-[ext_resource type="Texture2D" uid="uid://bi1skua326bel" path="res://Biomes/PNB_Arid_Desert/Textures/T_PolygonNatureBiomesS2_AridDesert_01.png" id="2_xtv8a"]
-[ext_resource type="Texture2D" uid="uid://dbylehlybrug8" path="res://Biomes/PNB_Arid_Desert/Textures/Emissive/T_PolygonNatureBiomesS2_AridDesert_Emissive_01_A.png" id="3_dlll2"]
-[ext_resource type="Texture2D" uid="uid://cb5e1x2hjjhwf" path="res://Biomes/PNB_Arid_Desert/Textures/Cards/T_Cactus_01.png" id="4_dr802"]
-[ext_resource type="Texture2D" uid="uid://bi1skua326bel" path="res://Biomes/PNB_Arid_Desert/Textures/T_PolygonNatureBiomesS2_AridDesert_01.png" id="5_xtv8a"]
-[ext_resource type="Texture2D" uid="uid://0j7b3ahy5jow" path="res://Biomes/PNB_Core/Textures/T_Noise_Big.png" id="6_cao0a"]
+[ext_resource type="Shader" uid="uid://ctrp203guqbpg" path="res://assets/enviroment/desert_demo/Shaders/MI_Cactus_01.tres" id="7_ecg0d"]
+[ext_resource type="Texture2D" uid="uid://wuk8kobcxsh3" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/Cards/T_Cactus_01_normals.png" id="1_iqnia"]
+[ext_resource type="Texture2D" uid="uid://bi1skua326bel" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_PolygonNatureBiomesS2_AridDesert_01.png" id="2_xtv8a"]
+[ext_resource type="Texture2D" uid="uid://dbylehlybrug8" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/Emissive/T_PolygonNatureBiomesS2_AridDesert_Emissive_01_A.png" id="3_dlll2"]
+[ext_resource type="Texture2D" uid="uid://cb5e1x2hjjhwf" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/Cards/T_Cactus_01.png" id="4_dr802"]
+[ext_resource type="Texture2D" uid="uid://bi1skua326bel" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_PolygonNatureBiomesS2_AridDesert_01.png" id="5_xtv8a"]
+[ext_resource type="Texture2D" uid="uid://0j7b3ahy5jow" path="res://assets/enviroment/desert_demo/Biomes/PNB_Core/Textures/T_Noise_Big.png" id="6_cao0a"]
 
 [resource]
 resource_name = "MI_Cactus_01"

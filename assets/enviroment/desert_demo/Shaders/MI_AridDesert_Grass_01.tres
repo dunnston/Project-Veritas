@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=259 format=3 uid="uid://cnrvby56pxuq8"]
 
-[ext_resource type="Texture2D" uid="uid://dpnq6ksrfxkf2" path="res://assets/enviroment/desert_demo/Biomes/PNB_Core/Textures/T_Noise_Big.png" id="1_cao0a"]
+[ext_resource type="Texture2D" uid="uid://ba7kc3rip2itb" path="res://assets/enviroment/desert_demo/Biomes/PNB_Core/Textures/T_Noise_Big.png" id="1_cao0a"]
 
 [sub_resource type="VisualShaderNodeIf" id="VisualShaderNodeIf_dgdpue6eorfgx"]
 default_input_values = [0, 0.0, 1, 0.0, 2, 0.01, 3, Vector3(0, 0, 0), 4, Vector3(0, 0, 0), 5, Vector3(0, 0, 0)]
@@ -1143,7 +1143,7 @@ default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1)]
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
 
 uniform float Wind_Speed = 0.40000000596046;
 uniform float Wind_Intensity = 0.15000000596046;
@@ -2731,7 +2731,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-523.783, 120.943)
 modes/cull = 2
 flags/depth_prepass_alpha = true
 nodes/vertex/0/position = Vector2(0, 0)

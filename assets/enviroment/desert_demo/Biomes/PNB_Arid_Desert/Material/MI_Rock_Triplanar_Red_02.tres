@@ -1,10 +1,10 @@
 [gd_resource type = "ShaderMaterial" load_steps=5 format=3 uid="uid://c85jba3fonvsu"]
 
-[ext_resource type="Shader" uid="uid://6n10sdx1vopv" path="res://Shaders/MI_Rock_Triplanar_Red_02.tres" id="5_jsock"]
-[ext_resource type="Texture2D" uid="uid://vslnm07n01ti" path="res://Biomes/PNB_Arid_Desert/Textures/T_RockWall_Normals_01.png" id="1_lvh62"]
-[ext_resource type="Texture2D" uid="uid://d4j4os7swqu1m" path="res://Biomes/PNB_Arid_Desert/Textures/T_Ground_Normals.png" id="2_csr2s"]
-[ext_resource type="Texture2D" uid="uid://di217yl1pigo1" path="res://Biomes/PNB_Arid_Desert/Textures/T_Rock_Texture_02.png" id="3_cyapw"]
-[ext_resource type="Texture2D" uid="uid://biya48fpbsa08" path="res://Biomes/PNB_Arid_Desert/Textures/T_Dirt_Texture_Red_01.png" id="4_c0ns2"]
+[ext_resource type="Shader" uid="uid://6n10sdx1vopv" path="res://assets/enviroment/desert_demo/Shaders/MI_Rock_Triplanar_Red_02.tres" id="5_jsock"]
+[ext_resource type="Texture2D" uid="uid://vslnm07n01ti" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_RockWall_Normals_01.png" id="1_lvh62"]
+[ext_resource type="Texture2D" uid="uid://d4j4os7swqu1m" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_Ground_Normals.png" id="2_csr2s"]
+[ext_resource type="Texture2D" uid="uid://di217yl1pigo1" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_Rock_Texture_02.png" id="3_cyapw"]
+[ext_resource type="Texture2D" uid="uid://biya48fpbsa08" path="res://assets/enviroment/desert_demo/Biomes/PNB_Arid_Desert/Textures/T_Dirt_Texture_Red_01.png" id="4_c0ns2"]
 
 [resource]
 resource_name = "MI_Rock_Triplanar_Red_02"
