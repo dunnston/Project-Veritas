@@ -28,8 +28,10 @@ func _ready() -> void:
 		spawn_initial_nodes()
 
 func _process(_delta: float) -> void:
-	if Engine.is_editor_hint() and show_spawn_area:
-		queue_redraw()
+	# NOTE: queue_redraw() is a 2D method (Control/CanvasItem)
+	# For 3D debug drawing, we would need to use ImmediateMesh or debug draw tools
+	# Disabled for now since _draw() isn't implemented for 3D anyway
+	pass
 
 ## Spawn initial set of resource nodes
 func spawn_initial_nodes() -> void:
