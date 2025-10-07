@@ -1,6 +1,6 @@
 [gd_scene load_steps=40 format=3 uid="uid://di5sdik0ckdd5"]
 
-[ext_resource type="PackedScene" path="res://scenes/player/player_radiation_godot.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/player/player_radiation_suit.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://cnw4osdfk8fec" path="res://scenes/environment/Desert/SM_Prop_Bones_04.tscn" id="2_ugp8u"]
 [ext_resource type="PackedScene" uid="uid://bgqpnrf0u5vw5" path="res://scenes/environment/Desert/SM_Prop_Solar_Panels_01.tscn" id="3_adqnk"]
 [ext_resource type="PackedScene" uid="uid://beb2sdugovcmy" path="res://scenes/environment/Desert/SM_Env_Bush_Bramble_01.tscn" id="4_n0np3"]

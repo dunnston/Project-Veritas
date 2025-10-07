@@ -1,9 +1,9 @@
 extends CharacterBody3D
 
-@export var walk_speed: float = 3.0
-@export var run_speed: float = 6.0
-@export var sprint_speed: float = 9.0
-@export var jump_velocity: float = 8.0
+@export var walk_speed: float = 6.0
+@export var run_speed: float = 9.0
+@export var sprint_speed: float = 12.0
+@export var jump_velocity: float = 6.5
 @export var mouse_sensitivity: float = 0.002
 
 @export_group("Interaction Settings")
@@ -98,6 +98,8 @@ var jump_anim: String = ""
 var crouch_anim: String = ""
 var crouch_walk_anim: String = ""
 var fall_anim: String = ""
+var grapple_anim: String = ""
+var death_anim: String = ""
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -207,12 +209,12 @@ func setup_animations():
 			if animation:
 				var lower = anim_name.to_lower()
 				# Set looping for continuous animations
-				if "idle" in lower or "walk" in lower or "run" in lower or "crouch" in lower:
+				if "idle" in lower or "walk" in lower or "run" in lower or "crouch" in lower or "grapple" in lower or "hook" in lower:
 					animation.loop_mode = Animation.LOOP_LINEAR
 					# print("Set ", anim_name, " to loop")  # Debug: Setup only
 					# Remove position tracks that cause jumping
 					remove_position_tracks(animation, anim_name)
-				elif "jump" in lower:
+				elif "jump" in lower or "death" in lower or "die" in lower:
 					animation.loop_mode = Animation.LOOP_NONE
 					# print("Set ", anim_name, " to play once")  # Debug: Setup only
 
@@ -235,6 +237,12 @@ func setup_animations():
 			elif "fall" in lower:
 				fall_anim = anim_name
 				print("  -> Mapped as FALL")  # Debug: Setup only
+			elif "grapple" in lower or "grappling" in lower or "hook" in lower:
+				grapple_anim = anim_name
+				print("  -> Mapped as GRAPPLE")  # Debug: Setup only
+			elif "death" in lower or "die" in lower or "dead" in lower:
+				death_anim = anim_name
+				print("  -> Mapped as DEATH")  # Debug: Setup only
 			# Map plain "_run" without shoot as RUN
 			elif (lower.ends_with("_run") or lower.ends_with("/run")) and "shoot" not in lower:
 				run_anim = anim_name
@@ -266,6 +274,8 @@ func setup_animations():
 		print("  Jump: ", jump_anim)
 		print("  Crouch: ", crouch_anim)
 		print("  Fall: ", fall_anim)
+		print("  Grapple: ", grapple_anim)
+		print("  Death: ", death_anim)
 
 		# Ensure we start with idle animation, not first in list
 		if idle_anim != "":
@@ -399,6 +409,8 @@ func _physics_process(delta: float):
 	if is_grappling:
 		# ---- GRAPPLING HOOK MOVEMENT ----
 		handle_grapple_movement(delta)
+		update_animations()  # Update animations during grappling to show grapple animation
+		rotate_character()
 	else:
 		# ---- NORMAL MOVEMENT LOGIC ----
 		if not on_floor_now:
@@ -519,8 +531,15 @@ func update_animations():
 
 	var target_anim = ""
 
-	# Priority order: Jump (active) -> Fall -> Crouch (moving/idle) -> Movement -> Idle
-	if is_jumping and jump_anim != "":
+	# Priority order: Grapple -> Jump (active) -> Fall -> Crouch (moving/idle) -> Movement -> Idle
+	if is_grappling and grapple_anim != "":
+		# Keep playing grapple animation while grappling
+		if not animation_player.is_playing() or current_anim != grapple_anim:
+			target_anim = grapple_anim
+		else:
+			# Let grapple animation continue playing
+			return
+	elif is_jumping and jump_anim != "":
 		# Keep playing jump animation while jumping
 		if not animation_player.is_playing() or current_anim != jump_anim:
 			target_anim = jump_anim
@@ -853,6 +872,19 @@ func _on_thirst_timer_timeout() -> void:
 func die() -> void:
 	"""Handle player death"""
 	print("Player died!")
+
+	# Play death animation if available
+	if death_anim != "" and animation_player:
+		animation_player.play(death_anim)
+		current_anim = death_anim
+		# Disable player controls during death
+		set_physics_process(false)
+		# Wait for animation to complete before respawning
+		if animation_player.has_animation(death_anim):
+			var anim_length = animation_player.get_animation(death_anim).length
+			await get_tree().create_timer(anim_length).timeout
+		set_physics_process(true)
+
 	# TODO: Implement death handling (respawn, game over, etc.)
 	# For now, just reset health
 	health = max_health
