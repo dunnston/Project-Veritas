@@ -1,0 +1,8 @@
+[gd_resource type = "ShaderMaterial" load_steps=1 format=3 uid="uid://dwmn22ukynbsr"]
+
+[ext_resource type="Shader" uid="uid://detbij413kwog" path="res://Shaders/M_SimpleSkyDome.tres" id="1_2f80j"]
+
+[resource]
+resource_name = "M_SimpleSkyDome"
+render_priority = 0
+shader = ExtResource("1_2f80j")

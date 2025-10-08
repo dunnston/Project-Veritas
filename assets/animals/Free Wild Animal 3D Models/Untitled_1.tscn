@@ -1,0 +1,307 @@
+[gd_scene load_steps=13 format=3 uid="uid://cqca8p483ogt3"]
+
+[ext_resource type="PackedScene" uid="uid://bsi6unpjboqe3" path="res://Prefabs/SM_SkySphere.tscn" id="1_t6ibx"]
+[ext_resource type="PackedScene" uid="uid://cejhmhq815yt0" path="res://Prefabs/bear.tscn" id="2_dtbpa"]
+[ext_resource type="PackedScene" uid="uid://d4mcuqxl6x22t" path="res://Prefabs/boar.tscn" id="3_clowa"]
+[ext_resource type="PackedScene" uid="uid://b5odbtupdamvl" path="res://Prefabs/deer_1.tscn" id="4_c1hg2"]
+[ext_resource type="PackedScene" uid="uid://dpk1vwycoaxe" path="res://Prefabs/deer_2.tscn" id="5_c1hg0"]
+[ext_resource type="PackedScene" uid="uid://pxkl7tnefmu" path="res://Prefabs/fox.tscn" id="6_c2fve"]
+[ext_resource type="PackedScene" uid="uid://dvwv68x6wc0je" path="res://Prefabs/hedgehog.tscn" id="7_c7hk4"]
+[ext_resource type="PackedScene" uid="uid://kkknqaryd8qb" path="res://Prefabs/owl.tscn" id="8_1vtos"]
+[ext_resource type="PackedScene" uid="uid://n0me7bf37go8" path="res://Prefabs/rabbit.tscn" id="9_db4ln"]
+[ext_resource type="PackedScene" uid="uid://r08v7b4rv2r1" path="res://Prefabs/squirrel.tscn" id="10_5cm5p"]
+[ext_resource type="PackedScene" uid="uid://bpti1oauu62or" path="res://Prefabs/wolf.tscn" id="11_dnr62"]
+[ext_resource type="PackedScene" uid="uid://dbbeq4jwg3egn" path="res://WorldEnvironment.tscn" id="12_dx7tv"]
+
+[node name="Root" type="Node3D"]
+
+[node name="WorldSettings-1" type="Node3D" parent="." ]
+
+
+[node name="Brush" type="Node3D" parent="." ]
+
+
+[node name="WorldDataLayers-1" type="Node3D" parent="." ]
+
+
+[node name="DefaultPhysicsVolume0" type="Node3D" parent="." ]
+
+
+[node name="GameplayDebuggerPlayerManager0" type="Node3D" parent="." ]
+
+
+[node name="Actor" type="Node3D" parent="." ]
+
+
+[node name="WorldPartitionMiniMap" type="Node3D" parent="." ]
+
+
+[node name="DirectionalLight" type="Node3D" parent="." ]
+
+
+[node name="LightComponent0" type="Node3D" parent="DirectionalLight" ]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="DirectionalLight/LightComponent0" ]
+transform = Transform3D(0.716393, 0.075596, -0.693589, 0.365171, -0.887700, 0.280425, -0.594500, -0.454173, -0.663548, 0.000000, 0.000000, -0.000000)
+shadow_enabled = true
+light_intensity_lumens = 60000.000000
+light_color = Color(1.000000, 1.000000, 1.000000, 1.000000)
+light_energy = 1.000000
+[node name="SM_SkySphere"  parent="." instance=ExtResource("1_t6ibx")]
+transform = Transform3D(400.000000, 0.000000, 0.000000, 0.000000, 400.000000, -0.000000, 0.000000, 0.000000, 400.000000, 0.000000, 0.000000, -0.000000)
+[node name="SkyAtmosphere" type="Node3D" parent="." ]
+
+
+[node name="SkyLight" type="Node3D" parent="." ]
+
+
+[node name="PlayerStart" type="Node3D" parent="." ]
+
+
+[node name="ExponentialHeightFog" type="Node3D" parent="." ]
+
+
+[node name="VolumetricCloud" type="Node3D" parent="." ]
+
+
+[node name="Landscape" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_3_2_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_3_3_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_4_3_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_3_5_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_3_4_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_4_5_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_4_4_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_0_0_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_0_1_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_1_0_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_1_1_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_0_2_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_0_3_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_1_2_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_1_3_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_2_0_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_2_1_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_3_0_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_3_1_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_2_2_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_2_3_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_5_0_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_4_0_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_4_1_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_5_1_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_6_0_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_6_1_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_5_2_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_4_2_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_5_3_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_6_2_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_6_3_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_7_0_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_7_1_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_7_2_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_7_3_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_0_5_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_0_4_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_0_6_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_1_5_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_1_4_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_1_6_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_0_7_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_1_7_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_2_4_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_2_5_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_2_6_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_3_6_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_2_7_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_3_7_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_5_5_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_5_4_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_4_6_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_5_6_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_6_4_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_6_5_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_6_6_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_4_7_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_5_7_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_6_7_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_7_4_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_7_5_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_7_6_0" type="Node3D" parent="." ]
+
+
+[node name="LandscapeStreamingProxy_7_7_0" type="Node3D" parent="." ]
+
+
+[node name="AbstractNavData-Default" type="Node3D" parent="." ]
+
+
+[node name="bear"  parent="." instance=ExtResource("2_dtbpa")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 0.000000, 0.000000, -0.000000)
+[node name="boar"  parent="." instance=ExtResource("3_clowa")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 1.685872, 0.000000, -0.000000)
+[node name="deer_1"  parent="." instance=ExtResource("4_c1hg2")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 3.018211, 0.000000, -0.000000)
+[node name="deer_2"  parent="." instance=ExtResource("5_c1hg0")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 4.301644, 0.000000, -0.000000)
+[node name="fox"  parent="." instance=ExtResource("6_c2fve")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 5.637775, 0.000000, -0.000000)
+[node name="hedgehog"  parent="." instance=ExtResource("7_c7hk4")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 6.521936, 0.000000, -0.000000)
+[node name="owl"  parent="." instance=ExtResource("8_1vtos")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 6.966870, 0.000000, -0.000000)
+[node name="rabbit"  parent="." instance=ExtResource("9_db4ln")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 7.653862, 0.000000, -0.000000)
+[node name="squirrel"  parent="." instance=ExtResource("10_5cm5p")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 8.401028, 0.000000, -0.000000)
+[node name="wolf"  parent="." instance=ExtResource("11_dnr62")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 9.497444, 0.000000, -0.000000)
+[node name="bear"  parent="." instance=ExtResource("2_dtbpa")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 0.000000, 0.000000, -0.000000)
+[node name="boar"  parent="." instance=ExtResource("3_clowa")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 1.685872, 0.000000, -0.000000)
+[node name="deer_1"  parent="." instance=ExtResource("4_c1hg2")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 3.018211, 0.000000, -0.000000)
+[node name="deer_2"  parent="." instance=ExtResource("5_c1hg0")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 4.301644, 0.000000, -0.000000)
+[node name="fox"  parent="." instance=ExtResource("6_c2fve")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 5.637775, 0.000000, -0.000000)
+[node name="hedgehog"  parent="." instance=ExtResource("7_c7hk4")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 6.521936, 0.000000, -0.000000)
+[node name="owl"  parent="." instance=ExtResource("8_1vtos")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 6.966870, 0.000000, -0.000000)
+[node name="rabbit"  parent="." instance=ExtResource("9_db4ln")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 7.653862, 0.000000, -0.000000)
+[node name="squirrel"  parent="." instance=ExtResource("10_5cm5p")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 8.401028, 0.000000, -0.000000)
+[node name="wolf"  parent="." instance=ExtResource("11_dnr62")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 9.497444, 0.000000, -0.000000)
+[node name="bear2"  parent="." instance=ExtResource("2_dtbpa")]
+transform = Transform3D(-0.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, -0.000000, 111.099998, 0.200005, 446.500000)
+[node name="WorldEnvironment"  parent="." instance=ExtResource("12_dx7tv")]

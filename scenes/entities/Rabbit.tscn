@@ -1,16 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://btgh5yqm4jdxb"]
+[gd_scene load_steps=3 format=3 uid="uid://btgh5yqm4jdxb"]
 
 [ext_resource type="Script" path="res://scripts/entities/Animal.gd" id="1_rabbit"]
+[ext_resource type="PackedScene" path="res://assets/animals/Free Wild Animal 3D Models/unreal/rabbit.glb" id="2_rabbit_model"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rabbit"]
 radius = 0.3
 height = 0.6
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_rabbit"]
-radius = 0.3
-height = 0.6
-radial_segments = 16
-rings = 4
 
 [node name="Rabbit" type="CharacterBody3D" groups=["animals"]]
 collision_layer = 16
@@ -21,10 +16,7 @@ script = ExtResource("1_rabbit")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 shape = SubResource("CapsuleShape3D_rabbit")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
-mesh = SubResource("CapsuleMesh_rabbit")
-skeleton = NodePath("../..")
+[node name="Model" parent="." instance=ExtResource("2_rabbit_model")]
 
 [node name="AttackArea" type="Area3D" parent="."]
 collision_layer = 0

@@ -1,19 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1xkqy4hkbtv6"]
+[gd_scene load_steps=3 format=3 uid="uid://c1xkqy4hkbtv6"]
 
 [ext_resource type="Script" path="res://scripts/entities/Animal.gd" id="1_boar"]
+[ext_resource type="PackedScene" path="res://assets/animals/Free Wild Animal 3D Models/unreal/boar.glb" id="2_boar_model"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_boar"]
 radius = 0.5
 height = 1.2
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_boar"]
-radius = 0.5
-height = 1.2
-radial_segments = 16
-rings = 4
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boar"]
-albedo_color = Color(0.4, 0.3, 0.2, 1)
 
 [node name="Boar" type="CharacterBody3D" groups=["animals"]]
 collision_layer = 16
@@ -24,11 +16,7 @@ script = ExtResource("1_boar")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("CapsuleShape3D_boar")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-mesh = SubResource("CapsuleMesh_boar")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_boar")
+[node name="Model" parent="." instance=ExtResource("2_boar_model")]
 
 [node name="AttackArea" type="Area3D" parent="."]
 collision_layer = 0
