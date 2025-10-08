@@ -47,9 +47,14 @@ var wander_direction: Vector3 = Vector3.ZERO
 ## Physics
 const GRAVITY: float = 20.0
 
+## Animation
+var animation_player: AnimationPlayer = null
+var last_played_animation: String = ""
+
 func _ready() -> void:
 	add_to_group("animals")
 	_set_random_idle_time()
+	_setup_animation_player()
 
 func configure_from_template(template: AnimalTemplate) -> void:
 	animal_name = template.animal_name
@@ -68,6 +73,30 @@ func configure_from_template(template: AnimalTemplate) -> void:
 	# Apply mesh if available
 	if template.mesh and has_node("MeshInstance3D"):
 		get_node("MeshInstance3D").mesh = template.mesh
+
+func _setup_animation_player() -> void:
+	# Find AnimationPlayer in Model node or its children
+	if has_node("Model"):
+		var model = get_node("Model")
+		animation_player = _find_animation_player(model)
+		if animation_player:
+			_list_available_animations()
+
+func _find_animation_player(node: Node) -> AnimationPlayer:
+	if node is AnimationPlayer:
+		return node
+	for child in node.get_children():
+		var result = _find_animation_player(child)
+		if result:
+			return result
+	return null
+
+func _list_available_animations() -> void:
+	if not animation_player:
+		return
+	var anims = animation_player.get_animation_list()
+	if anims.size() > 0:
+		print("[" + animal_name + "] Animations ready (" + str(anims.size()) + " animations loaded)")
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity
@@ -128,6 +157,8 @@ func _state_idle(delta: float) -> void:
 	velocity.x = 0
 	velocity.z = 0
 
+	_play_animation("idle")
+
 	idle_timer += delta
 	if idle_timer >= idle_duration:
 		_enter_wander_state()
@@ -135,6 +166,8 @@ func _state_idle(delta: float) -> void:
 func _state_wander(delta: float) -> void:
 	velocity.x = wander_direction.x * move_speed
 	velocity.z = wander_direction.z * move_speed
+
+	_play_animation("walk")
 
 	wander_timer += delta
 	if wander_timer >= wander_duration:
@@ -149,6 +182,8 @@ func _state_flee(delta: float, distance_to_player: float) -> void:
 	var flee_direction = (global_position - target_player.global_position).normalized()
 	velocity.x = flee_direction.x * run_speed
 	velocity.z = flee_direction.z * run_speed
+
+	_play_animation("run")
 
 	# Rotate to face flee direction
 	_look_at_direction(flee_direction)
@@ -167,6 +202,8 @@ func _state_chase(_delta: float, distance_to_player: float) -> void:
 	velocity.x = chase_direction.x * run_speed
 	velocity.z = chase_direction.z * run_speed
 
+	_play_animation("run")
+
 	# Rotate to face player
 	_look_at_direction(chase_direction)
 
@@ -178,6 +215,8 @@ func _state_attack(delta: float, distance_to_player: float) -> void:
 	# Face player
 	var to_player = (target_player.global_position - global_position).normalized()
 	_look_at_direction(to_player)
+
+	_play_animation("attack")
 
 	# Attack cooldown
 	attack_timer += delta
@@ -287,3 +326,54 @@ func _spawn_item_drop(item_id: String, quantity: int) -> void:
 	if pickup is RigidBody3D:
 		var random_direction = Vector3(randf_range(-1, 1), 1, randf_range(-1, 1)).normalized()
 		pickup.apply_central_impulse(random_direction * 3.0)
+
+## Animation playback
+func _play_animation(anim_name: String) -> void:
+	if not animation_player:
+		return
+
+	# Try to find matching animation (case-insensitive, flexible naming)
+	var target_anim = _find_matching_animation(anim_name)
+
+	if target_anim and target_anim != last_played_animation:
+		animation_player.play(target_anim)
+		last_played_animation = target_anim
+
+func _find_matching_animation(desired: String) -> String:
+	if not animation_player:
+		return ""
+
+	var anims = animation_player.get_animation_list()
+	if anims.size() == 0:
+		return ""
+
+	# Direct match (case-insensitive)
+	for anim in anims:
+		if anim.to_lower() == desired.to_lower():
+			return anim
+
+	# Partial match with common variations
+	var patterns = _get_animation_patterns(desired)
+	for pattern in patterns:
+		for anim in anims:
+			if pattern in anim.to_lower():
+				return anim
+
+	# Fallback: return first animation if no match
+	return anims[0]
+
+func _get_animation_patterns(desired: String) -> Array[String]:
+	var patterns: Array[String] = [desired.to_lower()]
+
+	# Add common animation name variations
+	match desired.to_lower():
+		"idle":
+			patterns.append_array(["idle", "stand", "waiting", "idle_2"])
+		"walk":
+			patterns.append_array(["walk", "walking", "move"])
+		"run":
+			patterns.append_array(["run", "running", "sprint", "gallop"])
+		"attack":
+			patterns.append_array(["attack", "bite", "hit", "strike", "kick", "headbutt"])
+
+	return patterns

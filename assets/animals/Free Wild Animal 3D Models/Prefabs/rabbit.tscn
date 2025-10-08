@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://n0me7bf37go8"]
+
+[ext_resource type="PackedScene" uid="uid://chb2px6wbqsuw" path="res://unreal/rabbit.glb" id="1_hrjux"]
+[ext_resource type="Material" uid="uid://bvlopv7tp0hf1" path="res://unreal/Wild_animals_map.tres" id="2_hx5n5"]
+
+[node name = "rabbit" instance = ExtResource("1_hrjux")]
+
+[node name="Skeleton3D" parent="Mesh" index="0"]
+
+[node name="Mesh" parent="Mesh/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_hx5n5")

@@ -1,0 +1,12 @@
+[gd_resource type = "ShaderMaterial" load_steps=2 format=3 uid="uid://bvlopv7tp0hf1"]
+
+[ext_resource type="Shader" uid="uid://b6tv2o30ceeel" path="res://Shaders/Wild_animals_map.tres" id="2_ddo0d"]
+[ext_resource type="Texture2D" uid="uid://djo2qh1ga4tci" path="res:///Engine/EngineResources/DefaultTexture.png" id="1_clw8c"]
+
+[resource]
+resource_name = "Wild_animals_map"
+render_priority = 0
+shader = ExtResource("2_ddo0d")
+shader_parameter/one = 1.000
+shader_parameter/DiffuseColorMap = ExtResource("1_clw8c")
+shader_parameter/DiffuseColorMapWeight = 1.000
