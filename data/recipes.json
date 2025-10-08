@@ -429,5 +429,23 @@
 			"repair_bench": 1.0
 		},
 		"workbench_required": true
+	},
+	"turret": {
+		"category": "defense",
+		"craft_time": 20.0,
+		"description": "Automated defense turret that targets hostile entities. Requires rifle ammo to function. Can be accessed to load ammunition.",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 25.0,
+			"ELECTRONICS": 10.0,
+			"GEARS": 5.0,
+			"METAL_SHEETS": 8.0,
+			"COPPER_WIRE": 3.0
+		},
+		"name": "Auto Turret",
+		"output": {
+			"turret": 1.0
+		},
+		"workbench_required": true
 	}
 }

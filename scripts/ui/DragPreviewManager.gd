@@ -89,11 +89,18 @@ func _input(event: InputEvent):
 	if not is_dragging:
 		return
 
-	# Cancel drag on right-click
+	# Handle mouse button release
 	if event is InputEventMouseButton and event.pressed:
+		# Cancel drag on right-click
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			cancel_drag()
 			get_viewport().set_input_as_handled()
+		# Drop item on left-click release
+		elif event.button_index == MOUSE_BUTTON_LEFT:
+			# Check if click is outside UI elements
+			if not is_mouse_over_ui():
+				drop_item_to_world()
+				get_viewport().set_input_as_handled()
 
 func start_drag(source_type: String, source_index: int, item_id: String, quantity: int, icon_texture: Texture2D, slot_type: String = ""):
 	if is_dragging:
@@ -200,6 +207,82 @@ func try_drop_on_equipment(slot_type: String) -> bool:
 
 	end_drag(success)
 	return success
+
+func is_mouse_over_ui() -> bool:
+	# Check if mouse is over any UI element
+	var mouse_pos = get_viewport().get_mouse_position()
+
+	# Check inventory UI
+	if InventoryUI.instance and InventoryUI.instance.visible:
+		var inventory_rect = InventoryUI.instance.get_global_rect()
+		if inventory_rect.has_point(mouse_pos):
+			return true
+
+	# Check hotbar UI
+	var hud_nodes = get_tree().get_nodes_in_group("hud")
+	if not hud_nodes.is_empty():
+		var hud = hud_nodes[0]
+		if hud.has_node("Hotbar"):
+			var hotbar = hud.get_node("Hotbar")
+			if hotbar.visible:
+				var hotbar_rect = hotbar.get_global_rect()
+				if hotbar_rect.has_point(mouse_pos):
+					return true
+
+	# Check storage UI
+	if StorageUI and StorageUI.instance and StorageUI.instance.visible:
+		var storage_rect = StorageUI.instance.get_global_rect()
+		if storage_rect.has_point(mouse_pos):
+			return true
+
+	return false
+
+
+func drop_item_to_world():
+	if not is_dragging:
+		return
+
+	print("Dropping item %s x%d to world" % [drag_item_id, drag_quantity])
+
+	# Get player position for drop location
+	var player = get_tree().get_first_node_in_group("player")
+	if not player:
+		print("No player found, canceling drop")
+		cancel_drag()
+		return
+
+	# Calculate drop position in front of player
+	var drop_position = player.global_position + player.global_transform.basis.z * -2.0  # 2 meters in front
+	drop_position.y += 0.5  # Slightly above ground
+
+	# Remove item from source
+	var removed = false
+	match drag_source_type:
+		"INVENTORY":
+			if InventorySystem:
+				removed = InventorySystem.remove_item(drag_item_id, drag_quantity)
+		"EQUIPMENT":
+			# Unequip the item first
+			var equipped_item = EquipmentManager.get_equipped_item(drag_source_slot_type)
+			if equipped_item:
+				EquipmentManager.unequip_item(drag_source_slot_type)
+				removed = true
+			else:
+				var equipped_weapon = WeaponManager.get_equipped_weapon(drag_source_slot_type)
+				if equipped_weapon:
+					WeaponManager.unequip_weapon(drag_source_slot_type)
+					removed = true
+
+	if removed:
+		# Emit the signal to spawn the item in the world
+		if InventorySystem:
+			InventorySystem.item_dropped.emit(drag_item_id, drag_quantity, drop_position)
+		print("Item dropped successfully")
+		end_drag(true)
+	else:
+		print("Failed to remove item from source")
+		cancel_drag()
+
 
 func cancel_drag():
 	is_dragging = false

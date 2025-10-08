@@ -6,8 +6,9 @@ signal picked_up(item_id: String, amount: int)
 @export_group("Pickup Settings")
 @export var item_id: String = ""
 @export var amount: int = 1
-@export var auto_pickup: bool = true
-@export var pickup_range: float = 2.0
+@export var auto_pickup: bool = false  # Changed to false - require manual pickup
+@export var pickup_range: float = 1.5  # Reduced from 2.0 to 1.5
+@export var show_interaction_prompt: bool = true
 
 @export_group("Visual Effects")
 @export var bob_speed: float = 2.0
@@ -155,10 +156,32 @@ func _on_body_entered(body: Node3D):
 		player_in_range = true
 		if auto_pickup:
 			collect_item()
+		elif show_interaction_prompt:
+			show_pickup_prompt()
 
 func _on_body_exited(body: Node3D):
 	if body.is_in_group("player"):
 		player_in_range = false
+		if show_interaction_prompt:
+			hide_pickup_prompt()
+
+func show_pickup_prompt():
+	# Update the label to show interaction prompt
+	if label_3d:
+		var item_name = InventorySystem.get_item_data(item_id).get("name", "Unknown Item")
+		label_3d.text = "[E] " + item_name
+		if amount > 1:
+			label_3d.text += " x%d" % amount
+		label_3d.modulate = Color.YELLOW
+
+func hide_pickup_prompt():
+	# Reset label to default
+	if label_3d:
+		var item_name = InventorySystem.get_item_data(item_id).get("name", "Unknown Item")
+		label_3d.text = item_name
+		if amount > 1:
+			label_3d.text += " x%d" % amount
+		label_3d.modulate = Color.WHITE
 
 func check_pickup_distance():
 	var player = get_tree().get_first_node_in_group("player")
