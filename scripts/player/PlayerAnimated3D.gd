@@ -25,6 +25,10 @@ extends CharacterBody3D
 @export var grapple_range: float = 75.0
 @export var grapple_speed: float = 40.0
 
+@export_group("Combat Settings")
+@export var invincibility_duration: float = 0.8  # Invincibility frames after taking damage
+@export var damage_flash_duration: float = 0.2  # How long the red flash lasts
+
 # Current survival stats
 var health: int = 100
 var energy: int = 100
@@ -90,6 +94,12 @@ const THIRST_DEPLETION_RATE: float = 45.0  # Lose 1 thirst every 45 seconds
 var is_grappling: bool = false
 var grapple_point: Vector3 = Vector3.ZERO
 
+# Combat/Damage system
+var is_invincible: bool = false
+var invincibility_timer: Timer
+var damage_flash_timer: Timer
+var original_model_materials: Array = []  # Store original materials for damage flash
+
 # Animation names (will be detected from AnimationPlayer)
 var idle_anim: String = ""
 var walk_anim: String = ""
@@ -134,6 +144,9 @@ func _ready():
 	# Set up mining timer
 	call_deferred("setup_mining_timer")
 
+	# Set up combat timers (invincibility, damage flash)
+	call_deferred("setup_combat_timers")
+
 func initialize_stats():
 	"""Initialize all survival stats to their maximum values"""
 	health = max_health
@@ -162,20 +175,16 @@ func setup_animations():
 	animation_player = find_animation_player(character_model)
 
 	if animation_player:
-		print("✅ Found AnimationPlayer with animations:")  # Debug: Setup only
-
 		# Check if using animation libraries (like RadiationAnims)
 		var all_anims = []
 		var libraries = animation_player.get_animation_library_list()
 
 		if libraries.size() > 0:
-			print("Animation libraries found: ", libraries)
 			# Get animations from all libraries
 			for lib_name in libraries:
 				var lib = animation_player.get_animation_library(lib_name)
 				if lib:
 					var lib_anims = lib.get_animation_list()
-					print("Library '", lib_name, "' animations: ", lib_anims)
 					# Prefix animations with library name if not default
 					for anim in lib_anims:
 						if lib_name != "":
@@ -186,12 +195,9 @@ func setup_animations():
 			# Fallback to old method
 			all_anims = animation_player.get_animation_list()
 
-		print("Available animations: ", all_anims)  # Debug: Setup only
-
 		# Disable root motion if AnimationPlayer supports it
 		if animation_player.has_method("set_root_motion_track"):
 			animation_player.set_root_motion_track(NodePath())
-			# print("Disabled root motion")  # Debug: Setup only
 
 		# Ensure animations are set to loop where appropriate
 		for anim_name in all_anims:
@@ -211,88 +217,59 @@ func setup_animations():
 				# Set looping for continuous animations
 				if "idle" in lower or "walk" in lower or "run" in lower or "crouch" in lower or "grapple" in lower or "hook" in lower:
 					animation.loop_mode = Animation.LOOP_LINEAR
-					# print("Set ", anim_name, " to loop")  # Debug: Setup only
 					# Remove position tracks that cause jumping
 					remove_position_tracks(animation, anim_name)
 				elif "jump" in lower or "death" in lower or "die" in lower:
 					animation.loop_mode = Animation.LOOP_NONE
-					# print("Set ", anim_name, " to play once")  # Debug: Setup only
 
 		# Map animations based on common naming patterns
 		# Process in order: specific patterns first, then general
 		for anim_name in all_anims:
 			var lower = anim_name.to_lower()
-			print("Checking animation: ", anim_name, " (", lower, ")")  # Debug: Setup only
 
 			# Check for crouch walk first (more specific than just "crouch")
 			if "crouch" in lower and ("walk" in lower or "forward" in lower or "move" in lower):
 				crouch_walk_anim = anim_name
-				print("  -> Mapped as CROUCH_WALK")  # Debug: Setup only
 			elif "crouch" in lower and "idle" in lower:
 				crouch_anim = anim_name
-				print("  -> Mapped as CROUCH")  # Debug: Setup only
 			elif "jump" in lower:
 				jump_anim = anim_name
-				print("  -> Mapped as JUMP")  # Debug: Setup only
 			elif "fall" in lower:
 				fall_anim = anim_name
-				print("  -> Mapped as FALL")  # Debug: Setup only
 			elif "grapple" in lower or "grappling" in lower or "hook" in lower:
 				grapple_anim = anim_name
-				print("  -> Mapped as GRAPPLE")  # Debug: Setup only
 			elif "death" in lower or "die" in lower or "dead" in lower:
 				death_anim = anim_name
-				print("  -> Mapped as DEATH")  # Debug: Setup only
 			# Map plain "_run" without shoot as RUN
 			elif (lower.ends_with("_run") or lower.ends_with("/run")) and "shoot" not in lower:
 				run_anim = anim_name
-				print("  -> Mapped as RUN")  # Debug: Setup only
 			# Map "runshoot" as sprint (faster run)
 			elif "shoot" in lower and "run" in lower:
 				# This is sprint/combat run, don't use it for regular run
-				print("  -> Skipped (runshoot for sprint/combat)")  # Debug: Setup only
+				pass
 			elif "walk" in lower or "walkforward" in lower or "walkcycle" in lower or "walking" in lower:
 				walk_anim = anim_name
-				print("  -> Mapped as WALK")  # Debug: Setup only
 			elif "idle" in lower and "crouch" not in lower:
 				idle_anim = anim_name
-				print("  -> Mapped as IDLE")  # Debug: Setup only
 			elif "breathing" in lower:
 				if idle_anim == "":
 					idle_anim = anim_name
-					print("  -> Mapped as IDLE (breathing)")  # Debug: Setup only
 
 		# If no walk animation found, use run animation for both walk and run
 		if walk_anim == "" and run_anim != "":
 			walk_anim = run_anim
-			print("  WARNING: No walk animation found, using run animation for walking")
-
-		print("\nFinal animation mapping:")  # Debug: Setup only
-		print("  Idle: ", idle_anim)
-		print("  Walk: ", walk_anim)
-		print("  Run: ", run_anim)
-		print("  Jump: ", jump_anim)
-		print("  Crouch: ", crouch_anim)
-		print("  Fall: ", fall_anim)
-		print("  Grapple: ", grapple_anim)
-		print("  Death: ", death_anim)
 
 		# Ensure we start with idle animation, not first in list
 		if idle_anim != "":
-			print("Starting with idle animation: ", idle_anim)
 			animation_player.play(idle_anim)
 			current_anim = idle_anim
 		elif walk_anim != "":
-			print("No idle found, starting with walk: ", walk_anim)
 			animation_player.play(walk_anim)
 			current_anim = walk_anim
 		elif all_anims.size() > 0:
 			# Only use first animation as last resort
-			print("Using first available animation: ", all_anims[0])
 			animation_player.play(all_anims[0])
 			current_anim = all_anims[0]
-	else:
-		print("❌ No AnimationPlayer found in character model")
 
 func find_animation_player(node: Node) -> AnimationPlayer:
 	if node is AnimationPlayer:
@@ -319,12 +296,10 @@ func remove_position_tracks(animation: Animation, anim_name: String):
 			# Remove position tracks for root node or main skeleton root
 			if "." == path_str or ":position" in path_str or path_str.begins_with(".:") or path_str == "":
 				tracks_to_remove.append(i)
-				print("  Removing root position track: ", path_str)
 			elif "Root" in path_str or "Hips" in path_str or "Pelvis" in path_str:
 				# Remove all position tracks to prevent sliding/floating
 				# We'll handle crouch lowering manually via model offset
 				tracks_to_remove.append(i)
-				# print("  Removing body position track: ", path_str)  # Debug: Setup only
 
 	# Remove tracks in reverse order to maintain indices
 	tracks_to_remove.reverse()
@@ -352,18 +327,9 @@ func play_anim(anim_name: String, blend_time: float = 0.2):
 				# Use smooth blending between animations
 				animation_player.play(anim_name, blend_time)
 				current_anim = anim_name
-				print("Playing animation: ", anim_name)
-				print("  -> Current: ", animation_player.current_animation)
-				print("  -> Is playing: ", animation_player.is_playing())
-				print("  -> Speed scale: ", animation_player.speed_scale)
 			# If same animation and not playing, restart it (for looping)
 			elif not animation_player.is_playing():
 				animation_player.play(anim_name, blend_time)
-				print("Restarting animation: ", anim_name)
-				print("  -> Current: ", animation_player.current_animation)
-				print("  -> Is playing: ", animation_player.is_playing())
-		else:
-			print("Animation not found: ", anim_name)
 
 func _input(event: InputEvent):
 	# Handle mouse look
@@ -399,6 +365,11 @@ func _input(event: InputEvent):
 		elif event.is_action_released("grapple"):
 			if is_grappling:
 				release_grapple()
+
+	# Debug: Test damage system with H key
+	if event is InputEventKey and event.pressed and event.keycode == KEY_H:
+		take_damage(10, "test", null)
+		print("DEBUG: Triggered test damage (10 HP)")
 
 func _physics_process(delta: float):
 	apply_camera_rotation(delta)
@@ -773,7 +744,10 @@ func _on_area_exited_interaction(area: Area3D) -> void:
 
 func modify_health(amount: int) -> void:
 	"""Modify health by amount (positive or negative)"""
+	var old_health = health
 	health = clampi(health + amount, 0, max_health)
+	print("  modify_health: %d -> %d (change: %d)" % [old_health, health, amount])
+	print("  Emitting health_changed signal with value: %d" % health)
 	health_changed.emit(health)
 	if health <= 0:
 		die()
@@ -889,6 +863,147 @@ func die() -> void:
 	# For now, just reset health
 	health = max_health
 	health_changed.emit(health)
+
+# ============================================================================
+# COMBAT SYSTEM
+# ============================================================================
+
+func setup_combat_timers() -> void:
+	"""Set up timers for invincibility frames and damage flash"""
+	print("Setting up combat timers...")
+
+	# Invincibility timer
+	invincibility_timer = Timer.new()
+	invincibility_timer.name = "InvincibilityTimer"
+	invincibility_timer.wait_time = invincibility_duration
+	invincibility_timer.one_shot = true
+	invincibility_timer.timeout.connect(_on_invincibility_timeout)
+	add_child(invincibility_timer)
+	print("  Invincibility timer created: %s seconds" % invincibility_duration)
+
+	# Damage flash timer
+	damage_flash_timer = Timer.new()
+	damage_flash_timer.name = "DamageFlashTimer"
+	damage_flash_timer.wait_time = damage_flash_duration
+	damage_flash_timer.one_shot = true
+	damage_flash_timer.timeout.connect(_on_damage_flash_timeout)
+	add_child(damage_flash_timer)
+	print("  Damage flash timer created: %s seconds" % damage_flash_duration)
+
+func take_damage(amount: int, damage_type: String = "physical", source: Node = null) -> void:
+	"""Take damage from external sources"""
+	print("=== take_damage() called ===")
+	print("  Amount: %d, Type: %s, Source: %s" % [amount, damage_type, source.name if source else "unknown"])
+	print("  Current health: %d" % health)
+	print("  Is invincible: %s" % is_invincible)
+
+	# Check invincibility frames
+	if is_invincible:
+		print("  BLOCKED: Player is invincible!")
+		return
+
+	# Apply damage
+	print("  Applying damage via modify_health(-amount)")
+	modify_health(-amount)
+	print("  Health after damage: %d" % health)
+
+	# Start invincibility frames
+	is_invincible = true
+	print("  Starting invincibility timer (%s seconds)" % invincibility_duration)
+	invincibility_timer.start()
+
+	# Trigger damage flash effect
+	print("  Triggering damage flash")
+	apply_damage_flash()
+	print("=== take_damage() complete ===")
+
+func apply_damage_flash() -> void:
+	"""Apply red flash effect to character model"""
+	print("  apply_damage_flash() - character_model exists: %s" % (character_model != null))
+	if not character_model:
+		print("  ERROR: No character_model found!")
+		return
+
+	if original_model_materials.is_empty():
+		print("  Storing original materials...")
+		store_original_materials(character_model)
+		print("  Stored %d materials" % original_model_materials.size())
+
+	print("  Applying red tint to model...")
+	apply_red_tint_to_model(character_model)
+	print("  Starting damage flash timer (%s seconds)" % damage_flash_duration)
+	damage_flash_timer.start()
+
+func store_original_materials(node: Node) -> void:
+	"""Recursively store original materials from all MeshInstance3D nodes"""
+	if node is MeshInstance3D:
+		var mesh_instance = node as MeshInstance3D
+		var surface_count = mesh_instance.mesh.get_surface_count() if mesh_instance.mesh else 0
+
+		for i in range(surface_count):
+			# Store any existing override material
+			var override_mat = mesh_instance.get_surface_override_material(i)
+			# Also get the base surface material for reference
+			var surface_mat = mesh_instance.mesh.surface_get_material(i) if mesh_instance.mesh else null
+
+			# Store the material we'll need to restore (prefer override, fallback to surface)
+			var material_to_store = override_mat if override_mat else surface_mat
+			if material_to_store:
+				original_model_materials.append({
+					"mesh": mesh_instance,
+					"surface": i,
+					"material": material_to_store,
+					"was_override": (override_mat != null)
+				})
+				print("    Stored material from %s surface %d" % [mesh_instance.name, i])
+
+	for child in node.get_children():
+		store_original_materials(child)
+
+func apply_red_tint_to_model(node: Node) -> void:
+	"""Recursively apply red tint to all MeshInstance3D nodes"""
+	if node is MeshInstance3D:
+		var mesh_instance = node as MeshInstance3D
+		# Check both override materials and surface materials
+		var surface_count = mesh_instance.mesh.get_surface_count() if mesh_instance.mesh else 0
+
+		for i in range(surface_count):
+			# Try to get override material first
+			var material = mesh_instance.get_surface_override_material(i)
+			# If no override, get the surface material from the mesh
+			if not material and mesh_instance.mesh:
+				material = mesh_instance.mesh.surface_get_material(i)
+
+			if material:
+				print("    Found material on %s surface %d: %s" % [mesh_instance.name, i, material.get_class()])
+				# Create red tinted version
+				var red_material = material.duplicate()
+				if red_material is StandardMaterial3D:
+					red_material.albedo_color = Color(1.0, 0.3, 0.3, 1.0)
+				elif red_material is BaseMaterial3D:
+					red_material.albedo_color = Color(1.0, 0.3, 0.3, 1.0)
+				mesh_instance.set_surface_override_material(i, red_material)
+
+	for child in node.get_children():
+		apply_red_tint_to_model(child)
+
+func restore_original_materials() -> void:
+	"""Restore all original materials"""
+	for mat_data in original_model_materials:
+		var mesh_instance = mat_data.mesh as MeshInstance3D
+		if mesh_instance and is_instance_valid(mesh_instance):
+			mesh_instance.set_surface_override_material(mat_data.surface, mat_data.material)
+
+	original_model_materials.clear()
+
+func _on_invincibility_timeout() -> void:
+	"""Called when invincibility timer expires"""
+	is_invincible = false
+	print("Invincibility expired")
+
+func _on_damage_flash_timeout() -> void:
+	"""Called when damage flash timer expires"""
+	restore_original_materials()
 
 # ============================================================================
 # MINING SYSTEM
