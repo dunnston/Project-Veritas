@@ -153,7 +153,7 @@ func _state_flee(delta: float, distance_to_player: float) -> void:
 	# Rotate to face flee direction
 	_look_at_direction(flee_direction)
 
-func _state_chase(delta: float, distance_to_player: float) -> void:
+func _state_chase(_delta: float, distance_to_player: float) -> void:
 	if distance_to_player > aggro_range * 1.5:
 		_enter_idle_state()
 		return

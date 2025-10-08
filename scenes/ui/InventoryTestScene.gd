@@ -4,14 +4,14 @@ extends Node3D
 
 func _ready():
 	print("=== INVENTORY SYSTEM INTEGRATION TEST ===")
-	print("ModularInventory available:", ModularInventory != null)
+	print("InventorySystem available:", InventorySystem != null)
 	print("InventoryUI found:", inventory_ui != null)
 
 	# Connect to inventory signals
-	if ModularInventory:
-		ModularInventory.inventory_changed.connect(_on_inventory_changed)
-		ModularInventory.item_added.connect(_on_item_added)
-		ModularInventory.item_dropped.connect(_on_item_dropped)
+	if InventorySystem:
+		InventorySystem.inventory_changed.connect(_on_inventory_changed)
+		InventorySystem.item_added.connect(_on_item_added)
+		InventorySystem.item_dropped.connect(_on_item_dropped)
 
 		# Test basic functionality
 		print("Testing basic inventory operations...")
@@ -37,7 +37,7 @@ func test_basic_operations():
 	var test_items = ["SCRAP_METAL", "WATER", "FOOD", "ENERGY_CELLS"]
 
 	for item_id in test_items:
-		var added = ModularInventory.add_item(item_id, 5)
+		var added = InventorySystem.add_item(item_id, 5)
 		if added:
 			print("✓ Added 5x %s" % item_id)
 		else:
@@ -46,33 +46,33 @@ func test_basic_operations():
 	# Test item counts
 	print("\n--- Current Inventory Counts ---")
 	for item_id in test_items:
-		var count = ModularInventory.get_item_count(item_id)
+		var count = InventorySystem.get_item_count(item_id)
 		print("%s: %d" % [item_id, count])
 
 	print("\n--- Inventory Stats ---")
-	var stats = ModularInventory.get_inventory_stats()
+	var stats = InventorySystem.get_inventory_stats()
 	print("Total items: %d" % stats.total_items)
 	print("Slot usage: %s" % stats.slot_usage)
-	print("Empty slots: %d" % ModularInventory.get_empty_slot_count())
+	print("Empty slots: %d" % InventorySystem.get_empty_slot_count())
 
 func test_add_random_item():
 	var random_items = ["BIO_MATTER", "ELECTRONICS", "GEARS", "BANDAGE", "STIMPACK"]
 	var item_id = random_items[randi() % random_items.size()]
 	var quantity = randi_range(1, 10)
 
-	if ModularInventory.add_item(item_id, quantity):
+	if InventorySystem.add_item(item_id, quantity):
 		print("Added %dx %s to inventory" % [quantity, item_id])
 	else:
 		print("Failed to add %s - inventory might be full" % item_id)
 
 func test_clear_inventory():
 	print("Clearing inventory...")
-	ModularInventory.clear_inventory()
+	InventorySystem.clear_inventory()
 
 func test_vector3_drop():
 	# Test dropping with Vector3 position
 	var drop_pos = Vector3(0, 1, 0)
-	if ModularInventory.drop_item("SCRAP_METAL", 1, drop_pos):
+	if InventorySystem.drop_item("SCRAP_METAL", 1, drop_pos):
 		print("Successfully dropped item at Vector3 position: %v" % drop_pos)
 	else:
 		print("Failed to drop item")

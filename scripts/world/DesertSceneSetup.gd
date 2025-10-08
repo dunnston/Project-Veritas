@@ -15,18 +15,40 @@ func _ready():
 	print("Desert scene setup complete - 500m x 500m playable area")
 
 func setup_terrain_collision():
-	var ground_plane = get_node_or_null("Terrain/GroundPlane")
+	var ground_plane = get_node_or_null("Ground")
 	if not ground_plane:
 		push_error("Ground plane not found!")
 		return
 
+	# Ensure ground is on the World collision layer (layer 1)
+	ground_plane.collision_layer = 1
+	ground_plane.collision_mask = 0  # Ground doesn't need to detect anything
+
 	var collision_shape = ground_plane.get_node_or_null("CollisionShape3D")
 	if collision_shape:
-		# Create box shape for ground collision
-		var box_shape = BoxShape3D.new()
-		box_shape.size = Vector3(1000, 0.1, 1000)
-		collision_shape.shape = box_shape
-		print("Terrain collision set up: 1000m x 1000m")
+		# Check if shape already exists and is properly sized
+		if collision_shape.shape and collision_shape.shape is BoxShape3D:
+			var existing_shape = collision_shape.shape as BoxShape3D
+			# Only update if it's the wrong size
+			if existing_shape.size != Vector3(500, 1, 500):
+				var box_shape = BoxShape3D.new()
+				box_shape.size = Vector3(500, 1, 500)
+				collision_shape.shape = box_shape
+				print("Terrain collision updated: 500m x 500m")
+			else:
+				print("Terrain collision already correct: 500m x 500m")
+		else:
+			# Create new box shape for ground collision
+			var box_shape = BoxShape3D.new()
+			box_shape.size = Vector3(500, 1, 500)
+			collision_shape.shape = box_shape
+			print("Terrain collision created: 500m x 500m")
+
+		# Ensure the collision shape is properly positioned (centered with the mesh)
+		# The mesh is at Y=0, box height is 1, so shape center should be at Y=-0.5
+		if collision_shape.position != Vector3(0, -0.5, 0):
+			collision_shape.position = Vector3(0, -0.5, 0)
+			print("Terrain collision shape positioned correctly")
 
 func setup_boundary_walls():
 	# Set up invisible walls at map boundaries to prevent falling off
@@ -53,7 +75,7 @@ func setup_wall(path: String, size: Vector3):
 		collision_shape.shape = box_shape
 
 func setup_desert_material():
-	var ground_mesh = get_node_or_null("Terrain/GroundPlane/MeshInstance3D")
+	var ground_mesh = get_node_or_null("Ground/MeshInstance3D")
 	if not ground_mesh:
 		push_error("Ground mesh not found!")
 		return

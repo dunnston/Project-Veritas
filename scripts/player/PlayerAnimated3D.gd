@@ -114,6 +114,11 @@ var death_anim: String = ""
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+	# Set up collision layers
+	# Player is on layer 2, and should collide with World (layer 1)
+	collision_layer = 2  # Player layer
+	collision_mask = 1   # Collide with World layer (ground, walls, etc.)
+
 	# Add player to grapple raycast exceptions
 	grapple_raycast.add_exception(self)
 
