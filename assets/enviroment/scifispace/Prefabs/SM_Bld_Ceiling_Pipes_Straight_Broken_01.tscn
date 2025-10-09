@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddm5fuemd5s1w"]
+
+[ext_resource type="PackedScene" uid="uid://dpbgw3q0ukyae" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Ceiling_Pipes_Straight_Broken_01.glb" id="1_cqq76"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Bld_Ceiling_Pipes_Straight_Broken_01" instance = ExtResource("1_cqq76")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

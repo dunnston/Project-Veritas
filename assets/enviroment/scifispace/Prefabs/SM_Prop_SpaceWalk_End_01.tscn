@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dalxgv41oe8vy"]
+
+[ext_resource type="PackedScene" uid="uid://bc4ykqhjpy3g2" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_SpaceWalk_End_01.glb" id="1_co6ly"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Prop_SpaceWalk_End_01" instance = ExtResource("1_co6ly")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

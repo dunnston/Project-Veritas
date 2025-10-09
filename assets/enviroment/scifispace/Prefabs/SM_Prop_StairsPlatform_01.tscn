@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck4q1nyrmwtvs"]
+
+[ext_resource type="PackedScene" uid="uid://c415hyt5yjt4x" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_StairsPlatform_01.glb" id="1_dywwa"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Prop_StairsPlatform_01" instance = ExtResource("1_dywwa")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

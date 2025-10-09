@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf64kov7dljjj"]
+
+[ext_resource type="PackedScene" uid="uid://cv3istn2yrym0" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Wall_Corner_Pillar_05.glb" id="1_cdfm0"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Bld_Wall_Corner_Pillar_05" instance = ExtResource("1_cdfm0")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

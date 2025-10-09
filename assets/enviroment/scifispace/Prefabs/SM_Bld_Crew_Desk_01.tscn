@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfk81raw80y18"]
+
+[ext_resource type="PackedScene" uid="uid://dpm6tjewik770" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Crew_Desk_01.glb" id="1_x53n4"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Bld_Crew_Desk_01" instance = ExtResource("1_x53n4")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

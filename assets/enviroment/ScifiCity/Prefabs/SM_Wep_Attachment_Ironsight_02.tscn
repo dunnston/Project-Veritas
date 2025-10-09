@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0anbeovt5bef"]
+
+[ext_resource type="PackedScene" uid="uid://cvybklt6jjos" path="res://PolygonScifi/Meshes/Weapons/Accessories/SM_Wep_Attachment_Ironsight_02.glb" id="1_bdxh7"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Wep_Attachment_Ironsight_02" instance = ExtResource("1_bdxh7")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

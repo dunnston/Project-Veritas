@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp2wu8o53s5w0"]
+
+[ext_resource type="PackedScene" uid="uid://bmm5ufg6hr3xd" path="res://PolygonScifi/Meshes/Buildings/SM_Bld_Section_Wall_05.glb" id="1_dll1f"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(5.019948, 5.186988, 3.000000)
+
+[node name = "SM_Bld_Section_Wall_05" instance = ExtResource("1_dll1f")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 2.500001, 1.500000, -2.397458)
+shape = SubResource("0_c31wo")
+

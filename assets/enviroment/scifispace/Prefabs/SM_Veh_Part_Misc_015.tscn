@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkp1gfo0l0kcw"]
+
+[ext_resource type="PackedScene" uid="uid://c05605l3emky3" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Veh_Part_Misc_015.glb" id="1_bk4a4"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Veh_Part_Misc_015" instance = ExtResource("1_bk4a4")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

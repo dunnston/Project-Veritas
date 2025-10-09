@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://l2ja0pgjxcll"]
+
+[ext_resource type="PackedScene" uid="uid://b2j5y4r76kql7" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_CenterTube_Glass_01.glb" id="1_cltax"]
+[ext_resource type="Material" uid="uid://bj4yjf8ac36jj" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Glass_01.tres" id="2_de8t7"]
+
+[node name = "SM_Prop_CenterTube_Glass_01" instance = ExtResource("1_cltax")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_de8t7")

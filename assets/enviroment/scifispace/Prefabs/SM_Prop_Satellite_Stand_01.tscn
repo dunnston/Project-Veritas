@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwhyk41is1oab"]
+
+[ext_resource type="PackedScene" uid="uid://dfe8a22uh83ba" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_Satellite_Stand_01.glb" id="1_c6v6f"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(0.320536, 0.205164, 1.102890)
+
+[node name = "SM_Prop_Satellite_Stand_01" instance = ExtResource("1_c6v6f")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.551445, -0.000000)
+shape = SubResource("0_c31wo")
+

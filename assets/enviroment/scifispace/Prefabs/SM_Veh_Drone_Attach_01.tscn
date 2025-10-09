@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnq20hfb3b7xv"]
+
+[ext_resource type="PackedScene" uid="uid://bx202ht05qvln" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Veh_Drone_Attach_01.glb" id="1_dh0ac"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Veh_Drone_Attach_01" instance = ExtResource("1_dh0ac")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

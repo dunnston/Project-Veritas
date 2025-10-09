@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://01j7h0tpm46c"]
+
+[ext_resource type="PackedScene" uid="uid://bfjmebmx4p0un" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_Battery_03.glb" id="1_cd6mt"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Prop_Battery_03" instance = ExtResource("1_cd6mt")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

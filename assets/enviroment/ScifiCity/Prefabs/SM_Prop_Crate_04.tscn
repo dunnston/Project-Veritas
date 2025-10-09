@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy0yiaqfsy3xy"]
+
+[ext_resource type="PackedScene" uid="uid://cu3t52qtx0ean" path="res://PolygonScifi/Meshes/Props/SM_Prop_Crate_04.glb" id="1_vgx35"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(2.350075, 1.145264, 1.145251)
+
+[node name = "SM_Prop_Crate_04" instance = ExtResource("1_vgx35")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, -0.000004, 0.572625, 0.000000)
+shape = SubResource("0_c31wo")
+

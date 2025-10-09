@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c61of8dw80rb1"]
+
+[ext_resource type="PackedScene" uid="uid://gcd0hu52a3jw" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Ceiling_Pipes_Turn_L_01.glb" id="1_bok7f"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Bld_Ceiling_Pipes_Turn_L_01" instance = ExtResource("1_bok7f")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

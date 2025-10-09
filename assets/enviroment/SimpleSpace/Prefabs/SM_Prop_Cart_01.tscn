@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://25tc0hca5xmj"]
+
+[ext_resource type="PackedScene" uid="uid://cpbydu2bai8e0" path="res://SimpleSpaceInteriors/Meshes/Props/SM_Prop_Cart_01.glb" id="1_b13ai"]
+[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
+
+[node name = "SM_Prop_Cart_01" instance = ExtResource("1_b13ai")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bqq6s")

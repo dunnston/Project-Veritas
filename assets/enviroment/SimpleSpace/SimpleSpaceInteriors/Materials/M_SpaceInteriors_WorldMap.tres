@@ -1,0 +1,9 @@
+[gd_resource type = "ShaderMaterial" load_steps=2 format=3 uid="uid://c08o3p4iwuq4h"]
+
+[ext_resource type="Shader" uid="uid://cymdvrv3xjjc3" path="res://assets/enviroment/SimpleSpace/Shaders/M_SpaceInteriors_WorldMap.tres" id="2_dv020"]
+[ext_resource type="Texture2D" uid="uid://dlloyioiveyo6" path="res://SimpleSpaceInteriors/Textures/T_SpaceInteriors_WorldMap.png" id="1_bhr8k"]
+
+[resource]
+resource_name = "M_SpaceInteriors_WorldMap"
+render_priority = 0
+shader = ExtResource("2_dv020")

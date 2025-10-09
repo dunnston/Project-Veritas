@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://chnhh7dblufmi"]
+
+[ext_resource type="PackedScene" uid="uid://ga3gk513i3xx" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_Light_Panel_03.glb" id="1_djtke"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Prop_Light_Panel_03" instance = ExtResource("1_djtke")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

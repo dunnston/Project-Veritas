@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cggwvlog774r"]
+
+[ext_resource type="PackedScene" uid="uid://dhcpj5yo1fqsm" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_FoodPacket_03.glb" id="1_c4atv"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Prop_FoodPacket_03" instance = ExtResource("1_c4atv")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhp2u0jv0xo8a"]
+
+[ext_resource type="PackedScene" uid="uid://dmdkjplygttf6" path="res://PolygonScifi/Meshes/Environments/SM_Env_Road_Crossing_02_SF.glb" id="1_dnuau"]
+[ext_resource type="Material" uid="uid://dlks0f6v5pjmk" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Roads.tres" id="2_y3s7a"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(5.000000, 5.000000, 0.075780)
+
+[node name = "SM_Env_Road_Crossing_02_SF" instance = ExtResource("1_dnuau")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_y3s7a")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 2.500000, -0.035355, -2.500000)
+shape = SubResource("0_c31wo")
+

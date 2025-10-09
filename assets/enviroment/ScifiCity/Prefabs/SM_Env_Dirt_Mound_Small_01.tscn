@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bum6ebus8vmnx"]
+
+[ext_resource type="PackedScene" uid="uid://cctsnao5hcxai" path="res://PolygonScifi/Meshes/Environments/SM_Env_Dirt_Mound_Small_01.glb" id="1_bm26u"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Env_Dirt_Mound_Small_01" instance = ExtResource("1_bm26u")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

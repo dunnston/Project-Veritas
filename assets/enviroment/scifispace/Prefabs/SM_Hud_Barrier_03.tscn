@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyt6ycuac8aku"]
+
+[ext_resource type="PackedScene" uid="uid://b0floo6klgyh0" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/FX/SM_Hud_Barrier_03.glb" id="1_4bjtb"]
+[ext_resource type="Material" uid="uid://ccotw52fu54da" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Unlit_Blue.tres" id="2_dxdpd"]
+
+[node name = "SM_Hud_Barrier_03" instance = ExtResource("1_4bjtb")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_dxdpd")

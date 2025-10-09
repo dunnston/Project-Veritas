@@ -1,0 +1,25 @@
+[gd_resource type = "ShaderMaterial" load_steps=4 format=3 uid="uid://lh21j5nas2p8"]
+
+[ext_resource type="Shader" uid="uid://boigdj12k6c61" path="res://assets/enviroment/scifispace/Shaders/MI_PolygonSciFiSpace_Station.tres" id="4_cyujl"]
+[ext_resource type="Texture2D" uid="uid://be8qcgsdmkjtk" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Textures/T_PolygonSciFiSpace_Emissive_01.png" id="1_bnvxk"]
+[ext_resource type="Texture2D" uid="uid://cw16fwlx8f2lo" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Textures/T_PolygonSciFiSpace_01_A.png" id="2_dvs3v"]
+[ext_resource type="Texture2D" uid="uid://de2yriflsjc2x" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Textures/T_PolygonSciFiSpace_Ship_Mask_Station_01.png" id="3_bkaaw"]
+
+[resource]
+resource_name = "MI_PolygonSciFiSpace_Station"
+render_priority = 0
+shader = ExtResource("4_cyujl")
+shader_parameter/TriplanarDirt = false
+shader_parameter/BaseTexture = ExtResource("2_dvs3v")
+shader_parameter/DetailTexture = ExtResource("3_bkaaw")
+shader_parameter/DetailScale = 1.000
+shader_parameter/DetailOpacity = 1.000
+shader_parameter/DirtScale = 1000.000
+shader_parameter/RimGlow = true
+shader_parameter/RimColour = Vector4(0.852, 0.137, 1.000, 0.000)
+shader_parameter/RimPower = 5.000
+shader_parameter/EmissiveTexture = ExtResource("1_bnvxk")
+shader_parameter/EmissiveTint = Vector4(1.000, 1.000, 1.000, 1.000)
+shader_parameter/Metallic = 0.000
+shader_parameter/Roughness = 0.600
+shader_parameter/Specular = 0.500

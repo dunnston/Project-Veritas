@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://8mln16dewhss"]
+
+[ext_resource type="PackedScene" uid="uid://bycoun6y6ctyg" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Lift_Wall_Door_02.glb" id="1_cxpgf"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Bld_Lift_Wall_Door_02" instance = ExtResource("1_cxpgf")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

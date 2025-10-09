@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://8mx3fw7y3nhu"]
+
+[ext_resource type="PackedScene" uid="uid://dsqt174ixfj1f" path="res://PolygonScifi/Meshes/Props/SM_Prop_TrashBag_03.glb" id="1_dcble"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Prop_TrashBag_03" instance = ExtResource("1_dcble")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

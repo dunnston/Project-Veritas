@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dv7x1nvp6ql86"]
+
+[ext_resource type="PackedScene" uid="uid://cm4s57wesknc4" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Floor_Small_Hand_Rail_01.glb" id="1_7t3w8"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Bld_Floor_Small_Hand_Rail_01" instance = ExtResource("1_7t3w8")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

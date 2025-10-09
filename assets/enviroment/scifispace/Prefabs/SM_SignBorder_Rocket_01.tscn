@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c57744rb4c0i6"]
+
+[ext_resource type="PackedScene" uid="uid://bwgvdxgq1gsa7" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Signs/SM_SignBorder_Rocket_01.glb" id="1_cwua1"]
+[ext_resource type="Material" uid="uid://cg2naavy31jbd" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Signs_01_A.tres" id="2_cxv8v"]
+
+[node name = "SM_SignBorder_Rocket_01" instance = ExtResource("1_cwua1")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_cxv8v")

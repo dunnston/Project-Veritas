@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3c56f2bmkesj"]
+
+[ext_resource type="PackedScene" uid="uid://cf6hfvvqfhltj" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Hydroponics_UpperFloor_01.glb" id="1_dsc50"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Bld_Hydroponics_UpperFloor_01" instance = ExtResource("1_dsc50")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

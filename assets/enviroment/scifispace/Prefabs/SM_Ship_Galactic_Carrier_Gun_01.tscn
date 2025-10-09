@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddhbuetrsxeak"]
+
+[ext_resource type="PackedScene" uid="uid://c4bsocmdaojv7" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Ship_Galactic_Carrier_Gun_01.glb" id="1_dc337"]
+[ext_resource type="Material" uid="uid://f0cy7ruc0nwv" path="res://assets/enviroment/scifispace/Engine/EngineMaterials/DefaultMaterial.tres" id="2_caoo8"]
+
+[node name = "SM_Ship_Galactic_Carrier_Gun_01" instance = ExtResource("1_dc337")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_caoo8")

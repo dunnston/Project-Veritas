@@ -1,0 +1,11 @@
+[gd_resource type = "ShaderMaterial" load_steps=3 format=3 uid="uid://cf0yfua824m2k"]
+
+[ext_resource type="Shader" uid="uid://c72p1cp8nimvd" path="res://assets/enviroment/SimpleSpace/Shaders/WorldGridMaterial.tres" id="3_va40c"]
+[ext_resource type="Texture2D" uid="uid://k8nc0yk2kh1s" path="res://assets/enviroment/SimpleSpace/Engine/EngineMaterials/T_Default_Material_Grid_N.png" id="1_bnvs4"]
+[ext_resource type="Texture2D" uid="uid://cu64dergnjx1h" path="res://assets/enviroment/SimpleSpace/Engine/EngineMaterials/T_Default_Material_Grid_M.png" id="2_mu74o"]
+
+[resource]
+resource_name = "WorldGridMaterial"
+render_priority = 0
+shader = ExtResource("3_va40c")
+shader_parameter/Generated_T_Default_Material_Grid_N = ExtResource("1_bnvs4")

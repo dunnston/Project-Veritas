@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmsx8qh03jlop"]
+
+[ext_resource type="PackedScene" uid="uid://tc4sgy88tyrs" path="res://PolygonScifi/Meshes/Misc/SM_Flame_Mesh.glb" id="1_kogxr"]
+[ext_resource type="Material" uid="uid://yfl1hxlhsb6t" path="res://PolygonScifi/Materials/Misc/M_FX_PolygonSciFi_Default.tres" id="2_be1fx"]
+
+[node name = "SM_Flame_Mesh" instance = ExtResource("1_kogxr")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_be1fx")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://hd7tjubvclj4"]
+
+[ext_resource type="PackedScene" uid="uid://okh38lxjx0qp" path="res://SimpleSpaceInteriors/Meshes/Props/SM_Prop_Microscope_01.glb" id="1_cvwac"]
+[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
+
+[node name = "SM_Prop_Microscope_01" instance = ExtResource("1_cvwac")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bqq6s")

@@ -1,0 +1,27 @@
+[gd_resource type = "ShaderMaterial" load_steps=4 format=3 uid="uid://b5ef7me7wo7r5"]
+
+[ext_resource type="Shader" uid="uid://cceiaapfcqqc6" path="res://assets/enviroment/SimpleSpace/Shaders/M_Sky_Panning_Clouds2(MID_M_Sky_Panning_Clouds2_0_71098).tres" id="4_bv0jb"]
+[ext_resource type="Texture2D" uid="uid://byj77xb40c1u2" path="res://assets/enviroment/SimpleSpace/Engine/EngineSky/T_Sky_Stars.png" id="1_6qqqq"]
+[ext_resource type="Texture2D" uid="uid://dv87ncm3quuoq" path="res://assets/enviroment/SimpleSpace/Engine/EngineSky/T_Sky_Blue.png" id="2_bpoiu"]
+[ext_resource type="Texture2D" uid="uid://couclnumdawms" path="res://assets/enviroment/SimpleSpace/Engine/EngineSky/T_Sky_Clouds_M.png" id="3_ctnnq"]
+
+[resource]
+resource_name = "M_Sky_Panning_Clouds2(MID_M_Sky_Panning_Clouds2_0_71098)"
+render_priority = 0
+shader = ExtResource("4_bv0jb")
+shader_parameter/Zenith_Color = Vector4(0.034, 0.073, 0.185, 1.000)
+shader_parameter/Stars_brightness = 0.100
+shader_parameter/Sun_height = 0.000
+shader_parameter/Horizon_color = Vector4(0.674, 0.675, 1.000, 1.000)
+shader_parameter/Horizon_Falloff = 4.393
+shader_parameter/Light_direction = Vector4(0.380, -0.765, -0.520, 1.000)
+shader_parameter/Sun_Radius = 0.000
+shader_parameter/Sun_color = Vector4(1.000, 1.000, 1.000, 1.000)
+shader_parameter/Sun_brightness = 75.000
+shader_parameter/Cloud_color = Vector4(0.847, 0.762, 0.753, 1.000)
+shader_parameter/Cloud_speed = 2.000
+shader_parameter/ObjectRadius = Vector4(100.000, 100.000, 100.000, 0.000)
+shader_parameter/Cloud_opacity = 1.000
+shader_parameter/NoisePower1 = 1.000
+shader_parameter/NoisePower2 = 4.000
+shader_parameter/Overall_Color = Vector4(1.000, 1.000, 1.000, 1.000)

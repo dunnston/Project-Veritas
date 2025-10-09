@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwqd3ollykkps"]
+
+[ext_resource type="PackedScene" uid="uid://b8mlhmyi5pio1" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Ship_Massive_Transport_01.glb" id="1_2td12"]
+[ext_resource type="Material" uid="uid://ctx6auttm1mdv" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Ship.tres" id="2_bxvus"]
+
+[node name = "SM_Ship_Massive_Transport_01" instance = ExtResource("1_2td12")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bxvus")

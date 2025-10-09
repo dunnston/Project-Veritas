@@ -1,0 +1,11 @@
+[gd_resource type = "ShaderMaterial" load_steps=3 format=3 uid="uid://dlks0f6v5pjmk"]
+
+[ext_resource type="Shader" uid="uid://rkf6jgb6xqf1" path="res://assets/enviroment/ScifiCity/Shaders/M_PolygonScifi_Roads.tres" id="3_cu720"]
+[ext_resource type="Texture2D" uid="uid://cryilugyfr35m" path="res://PolygonScifi/Textures/T_Dirt_01.png" id="1_ddhew"]
+[ext_resource type="Texture2D" uid="uid://emnwufth3t73" path="res://PolygonScifi/Textures/T_PolygonSciFi_Road_01.png" id="2_0n4x7"]
+
+[resource]
+resource_name = "M_PolygonScifi_Roads"
+render_priority = 0
+shader = ExtResource("3_cu720")
+shader_parameter/Generated_T_Dirt_01 = ExtResource("1_ddhew")

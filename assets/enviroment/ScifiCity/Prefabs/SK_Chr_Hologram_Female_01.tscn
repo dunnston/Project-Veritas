@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://s3ul8bxn78wm"]
+
+[ext_resource type="PackedScene" uid="uid://b5pctgvrstppf" path="res://PolygonScifi/Meshes/New_Character/SK_Chr_Hologram_Female_01.glb" id="1_dvlal"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SK_Chr_Hologram_Female_01" instance = ExtResource("1_dvlal")]
+
+[node name="Skeleton3D" parent="Mesh" index="0"]
+
+[node name="Mesh" parent="Mesh/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhf1bguwdhxpa"]
+
+[ext_resource type="PackedScene" uid="uid://c8r2tjsjofrgi" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Ship_Station_03.glb" id="1_dc7dh"]
+[ext_resource type="Material" uid="uid://lh21j5nas2p8" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Station.tres" id="2_b42u4"]
+
+[node name = "SM_Ship_Station_03" instance = ExtResource("1_dc7dh")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_b42u4")

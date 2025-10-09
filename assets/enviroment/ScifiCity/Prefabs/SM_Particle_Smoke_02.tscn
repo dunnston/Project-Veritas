@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv0rcvj10k86p"]
+
+[ext_resource type="PackedScene" uid="uid://bvywhxutmtbqs" path="res://PolygonScifi/Meshes/Misc/SM_Particle_Smoke_02.glb" id="1_cg7j1"]
+[ext_resource type="Material" uid="uid://yfl1hxlhsb6t" path="res://PolygonScifi/Materials/Misc/M_FX_PolygonSciFi_Default.tres" id="2_be1fx"]
+
+[node name = "SM_Particle_Smoke_02" instance = ExtResource("1_cg7j1")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_be1fx")

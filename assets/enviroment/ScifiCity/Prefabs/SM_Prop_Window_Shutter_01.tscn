@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://3exnkq2evoru"]
+
+[ext_resource type="PackedScene" uid="uid://c0rd1mx8cep2d" path="res://PolygonScifi/Meshes/Props/SM_Prop_Window_Shutter_01.glb" id="1_q0u8n"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Prop_Window_Shutter_01" instance = ExtResource("1_q0u8n")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

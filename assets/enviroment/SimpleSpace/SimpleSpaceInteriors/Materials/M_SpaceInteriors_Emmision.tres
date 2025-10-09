@@ -1,0 +1,10 @@
+[gd_resource type = "ShaderMaterial" load_steps=3 format=3 uid="uid://cgwc2jd713asi"]
+
+[ext_resource type="Shader" uid="uid://byxxmda7afmej" path="res://assets/enviroment/SimpleSpace/Shaders/M_SpaceInteriors_Emmision.tres" id="3_dd3s5"]
+[ext_resource type="Texture2D" uid="uid://dtq1eid5j7bk3" path="res://SimpleSpaceInteriors/Textures/T_SpaceInteriors_Emmision.png" id="1_cm1xy"]
+[ext_resource type="Texture2D" uid="uid://bgwjj34wy03bm" path="res://SimpleSpaceInteriors/Textures/T_SpaceInteriors.png" id="2_dcg1n"]
+
+[resource]
+resource_name = "M_SpaceInteriors_Emmision"
+render_priority = 0
+shader = ExtResource("3_dd3s5")

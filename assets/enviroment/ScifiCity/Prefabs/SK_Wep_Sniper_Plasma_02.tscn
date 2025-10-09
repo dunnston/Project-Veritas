@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj3enoc4w7q0e"]
+
+[ext_resource type="PackedScene" uid="uid://c3upogk1ljl3g" path="res://PolygonScifi/Meshes/Weapons/SK_Wep_Sniper_Plasma_02.glb" id="1_dn3mg"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SK_Wep_Sniper_Plasma_02" instance = ExtResource("1_dn3mg")]
+
+[node name="Skeleton3D" parent="Mesh" index="0"]
+
+[node name="Mesh" parent="Mesh/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

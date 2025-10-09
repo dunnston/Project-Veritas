@@ -1,0 +1,9 @@
+[gd_resource type = "ShaderMaterial" load_steps=2 format=3 uid="uid://1y64mjnp0vnh"]
+
+[ext_resource type="Shader" uid="uid://xdqe2ghcfgtb" path="res://assets/enviroment/ScifiCity/Shaders/M_PolygonScifi_Neon.tres" id="2_cr7q1"]
+[ext_resource type="Texture2D" uid="uid://cyxlrtl6uv1yx" path="res://PolygonScifi/Textures/T_NeonSigns.png" id="1_dw4qp"]
+
+[resource]
+resource_name = "M_PolygonScifi_Neon"
+render_priority = 0
+shader = ExtResource("2_cr7q1")

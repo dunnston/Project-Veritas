@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://05k8ovopxv5t"]
+
+[ext_resource type="PackedScene" uid="uid://dahfqoq7y3l3i" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_Hose_02.glb" id="1_bpxce"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Prop_Hose_02" instance = ExtResource("1_bpxce")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

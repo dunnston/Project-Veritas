@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3y2vw0gxfn05"]
+
+[ext_resource type="PackedScene" uid="uid://7srjknger635" path="res://PolygonScifi/Meshes/Buildings/SM_Bld_Large_Part_05.glb" id="1_kbyc2"]
+[ext_resource type="Material" uid="uid://bsuhr5m7hl6el" path="res://PolygonScifi/Materials/Alternates/M_PolygonScifi_01_C.tres" id="2_b84c8"]
+
+[node name = "SM_Bld_Large_Part_05" instance = ExtResource("1_kbyc2")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_b84c8")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://fdmerwdij80h"]
+
+[ext_resource type="PackedScene" uid="uid://dnhm4apyenmw" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_Missile_07.glb" id="1_cv8x4"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Prop_Missile_07" instance = ExtResource("1_cv8x4")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr2tak1acqvrr"]
+
+[ext_resource type="PackedScene" uid="uid://du3my6ijua6b2" path="res://SimpleSpaceInteriors/Meshes/Items/SM_Item_Book_06.glb" id="1_k31vi"]
+[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
+
+[node name = "SM_Item_Book_06" instance = ExtResource("1_k31vi")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bqq6s")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://be4756yn6ovvw"]
+
+[ext_resource type="PackedScene" uid="uid://c3rypup7cn2ct" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Environments/SM_Env_Asteroid_Field_LowDetail_02.glb" id="1_d33pl"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Env_Asteroid_Field_LowDetail_02" instance = ExtResource("1_d33pl")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkippahg4j35i"]
+
+[ext_resource type="PackedScene" uid="uid://bp3lvvml7ft3g" path="res://PolygonScifi/Meshes/Vehicles/SM_Veh_Armored_Truck_Cannon_01.glb" id="1_dnaef"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Veh_Armored_Truck_Cannon_01" instance = ExtResource("1_dnaef")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

@@ -1,0 +1,11 @@
+[gd_resource type = "ShaderMaterial" load_steps=3 format=3 uid="uid://cmx8twgrlqjah"]
+
+[ext_resource type="Shader" uid="uid://c72p1cp8nimvd" path="res://assets/enviroment/ScifiCity/Shaders/WorldGridMaterial.tres" id="3_va40c"]
+[ext_resource type="Texture2D" uid="uid://dnsb25woasb40" path="res://assets/enviroment/ScifiCity/Engine/EngineMaterials/T_Default_Material_Grid_N.png" id="1_bnvs4"]
+[ext_resource type="Texture2D" uid="uid://o8exq6ojgwc5" path="res://assets/enviroment/ScifiCity/Engine/EngineMaterials/T_Default_Material_Grid_M.png" id="2_mu74o"]
+
+[resource]
+resource_name = "WorldGridMaterial"
+render_priority = 0
+shader = ExtResource("3_va40c")
+shader_parameter/Generated_T_Default_Material_Grid_N = ExtResource("1_bnvs4")

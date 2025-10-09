@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1x7qsg02guyu"]
+
+[ext_resource type="PackedScene" uid="uid://datxvubjw22wd" path="res://PolygonScifi/Meshes/Props/SM_Prop_Drone_Quad_01.glb" id="1_b75fh"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="CapsuleShape3D" id="0_c31wo"]
+radius = 0.149698
+height = 0.478458
+
+[node name = "SM_Prop_Drone_Quad_01" instance = ExtResource("1_b75fh")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Capsule0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(0.000000, -0.242540, 0.970141, 0.970142, 0.235294, 0.058825, -0.242536, 0.941175, 0.235299, -0.000002, -0.126003, -0.000002)
+shape = SubResource("0_c31wo")
+

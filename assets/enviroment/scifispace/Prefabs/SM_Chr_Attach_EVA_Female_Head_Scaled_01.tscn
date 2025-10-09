@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmdtmo1fy8odo"]
+
+[ext_resource type="PackedScene" uid="uid://xk6sq6e5l3n7" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/CharacterAttachments/SM_Chr_Attach_EVA_Female_Head_Scaled_01.glb" id="1_c5hw3"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Chr_Attach_EVA_Female_Head_Scaled_01" instance = ExtResource("1_c5hw3")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

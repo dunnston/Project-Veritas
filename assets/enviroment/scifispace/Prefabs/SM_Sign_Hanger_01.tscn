@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuxm72ib27owg"]
+
+[ext_resource type="PackedScene" uid="uid://bil0lcnvrcvnv" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Signs/SM_Sign_Hanger_01.glb" id="1_u1usc"]
+[ext_resource type="Material" uid="uid://cg2naavy31jbd" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Signs_01_A.tres" id="2_cxv8v"]
+
+[node name = "SM_Sign_Hanger_01" instance = ExtResource("1_u1usc")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_cxv8v")

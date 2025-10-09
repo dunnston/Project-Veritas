@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://c434570eurtln"]
+
+[ext_resource type="PackedScene" uid="uid://bw0bqps3m6xs8" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Weapons/SM_Wep_Sword_Double_01.glb" id="1_bs7wg"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(0.044868, 0.028531, 0.306177)
+[sub_resource type="BoxShape3D" id="1_c31wp"]
+size = Vector3(0.157786, 0.044368, 0.151294)
+
+[node name = "SM_Wep_Sword_Double_01" instance = ExtResource("1_bs7wg")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 0.000000, -0.066626, 0.000000)
+shape = SubResource("0_c31wo")
+
+[node name="Box1" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.145447, -0.000000)
+shape = SubResource("1_c31wp")
+

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://du1ydjv0mhplg"]
+
+[ext_resource type="PackedScene" uid="uid://bngrljl1mpqac" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Weapons/SM_Wep_Sword_Double_Energy_01.glb" id="1_bntvh"]
+[ext_resource type="Material" uid="uid://c331yj7pcuj8l" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Energy.tres" id="2_clta5"]
+
+[node name = "SM_Wep_Sword_Double_Energy_01" instance = ExtResource("1_bntvh")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_clta5")

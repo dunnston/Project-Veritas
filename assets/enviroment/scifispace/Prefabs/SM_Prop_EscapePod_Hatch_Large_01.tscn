@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://en4alx025viq"]
+
+[ext_resource type="PackedScene" uid="uid://d45tu8mxrnw4" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_EscapePod_Hatch_Large_01.glb" id="1_7brwe"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Prop_EscapePod_Hatch_Large_01" instance = ExtResource("1_7brwe")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

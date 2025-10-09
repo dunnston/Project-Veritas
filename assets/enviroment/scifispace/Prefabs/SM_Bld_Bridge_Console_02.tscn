@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3gojohtllmx7"]
+
+[ext_resource type="PackedScene" uid="uid://t2o53l2f6j2e" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Bridge_Console_02.glb" id="1_k1g8e"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Bld_Bridge_Console_02" instance = ExtResource("1_k1g8e")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

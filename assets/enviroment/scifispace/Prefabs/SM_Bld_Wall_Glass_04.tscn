@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://c27c6fm5arxtk"]
+
+[ext_resource type="PackedScene" uid="uid://cbrrhqvgmhkpo" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Wall_Glass_04.glb" id="1_cd18u"]
+[ext_resource type="Material" uid="uid://bj4yjf8ac36jj" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Glass_01.tres" id="2_de8t7"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(3.365280, 0.008292, 1.717751)
+
+[node name = "SM_Bld_Wall_Glass_04" instance = ExtResource("1_cd18u")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_de8t7")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 2.475829, 1.663388, 0.187803)
+shape = SubResource("0_c31wo")
+

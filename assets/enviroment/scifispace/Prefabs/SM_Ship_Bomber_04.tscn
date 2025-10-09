@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://waxvkuwtscxi"]
+
+[ext_resource type="PackedScene" uid="uid://coqh1svvitxje" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Ship_Bomber_04.glb" id="1_dsdav"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Ship_Bomber_04" instance = ExtResource("1_dsdav")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dypu2eosaiu7a"]
+
+[ext_resource type="PackedScene" uid="uid://kgsmup5quwcj" path="res://SimpleSpaceInteriors/Meshes/Environment/SM_Env_CableRack_02.glb" id="1_bejac"]
+[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
+
+[node name = "SM_Env_CableRack_02" instance = ExtResource("1_bejac")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bqq6s")

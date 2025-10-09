@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpc61diauvad2"]
+
+[ext_resource type="PackedScene" uid="uid://bfrgbf267gvs" path="res://assets/enviroment/SimpleSpace/Engine/EngineSky/SM_SkySphere.glb" id="1_d0xi0"]
+[ext_resource type="Material" uid="uid://b5ef7me7wo7r5" path="res://SimpleSpaceInteriors/Maps/OverViewM_Sky_Panning_Clouds2(MID_M_Sky_Panning_Clouds2_0_71098).tres" id="2_c1u0k"]
+
+[node name = "SM_SkySphere" instance = ExtResource("1_d0xi0")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1u0k")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdlutwknjlu3t"]
+
+[ext_resource type="PackedScene" uid="uid://bj6k6r5lrql11" path="res://PolygonScifi/Meshes/Props/SM_Prop_Rubbish_Paper_04.glb" id="1_csb3d"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Prop_Rubbish_Paper_04" instance = ExtResource("1_csb3d")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

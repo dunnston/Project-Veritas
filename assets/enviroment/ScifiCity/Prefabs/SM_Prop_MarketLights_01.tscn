@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwm8ia37vcp3f"]
+
+[ext_resource type="PackedScene" uid="uid://bww4x6hxos0vs" path="res://PolygonScifi/Meshes/Props/SM_Prop_MarketLights_01.glb" id="1_c8bme"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(0.101750, 0.075551, 1.692634)
+[sub_resource type="BoxShape3D" id="1_c31wp"]
+size = Vector3(0.101750, 0.075551, 1.692634)
+[sub_resource type="BoxShape3D" id="2_c31wn"]
+size = Vector3(0.101750, 0.075551, 2.583528)
+
+[node name = "SM_Prop_MarketLights_01" instance = ExtResource("1_c8bme")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, -1.249916, 0.846317, -0.000000)
+shape = SubResource("0_c31wo")
+
+[node name="Box1" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 1.250057, 0.846317, -0.000000)
+shape = SubResource("1_c31wp")
+
+[node name="Box2" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(-0.000000, 0.000000, -1.000000, -1.000000, -0.000000, -0.000000, 0.000000, 1.000000, -0.000000, -0.007879, 1.638039, -0.000013)
+shape = SubResource("2_c31wn")
+

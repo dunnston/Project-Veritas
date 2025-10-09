@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5elfte4jkosy"]
+
+[ext_resource type="PackedScene" uid="uid://hohhtyx6hx3d" path="res://assets/enviroment/ScifiCity/Engine/EngineSky/SM_SkySphere.glb" id="1_bp88n"]
+[ext_resource type="Material" uid="uid://d04xf8qt54y40" path="res://PolygonScifi/Maps/DemoM_Sky_Panning_Clouds2(MID_M_Sky_Panning_Clouds2_0_60273).tres" id="2_cryaf"]
+
+[node name = "SM_SkySphere" instance = ExtResource("1_bp88n")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_cryaf")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkfs7oij3bug7"]
+
+[ext_resource type="PackedScene" uid="uid://cudtn38kih85v" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_Greeble_Panel_07.glb" id="1_clk4h"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Prop_Greeble_Panel_07" instance = ExtResource("1_clk4h")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

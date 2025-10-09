@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8tsbbw51ix8o"]
+
+[ext_resource type="PackedScene" uid="uid://dq2gh0g77cpo1" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/CharacterAttachments/SM_Chr_Attach_Mask_Medic_01.glb" id="1_c5sly"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Chr_Attach_Mask_Medic_01" instance = ExtResource("1_c5sly")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

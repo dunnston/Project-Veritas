@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqdry6xms1lpw"]
+
+[ext_resource type="PackedScene" uid="uid://dsguiwrh8jc3p" path="res://PolygonScifi/Meshes/Props/SM_Prop_FoodTray_01.glb" id="1_c8ick"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(0.727812, 0.485077, 0.173730)
+
+[node name = "SM_Prop_FoodTray_01" instance = ExtResource("1_c8ick")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.084572, -0.011062)
+shape = SubResource("0_c31wo")
+

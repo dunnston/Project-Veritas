@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyj3qjer7iyvo"]
+
+[ext_resource type="PackedScene" uid="uid://1xwi25tp5t75" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Floor_Large_Walkway_02.glb" id="1_lq38m"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Bld_Floor_Large_Walkway_02" instance = ExtResource("1_lq38m")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

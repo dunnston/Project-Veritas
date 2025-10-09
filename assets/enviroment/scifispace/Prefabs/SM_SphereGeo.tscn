@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc5fifveou434"]
+
+[ext_resource type="PackedScene" uid="uid://gxtl1uhmnlrk" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/FX/SM_SphereGeo.glb" id="1_b8yy8"]
+[ext_resource type="Material" uid="uid://cimdlncb37vca" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/FX/M_FX_Fire.tres" id="2_bxf7i"]
+
+[node name = "SM_SphereGeo" instance = ExtResource("1_b8yy8")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bxf7i")

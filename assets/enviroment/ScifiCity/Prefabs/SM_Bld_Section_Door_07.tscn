@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgc8xfgekrgb4"]
+
+[ext_resource type="PackedScene" uid="uid://d0y6ip6mu2dwx" path="res://PolygonScifi/Meshes/Buildings/SM_Bld_Section_Door_07.glb" id="1_da74v"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(5.000000, 0.254428, 3.000000)
+[sub_resource type="BoxShape3D" id="1_c31wp"]
+size = Vector3(5.000000, 0.254428, 3.000000)
+[sub_resource type="BoxShape3D" id="2_c31wn"]
+size = Vector3(3.042942, 0.179948, 3.000000)
+[sub_resource type="BoxShape3D" id="3_c31wo"]
+size = Vector3(0.729902, 0.179948, 3.000000)
+[sub_resource type="BoxShape3D" id="4_c31wm"]
+size = Vector3(1.201907, 0.179948, 0.641911)
+[sub_resource type="BoxShape3D" id="5_c31wm"]
+size = Vector3(5.000000, 0.254428, 3.000000)
+[sub_resource type="BoxShape3D" id="6_c31wl"]
+size = Vector3(5.000000, 4.961451, 0.147414)
+[sub_resource type="BoxShape3D" id="7_c31wl"]
+size = Vector3(5.000000, 4.961451, 0.147414)
+
+[node name = "SM_Bld_Section_Door_07" instance = ExtResource("1_da74v")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 2.500001, 1.500000, -4.881672)
+shape = SubResource("0_c31wo")
+
+[node name="Box1" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(-0.000000, 1.000000, 0.000000, -0.000000, -0.000000, -1.000000, -1.000000, 0.000000, -0.000000, 4.873854, 1.500000, -2.491012)
+shape = SubResource("1_c31wp")
+
+[node name="Box2" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 1.532782, 1.500000, -0.085774)
+shape = SubResource("2_c31wn")
+
+[node name="Box3" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 4.583627, 1.500000, -0.085774)
+shape = SubResource("3_c31wo")
+
+[node name="Box4" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 3.641895, 2.679169, -0.085774)
+shape = SubResource("4_c31wm")
+
+[node name="Box5" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(-0.000000, 1.000000, 0.000000, -0.000000, -0.000000, -1.000000, -1.000000, 0.000000, -0.000000, 0.128061, 1.500000, -2.491065)
+shape = SubResource("5_c31wm")
+
+[node name="Box6" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 2.500000, 0.065924, -2.527445)
+shape = SubResource("6_c31wl")
+
+[node name="Box7" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 2.499998, 2.916850, -2.527445)
+shape = SubResource("7_c31wl")
+

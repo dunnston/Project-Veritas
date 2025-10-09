@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cks4xloc7u6um"]
+
+[ext_resource type="PackedScene" uid="uid://cjngeni23pyhp" path="res://PolygonScifi/Meshes/Misc/SM_Diagnostic_Plane_01.glb" id="1_dp55y"]
+[ext_resource type="Material" uid="uid://cmx8twgrlqjah" path="res://assets/enviroment/ScifiCity/Engine/EngineMaterials/WorldGridMaterial.tres" id="2_dh3ji"]
+
+[node name = "SM_Diagnostic_Plane_01" instance = ExtResource("1_dp55y")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_dh3ji")

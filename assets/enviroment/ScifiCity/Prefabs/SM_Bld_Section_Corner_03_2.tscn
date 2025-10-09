@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://csno1dql6ix1r"]
+
+[ext_resource type="PackedScene" uid="uid://cv2j27lxorsds" path="res://PolygonScifi/Meshes/Buildings/SM_Bld_Section_Corner_03.glb" id="1_e7iub"]
+[ext_resource type="Material" uid="uid://bsuhr5m7hl6el" path="res://PolygonScifi/Materials/Alternates/M_PolygonScifi_01_C.tres" id="2_b84c8"]
+
+[node name = "SM_Bld_Section_Corner_03_2" instance = ExtResource("1_e7iub")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_b84c8")

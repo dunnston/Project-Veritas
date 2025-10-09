@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1mks4mrh7jsu"]
+
+[ext_resource type="PackedScene" uid="uid://kb6eh02pysit" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/FX/SM_Hud_Reticle_04.glb" id="1_b8b3e"]
+[ext_resource type="Material" uid="uid://ccotw52fu54da" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Unlit_Blue.tres" id="2_dxdpd"]
+
+[node name = "SM_Hud_Reticle_04" instance = ExtResource("1_b8b3e")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_dxdpd")

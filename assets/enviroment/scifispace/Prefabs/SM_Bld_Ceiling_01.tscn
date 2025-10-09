@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://q0g0q0s3v71b"]
+
+[ext_resource type="PackedScene" uid="uid://ceyl63q2457uv" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Ceiling_01.glb" id="1_2l246"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Bld_Ceiling_01" instance = ExtResource("1_2l246")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

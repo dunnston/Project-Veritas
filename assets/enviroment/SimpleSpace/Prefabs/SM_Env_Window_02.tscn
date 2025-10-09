@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bui3xh7mk8xau"]
+
+[ext_resource type="PackedScene" uid="uid://ca1mwc7hgj0l2" path="res://SimpleSpaceInteriors/Meshes/Environment/SM_Env_Window_02.glb" id="1_3ej4k"]
+[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
+
+[node name = "SM_Env_Window_02" instance = ExtResource("1_3ej4k")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bqq6s")

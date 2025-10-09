@@ -1,0 +1,10 @@
+[gd_resource type = "ShaderMaterial" load_steps=1 format=3 uid="uid://b1h6a41rqic20"]
+
+[ext_resource type="Shader" uid="uid://dv8fxe0x17bqi" path="res://assets/enviroment/SimpleSpace/Shaders/BasicShapeMaterial.tres" id="1_wiski"]
+
+[resource]
+resource_name = "BasicShapeMaterial"
+render_priority = 0
+shader = ExtResource("1_wiski")
+shader_parameter/Color = Vector4(0.900, 0.900, 0.900, 1.000)
+shader_parameter/Roughness = 0.641

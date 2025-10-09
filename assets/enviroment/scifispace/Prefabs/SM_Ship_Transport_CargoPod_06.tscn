@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0kh6pd3f8q3c"]
+
+[ext_resource type="PackedScene" uid="uid://g45i38h0b4k5" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Ship_Transport_CargoPod_06.glb" id="1_b28ga"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Ship_Transport_CargoPod_06" instance = ExtResource("1_b28ga")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

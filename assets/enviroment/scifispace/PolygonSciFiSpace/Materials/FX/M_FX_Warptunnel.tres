@@ -1,0 +1,10 @@
+[gd_resource type = "ShaderMaterial" load_steps=2 format=3 uid="uid://boppnn3tuisf1"]
+
+[ext_resource type="Shader" uid="uid://dpuxn0kb08cu2" path="res://assets/enviroment/scifispace/Shaders/M_FX_Warptunnel.tres" id="2_b40u6"]
+[ext_resource type="Texture2D" uid="uid://dy086ckm0iug7" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Textures/FX/T_PolygonSciFiSpace_WindTrail.png" id="1_b8s11"]
+
+[resource]
+resource_name = "M_FX_Warptunnel"
+render_priority = 0
+shader = ExtResource("2_b40u6")
+shader_parameter/OpacityValue = 0.500

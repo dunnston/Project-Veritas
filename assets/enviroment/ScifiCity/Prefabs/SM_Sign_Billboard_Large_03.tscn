@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://brxbkv547tqcf"]
+
+[ext_resource type="PackedScene" uid="uid://dmlljdt7h7ayu" path="res://PolygonScifi/Meshes/Signs/SM_Sign_Billboard_Large_03.glb" id="1_cil7u"]
+[ext_resource type="Material" uid="uid://b3hjhemnm3s7v" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Billboards.tres" id="2_duj4c"]
+
+[node name = "SM_Sign_Billboard_Large_03" instance = ExtResource("1_cil7u")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_duj4c")

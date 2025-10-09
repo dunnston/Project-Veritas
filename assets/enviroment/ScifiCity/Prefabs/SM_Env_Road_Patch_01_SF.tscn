@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbqhur1tfc04"]
+
+[ext_resource type="PackedScene" uid="uid://c18a71fxbqxk1" path="res://PolygonScifi/Meshes/Environments/SM_Env_Road_Patch_01_SF.glb" id="1_bb357"]
+[ext_resource type="Material" uid="uid://dlks0f6v5pjmk" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Roads.tres" id="2_y3s7a"]
+
+[node name = "SM_Env_Road_Patch_01_SF" instance = ExtResource("1_bb357")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_y3s7a")

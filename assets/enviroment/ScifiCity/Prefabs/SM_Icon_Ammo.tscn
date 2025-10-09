@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmt3casb3cnpc"]
+
+[ext_resource type="PackedScene" uid="uid://bfb6desxx8vw4" path="res://PolygonScifi/Meshes/Misc/SM_Icon_Ammo.glb" id="1_516st"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Icon_Ammo" instance = ExtResource("1_516st")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

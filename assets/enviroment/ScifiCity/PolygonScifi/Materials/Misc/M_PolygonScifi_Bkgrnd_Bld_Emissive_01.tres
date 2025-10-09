@@ -1,0 +1,9 @@
+[gd_resource type = "ShaderMaterial" load_steps=2 format=3 uid="uid://d0ys0ttx7iu5g"]
+
+[ext_resource type="Shader" uid="uid://c2ac4yqj0s55e" path="res://assets/enviroment/ScifiCity/Shaders/M_PolygonScifi_Bkgrnd_Bld_Emissive_01.tres" id="2_djeol"]
+[ext_resource type="Texture2D" uid="uid://bw2mwo0e3y4s6" path="res://PolygonScifi/Textures/T_PolygonScifi_Background_Building_Emissive.png" id="1_ccwie"]
+
+[resource]
+resource_name = "M_PolygonScifi_Bkgrnd_Bld_Emissive_01"
+render_priority = 0
+shader = ExtResource("2_djeol")

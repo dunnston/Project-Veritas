@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://rj70os66x55m"]
+
+[ext_resource type="PackedScene" uid="uid://ckoyvrwy44p6x" path="res://PolygonScifi/Meshes/Misc/SM_LightRay_Cube.glb" id="1_8k3hi"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_LightRay_Cube" instance = ExtResource("1_8k3hi")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

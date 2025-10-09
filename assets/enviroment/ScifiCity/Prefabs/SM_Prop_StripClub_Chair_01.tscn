@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://d002psysiabaq"]
+
+[ext_resource type="PackedScene" uid="uid://crns80k7poflj" path="res://PolygonScifi/Meshes/Props/SM_Prop_StripClub_Chair_01.glb" id="1_dn3mx"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(0.422158, 0.413474, 0.056250)
+[sub_resource type="BoxShape3D" id="1_c31wp"]
+size = Vector3(0.413170, 0.401103, 0.056250)
+
+[node name = "SM_Prop_StripClub_Chair_01" instance = ExtResource("1_dn3mx")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.745149, 0.055692)
+shape = SubResource("0_c31wo")
+
+[node name="Box1" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, -0.965924, -0.258824, 0.000000, 0.258824, -0.965924, 0.000000, 0.969619, -0.197879)
+shape = SubResource("1_c31wp")
+

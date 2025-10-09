@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxq2a7qtv5351"]
+
+[ext_resource type="PackedScene" uid="uid://q1dpp05rxmbl" path="res://PolygonScifi/Meshes/Props/SM_Prop_Bank_Door_Right_01.glb" id="1_n7otp"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Prop_Bank_Door_Right_01" instance = ExtResource("1_n7otp")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

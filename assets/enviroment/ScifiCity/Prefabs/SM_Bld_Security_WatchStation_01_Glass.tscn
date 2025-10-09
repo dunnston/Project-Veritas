@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ba5no3rui4njg"]
+
+[ext_resource type="PackedScene" uid="uid://daprqorbv038k" path="res://PolygonScifi/Meshes/Buildings/SM_Bld_Security_WatchStation_01_Glass.glb" id="1_cm4qj"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Bld_Security_WatchStation_01_Glass" instance = ExtResource("1_cm4qj")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

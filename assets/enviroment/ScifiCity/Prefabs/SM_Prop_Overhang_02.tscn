@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://tvop834h0yxx"]
+
+[ext_resource type="PackedScene" uid="uid://0bxyxjx42po3" path="res://PolygonScifi/Meshes/Props/SM_Prop_Overhang_02.glb" id="1_cnids"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(4.815106, 0.300449, 0.887773)
+
+[node name = "SM_Prop_Overhang_02" instance = ExtResource("1_cnids")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.500001, -0.866025, 0.000000, 0.866025, 0.500001, -0.000006, -0.443498, 0.218180)
+shape = SubResource("0_c31wo")
+

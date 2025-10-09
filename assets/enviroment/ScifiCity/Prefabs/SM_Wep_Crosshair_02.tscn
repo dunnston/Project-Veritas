@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlj40kqgh0eyg"]
+
+[ext_resource type="PackedScene" uid="uid://b7gaxyjhexhux" path="res://PolygonScifi/Meshes/Weapons/Accessories/SM_Wep_Crosshair_02.glb" id="1_buxxi"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Wep_Crosshair_02" instance = ExtResource("1_buxxi")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwhlfk210jjod"]
+
+[ext_resource type="PackedScene" uid="uid://byw5jt32ucis5" path="res://PolygonScifi/Meshes/Props/SM_Prop_BenchSeat_01.glb" id="1_blhp6"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(0.192254, 0.604313, 0.681783)
+[sub_resource type="BoxShape3D" id="1_c31wp"]
+size = Vector3(0.192254, 0.604313, 0.681783)
+[sub_resource type="BoxShape3D" id="2_c31wn"]
+size = Vector3(2.535700, 0.546165, 0.083106)
+
+[node name = "SM_Prop_BenchSeat_01" instance = ExtResource("1_blhp6")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 1.250497, 0.340891, 0.000000)
+shape = SubResource("0_c31wo")
+
+[node name="Box1" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, -1.254292, 0.340891, -0.000000)
+shape = SubResource("1_c31wp")
+
+[node name="Box2" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.464111, -0.000000)
+shape = SubResource("2_c31wn")
+

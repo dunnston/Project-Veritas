@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://utivhou16hnk"]
+
+[ext_resource type="PackedScene" uid="uid://dx5ckmh5ip8dk" path="res://SimpleSpaceInteriors/Meshes/Props/SM_Prop_3DPrinter_01.glb" id="1_drigy"]
+[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
+
+[node name = "SM_Prop_3DPrinter_01" instance = ExtResource("1_drigy")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bqq6s")

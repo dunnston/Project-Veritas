@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmythwy7p7drr"]
+
+[ext_resource type="PackedScene" uid="uid://b67gk7wcby8ql" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Weapons/SM_Wep_Shield_Extended_01.glb" id="1_dxvvj"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Wep_Shield_Extended_01" instance = ExtResource("1_dxvvj")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

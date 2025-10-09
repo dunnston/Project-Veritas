@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhufh4m87jb1j"]
+
+[ext_resource type="PackedScene" uid="uid://c0cym4wernaku" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/FX/SM_Pebble_Debris_01.glb" id="1_dasvn"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Pebble_Debris_01" instance = ExtResource("1_dasvn")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

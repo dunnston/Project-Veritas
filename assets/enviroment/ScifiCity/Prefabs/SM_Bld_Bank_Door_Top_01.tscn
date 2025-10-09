@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://uvise0rbvu7u"]
+
+[ext_resource type="PackedScene" uid="uid://dc5lpbtn7hn21" path="res://PolygonScifi/Meshes/Buildings/SM_Bld_Bank_Door_Top_01.glb" id="1_beu55"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(1.970838, 0.146209, 1.427326)
+
+[node name = "SM_Bld_Bank_Door_Top_01" instance = ExtResource("1_beu55")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 5.023148, 1.743862, -0.145889)
+shape = SubResource("0_c31wo")
+

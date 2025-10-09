@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcjvomcp66i5u"]
+
+[ext_resource type="PackedScene" uid="uid://dj7t7863gxjfv" path="res://PolygonScifi/Meshes/Environments/SM_Env_Graffiti_Ground_01.glb" id="1_xkdkr"]
+[ext_resource type="Material" uid="uid://b3hjhemnm3s7v" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Billboards.tres" id="2_duj4c"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(4.559099, 0.281003, 1.953163)
+
+[node name = "SM_Env_Graffiti_Ground_01" instance = ExtResource("1_xkdkr")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_duj4c")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.976582, -0.013292)
+shape = SubResource("0_c31wo")
+

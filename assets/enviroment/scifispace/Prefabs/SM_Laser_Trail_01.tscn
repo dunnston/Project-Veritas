@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckrjegfd7eue2"]
+
+[ext_resource type="PackedScene" uid="uid://c86ks0dgy03jq" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/FX/SM_Laser_Trail_01.glb" id="1_cgfk5"]
+[ext_resource type="Material" uid="uid://bf7kqu4fq60yj" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/FX/M_FX_Laser.tres" id="2_ctawl"]
+
+[node name = "SM_Laser_Trail_01" instance = ExtResource("1_cgfk5")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_ctawl")

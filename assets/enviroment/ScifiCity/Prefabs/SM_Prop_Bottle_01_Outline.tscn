@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnvj741rsdk12"]
+
+[ext_resource type="PackedScene" uid="uid://bi8qf8wen274m" path="res://PolygonScifi/Meshes/Props/SM_Prop_Bottle_01_Outline.glb" id="1_0cnbw"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Prop_Bottle_01_Outline" instance = ExtResource("1_0cnbw")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://gjc3xa5gck1m"]
+
+[ext_resource type="PackedScene" uid="uid://bbl1hh3hqtefn" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/FX/SM_Flame_Mesh_Square.glb" id="1_bnlrc"]
+[ext_resource type="Material" uid="uid://c5rhgx0ac68sm" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/FX/M_FX_Booster.tres" id="2_cmfmq"]
+
+[node name = "SM_Flame_Mesh_Square" instance = ExtResource("1_bnlrc")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_cmfmq")

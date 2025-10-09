@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://br13r1chlbtky"]
+
+[ext_resource type="PackedScene" uid="uid://cwa0ihvfe35vu" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Ship_Cruiser_02.glb" id="1_c0iof"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Ship_Cruiser_02" instance = ExtResource("1_c0iof")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

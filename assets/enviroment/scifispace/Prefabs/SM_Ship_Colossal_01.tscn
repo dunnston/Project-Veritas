@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://chym4wbnhbon5"]
+
+[ext_resource type="PackedScene" uid="uid://dv0n6ry6bqe2w" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Ship_Colossal_01.glb" id="1_btti6"]
+[ext_resource type="Material" uid="uid://ctx6auttm1mdv" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Ship.tres" id="2_bxvus"]
+
+[node name = "SM_Ship_Colossal_01" instance = ExtResource("1_btti6")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bxvus")

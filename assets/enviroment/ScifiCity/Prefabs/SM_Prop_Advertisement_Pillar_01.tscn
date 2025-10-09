@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx5qqipjvi4xy"]
+
+[ext_resource type="PackedScene" uid="uid://buhv6oyykfk4h" path="res://PolygonScifi/Meshes/Props/SM_Prop_Advertisement_Pillar_01.glb" id="1_cke5k"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Prop_Advertisement_Pillar_01" instance = ExtResource("1_cke5k")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

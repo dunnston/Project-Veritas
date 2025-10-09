@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0ymmh1ywc5b"]
+
+[ext_resource type="PackedScene" uid="uid://du5ipmnn2fidd" path="res://PolygonScifi/Meshes/Weapons/SK_Wep_Grenade_HE_01.glb" id="1_cgmt3"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SK_Wep_Grenade_HE_01" instance = ExtResource("1_cgmt3")]
+
+[node name="Skeleton3D" parent="Mesh" index="0"]
+
+[node name="Mesh" parent="Mesh/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

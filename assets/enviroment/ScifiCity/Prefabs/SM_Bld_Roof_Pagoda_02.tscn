@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb2i2w407865b"]
+
+[ext_resource type="PackedScene" uid="uid://dsk4o8d44njid" path="res://PolygonScifi/Meshes/Buildings/SM_Bld_Roof_Pagoda_02.glb" id="1_0ubep"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Bld_Roof_Pagoda_02" instance = ExtResource("1_0ubep")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

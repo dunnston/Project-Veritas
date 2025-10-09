@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl4csisdh4cl2"]
+
+[ext_resource type="PackedScene" uid="uid://cr4erftrenfsp" path="res://PolygonScifi/Meshes/Weapons/SK_Wep_Rifle_Small_01.glb" id="1_cllnx"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SK_Wep_Rifle_Small_01" instance = ExtResource("1_cllnx")]
+
+[node name="Skeleton3D" parent="Mesh" index="0"]
+
+[node name="Mesh" parent="Mesh/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
