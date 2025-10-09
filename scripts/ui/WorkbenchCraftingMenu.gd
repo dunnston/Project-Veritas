@@ -22,6 +22,7 @@ func _ready():
 	instance = self
 	visible = false
 	clear_selection()
+	add_to_group("crafting_menu")
 
 func open_workbench_menu(workbench: Node):  # Accepts both WorkbenchBuilding and WorkbenchBuilding3D
 	current_workbench = workbench
