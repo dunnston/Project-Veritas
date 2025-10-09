@@ -21,7 +21,7 @@ const IDLE_SWEEP_ANGLE: float = 45.0  # Degrees to sweep left/right
 
 ## EXPORT VARIABLES (Editable in the Inspector)
 @export_group("Rotation")
-@export_range(0.1, 10.0, 0.1) var rotation_speed: float = 1.0
+@export_range(0.1, 10.0, 0.1) var rotation_speed: float = 5.0
 
 @export_group("Combat")
 @export_range(0.1, 20.0, 0.1) var fire_rate: float = 2.0  # Shots per second
@@ -47,7 +47,9 @@ const IDLE_SWEEP_ANGLE: float = 45.0  # Degrees to sweep left/right
 
 @export_group("Audio")
 @export var shoot_sound: AudioStream = preload("res://assets/sound/effects/Pow.wav")
+@export var bang_sound: AudioStream = preload("res://assets/sound/effects/Bang.wav")
 @export var shoot_sound_volume: float = 0.0  # Volume in dB (0.0 is default)
+@export_range(5.0, 10.0, 0.5) var bang_trigger_time: float = 7.0  # Seconds of continuous firing before Bang.wav plays
 
 ## NODE REFERENCES (Use % for unique names for robustness)
 @onready var turret_pivot: Node3D = %TurretPivot
@@ -76,6 +78,8 @@ var max_slots: int = 1
 
 # Audio
 var _audio_player: AudioStreamPlayer3D = null
+var _continuous_firing_time: float = 0.0  # Tracks how long we've been firing continuously
+var _bang_played: bool = false  # Flag to ensure Bang.wav only plays once per firing session
 
 
 func _ready() -> void:
@@ -171,8 +175,13 @@ func _enter_state(state: State) -> void:
 			_sweep_direction = 1
 
 		State.FIRING:
+			# Reset firing timer and flag when entering FIRING state
+			_continuous_firing_time = 0.0
+			_bang_played = false
+
 			# Start playing shooting sound on loop
 			if _audio_player and shoot_sound:
+				_audio_player.stream = shoot_sound  # Make sure we start with Pow.wav
 				_audio_player.play()
 				print("Turret: Started shooting sound")
 
@@ -240,6 +249,13 @@ func _process_firing_state(delta: float) -> void:
 
 	_rotate_horizontal(direction_to_target, delta)
 	_rotate_vertical(target_pos, delta)
+
+	# Update continuous firing timer
+	_continuous_firing_time += delta
+
+	# Check if we should swap to Bang.wav
+	if not _bang_played and _continuous_firing_time >= bang_trigger_time:
+		_play_bang_sound()
 
 	# Fire the weapon
 	_fire()
@@ -406,19 +422,24 @@ func _rotate_horizontal(direction: Vector3, delta: float) -> void:
 
 ## Rotates the gun vertically (pitch) to aim at the target
 func _rotate_vertical(target_pos: Vector3, delta: float) -> void:
-	# Get the local direction to the target relative to the turret pivot
-	var local_target_pos := turret_pivot.to_local(target_pos)
-	var local_direction := local_target_pos.normalized()
+	# Convert target's world position to turret_pivot's local coordinate space
+	var target_local_pos := turret_pivot.to_local(target_pos)
 
-	# Create a target transform for the vertical pivot
-	var look_at_vertical := Transform3D().looking_at(local_direction, Vector3.UP)
-	gun_pivot.basis = gun_pivot.basis.slerp(
-		look_at_vertical.basis,
-		delta * rotation_speed
-	)
+	# Calculate direction FROM gun_pivot's position TO the local target
+	var direction_to_target_local := (target_local_pos - gun_pivot.position).normalized()
 
-	# Clamp the pitch angle to prevent over-rotation
-	_clamp_pitch_angle()
+	# Calculate the pitch angle needed to aim at the target
+	# Using atan2 to get the angle between horizontal plane and target
+	var horizontal_dist := Vector2(direction_to_target_local.x, direction_to_target_local.z).length()
+	var pitch_angle := atan2(direction_to_target_local.y, horizontal_dist)
+
+	# Clamp the pitch angle
+	pitch_angle = clampf(rad_to_deg(pitch_angle), min_pitch_angle, max_pitch_angle)
+
+	# Smoothly interpolate to target pitch
+	var current_pitch := rad_to_deg(gun_pivot.rotation.x)
+	var new_pitch := lerp_angle(deg_to_rad(current_pitch), deg_to_rad(pitch_angle), delta * rotation_speed)
+	gun_pivot.rotation.x = new_pitch
 
 
 ## Clamps the gun's pitch angle within the configured limits
@@ -479,6 +500,31 @@ func _has_line_of_sight() -> bool:
 	return false
 
 
+## Plays Bang.wav once, then returns to Pow.wav
+func _play_bang_sound() -> void:
+	if not _audio_player or not bang_sound:
+		return
+
+	_bang_played = true
+	print("Turret: Playing Bang.wav (after %.1f seconds of firing)" % _continuous_firing_time)
+
+	# Stop current sound
+	_audio_player.stop()
+
+	# Play Bang.wav once (non-looping)
+	_audio_player.stream = bang_sound
+	_audio_player.play()
+
+	# Wait for Bang.wav to finish, then return to Pow.wav
+	await _audio_player.finished
+
+	# Return to Pow.wav looping
+	if _current_state == State.FIRING and shoot_sound:
+		_audio_player.stream = shoot_sound
+		_audio_player.play()
+		print("Turret: Returned to Pow.wav")
+
+
 ## Fires a projectile from the turret
 func _fire() -> void:
 	if not _can_fire or not projectile_scene or not muzzle:
@@ -501,8 +547,8 @@ func _on_body_entered(body: Node3D) -> void:
 	print("Turret: Body entered detection area - %s (groups: %s)" % [body.name, body.get_groups()])
 
 	if body.is_in_group(target_group):
-		_target = body
-		print("Turret: Target acquired - %s" % body.name)
+		# Update target to closest animal
+		_update_closest_target()
 
 
 ## Called when a body exits the detection area
@@ -510,6 +556,32 @@ func _on_body_exited(body: Node3D) -> void:
 	if body == _target:
 		_target = null
 		print("Turret: Target lost - %s" % body.name)
+		# Find new closest target
+		_update_closest_target()
+
+
+## Finds and targets the closest animal in detection range
+func _update_closest_target() -> void:
+	if not detection_area:
+		return
+
+	var bodies = detection_area.get_overlapping_bodies()
+	var closest_body: Node3D = null
+	var closest_distance: float = INF
+
+	for body in bodies:
+		if body.is_in_group(target_group):
+			var distance = global_position.distance_to(body.global_position)
+			if distance < closest_distance:
+				closest_distance = distance
+				closest_body = body
+
+	if closest_body != _target:
+		_target = closest_body
+		if _target:
+			print("Turret: Target acquired (closest) - %s at %.1fm" % [_target.name, closest_distance])
+		else:
+			print("Turret: No targets in range")
 
 
 ## Called when the fire rate timer times out

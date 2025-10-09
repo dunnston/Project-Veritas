@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvq8k3r7ml45w"]
+[gd_scene load_steps=3 format=3 uid="uid://bvq8k3r7ml45w"]
 
+[ext_resource type="Theme" uid="uid://c7iy4gmnqvk7r" path="res://resources/themes/neon_wasteland_theme.tres" id="1_theme"]
 [ext_resource type="Script" path="res://scripts/ui/TurretUI.gd" id="1"]
 
 [node name="TurretUI" type="Control"]
@@ -16,8 +17,9 @@ script = ExtResource("1")
 layout_mode = 0
 offset_left = 300.0
 offset_top = 200.0
-offset_right = 500.0
-offset_bottom = 350.0
+offset_right = 550.0
+offset_bottom = 400.0
+theme = ExtResource("1_theme")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TurretPanel"]
 layout_mode = 2
@@ -28,10 +30,12 @@ layout_mode = 2
 [node name="TitleLabel" type="Label" parent="TurretPanel/VBoxContainer/TitleBar"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Turret Ammo"
+theme_override_font_sizes/font_size = 20
+text = "TURRET AMMO"
 horizontal_alignment = 1
 
 [node name="CloseButton" type="Button" parent="TurretPanel/VBoxContainer/TitleBar"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 text = "X"
 

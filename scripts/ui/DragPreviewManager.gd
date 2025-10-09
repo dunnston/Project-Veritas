@@ -145,6 +145,9 @@ func try_drop_on_inventory(slot_index: int) -> bool:
 		"EQUIPMENT":
 			# Move from equipment to inventory (always allowed)
 			success = move_from_equipment_to_inventory(drag_source_type, slot_index)
+		"TURRET":
+			# Move from turret to inventory
+			success = move_from_turret_to_inventory(slot_index)
 
 	if success:
 		item_dropped.emit("INVENTORY", slot_index)
@@ -372,6 +375,36 @@ func move_from_equipment_to_inventory(equipment_slot: String, inventory_index: i
 	var equipped_weapon = WeaponManager.get_equipped_weapon(slot_to_unequip)
 	if equipped_weapon:
 		return WeaponManager.unequip_weapon(slot_to_unequip) != null
+
+	return false
+
+func move_from_turret_to_inventory(inventory_index: int) -> bool:
+	if not InventorySystem:
+		return false
+
+	# Get the turret UI instance
+	var turret_ui = TurretUI.instance
+	if not turret_ui or not turret_ui.current_turret:
+		return false
+
+	var turret = turret_ui.current_turret
+	var ammo_count = turret.get_ammo_count()
+	var ammo_type = turret.accepted_ammo_type
+
+	if ammo_count <= 0:
+		return false
+
+	# Remove ammo from turret
+	var removed_data = turret.remove_item_from_storage(0, ammo_count)
+	if removed_data["quantity"] > 0:
+		# Add to inventory at target slot
+		var added = InventorySystem.add_item_to_slot(inventory_index, removed_data["item_id"], removed_data["quantity"])
+
+		# Refresh turret UI
+		turret_ui.refresh_display()
+
+		print("DragPreviewManager: Moved %d %s from turret to inventory slot %d" % [removed_data["quantity"], removed_data["item_id"], inventory_index])
+		return added
 
 	return false
 

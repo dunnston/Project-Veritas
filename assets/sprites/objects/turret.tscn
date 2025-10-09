@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bf5cw7l5kluwu"]
+[gd_scene load_steps=6 format=3 uid="uid://bf5cw7l5kluwu"]
 
 [ext_resource type="Script" uid="uid://cyif4wdsj005m" path="res://assets/sprites/objects/turret.gd" id="1_5b0mk"]
+[ext_resource type="PackedScene" uid="uid://cdsmdeiawvddt" path="res://assets/sprites/objects/turret_projectile.tscn" id="2_projectile"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_a7kri"]
 top_radius = 1.0
@@ -11,29 +12,39 @@ top_radius = 0.2
 bottom_radius = 0.2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0rl17"]
-radius = 19.678
+radius = 100.0
 
 [node name="Turret" type="Node3D"]
 script = ExtResource("1_5b0mk")
+projectile_scene = ExtResource("2_projectile")
 
 [node name="TurretBase" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_a7kri")
 
 [node name="TurretPivot" type="Node3D" parent="."]
+unique_name_in_owner = true
 
 [node name="GunPivot" type="Node3D" parent="TurretPivot"]
+unique_name_in_owner = true
 
 [node name="TurretGun" type="MeshInstance3D" parent="TurretPivot/GunPivot"]
-transform = Transform3D(0.06667451, 0.99777484, 0, -0.99777484, 0.06667451, 0, 0, 0, 1, 0.9989544, 0.3361013, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -1)
 mesh = SubResource("CylinderMesh_5b0mk")
 
 [node name="Muzzle" type="Marker3D" parent="TurretPivot/GunPivot"]
+unique_name_in_owner = true
+transform = Transform3D(0.9999984, 0, 0.0017976882, 0, 1, 0, -0.0017976882, 0, 0.9999984, 0, 0, -2)
 
 [node name="DetectionArea" type="Area3D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 63
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
 shape = SubResource("SphereShape3D_0rl17")
 
 [node name="FireRateTimer" type="Timer" parent="."]
+unique_name_in_owner = true
 wait_time = 0.5
 one_shot = true

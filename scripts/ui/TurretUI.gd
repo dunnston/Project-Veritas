@@ -28,19 +28,60 @@ func _ready():
 
 	if ammo_slot_button:
 		ammo_slot_button.custom_minimum_size = Vector2(SLOT_SIZE, SLOT_SIZE)
+		ammo_slot_button.pressed.connect(_on_ammo_slot_pressed)
 		ammo_slot_button.gui_input.connect(_on_ammo_slot_gui_input)
+		print("TurretUI: Connected ammo_slot_button signals")
 
 func _on_close_button_pressed():
 	close_turret_interface()
 
 func _on_ammo_slot_gui_input(event: InputEvent):
-	if not event is InputEventMouseButton:
+	# Handle drops when dragging
+	if event is InputEventMouseButton:
+		var mouse_event = event as InputEventMouseButton
+		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
+			if DragPreviewManager and DragPreviewManager.is_dragging:
+				print("TurretUI: Trying to add ammo from drag")
+				_try_add_ammo_from_drag()
+				get_viewport().set_input_as_handled()
+
+func _on_ammo_slot_pressed():
+	print("TurretUI: AmmoSlot pressed, is_dragging: %s" % (DragPreviewManager.is_dragging if DragPreviewManager else "N/A"))
+
+	# If not dragging, this is a click to remove ammo
+	if not DragPreviewManager or not DragPreviewManager.is_dragging:
+		print("TurretUI: Trying to remove ammo to inventory")
+		_try_remove_ammo_to_inventory()
+
+func _try_remove_ammo_to_inventory():
+	if not current_turret:
 		return
 
-	if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		# Check if player is dragging an item from inventory
-		if DragPreviewManager and DragPreviewManager.is_dragging:
-			_try_add_ammo_from_drag()
+	var ammo_count = current_turret.get_ammo_count()
+	if ammo_count <= 0:
+		return  # No ammo to remove
+
+	var ammo_type = current_turret.accepted_ammo_type
+
+	# Get the icon for this ammo type
+	var item_data = InventorySystem.get_item_data(ammo_type)
+	var icon_texture: Texture2D = null
+	if item_data and item_data.has("icon"):
+		var icon_path = "res://assets/sprites/items/ammo/" + item_data["icon"]
+		if ResourceLoader.exists(icon_path):
+			icon_texture = load(icon_path)
+
+	# Start dragging the ammo (source_type, source_index, item_id, quantity, icon_texture)
+	if DragPreviewManager and icon_texture:
+		DragPreviewManager.start_drag(
+			"TURRET",
+			0,  # slot index
+			ammo_type,
+			ammo_count,
+			icon_texture
+		)
+		print("TurretUI: Started dragging %d %s from turret" % [ammo_count, ammo_type])
+
 
 func _try_add_ammo_from_drag():
 	if not DragPreviewManager.is_dragging:
