@@ -17,6 +17,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("CapsuleShape3D_boar")
 
 [node name="Model" parent="." instance=ExtResource("2_boar_model")]
+transform = Transform3D(1.9, 0, 0, 0, 1.9, 0, 0, 0, 1.9, 0, 0, 0)
 
 [node name="AttackArea" type="Area3D" parent="."]
 collision_layer = 0
