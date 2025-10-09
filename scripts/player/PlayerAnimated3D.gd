@@ -8,7 +8,7 @@ extends CharacterBody3D
 
 @export_group("Interaction Settings")
 @export var drop_distance: float = 2.0
-@export var interact_range: float = 3.0
+@export var interact_range: float = 2.0  # Reduced from 3.0 to 2.0
 
 @export_group("Mining Settings")
 @export var mining_damage_per_hit: float = 10.0
@@ -649,7 +649,8 @@ func add_test_items():
 		InventorySystem.add_item("WOOD_SCRAPS", 10)
 		InventorySystem.add_item("METAL_SCRAPS", 5)
 		InventorySystem.add_item("GEARS", 3)
-		print("Added test items to inventory for drop testing")
+		InventorySystem.add_item("SCRAP_BULLETS", 200)  # Add ammo for turret testing
+		print("Added test items to inventory (including 200 scrap bullets for turret testing)")
 
 func toggle_inventory():
 	# Toggle inventory UI directly

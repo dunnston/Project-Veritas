@@ -256,6 +256,13 @@
 		"name": "Wood Scraps",
 		"stack_size": 100.0
 	},
+	"SCRAP_BULLETS": {
+		"category": "ammo",
+		"description": "Makeshift ammunition crafted from scrap metal. Works with most firearms.",
+		"icon": "ammo_bullet.png",
+		"name": "Scrap Bullets",
+		"stack_size": 100
+	},
 	"SCRAP_HELMET": {
 		"category": "equipment",
 		"description": "Makeshift helmet cobbled together from scrap metal",

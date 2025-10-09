@@ -1,7 +1,7 @@
-[gd_scene load_steps=98 format=3 uid="uid://cowdyxaa0m4vf"]
+[gd_scene load_steps=99 format=3 uid="uid://cowdyxaa0m4vf"]
 
-[ext_resource type="Script" uid="uid://dro765f4xjskh" path="res://scripts/world/AddCollisionsRuntime.gd" id="1_collision"]
-[ext_resource type="PackedScene" uid="uid://djyak4m7p8qrt" path="res://scenes/player/player_radiation_suit.tscn" id="1_player"]
+[ext_resource type="Script" path="res://scripts/world/AddCollisionsRuntime.gd" id="1_collision"]
+[ext_resource type="PackedScene" path="res://scenes/player/player_radiation_suit.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
 [ext_resource type="PackedScene" uid="uid://dvvrkfbrg3h80" path="res://scenes/ui/InventoryUI.tscn" id="3_inventory"]
 [ext_resource type="PackedScene" uid="uid://4ecytrmjhsph" path="res://scenes/environment/Desert/SM_Env_Crater_01.tscn" id="3_mq3yy"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bnsad6xuc765q" path="res://scenes/environment/Desert/SM_Env_Cactus_03.tscn" id="4_a85wv"]
 [ext_resource type="PackedScene" uid="uid://b2rmw840g7mnp" path="res://scenes/environment/Desert/SM_Env_Grass_01.tscn" id="4_qk5pi"]
 [ext_resource type="PackedScene" uid="uid://c5qxr8jyf4kxm" path="res://scenes/ui/StorageUI.tscn" id="4_storage"]
+[ext_resource type="PackedScene" uid="uid://bvq8k3r7ml45w" path="res://scenes/ui/TurretUI.tscn" id="4_turret"]
 [ext_resource type="PackedScene" path="res://scenes/ui/CombatHUD.tscn" id="5_combathud"]
 [ext_resource type="PackedScene" uid="uid://baedaktxqlplp" path="res://scenes/environment/Desert/SM_Env_GroundCover_01.tscn" id="5_j7bxh"]
 [ext_resource type="PackedScene" uid="uid://fk0l6kgg8vyb" path="res://scenes/environment/Desert/SM_Env_Crater_03.tscn" id="5_w46yq"]
@@ -91,6 +92,7 @@
 [ext_resource type="Resource" uid="uid://dnb8wx4ky2pvj" path="res://resources/animals/boar_template.tres" id="89_sknf5"]
 [ext_resource type="Resource" uid="uid://b8mq3xnv7ht2p" path="res://resources/animals/wolf_template.tres" id="90_2lpym"]
 [ext_resource type="Resource" uid="uid://dft8qw2nx4vbp" path="res://resources/animals/bear_template.tres" id="91_3q2ld"]
+[ext_resource type="PackedScene" uid="uid://bf5cw7l5kluwu" path="res://assets/sprites/objects/turret.tscn" id="92_l14a3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_desert"]
 sky_top_color = Color(0.4, 0.6, 0.9, 1)
@@ -741,6 +743,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 0, 100)
 
 [node name="StorageUI" parent="UI" instance=ExtResource("4_storage")]
 
+[node name="TurretUI" parent="UI" instance=ExtResource("4_turret")]
+
 [node name="CombatHUD" parent="UI" instance=ExtResource("5_combathud")]
 layout_mode = 3
 anchors_preset = 15
@@ -801,3 +805,10 @@ spawn_frequency_max = 35.0
 spawn_radius = 30.0
 min_spawn_distance = 15.0
 debug_color = Color(1, 0, 0, 0.3)
+
+[node name="Turret" parent="." instance=ExtResource("92_l14a3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9797606, 1, 3.917594)
+rotation_speed = null
+fire_rate = null
+max_pitch_angle = null
+min_pitch_angle = null
