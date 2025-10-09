@@ -1,9 +1,55 @@
-[gd_scene load_steps=3 format=3 uid="uid://dn46sxv1ii45w"]
+[gd_scene load_steps=7 format=4 uid="uid://dn46sxv1ii45w"]
 
-[ext_resource type="PackedScene" uid="uid://dajqs1p3xq76x" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/FX/SM_Hud_Text_Arrow_01.glb" id="1_ns2uf"]
+[ext_resource type="Texture2D" uid="uid://cohrh20jbq7u4" path="res://assets/enviroment/scifispace/Textures/PolygonSciFiSpace_Texture_01_A.png" id="1_jbcuq"]
 [ext_resource type="Material" uid="uid://ccotw52fu54da" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Unlit_Blue.tres" id="2_dxdpd"]
 
-[node name = "SM_Hud_Text_Arrow_01" instance = ExtResource("1_ns2uf")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hk07t"]
+resource_name = "MI_PolygonSciFiSpace_01_A"
+albedo_texture = ExtResource("1_jbcuq")
+roughness = 0.8
 
-[node name="Mesh" parent="." index="0"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jbcuq"]
+resource_name = "MI_PolygonSciFiSpace_Unlit_Blue"
+shading_mode = 0
+albedo_color = Color(0, 0.937897, 1, 1)
+albedo_texture = ExtResource("1_jbcuq")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_fcoo5"]
+_surfaces = [{
+"aabb": AABB(-0.0243317, -0.010746, -0.00838806, 0.0486664, 0.0333, 0.0167761),
+"format": 34359742465,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAwACAAEAAgAEAAAAAgADAAQAAQAAAAQABQAEAAMABAAFAAEABQADAAEA"),
+"name": "MI_PolygonSciFiSpace_Unlit_Blue",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 6,
+"vertex_data": PackedByteArray("mVnHPAAQMLwUbgm8mVnHPAAQMLxwVQk8AAAAADPDuDwUbgm8AAAAADPDuDwUbgk8M1PHvAAQMLwUbgm8M1PHvAAQMLwUbgk8")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_hk07t"]
+resource_name = "SM_Hud_Text_Arrow_01_SM_Hud_Text_Arrow_01"
+_surfaces = [{
+"aabb": AABB(-0.0243317, -0.010746, -0.00838806, 0.0486664, 0.0333, 0.0167761),
+"attribute_data": PackedByteArray("aw2pPttgHT9qfnw/3PZ7P2sNqT7bYB0/2Dk/P9z2ez9rDak+22AdP2p+fD9mgxk/aw2pPttgHT/YOT8/ZoMZP2sNqT7bYB0/an58P2aDGT9rDak+22AdP9g5Pz/c9ns/aw2pPttgHT+QEQw9gIZnPGsNqT7bYB0/wp8CP3bglj5rDak+22AdP5ARDD3KZBM/aw2pPttgHT+IFv8+fgzZPmsNqT7bYB0/1s88P34M2T5rDak+22AdP9bPPD8mXnw/aw2pPttgHT/Wzzw/Jl58P2sNqT7bYB0/iBb/PiZefD9rDak+22AdP4gW/z5+DNk+aw2pPttgHT/g9WU89vooP2sNqT7bYB0/Ae36PvDHwT5rDak+22AdPwHt+j7zEXE/aw2pPttgHT/g5D0/8A9WPmsNqT7bYB0/wj57P/APVj5rDak+22AdP+DkPT9y9xc/aw2pPttgHT/CPns/cvcXP2sNqT7bYB0/4OQ9P3L3Fz9rDak+22AdP8I+ez/wD1Y+"),
+"format": 34359742519,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAFQAWABcA"),
+"material": SubResource("StandardMaterial3D_jbcuq"),
+"name": "MI_PolygonSciFiSpace_Unlit_Blue",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("mVnHPAAQMLwUbgm8mVnHPAAQMLxwVQk8AAAAADPDuDwUbgm8AAAAADPDuDwUbgk8AAAAADPDuDwUbgm8mVnHPAAQMLxwVQk8M1PHvAAQMLwUbgk8AAAAADPDuDwUbgk8mVnHPAAQMLxwVQk8M1PHvAAQMLwUbgm8M1PHvAAQMLwUbgk8mVnHPAAQMLxwVQk8mVnHPAAQMLxwVQk8mVnHPAAQMLwUbgm8M1PHvAAQMLwUbgm8AAAAADPDuDwUbgm8M1PHvAAQMLwUbgm8mVnHPAAQMLwUbgm8AAAAADPDuDwUbgm8AAAAADPDuDwUbgk8M1PHvAAQMLwUbgm8M1PHvAAQMLwUbgk8M1PHvAAQMLwUbgm8AAAAADPDuDwUbgk888kKtv///7/zyQq2////v/t/+/////+/+X/5/////7/7f/v/////v/PJCrb///+/A4D8f////78DgPx/////vwOA/H////+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//fwAA////v/9/AAD///+///8AAP///7///wAA////v///AAD///+/+3/7/////7/5f/n/////vwo2Cbb///+/CjYJtv///78KNgm2////v/l/+f////+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_fcoo5")
+
+[node name="SM_Hud_Text_Arrow_01" type="Node3D"]
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_hk07t")
+mesh = SubResource("ArrayMesh_hk07t")
+skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_dxdpd")

@@ -1,9 +1,55 @@
-[gd_scene load_steps=3 format=3 uid="uid://giocr0qu2f6x"]
+[gd_scene load_steps=7 format=4 uid="uid://giocr0qu2f6x"]
 
-[ext_resource type="PackedScene" uid="uid://be8glqnecbske" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/FX/SM_Hud_Text_04.glb" id="1_bvvr6"]
+[ext_resource type="Texture2D" uid="uid://cohrh20jbq7u4" path="res://assets/enviroment/scifispace/Textures/PolygonSciFiSpace_Texture_01_A.png" id="1_o5nq2"]
 [ext_resource type="Material" uid="uid://ccotw52fu54da" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Unlit_Blue.tres" id="2_dxdpd"]
 
-[node name = "SM_Hud_Text_04" instance = ExtResource("1_bvvr6")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k5vmj"]
+resource_name = "MI_PolygonSciFiSpace_01_A"
+albedo_texture = ExtResource("1_o5nq2")
+roughness = 0.8
 
-[node name="Mesh" parent="." index="0"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5nq2"]
+resource_name = "MI_PolygonSciFiSpace_Unlit_Blue"
+shading_mode = 0
+albedo_color = Color(0, 0.937897, 1, 1)
+albedo_texture = ExtResource("1_o5nq2")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_pqx7f"]
+_surfaces = [{
+"aabb": AABB(-0.0776733, -0.0075325, -0.00386841, 0.15535, 0.015065, 0.00773682),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgADAAAAAQAAAAQABAAAAAMABQACAAEAAwACAAUAAQAEAAYAAQAGAAUAAwAHAAQABgAEAAcAAwAFAAcABwAFAAYA"),
+"name": "MI_PolygonSciFiSpace_Unlit_Blue",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("zRSfPTPT9rsehX07zRSfPTPT9jsehX07zRSfPTPT9jsehX27zRSfPTPT9rsehX27MxOfvTPT9rsehX07MxOfvTPT9jsehX27MxOfvTPT9jsehX07MxOfvTPT9rsehX27")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_k5vmj"]
+resource_name = "SM_Hud_Text_04_SM_Hud_Text_04"
+_surfaces = [{
+"aabb": AABB(-0.0776733, -0.0075325, -0.00386841, 0.15535, 0.015065, 0.00773682),
+"attribute_data": PackedByteArray("aw2pPttgHT/YFD8/rut7P2sNqT7bYB0/2BQ/PxCYZD9rDak+22AdPyLzWz8QmGQ/aw2pPttgHT8i81s/EJhkP2sNqT7bYB0/IvNbP67rez9rDak+22AdP9gUPz+u63s/aw2pPttgHT8+qf4+oHNDPWsNqT7bYB0/Pqn+PsZpfD9rDak+22AdP7Q8xD7GaXw/aw2pPttgHT+0PMQ+xml8P2sNqT7bYB0/tDzEPqBzQz1rDak+22AdPz6p/j6gc0M9aw2pPttgHT82bXw/EJhkP2sNqT7bYB0/Nm18P67rez9rDak+22AdP/E2Xz+u63s/aw2pPttgHT/xNl8/rut7P2sNqT7bYB0/8TZfPxCYZD9rDak+22AdPzZtfD8QmGQ/aw2pPttgHT+nkIE+F+ZzP2sNqT7bYB0/p5CBPgCiajxrDak+22AdPztNuz4Aomo8aw2pPttgHT87Tbs+AKJqPGsNqT7bYB0/O027Phfmcz9rDak+22AdP6eQgT4X5nM/aw2pPttgHT8CVTw/sv17P2sNqT7bYB0/Yl4DP2BCPT1rDak+22AdPwJVPD9gQj09aw2pPttgHT8CVTw/sv17P2sNqT7bYB0/Yl4DP7L9ez9rDak+22AdP2JeAz9gQj09aw2pPttgHT9y4m8+F+ZzP2sNqT7bYB0/wPxmPECgYTxrDak+22AdP3Libz5AoGE8aw2pPttgHT9y4m8+F+ZzP2sNqT7bYB0/wPxmPBfmcz9rDak+22AdP8D8ZjxAoGE8"),
+"format": 34359742519,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAFQAWABcAGAAZABoAGwAcAB0AHgAfACAAIQAiACMA"),
+"material": SubResource("StandardMaterial3D_o5nq2"),
+"name": "MI_PolygonSciFiSpace_Unlit_Blue",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("zRSfPTPT9rsehX07zRSfPTPT9jsehX07zRSfPTPT9jsehX27zRSfPTPT9jsehX27zRSfPTPT9rsehX27zRSfPTPT9rsehX07MxOfvTPT9rsehX07zRSfPTPT9rsehX07zRSfPTPT9rsehX27zRSfPTPT9rsehX27MxOfvTPT9rsehX27MxOfvTPT9rsehX07MxOfvTPT9jsehX07MxOfvTPT9rsehX07MxOfvTPT9rsehX27MxOfvTPT9rsehX27MxOfvTPT9jsehX27MxOfvTPT9jsehX07zRSfPTPT9jsehX07MxOfvTPT9jsehX07MxOfvTPT9jsehX27MxOfvTPT9jsehX27zRSfPTPT9jsehX27zRSfPTPT9jsehX07zRSfPTPT9jsehX07MxOfvTPT9rsehX07MxOfvTPT9jsehX07zRSfPTPT9jsehX07zRSfPTPT9rsehX07MxOfvTPT9rsehX07zRSfPTPT9rsehX27MxOfvTPT9jsehX27MxOfvTPT9rsehX27zRSfPTPT9rsehX27zRSfPTPT9jsehX27MxOfvTPT9jsehX27////f////7////9/////v////3////+/////f////7////9/////v////3////+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//fwAA////v/9/AAD///+/AAD/f////78AAP9/////vwAA/3////+/AAD/f////78AAP9/////vwAA/3////+//3///////7//f///////v/9///////+//3///////7//f///////v/9///////+//3//f////7//f/9/////v/9//3////+//3//f////7//f/9/////v/9//3////+///8AAP///7///wAA////v///AAD///+///8AAP///7///wAA////v///AAD///+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_pqx7f")
+
+[node name="SM_Hud_Text_04" type="Node3D"]
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_k5vmj")
+mesh = SubResource("ArrayMesh_k5vmj")
+skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_dxdpd")
