@@ -1,0 +1,26 @@
+[gd_resource type = "ShaderMaterial" load_steps=4 format=3 uid="uid://cxvtw3cqfk8er"]
+
+[ext_resource type="Shader" uid="uid://dcrd3ljyufa4q" path="res://assets/enviroment/scifispace/Shaders/MI_PolygonSciFiSpace_Hud_Glass.tres" id="4_7s7ii"]
+[ext_resource type="Texture2D" uid="uid://b2ep742is6jq5" path="res://assets/enviroment/scifispace/Engine/EngineResources/Black.png" id="1_dq26m"]
+[ext_resource type="Texture2D" uid="uid://cw16fwlx8f2lo" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Textures/T_PolygonSciFiSpace_01_A.png" id="2_dvs3v"]
+[ext_resource type="Texture2D" uid="uid://cxdhafbs0p7ae" path="res://assets/enviroment/scifispace/Engine/EngineResources/WhiteSquareTexture.png" id="3_dyfei"]
+
+[resource]
+resource_name = "MI_PolygonSciFiSpace_Hud_Glass"
+render_priority = 0
+shader = ExtResource("4_7s7ii")
+shader_parameter/TriplanarDirt = false
+shader_parameter/BaseTexture = ExtResource("2_dvs3v")
+shader_parameter/DetailTexture = ExtResource("3_dyfei")
+shader_parameter/DetailScale = 1.000
+shader_parameter/DetailOpacity = 1.000
+shader_parameter/DirtScale = 1000.000
+shader_parameter/Opacity = 0.100
+shader_parameter/RimGlow = false
+shader_parameter/RimColour = Vector4(0.852, 0.137, 1.000, 0.000)
+shader_parameter/RimPower = 5.000
+shader_parameter/EmissiveTexture = ExtResource("1_dq26m")
+shader_parameter/EmissiveTint = Vector4(1.000, 1.000, 1.000, 1.000)
+shader_parameter/Metallic = 0.000
+shader_parameter/Roughness = 0.800
+shader_parameter/Specular = 0.100

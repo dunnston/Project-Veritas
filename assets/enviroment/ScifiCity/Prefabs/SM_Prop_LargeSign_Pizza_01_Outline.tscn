@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg4y0kmrrfk61"]
+
+[ext_resource type="PackedScene" uid="uid://3p6xpk50lap0" path="res://PolygonScifi/Meshes/Props/SM_Prop_LargeSign_Pizza_01_Outline.glb" id="1_bfxon"]
+[ext_resource type="Material" uid="uid://c3e6cxgjabnlq" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Hologram_Outlines.tres" id="2_deaqj"]
+
+[node name = "SM_Prop_LargeSign_Pizza_01_Outline" instance = ExtResource("1_bfxon")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_deaqj")

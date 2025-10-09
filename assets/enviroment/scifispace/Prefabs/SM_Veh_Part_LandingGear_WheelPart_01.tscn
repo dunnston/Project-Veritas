@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://lbubtoq3fw3o"]
+
+[ext_resource type="PackedScene" uid="uid://cgfqx56ofnh57" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Veh_Part_LandingGear_WheelPart_01.glb" id="1_deo0p"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Veh_Part_LandingGear_WheelPart_01" instance = ExtResource("1_deo0p")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

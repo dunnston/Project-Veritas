@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtagg1jwbixlm"]
+
+[ext_resource type="PackedScene" uid="uid://dvxmi4ucrjl62" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/FX/SM_FX_LightBlocker_Cube_01.glb" id="1_ghynv"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_FX_LightBlocker_Cube_01" instance = ExtResource("1_ghynv")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

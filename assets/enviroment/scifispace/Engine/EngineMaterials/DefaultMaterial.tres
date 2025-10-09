@@ -1,0 +1,11 @@
+[gd_resource type = "ShaderMaterial" load_steps=3 format=3 uid="uid://f0cy7ruc0nwv"]
+
+[ext_resource type="Shader" uid="uid://ivm74eahx85c" path="res://assets/enviroment/scifispace/Shaders/DefaultMaterial.tres" id="3_c3htc"]
+[ext_resource type="Texture2D" uid="uid://dseq2mll2g20g" path="res://assets/enviroment/scifispace/Engine/EngineMaterials/T_Default_Material_Grid_N.png" id="1_bnvs4"]
+[ext_resource type="Texture2D" uid="uid://bgfifuc851ta8" path="res://assets/enviroment/scifispace/Engine/EngineMaterials/T_Default_Material_Grid_M.png" id="2_mu74o"]
+
+[resource]
+resource_name = "DefaultMaterial"
+render_priority = 0
+shader = ExtResource("3_c3htc")
+shader_parameter/Generated_T_Default_Material_Grid_N = ExtResource("1_bnvs4")

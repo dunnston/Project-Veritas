@@ -1,0 +1,9 @@
+[gd_resource type = "ShaderMaterial" load_steps=2 format=3 uid="uid://c5rhgx0ac68sm"]
+
+[ext_resource type="Shader" uid="uid://v3e7slfutg58" path="res://assets/enviroment/scifispace/Shaders/M_FX_Booster.tres" id="2_rbmqh"]
+[ext_resource type="Texture2D" uid="uid://d0epon15vydi7" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Textures/FX/T_PolygonSciFiSpace_Gradient_Boost.png" id="1_4beld"]
+
+[resource]
+resource_name = "M_FX_Booster"
+render_priority = 0
+shader = ExtResource("2_rbmqh")

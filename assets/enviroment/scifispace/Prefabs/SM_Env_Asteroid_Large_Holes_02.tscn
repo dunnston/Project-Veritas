@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://efjksu1u8q1l"]
+
+[ext_resource type="PackedScene" uid="uid://dv12rap5nplyk" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Environments/SM_Env_Asteroid_Large_Holes_02.glb" id="1_if2fh"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Env_Asteroid_Large_Holes_02" instance = ExtResource("1_if2fh")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

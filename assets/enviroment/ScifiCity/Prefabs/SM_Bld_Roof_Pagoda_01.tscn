@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://cli8u5aarxmju"]
+
+[ext_resource type="PackedScene" uid="uid://cm1dmigvgdawk" path="res://PolygonScifi/Meshes/Buildings/SM_Bld_Roof_Pagoda_01.glb" id="1_160eh"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(0.327839, 0.174338, 2.951219)
+[sub_resource type="BoxShape3D" id="1_c31wp"]
+size = Vector3(0.327839, 0.174338, 2.951219)
+
+[node name = "SM_Bld_Roof_Pagoda_01" instance = ExtResource("1_160eh")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, -1.884801, 2.467950, 0.000000)
+shape = SubResource("0_c31wo")
+
+[node name="Box1" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 1.877900, 2.467949, 0.000001)
+shape = SubResource("1_c31wp")
+

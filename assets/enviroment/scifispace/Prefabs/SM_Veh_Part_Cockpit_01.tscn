@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctka86k5k7jhe"]
+
+[ext_resource type="PackedScene" uid="uid://bebhky68wvug3" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Veh_Part_Cockpit_01.glb" id="1_mbarf"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Veh_Part_Cockpit_01" instance = ExtResource("1_mbarf")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm36n5wlg6e3o"]
+
+[ext_resource type="PackedScene" uid="uid://e4ijxwx1mkms" path="res://SimpleSpaceInteriors/Meshes/Props/SM_Prop_SwivelChair_03.glb" id="1_c1yf6"]
+[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
+
+[node name = "SM_Prop_SwivelChair_03" instance = ExtResource("1_c1yf6")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bqq6s")

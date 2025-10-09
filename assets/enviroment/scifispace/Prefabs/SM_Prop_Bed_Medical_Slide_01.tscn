@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://2r2v0ydphp4m"]
+
+[ext_resource type="PackedScene" uid="uid://d3tn1x5uqi86n" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_Bed_Medical_Slide_01.glb" id="1_s5nb2"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(0.830263, 2.341564, 0.184866)
+[sub_resource type="BoxShape3D" id="1_c31wp"]
+size = Vector3(0.376450, 1.492963, 0.772551)
+
+[node name = "SM_Prop_Bed_Medical_Slide_01" instance = ExtResource("1_s5nb2")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, -0.022125, 0.787985, 0.094460)
+shape = SubResource("0_c31wo")
+
+[node name="Box1" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 0.000378, 0.392792, -0.091022)
+shape = SubResource("1_c31wp")
+

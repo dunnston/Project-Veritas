@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://r4ksjy0hklnr"]
+
+[ext_resource type="PackedScene" uid="uid://elh2iwuqh3kf" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Ship_Galactic_Carrier_Armor_01.glb" id="1_cno60"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Ship_Galactic_Carrier_Armor_01" instance = ExtResource("1_cno60")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

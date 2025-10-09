@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgp7r1droof4h"]
+
+[ext_resource type="PackedScene" uid="uid://dtkf28srr23qr" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_HangerGlass_03.glb" id="1_crmn2"]
+[ext_resource type="Material" uid="uid://bj4yjf8ac36jj" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Glass_01.tres" id="2_de8t7"]
+
+[node name = "SM_Bld_HangerGlass_03" instance = ExtResource("1_crmn2")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_de8t7")

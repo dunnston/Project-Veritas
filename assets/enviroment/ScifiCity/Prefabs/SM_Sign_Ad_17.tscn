@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdq0vs7rto08o"]
+
+[ext_resource type="PackedScene" uid="uid://dnbea6ukpwkrn" path="res://PolygonScifi/Meshes/Signs/SM_Sign_Ad_17.glb" id="1_kqi55"]
+[ext_resource type="Material" uid="uid://bci4htinxlrjp" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Signs.tres" id="2_buhfh"]
+
+[node name = "SM_Sign_Ad_17" instance = ExtResource("1_kqi55")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_buhfh")

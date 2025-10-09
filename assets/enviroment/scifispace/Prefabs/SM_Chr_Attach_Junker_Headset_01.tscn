@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dl88s5luuioht"]
+
+[ext_resource type="PackedScene" uid="uid://bq1j3b1ewcy6l" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/CharacterAttachments/SM_Chr_Attach_Junker_Headset_01.glb" id="1_d4mqi"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Chr_Attach_Junker_Headset_01" instance = ExtResource("1_d4mqi")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

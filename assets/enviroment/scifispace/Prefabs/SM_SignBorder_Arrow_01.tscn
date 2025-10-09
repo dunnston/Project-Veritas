@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0x5h0qnnrbp1"]
+
+[ext_resource type="PackedScene" uid="uid://44vrr2f1uv06" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Signs/SM_SignBorder_Arrow_01.glb" id="1_cu4rh"]
+[ext_resource type="Material" uid="uid://cg2naavy31jbd" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Signs_01_A.tres" id="2_cxv8v"]
+
+[node name = "SM_SignBorder_Arrow_01" instance = ExtResource("1_cu4rh")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_cxv8v")

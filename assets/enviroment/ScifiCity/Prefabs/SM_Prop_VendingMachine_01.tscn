@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ho05iv61bk47"]
+
+[ext_resource type="PackedScene" uid="uid://bh727355bm47n" path="res://PolygonScifi/Meshes/Props/SM_Prop_VendingMachine_01.glb" id="1_bjgml"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Prop_VendingMachine_01" instance = ExtResource("1_bjgml")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

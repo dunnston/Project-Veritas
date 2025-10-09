@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfl5sihfqkogr"]
+
+[ext_resource type="PackedScene" uid="uid://bv0kqcy3kumae" path="res://PolygonScifi/Meshes/Props/SM_Prop_Jar_03_Lid.glb" id="1_dpicm"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Prop_Jar_03_Lid" instance = ExtResource("1_dpicm")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

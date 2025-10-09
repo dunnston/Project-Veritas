@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmktrb2b36lls"]
+
+[ext_resource type="PackedScene" uid="uid://uws33ciu4n6d" path="res://SimpleSpaceInteriors/Meshes/Environment/SM_Env_Floor_02.glb" id="1_dwdjx"]
+[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(5.000000, 5.000000, 0.075672)
+
+[node name = "SM_Env_Floor_02" instance = ExtResource("1_dwdjx")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bqq6s")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, -2.500000, -0.035772, 2.500000)
+shape = SubResource("0_c31wo")
+

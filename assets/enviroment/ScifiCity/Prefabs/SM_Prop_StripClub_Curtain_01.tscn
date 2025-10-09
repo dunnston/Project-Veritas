@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b288sgmcixmkp"]
+
+[ext_resource type="PackedScene" uid="uid://b0fgb2s1u7tpy" path="res://PolygonScifi/Meshes/Props/SM_Prop_StripClub_Curtain_01.glb" id="1_v0p0f"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="CapsuleShape3D" id="0_c31wo"]
+radius = 0.061804
+height = 2.013143
+
+[node name = "SM_Prop_StripClub_Curtain_01" instance = ExtResource("1_v0p0f")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Capsule0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 2.531113, -0.000000)
+shape = SubResource("0_c31wo")
+

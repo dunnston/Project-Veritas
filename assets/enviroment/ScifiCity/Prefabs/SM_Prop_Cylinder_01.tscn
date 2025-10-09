@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dv7hriqsucr0i"]
+
+[ext_resource type="PackedScene" uid="uid://drk6kf60du3ft" path="res://PolygonScifi/Meshes/Props/SM_Prop_Cylinder_01.glb" id="1_dnb4m"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Prop_Cylinder_01" instance = ExtResource("1_dnb4m")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

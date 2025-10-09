@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsgd74cfq4ps5"]
+
+[ext_resource type="PackedScene" uid="uid://4inf7cvqqcic" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Floor_Small_Hatch_Door_01.glb" id="1_cn2lq"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Bld_Floor_Small_Hatch_Door_01" instance = ExtResource("1_cn2lq")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

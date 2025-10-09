@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkab3e3ms64fl"]
+
+[ext_resource type="PackedScene" uid="uid://dmp8apkibtrq3" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/FX/SM_MissleReady.glb" id="1_buio4"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_MissleReady" instance = ExtResource("1_buio4")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

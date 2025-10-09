@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck4tn6ylp3g8g"]
+
+[ext_resource type="PackedScene" uid="uid://dt47qmdm4q1el" path="res://PolygonScifi/Meshes/Signs/SM_Sign_Neon_01.glb" id="1_bued8"]
+[ext_resource type="Material" uid="uid://1y64mjnp0vnh" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Neon.tres" id="2_di61h"]
+
+[node name = "SM_Sign_Neon_01" instance = ExtResource("1_bued8")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_di61h")

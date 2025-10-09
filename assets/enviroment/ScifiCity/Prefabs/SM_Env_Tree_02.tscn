@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvo8o007f00ft"]
+
+[ext_resource type="PackedScene" uid="uid://dko8yhyrsao5i" path="res://PolygonScifi/Meshes/Environments/SM_Env_Tree_02.glb" id="1_dsrrp"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Env_Tree_02" instance = ExtResource("1_dsrrp")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0jomg6i0yeh1"]
+
+[ext_resource type="PackedScene" uid="uid://ck0mldh8t42kx" path="res://PolygonScifi/Meshes/Props/SM_Prop_Monitor_03.glb" id="1_nckkm"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Prop_Monitor_03" instance = ExtResource("1_nckkm")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

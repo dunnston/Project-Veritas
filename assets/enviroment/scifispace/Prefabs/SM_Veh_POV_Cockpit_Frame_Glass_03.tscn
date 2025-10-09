@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyd8h415cvrpr"]
+
+[ext_resource type="PackedScene" uid="uid://b7g7itp6xeacv" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Veh_POV_Cockpit_Frame_Glass_03.glb" id="1_cckbh"]
+[ext_resource type="Material" uid="uid://cxvtw3cqfk8er" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Hud_Glass.tres" id="2_dxean"]
+
+[node name = "SM_Veh_POV_Cockpit_Frame_Glass_03" instance = ExtResource("1_cckbh")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_dxean")

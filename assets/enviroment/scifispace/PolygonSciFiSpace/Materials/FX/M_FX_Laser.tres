@@ -1,0 +1,8 @@
+[gd_resource type = "ShaderMaterial" load_steps=1 format=3 uid="uid://bf7kqu4fq60yj"]
+
+[ext_resource type="Shader" uid="uid://bmrxxcomd178o" path="res://assets/enviroment/scifispace/Shaders/M_FX_Laser.tres" id="1_c0781"]
+
+[resource]
+resource_name = "M_FX_Laser"
+render_priority = 0
+shader = ExtResource("1_c0781")

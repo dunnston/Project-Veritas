@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4d6x0sgfjntu"]
+
+[ext_resource type="PackedScene" uid="uid://bt04br1t6syxx" path="res://PolygonScifi/Meshes/Props/SM_Prop_MarketTable_03.glb" id="1_haj8r"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(2.306715, 0.872612, 0.113490)
+
+[node name = "SM_Prop_MarketTable_03" instance = ExtResource("1_haj8r")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, -0.001282, 0.811026, -0.003584)
+shape = SubResource("0_c31wo")
+

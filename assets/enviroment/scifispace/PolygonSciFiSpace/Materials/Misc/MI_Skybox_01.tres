@@ -1,0 +1,11 @@
+[gd_resource type = "ShaderMaterial" load_steps=3 format=3 uid="uid://be5ubfw111t47"]
+
+[ext_resource type="Shader" uid="uid://ce4l6mf2mckev" path="res://assets/enviroment/scifispace/Shaders/MI_Skybox_01.tres" id="3_bqeqf"]
+[ext_resource type="CompressedCubemap" uid="uid://ouuhmfq7ruac" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Textures/T_PolygonSciFiSpace_Skybox_01.hdr" id="1_7oct6"]
+[ext_resource type="CompressedCubemap" uid="uid://bn4wvs56enpkf" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Textures/T_PolygonSciFiSpace_Skybox_04.hdr" id="2_vwqye"]
+
+[resource]
+resource_name = "MI_Skybox_01"
+render_priority = 0
+shader = ExtResource("3_bqeqf")
+shader_parameter/StarBrightness = 10.000

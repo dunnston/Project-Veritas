@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dd1dxxvj8ugsv"]
+
+[ext_resource type="PackedScene" uid="uid://c8dy24k2b1jbc" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/FX/SM_Hud_Rings_02.glb" id="1_dkpxo"]
+[ext_resource type="Material" uid="uid://ccotw52fu54da" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Unlit_Blue.tres" id="2_dxdpd"]
+
+[node name = "SM_Hud_Rings_02" instance = ExtResource("1_dkpxo")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_dxdpd")

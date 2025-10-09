@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1e0vt3wtgyqb"]
+
+[ext_resource type="PackedScene" uid="uid://djt6wj0560g73" path="res://PolygonScifi/Meshes/New_Character/SK_Chr_Muscle_Male_01.glb" id="1_dvv6s"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SK_Chr_Muscle_Male_01" instance = ExtResource("1_dvv6s")]
+
+[node name="Skeleton3D" parent="Mesh" index="0"]
+
+[node name="Mesh" parent="Mesh/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

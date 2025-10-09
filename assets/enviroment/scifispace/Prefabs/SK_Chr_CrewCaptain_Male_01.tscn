@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://x45na62m6aqc"]
+
+[ext_resource type="PackedScene" uid="uid://5wf1kuixc1e0" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/CharactersUE4Mannequin/SK_Chr_CrewCaptain_Male_01.glb" id="1_df7la"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SK_Chr_CrewCaptain_Male_01" instance = ExtResource("1_df7la")]
+
+[node name="Skeleton3D" parent="Mesh" index="0"]
+
+[node name="Mesh" parent="Mesh/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

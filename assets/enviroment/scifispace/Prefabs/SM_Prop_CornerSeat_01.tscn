@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://r83hcpt6pc7r"]
+
+[ext_resource type="PackedScene" uid="uid://cm4v6ro8d75la" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_CornerSeat_01.glb" id="1_1bckr"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(0.784799, 3.125000, 0.516636)
+[sub_resource type="BoxShape3D" id="1_c31wp"]
+size = Vector3(0.784799, 3.125000, 0.516636)
+[sub_resource type="BoxShape3D" id="2_c31wn"]
+size = Vector3(0.210021, 3.125000, 0.565746)
+[sub_resource type="BoxShape3D" id="3_c31wo"]
+size = Vector3(0.210021, 3.125000, 0.565746)
+
+[node name = "SM_Prop_CornerSeat_01" instance = ExtResource("1_1bckr")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 0.385202, 0.262167, 1.562499)
+shape = SubResource("0_c31wo")
+
+[node name="Box1" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(-0.000000, -1.000000, -0.000000, 0.000000, -0.000000, -1.000000, 1.000000, 0.000000, -0.000000, 1.553119, 0.262178, 0.388393)
+shape = SubResource("1_c31wp")
+
+[node name="Box2" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 0.098498, 0.775501, 1.562499)
+shape = SubResource("2_c31wn")
+
+[node name="Box3" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(-0.000000, -1.000000, -0.000000, 0.000000, -0.000000, -1.000000, 1.000000, 0.000000, -0.000000, 1.563559, 0.775501, 0.103193)
+shape = SubResource("3_c31wo")
+

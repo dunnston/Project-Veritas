@@ -1,0 +1,14 @@
+[gd_resource type = "ShaderMaterial" load_steps=6 format=3 uid="uid://632cbjjn263l"]
+
+[ext_resource type="Shader" uid="uid://dxgauj6p4tfra" path="res://assets/enviroment/ScifiCity/Shaders/M_PolygonScifi_01_A.tres" id="6_daws0"]
+[ext_resource type="Texture2D" uid="uid://dmrvnmgv0a8sm" path="res://PolygonScifi/Textures/T_PolygonSciFiCity_Normal.png" id="1_br8a6"]
+[ext_resource type="Texture2D" uid="uid://booe4pg7yv7br" path="res://PolygonScifi/Textures/T_PolygonScifi_Emissive_01.png" id="2_dn6i1"]
+[ext_resource type="Texture2D" uid="uid://dxa3undycnm4x" path="res://PolygonScifi/Textures/T_PolygonScifi_01_A.png" id="3_bh5op"]
+[ext_resource type="Texture2D" uid="uid://cnacnibjvo7b7" path="res://PolygonScifi/Textures/T_PolygonSciFiCity_Metallic.png" id="4_boca0"]
+[ext_resource type="Texture2D" uid="uid://djsmpmwjropkf" path="res://PolygonScifi/Textures/T_PolygonSciFiCity_Roughness.png" id="5_bjyaq"]
+
+[resource]
+resource_name = "M_PolygonScifi_01_A"
+render_priority = 0
+shader = ExtResource("6_daws0")
+shader_parameter/Generated_T_PolygonSciFiCity_Normal = ExtResource("1_br8a6")

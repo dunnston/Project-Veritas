@@ -1,0 +1,9 @@
+[gd_resource type = "ShaderMaterial" load_steps=2 format=3 uid="uid://bga3l4bxy2xi"]
+
+[ext_resource type="Shader" uid="uid://cbexp4slb2dmj" path="res://assets/enviroment/SimpleSpace/Shaders/M_SimpleSpaceInteriors.tres" id="2_dwsu1"]
+[ext_resource type="Texture2D" uid="uid://bgwjj34wy03bm" path="res://SimpleSpaceInteriors/Textures/T_SpaceInteriors.png" id="1_dcg1n"]
+
+[resource]
+resource_name = "M_SimpleSpaceInteriors"
+render_priority = 0
+shader = ExtResource("2_dwsu1")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://2tdwi8h20rdy"]
+
+[ext_resource type="PackedScene" uid="uid://cdnmnjfghullq" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/CharacterAttachments/SM_Chr_Attach_EVA_Cover_Glass_01.glb" id="1_b47dn"]
+[ext_resource type="Material" uid="uid://bj4yjf8ac36jj" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Glass_01.tres" id="2_de8t7"]
+
+[node name = "SM_Chr_Attach_EVA_Cover_Glass_01" instance = ExtResource("1_b47dn")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_de8t7")

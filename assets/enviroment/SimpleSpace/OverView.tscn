@@ -1,0 +1,717 @@
+[gd_scene load_steps=226 format=3 uid="uid://baa0ihfbah0cb"]
+
+[ext_resource type="PackedScene" uid="uid://bpc61diauvad2" path="res://Prefabs/SM_SkySphere.tscn" id="1_x87my"]
+[ext_resource type="PackedScene" uid="uid://btvxwy08ch4n" path="res://Prefabs/Cube.tscn" id="2_dudgj"]
+[ext_resource type="PackedScene" uid="uid://dld3dc122xk5l" path="res://Prefabs/SM_Prop_Rocket_01.tscn" id="3_caeqs"]
+[ext_resource type="PackedScene" uid="uid://daamou08w32kq" path="res://Prefabs/SM_Prop_Satellite_01.tscn" id="4_bbevm"]
+[ext_resource type="PackedScene" uid="uid://c56muwmouyds6" path="res://Prefabs/SM_Prop_Simulator_01.tscn" id="5_ds1rk"]
+[ext_resource type="PackedScene" uid="uid://cig1yqnk8n6mv" path="res://Prefabs/SM_Prop_Lander_01.tscn" id="6_d2me2"]
+[ext_resource type="PackedScene" uid="uid://hb0hmwfcdc3m" path="res://Prefabs/SM_Env_Beam_01.tscn" id="7_dg3wo"]
+[ext_resource type="PackedScene" uid="uid://cffy184lfxq12" path="res://Prefabs/SM_Env_CableRack_01.tscn" id="8_bg828"]
+[ext_resource type="PackedScene" uid="uid://dypu2eosaiu7a" path="res://Prefabs/SM_Env_CableRack_02.tscn" id="9_bg827"]
+[ext_resource type="PackedScene" uid="uid://de62bt4fqtoy1" path="res://Prefabs/SM_Env_Ceiling_01.tscn" id="10_daki1"]
+[ext_resource type="PackedScene" uid="uid://dtwpg26x54tij" path="res://Prefabs/SM_Env_Ceiling_02.tscn" id="11_dakiy"]
+[ext_resource type="PackedScene" uid="uid://cwg17hfom73y3" path="res://Prefabs/SM_Env_Ceiling_03.tscn" id="12_daki0"]
+[ext_resource type="PackedScene" uid="uid://dbfg0a6dt60i0" path="res://Prefabs/SM_Env_Ceiling_Light_01.tscn" id="13_di2pl"]
+[ext_resource type="PackedScene" uid="uid://bkfv2dpqxfisg" path="res://Prefabs/SM_Env_Ceiling_Light_02.tscn" id="14_di2pn"]
+[ext_resource type="PackedScene" uid="uid://ck0uffetbyd2j" path="res://Prefabs/SM_Env_Ceiling_Light_03.tscn" id="15_di2pm"]
+[ext_resource type="PackedScene" uid="uid://bo0imp86uvise" path="res://Prefabs/SM_Env_Ceiling_Light_04.tscn" id="16_di2po"]
+[ext_resource type="PackedScene" uid="uid://da73fei5mtkuj" path="res://Prefabs/SM_Env_Ceiling_Light_05.tscn" id="17_di2pn"]
+[ext_resource type="PackedScene" uid="uid://dbdqm1hvyo4tx" path="res://Prefabs/SM_Env_Ceiling_Sprinkler_01.tscn" id="18_c6wic"]
+[ext_resource type="PackedScene" uid="uid://5x63xjsc5ph2" path="res://Prefabs/SM_Env_Ceiling_Vents_01.tscn" id="19_cueil"]
+[ext_resource type="PackedScene" uid="uid://dbeiq20f0k3ja" path="res://Prefabs/SM_Env_Ceiling_Vents_02.tscn" id="20_cueim"]
+[ext_resource type="PackedScene" uid="uid://688bs8i5s57v" path="res://Prefabs/SM_Env_Centrifuge_01.tscn" id="21_pele7"]
+[ext_resource type="PackedScene" uid="uid://uoinen1l5j1x" path="res://Prefabs/SM_Env_Centrifuge_Center_01.tscn" id="22_cpnxy"]
+[ext_resource type="PackedScene" uid="uid://dl67bbdiitda4" path="res://Prefabs/SM_Env_Consoles_01.tscn" id="23_dvgcd"]
+[ext_resource type="PackedScene" uid="uid://bpel0d1upgdjb" path="res://Prefabs/SM_Env_Consoles_Corner_01.tscn" id="24_do2pg"]
+[ext_resource type="PackedScene" uid="uid://1ic1a1pkyrdo" path="res://Prefabs/SM_Env_Construction_Block_01.tscn" id="25_kkr4o"]
+[ext_resource type="PackedScene" uid="uid://d0hnqf8xcrnit" path="res://Prefabs/SM_Env_Construction_Block_02.tscn" id="26_kkr2t"]
+[ext_resource type="PackedScene" uid="uid://b38hwf28eofvi" path="res://Prefabs/SM_Env_Construction_Block_03.tscn" id="27_kkr3g"]
+[ext_resource type="PackedScene" uid="uid://btx7lm0vsdgx6" path="res://Prefabs/SM_Env_Construction_Block_04.tscn" id="28_kkr1l"]
+[ext_resource type="PackedScene" uid="uid://y4lj7d5wsn2s" path="res://Prefabs/SM_Env_Construction_Block_05.tscn" id="29_kkr17"]
+[ext_resource type="PackedScene" uid="uid://8vjyfgvj077l" path="res://Prefabs/SM_Env_Construction_Block_06.tscn" id="30_kkr0d"]
+[ext_resource type="PackedScene" uid="uid://d047pd7beagrq" path="res://Prefabs/SM_Env_Construction_Block_07.tscn" id="31_kkr0y"]
+[ext_resource type="PackedScene" uid="uid://klp20cxodw5f" path="res://Prefabs/SM_Env_Construction_Block_08.tscn" id="32_kkrx4"]
+[ext_resource type="PackedScene" uid="uid://c63vp805802gx" path="res://Prefabs/SM_Env_Construction_Floor_01.tscn" id="33_dy37g"]
+[ext_resource type="PackedScene" uid="uid://tdyfds7j77fg" path="res://Prefabs/SM_Env_Construction_Floor_02.tscn" id="34_dy37i"]
+[ext_resource type="PackedScene" uid="uid://xkys4dp6hqbb" path="res://Prefabs/SM_Env_Construction_Panel_01.tscn" id="35_xqw1j"]
+[ext_resource type="PackedScene" uid="uid://0ggwgmwan30r" path="res://Prefabs/SM_Env_Construction_Rail_01.tscn" id="36_cqfad"]
+[ext_resource type="PackedScene" uid="uid://dukl2u61l2ex5" path="res://Prefabs/SM_Env_Construction_Rail_02.tscn" id="37_cqfac"]
+[ext_resource type="PackedScene" uid="uid://cxhot3eljihbh" path="res://Prefabs/SM_Env_Construction_Rail_03.tscn" id="38_cqfab"]
+[ext_resource type="PackedScene" uid="uid://cehsdms0sjbev" path="res://Prefabs/SM_Env_Construction_Roof_01.tscn" id="39_brab3"]
+[ext_resource type="PackedScene" uid="uid://brwqdm7s6bgpx" path="res://Prefabs/SM_Env_Construction_Stairs_01.tscn" id="40_dxw5u"]
+[ext_resource type="PackedScene" uid="uid://dpyllkavrvgqp" path="res://Prefabs/SM_Env_Construction_Wall_01.tscn" id="41_cx83o"]
+[ext_resource type="PackedScene" uid="uid://q0ave2n03klk" path="res://Prefabs/SM_Env_Construction_Wall_02.tscn" id="42_cx83n"]
+[ext_resource type="PackedScene" uid="uid://d3w04eqnglyl1" path="res://Prefabs/SM_Env_ControlRoom_Door_01.tscn" id="43_bpa06"]
+[ext_resource type="PackedScene" uid="uid://shftgx4ntekx" path="res://Prefabs/SM_Env_ControlRoom_Doorway_01.tscn" id="44_bgfgc"]
+[ext_resource type="PackedScene" uid="uid://bkwkjsimqq5xw" path="res://Prefabs/SM_Env_ControlRoom_Wall_01.tscn" id="45_d0vox"]
+[ext_resource type="PackedScene" uid="uid://ds5uet2wcythk" path="res://Prefabs/SM_Env_ControlRoom_Window_01.tscn" id="46_cpv0d"]
+[ext_resource type="PackedScene" uid="uid://cwma0v15mcgb5" path="res://Prefabs/SM_Env_CornerPanel_01.tscn" id="47_0wb0g"]
+[ext_resource type="PackedScene" uid="uid://di3x5m3vh300b" path="res://Prefabs/SM_Env_Door_01.tscn" id="48_c1rig"]
+[ext_resource type="PackedScene" uid="uid://bvcr6i41qe5ql" path="res://Prefabs/SM_Env_Floor_01.tscn" id="49_dbekv"]
+[ext_resource type="PackedScene" uid="uid://bmktrb2b36lls" path="res://Prefabs/SM_Env_Floor_02.tscn" id="50_dbekv"]
+[ext_resource type="PackedScene" uid="uid://chfgsqo1yqeh6" path="res://Prefabs/SM_Env_Floor_03.tscn" id="51_dbeku"]
+[ext_resource type="PackedScene" uid="uid://cqop4jrek2dfi" path="res://Prefabs/SM_Env_Floor_04.tscn" id="52_dbeky"]
+[ext_resource type="PackedScene" uid="uid://dr0l3hbto5r87" path="res://Prefabs/SM_Env_Large_Corner_01.tscn" id="53_cmdm0"]
+[ext_resource type="PackedScene" uid="uid://w1xskdiabcyu" path="res://Prefabs/SM_Env_PlantWall_01.tscn" id="54_bobqu"]
+[ext_resource type="PackedScene" uid="uid://q3c83epxusj8" path="res://Prefabs/SM_Env_PlantWall_02.tscn" id="55_bobqv"]
+[ext_resource type="PackedScene" uid="uid://dfallf1pey41u" path="res://Prefabs/SM_Env_Space_Wall_01.tscn" id="56_86cjw"]
+[ext_resource type="PackedScene" uid="uid://c65red6r1m21t" path="res://Prefabs/SM_Env_Transition_Door_Curved_01.tscn" id="57_1jpfm"]
+[ext_resource type="PackedScene" uid="uid://cb5hfhd12b5or" path="res://Prefabs/SM_Env_Transition_Door_Square_01.tscn" id="58_bwohg"]
+[ext_resource type="PackedScene" uid="uid://7ky7v4h46yf2" path="res://Prefabs/SM_Env_Vents_01.tscn" id="59_c81r5"]
+[ext_resource type="PackedScene" uid="uid://oduisaqsrclu" path="res://Prefabs/SM_Env_Vents_02.tscn" id="60_c81r7"]
+[ext_resource type="PackedScene" uid="uid://bq0fbc0ayjl84" path="res://Prefabs/SM_Env_Vents_03.tscn" id="61_c81r6"]
+[ext_resource type="PackedScene" uid="uid://1deu6j8tsvo" path="res://Prefabs/SM_Env_Vents_04.tscn" id="62_c81r8"]
+[ext_resource type="PackedScene" uid="uid://b7jvb544blrip" path="res://Prefabs/SM_Env_Wall_01.tscn" id="63_c2t5f"]
+[ext_resource type="PackedScene" uid="uid://cmgsho670yx1f" path="res://Prefabs/SM_Env_Wall_010.tscn" id="64_cg1g4"]
+[ext_resource type="PackedScene" uid="uid://0uavar6tctf5" path="res://Prefabs/SM_Env_Wall_011.tscn" id="65_cg1g4"]
+[ext_resource type="PackedScene" uid="uid://bv2cjgg62drhr" path="res://Prefabs/SM_Env_Wall_012.tscn" id="66_cg1g5"]
+[ext_resource type="PackedScene" uid="uid://b3lel02tqmu8a" path="res://Prefabs/SM_Env_Wall_013.tscn" id="67_cg1g5"]
+[ext_resource type="PackedScene" uid="uid://8ohhgotg1wp2" path="res://Prefabs/SM_Env_Wall_014.tscn" id="68_cg1g1"]
+[ext_resource type="PackedScene" uid="uid://01yqrckmav7m" path="res://Prefabs/SM_Env_Wall_015.tscn" id="69_cg1g2"]
+[ext_resource type="PackedScene" uid="uid://5uy5h6ag000w" path="res://Prefabs/SM_Env_Wall_02.tscn" id="70_c2t5g"]
+[ext_resource type="PackedScene" uid="uid://d02eunqqbp3uf" path="res://Prefabs/SM_Env_Wall_03.tscn" id="71_c2t5g"]
+[ext_resource type="PackedScene" uid="uid://jw04ci1j53os" path="res://Prefabs/SM_Env_Wall_04.tscn" id="72_c2t5d"]
+[ext_resource type="PackedScene" uid="uid://djsho8u3d5iw2" path="res://Prefabs/SM_Env_Wall_05.tscn" id="73_c2t5c"]
+[ext_resource type="PackedScene" uid="uid://baj6kuht53l33" path="res://Prefabs/SM_Env_Wall_06.tscn" id="74_c2t5e"]
+[ext_resource type="PackedScene" uid="uid://cv8jkfcvt2s7r" path="res://Prefabs/SM_Env_Wall_07.tscn" id="75_c2t5d"]
+[ext_resource type="PackedScene" uid="uid://civriuyfnj7vy" path="res://Prefabs/SM_Env_Wall_08.tscn" id="76_c2t5a"]
+[ext_resource type="PackedScene" uid="uid://dp11okt021jh8" path="res://Prefabs/SM_Env_Wall_09.tscn" id="77_c2t5a"]
+[ext_resource type="PackedScene" uid="uid://cxmnjrpu22cbt" path="res://Prefabs/SM_Env_Wall_Curved_01.tscn" id="78_7pgi5"]
+[ext_resource type="PackedScene" uid="uid://64mccmc23iog" path="res://Prefabs/SM_Env_Wall_Curved_02.tscn" id="79_7pgk0"]
+[ext_resource type="PackedScene" uid="uid://0lfl4x6s7x04" path="res://Prefabs/SM_Env_Wall_Curved_03.tscn" id="80_7pgke"]
+[ext_resource type="PackedScene" uid="uid://dtiyaefgq6p5q" path="res://Prefabs/SM_Env_Wall_Curved_04.tscn" id="81_7pgl8"]
+[ext_resource type="PackedScene" uid="uid://bocs3eyof8sb6" path="res://Prefabs/SM_Env_Wall_Curved_05.tscn" id="82_7pglm"]
+[ext_resource type="PackedScene" uid="uid://4ki7ptxxy608" path="res://Prefabs/SM_Env_Window_01.tscn" id="83_d0rny"]
+[ext_resource type="PackedScene" uid="uid://bui3xh7mk8xau" path="res://Prefabs/SM_Env_Window_02.tscn" id="84_d0rn1"]
+[ext_resource type="PackedScene" uid="uid://cxxmqi4qsijyf" path="res://Prefabs/SM_Env_Window_03.tscn" id="85_d0rn0"]
+[ext_resource type="PackedScene" uid="uid://deabfgijrrmef" path="res://Prefabs/SM_Env_Window_End.tscn" id="86_buoma"]
+[ext_resource type="PackedScene" uid="uid://cxwapd1jdc4y8" path="res://Prefabs/SM_Env_WorldMap_01.tscn" id="87_ci3qk"]
+[ext_resource type="PackedScene" uid="uid://bcwxu222l3dbu" path="res://Prefabs/SM_Env_WorldMap_02.tscn" id="88_ci3qj"]
+[ext_resource type="PackedScene" uid="uid://e5cptcgfmeum" path="res://Prefabs/SM_Item_Book_01.tscn" id="89_h6h6c"]
+[ext_resource type="PackedScene" uid="uid://bgs7viba865df" path="res://Prefabs/SM_Item_Book_02.tscn" id="90_h6h6x"]
+[ext_resource type="PackedScene" uid="uid://bndfloxgi2o0q" path="res://Prefabs/SM_Item_Book_03.tscn" id="91_h6h7k"]
+[ext_resource type="PackedScene" uid="uid://b5iu4qh2sn62h" path="res://Prefabs/SM_Item_Book_04.tscn" id="92_h6h28"]
+[ext_resource type="PackedScene" uid="uid://iti46m04oyxs" path="res://Prefabs/SM_Item_Book_05.tscn" id="93_h6h3u"]
+[ext_resource type="PackedScene" uid="uid://cr2tak1acqvrr" path="res://Prefabs/SM_Item_Book_06.tscn" id="94_h6h4h"]
+[ext_resource type="PackedScene" uid="uid://bqy3krldhvkvm" path="res://Prefabs/SM_Item_Camera_01.tscn" id="95_b0buo"]
+[ext_resource type="PackedScene" uid="uid://deavfb6vb3ebw" path="res://Prefabs/SM_Item_Cups_01.tscn" id="96_cwd41"]
+[ext_resource type="PackedScene" uid="uid://btaigoau2xntu" path="res://Prefabs/SM_Item_Drill_01.tscn" id="97_cv5ee"]
+[ext_resource type="PackedScene" uid="uid://cib8an40nw1hh" path="res://Prefabs/SM_Item_Drink_01.tscn" id="98_bl4ol"]
+[ext_resource type="PackedScene" uid="uid://blym4b2i4as" path="res://Prefabs/SM_Item_Extinguisher_01.tscn" id="99_g062o"]
+[ext_resource type="PackedScene" uid="uid://c1ukitfpvihb" path="res://Prefabs/SM_Item_Flag_01.tscn" id="100_cv582"]
+[ext_resource type="PackedScene" uid="uid://ck7abi5lonpms" path="res://Prefabs/SM_Item_FloatingBook_01.tscn" id="101_dt6c0"]
+[ext_resource type="PackedScene" uid="uid://cspq0awiimk1r" path="res://Prefabs/SM_Item_Food_01.tscn" id="102_bavot"]
+[ext_resource type="PackedScene" uid="uid://caima52q56w7k" path="res://Prefabs/SM_Item_Food_02.tscn" id="103_bavov"]
+[ext_resource type="PackedScene" uid="uid://dc452psbcx7ut" path="res://Prefabs/SM_Item_Food_03.tscn" id="104_bavou"]
+[ext_resource type="PackedScene" uid="uid://bu5358ykmafie" path="res://Prefabs/SM_Item_Food_04.tscn" id="105_bavow"]
+[ext_resource type="PackedScene" uid="uid://csrj4di2v525b" path="res://Prefabs/SM_Item_Food_05.tscn" id="106_bavov"]
+[ext_resource type="PackedScene" uid="uid://c0oh7ycj1hj00" path="res://Prefabs/SM_Item_Hammer_01.tscn" id="107_k85qo"]
+[ext_resource type="PackedScene" uid="uid://dbwcf3rdbxem6" path="res://Prefabs/SM_Item_Health_01.tscn" id="108_d3st8"]
+[ext_resource type="PackedScene" uid="uid://dxwkkutwg5cfr" path="res://Prefabs/SM_Item_Lamp_01.tscn" id="109_btih4"]
+[ext_resource type="PackedScene" uid="uid://dvplqvlwqr3ji" path="res://Prefabs/SM_Item_Saw_01.tscn" id="110_bbaeu"]
+[ext_resource type="PackedScene" uid="uid://cvbevl2e3mihf" path="res://Prefabs/SM_Item_Scoop_01.tscn" id="111_5bduv"]
+[ext_resource type="PackedScene" uid="uid://c1lba5dksfvqb" path="res://Prefabs/SM_Item_Tether_01.tscn" id="112_hwqu8"]
+[ext_resource type="PackedScene" uid="uid://dhqmhthyj3eom" path="res://Prefabs/SM_Item_Wrench_01.tscn" id="113_d3wgm"]
+[ext_resource type="PackedScene" uid="uid://c3rj8ro6fgtx5" path="res://Prefabs/SM_Prop_Trolley_01.tscn" id="114_cj7fx"]
+[ext_resource type="PackedScene" uid="uid://utivhou16hnk" path="res://Prefabs/SM_Prop_3DPrinter_01.tscn" id="115_dc46w"]
+[ext_resource type="PackedScene" uid="uid://jcmnkf4isqwy" path="res://Prefabs/SM_Prop_AirBalloon_01.tscn" id="116_b0ia8"]
+[ext_resource type="PackedScene" uid="uid://dwhka3r5d5pj1" path="res://Prefabs/SM_Prop_Battery_01.tscn" id="117_b8gbs"]
+[ext_resource type="PackedScene" uid="uid://d3ccuq7hfyflp" path="res://Prefabs/SM_Prop_Beaker_01.tscn" id="118_b0vfy"]
+[ext_resource type="PackedScene" uid="uid://bebeo4axl1nq1" path="res://Prefabs/SM_Prop_Bed_01.tscn" id="119_dkxkj"]
+[ext_resource type="PackedScene" uid="uid://6gnxojdtbj8t" path="res://Prefabs/SM_Prop_Bed_02.tscn" id="120_dkxkk"]
+[ext_resource type="PackedScene" uid="uid://cm0pxq6ryj6hf" path="res://Prefabs/SM_Prop_Button_01.tscn" id="121_b1jqu"]
+[ext_resource type="PackedScene" uid="uid://bqxlmpci24mg3" path="res://Prefabs/SM_Prop_Button_02.tscn" id="122_b1jqt"]
+[ext_resource type="PackedScene" uid="uid://b3lbbmf160qa0" path="res://Prefabs/SM_Prop_Button_03.tscn" id="123_b1jqt"]
+[ext_resource type="PackedScene" uid="uid://cojrvlheapjt7" path="res://Prefabs/SM_Prop_Button_04.tscn" id="124_b1jqx"]
+[ext_resource type="PackedScene" uid="uid://cmxxfeg5i7hp8" path="res://Prefabs/SM_Prop_Button_05.tscn" id="125_b1jqw"]
+[ext_resource type="PackedScene" uid="uid://btwt1saflhge1" path="res://Prefabs/SM_Prop_Cabinets_01.tscn" id="126_b4nxa"]
+[ext_resource type="PackedScene" uid="uid://dhfrr7wb0iyv2" path="res://Prefabs/SM_Prop_Cabinets_02.tscn" id="127_b4nw7"]
+[ext_resource type="PackedScene" uid="uid://chwbf0884n5gn" path="res://Prefabs/SM_Prop_Cables_01.tscn" id="128_bp2xy"]
+[ext_resource type="PackedScene" uid="uid://bejqvlc262r55" path="res://Prefabs/SM_Prop_Cables_02.tscn" id="129_bp2x1"]
+[ext_resource type="PackedScene" uid="uid://pc1nitw1y1ix" path="res://Prefabs/SM_Prop_Cables_03.tscn" id="130_bp2x1"]
+[ext_resource type="PackedScene" uid="uid://25tc0hca5xmj" path="res://Prefabs/SM_Prop_Cart_01.tscn" id="131_jt1up"]
+[ext_resource type="PackedScene" uid="uid://b8tr67uajywc1" path="res://Prefabs/SM_Prop_Computer_01.tscn" id="132_c2njd"]
+[ext_resource type="PackedScene" uid="uid://dc7cqnrghlamj" path="res://Prefabs/SM_Prop_Computer_02.tscn" id="133_c2njb"]
+[ext_resource type="PackedScene" uid="uid://cflvsj7w6olym" path="res://Prefabs/SM_Prop_Computer_03.tscn" id="134_c2njc"]
+[ext_resource type="PackedScene" uid="uid://csg1qe7lghpgt" path="res://Prefabs/SM_Prop_Computer_04.tscn" id="135_c2nja"]
+[ext_resource type="PackedScene" uid="uid://bjcmdym1eg7om" path="res://Prefabs/SM_Prop_Console_01.tscn" id="136_c3o1u"]
+[ext_resource type="PackedScene" uid="uid://sd1m7adq7hf0" path="res://Prefabs/SM_Prop_Console_02.tscn" id="137_c3o1s"]
+[ext_resource type="PackedScene" uid="uid://bjv32h1rnpep7" path="res://Prefabs/SM_Prop_Console_03.tscn" id="138_c3o1t"]
+[ext_resource type="PackedScene" uid="uid://bamtqoyf2efsv" path="res://Prefabs/SM_Prop_Console_04.tscn" id="139_c3o1r"]
+[ext_resource type="PackedScene" uid="uid://cd6q1ulathc" path="res://Prefabs/SM_Prop_Console_05.tscn" id="140_c3o1s"]
+[ext_resource type="PackedScene" uid="uid://bv6sg8ekjnwvj" path="res://Prefabs/SM_Prop_Console_06.tscn" id="141_c3o1q"]
+[ext_resource type="PackedScene" uid="uid://s1p8q88ebplq" path="res://Prefabs/SM_Prop_Console_07.tscn" id="142_c3o1q"]
+[ext_resource type="PackedScene" uid="uid://6u00ryshmy0p" path="res://Prefabs/SM_Prop_Console_08.tscn" id="143_c3o1p"]
+[ext_resource type="PackedScene" uid="uid://cb5u0llfrb8gc" path="res://Prefabs/SM_Prop_Container_01.tscn" id="144_1n6oc"]
+[ext_resource type="PackedScene" uid="uid://d0eqhwcaql4ej" path="res://Prefabs/SM_Prop_Container_02.tscn" id="145_1n6ox"]
+[ext_resource type="PackedScene" uid="uid://c5j4ghoju2ch5" path="res://Prefabs/SM_Prop_Container_03.tscn" id="146_1n6pk"]
+[ext_resource type="PackedScene" uid="uid://cbib1nm2ptf6f" path="res://Prefabs/SM_Prop_Container_04.tscn" id="147_1n6p6"]
+[ext_resource type="PackedScene" uid="uid://t7x61wqb0bur" path="res://Prefabs/SM_Prop_ControlDesk_01.tscn" id="148_dbgcf"]
+[ext_resource type="PackedScene" uid="uid://cwn2i5v8ultoc" path="res://Prefabs/SM_Prop_ControlDesk_02.tscn" id="149_dbgce"]
+[ext_resource type="PackedScene" uid="uid://dy8dtt3xwky2v" path="res://Prefabs/SM_Prop_ControlDesk_03.tscn" id="150_dbgce"]
+[ext_resource type="PackedScene" uid="uid://bfojifwsxbflo" path="res://Prefabs/SM_Prop_ControlDesk_Vintage_01.tscn" id="151_byhci"]
+[ext_resource type="PackedScene" uid="uid://cg7myl4f0u7x0" path="res://Prefabs/SM_Prop_ControlDesk_Vintage_02.tscn" id="152_byhcg"]
+[ext_resource type="PackedScene" uid="uid://c7qpevvtwd487" path="res://Prefabs/SM_Prop_ControlDesk_Vintage_03.tscn" id="153_byhch"]
+[ext_resource type="PackedScene" uid="uid://c22o60b31frjx" path="res://Prefabs/SM_Prop_ControlDesk_Vintage_04.tscn" id="154_byhck"]
+[ext_resource type="PackedScene" uid="uid://r2v4suc4icgo" path="res://Prefabs/SM_Prop_Desk_01.tscn" id="155_d3rmm"]
+[ext_resource type="PackedScene" uid="uid://bbxb0hyqeue8t" path="res://Prefabs/SM_Prop_Desk_02.tscn" id="156_d3rmk"]
+[ext_resource type="PackedScene" uid="uid://dkqny4hxre5fc" path="res://Prefabs/SM_Prop_Desk_03.tscn" id="157_d3rml"]
+[ext_resource type="PackedScene" uid="uid://p6wa7cvj5b0r" path="res://Prefabs/SM_Prop_Desk_04.tscn" id="158_d3rmj"]
+[ext_resource type="PackedScene" uid="uid://cp8fb5dwc5v6e" path="res://Prefabs/SM_Prop_Desk_Lab_01.tscn" id="159_cwo6f"]
+[ext_resource type="PackedScene" uid="uid://dtlxula3aragv" path="res://Prefabs/SM_Prop_Desk_Lab_02.tscn" id="160_cwo6d"]
+[ext_resource type="PackedScene" uid="uid://bl31urew81ne2" path="res://Prefabs/SM_Prop_Flightstick_01.tscn" id="161_cfp8a"]
+[ext_resource type="PackedScene" uid="uid://biskv87ur76ll" path="res://Prefabs/SM_Prop_Handle_01.tscn" id="162_c5nk4"]
+[ext_resource type="PackedScene" uid="uid://cvieblflult2b" path="res://Prefabs/SM_Prop_Hatch_01.tscn" id="163_bjvte"]
+[ext_resource type="PackedScene" uid="uid://bu7i8c0x16tc3" path="res://Prefabs/SM_Prop_Hatch_02.tscn" id="164_bjvtg"]
+[ext_resource type="PackedScene" uid="uid://dlvt8t5ms71lx" path="res://Prefabs/SM_Prop_Hatch_03.tscn" id="165_bjvtg"]
+[ext_resource type="PackedScene" uid="uid://cdialrmlshhb8" path="res://Prefabs/SM_Prop_Ladder_01.tscn" id="166_wx6sj"]
+[ext_resource type="PackedScene" uid="uid://c1r3abif81ltt" path="res://Prefabs/SM_Prop_Light_01.tscn" id="167_j66r0"]
+[ext_resource type="PackedScene" uid="uid://byqf0v51nop0k" path="res://Prefabs/SM_Prop_Lockers_01.tscn" id="168_b1jem"]
+[ext_resource type="PackedScene" uid="uid://8rua4sd1fyqx" path="res://Prefabs/SM_Prop_Lockers_02.tscn" id="169_b1jek"]
+[ext_resource type="PackedScene" uid="uid://b0bwpfkrwwv15" path="res://Prefabs/SM_Prop_Lockers_03.tscn" id="170_b1jel"]
+[ext_resource type="PackedScene" uid="uid://bp1nemigclw4t" path="res://Prefabs/SM_Prop_Lockers_04.tscn" id="171_b1jeo"]
+[ext_resource type="PackedScene" uid="uid://pp6tokuuicsa" path="res://Prefabs/SM_Prop_Lockers_05.tscn" id="172_b1jep"]
+[ext_resource type="PackedScene" uid="uid://hd7tjubvclj4" path="res://Prefabs/SM_Prop_Microscope_01.tscn" id="173_d30qc"]
+[ext_resource type="PackedScene" uid="uid://cfu5nwpfyercx" path="res://Prefabs/SM_Prop_Monitor_01.tscn" id="174_c3w3a"]
+[ext_resource type="PackedScene" uid="uid://dcbpjtfgrsqxk" path="res://Prefabs/SM_Prop_Monitor_02.tscn" id="175_c3w3c"]
+[ext_resource type="PackedScene" uid="uid://fim62xti2vt" path="res://Prefabs/SM_Prop_Monitor_03.tscn" id="176_c3w3c"]
+[ext_resource type="PackedScene" uid="uid://cgjpmunr0vklu" path="res://Prefabs/SM_Prop_Monitor_04.tscn" id="177_c3w3d"]
+[ext_resource type="PackedScene" uid="uid://ckmbger722jop" path="res://Prefabs/SM_Prop_Panel_01.tscn" id="178_bqefc"]
+[ext_resource type="PackedScene" uid="uid://bi26x7ll0hqce" path="res://Prefabs/SM_Prop_Panel_02.tscn" id="179_bqefe"]
+[ext_resource type="PackedScene" uid="uid://c4brquukrfsej" path="res://Prefabs/SM_Prop_Panel_03.tscn" id="180_bqefd"]
+[ext_resource type="PackedScene" uid="uid://cl47ql1bsmg5o" path="res://Prefabs/SM_Prop_Panel_04.tscn" id="181_bqeff"]
+[ext_resource type="PackedScene" uid="uid://ckkiv02lmptxj" path="res://Prefabs/SM_Prop_Panel_05.tscn" id="182_bqefe"]
+[ext_resource type="PackedScene" uid="uid://bkashephev845" path="res://Prefabs/SM_Prop_Panel_06.tscn" id="183_bqefg"]
+[ext_resource type="PackedScene" uid="uid://d8avyqxng4vx" path="res://Prefabs/SM_Prop_Panel_07.tscn" id="184_bqefg"]
+[ext_resource type="PackedScene" uid="uid://cph3n0ixeqvxa" path="res://Prefabs/SM_Prop_Panel_Vintage_01.tscn" id="185_cr8q7"]
+[ext_resource type="PackedScene" uid="uid://qjmjec5cvcc8" path="res://Prefabs/SM_Prop_Panel_Vintage_02.tscn" id="186_cr8q7"]
+[ext_resource type="PackedScene" uid="uid://bnmjq55lff80w" path="res://Prefabs/SM_Prop_Panel_Vintage_03.tscn" id="187_cr8q8"]
+[ext_resource type="PackedScene" uid="uid://cnx1p58c3ljkh" path="res://Prefabs/SM_Prop_Panel_Vintage_04.tscn" id="188_cr8q4"]
+[ext_resource type="PackedScene" uid="uid://1olve88eyxfi" path="res://Prefabs/SM_Prop_Panel_Vintage_05.tscn" id="189_cr8q4"]
+[ext_resource type="PackedScene" uid="uid://bh7drode2efpx" path="res://Prefabs/SM_Prop_Phone_01.tscn" id="190_b3xmn"]
+[ext_resource type="PackedScene" uid="uid://b6aveyre2f8vv" path="res://Prefabs/SM_Prop_Pipe_01.tscn" id="191_deoq5"]
+[ext_resource type="PackedScene" uid="uid://5y5ydfatmn3i" path="res://Prefabs/SM_Prop_Pipe_02.tscn" id="192_deoq5"]
+[ext_resource type="PackedScene" uid="uid://7mskwebtybu4" path="res://Prefabs/SM_Prop_Plants_01.tscn" id="193_dt37i"]
+[ext_resource type="PackedScene" uid="uid://bhuarmt21qrow" path="res://Prefabs/SM_Prop_Plants_02.tscn" id="194_dt37k"]
+[ext_resource type="PackedScene" uid="uid://dd3glm0ryt0b8" path="res://Prefabs/SM_Prop_Plants_03.tscn" id="195_dt37j"]
+[ext_resource type="PackedScene" uid="uid://dqefe40ku0u7" path="res://Prefabs/SM_Prop_Plants_04.tscn" id="196_dt37g"]
+[ext_resource type="PackedScene" uid="uid://7k0gtrqgfsrl" path="res://Prefabs/SM_Prop_Plants_05.tscn" id="197_dt37g"]
+[ext_resource type="PackedScene" uid="uid://deq0kkx41csk5" path="res://Prefabs/SM_Prop_Plants_06.tscn" id="198_dt37h"]
+[ext_resource type="PackedScene" uid="uid://3ju7sxqtngm4" path="res://Prefabs/SM_Prop_Pole_01.tscn" id="199_b77v6"]
+[ext_resource type="PackedScene" uid="uid://4hfdbfml8wpk" path="res://Prefabs/SM_Prop_Scales_01.tscn" id="200_bdgid"]
+[ext_resource type="PackedScene" uid="uid://c46wa7xhbuwr3" path="res://Prefabs/SM_Prop_Seat_01.tscn" id="201_cpubo"]
+[ext_resource type="PackedScene" uid="uid://d5k8lxeoafbt" path="res://Prefabs/SM_Prop_Seat_02.tscn" id="202_cpubm"]
+[ext_resource type="PackedScene" uid="uid://dbx0vkb4xkmfo" path="res://Prefabs/SM_Prop_Seat_03.tscn" id="203_cpubn"]
+[ext_resource type="PackedScene" uid="uid://cf4na02wsdy2c" path="res://Prefabs/SM_Prop_Server_01.tscn" id="204_ddvku"]
+[ext_resource type="PackedScene" uid="uid://db6rl2w6osj2n" path="res://Prefabs/SM_Prop_Server_02.tscn" id="205_ddvkv"]
+[ext_resource type="PackedScene" uid="uid://bowcrbx2y6xwo" path="res://Prefabs/SM_Prop_Server_03.tscn" id="206_ddvkw"]
+[ext_resource type="PackedScene" uid="uid://d4i8txmuucr5h" path="res://Prefabs/SM_Prop_ServerRack_01.tscn" id="207_dwq0n"]
+[ext_resource type="PackedScene" uid="uid://br1ohowondy2o" path="res://Prefabs/SM_Prop_Shuttle_01.tscn" id="208_mkyl5"]
+[ext_resource type="PackedScene" uid="uid://c6e363visbl2a" path="res://Prefabs/SM_Prop_Sign_01.tscn" id="209_ckrp1"]
+[ext_resource type="PackedScene" uid="uid://phwvwmlswe0h" path="res://Prefabs/SM_Prop_Stairs_01.tscn" id="210_b71fd"]
+[ext_resource type="PackedScene" uid="uid://b4dop4fb01atx" path="res://Prefabs/SM_Prop_StepLadder_01.tscn" id="211_cp6dh"]
+[ext_resource type="PackedScene" uid="uid://bt10roxkh3of5" path="res://Prefabs/SM_Prop_SwivelChair_01.tscn" id="212_bwuqq"]
+[ext_resource type="PackedScene" uid="uid://cvk38u46kohsh" path="res://Prefabs/SM_Prop_SwivelChair_02.tscn" id="213_bwuqp"]
+[ext_resource type="PackedScene" uid="uid://dm36n5wlg6e3o" path="res://Prefabs/SM_Prop_SwivelChair_03.tscn" id="214_bwuqp"]
+[ext_resource type="PackedScene" uid="uid://dif6hacuk71ef" path="res://Prefabs/SM_Prop_SwivelChair_04.tscn" id="215_bwuqn"]
+[ext_resource type="PackedScene" uid="uid://oamyn7uky5gj" path="res://Prefabs/SM_Prop_Table_01.tscn" id="216_bhqjm"]
+[ext_resource type="PackedScene" uid="uid://c4tnbjtko15iu" path="res://Prefabs/SM_Prop_Tanks_01.tscn" id="217_dndvr"]
+[ext_resource type="PackedScene" uid="uid://b51y23r2hs6gh" path="res://Prefabs/SM_Prop_Tape_01.tscn" id="218_dgwj0"]
+[ext_resource type="PackedScene" uid="uid://c00swinvalmqa" path="res://Prefabs/SM_Prop_Tape_02.tscn" id="219_dgwj0"]
+[ext_resource type="PackedScene" uid="uid://bmdyret0pi3r2" path="res://Prefabs/SM_Prop_TestTube_01.tscn" id="220_dcklf"]
+[ext_resource type="PackedScene" uid="uid://dsjyu41fbf3lm" path="res://Prefabs/SM_Prop_TestTube_02.tscn" id="221_dcklg"]
+[ext_resource type="PackedScene" uid="uid://1bb46a0g6u1h" path="res://Prefabs/SM_Prop_TestTube_03.tscn" id="222_dcklg"]
+[ext_resource type="PackedScene" uid="uid://sv361uth5e6k" path="res://Prefabs/SM_Prop_TestTube_04.tscn" id="223_dckli"]
+[ext_resource type="PackedScene" uid="uid://rb860ub503up" path="res://Prefabs/SM_Prop_Treadmill_01.tscn" id="224_m0ujh"]
+[ext_resource type="PackedScene" uid="uid://dbbeq4jwg3egn" path="res://WorldEnvironment.tscn" id="225_dx7tv"]
+
+[node name="Root" type="Node3D"]
+
+[node name="WorldSettings1" type="Node3D" parent="." ]
+
+
+[node name="Brush1" type="Node3D" parent="." ]
+
+
+[node name="Light Source" type="Node3D" parent="." ]
+
+
+[node name="LightComponent0" type="Node3D" parent="Light Source" ]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Light Source/LightComponent0" ]
+transform = Transform3D(1.384901, 1.852007, -0.949800, -1.335794, 1.665764, 1.300340, 1.596152, -0.212842, 1.912327, 1.000000, 11.200000, -2.000000)
+shadow_enabled = true
+light_intensity_lumens = 31415.927734
+light_color = Color(1.000000, 1.000000, 1.000000, 1.000000)
+light_energy = 1.000000
+[node name="InstancedFoliageActor" type="Node3D" parent="." ]
+
+
+[node name="Atmospheric Fog" type="Node3D" parent="." ]
+
+
+[node name="Sky Sphere"  parent="." instance=ExtResource("1_x87my")]
+transform = Transform3D(400.000000, 0.000000, 0.000000, 0.000000, 0.000014, 400.000000, 0.000000, -400.000000, 0.000014, 0.000000, 0.000000, -0.000000)
+[node name="Cube"  parent="." instance=ExtResource("2_dudgj")]
+transform = Transform3D(102.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 81.750000, 0.000000, -0.503777, -13.000000)
+[node name="SM_Prop_Rocket_01"  parent="." instance=ExtResource("3_caeqs")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -40.000000, -0.000000, -40.000000)
+[node name="SM_Prop_Satellite_01"  parent="." instance=ExtResource("4_bbevm")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -20.000000, -0.000000, -40.000000)
+[node name="SM_Prop_Simulator_01"  parent="." instance=ExtResource("5_ds1rk")]
+transform = Transform3D(-0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -0.000000, 0.000000, -0.000000, -40.000000)
+[node name="SM_Prop_Lander_01"  parent="." instance=ExtResource("6_d2me2")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 12.500000, -0.000000, -40.000000)
+[node name="SM_Env_Beam_01"  parent="." instance=ExtResource("7_dg3wo")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -8.000000, -0.000000, -1.000000)
+[node name="SM_Env_CableRack_01"  parent="." instance=ExtResource("8_bg828")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -4.500000, -0.000000, -6.000000)
+[node name="SM_Env_CableRack_02"  parent="." instance=ExtResource("9_bg827")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 1.500000, -0.000000, -6.000000)
+[node name="SM_Env_Ceiling_01"  parent="." instance=ExtResource("10_daki1")]
+transform = Transform3D(-1.000000, -0.000011, -0.000001, 0.000011, -1.000000, 0.000002, -0.000001, 0.000002, 1.000000, 10.000000, 0.000000, 1.500000)
+[node name="SM_Env_Ceiling_02"  parent="." instance=ExtResource("11_dakiy")]
+transform = Transform3D(-1.000000, -0.000011, -0.000001, 0.000011, -1.000000, 0.000002, -0.000001, 0.000002, 1.000000, 16.000000, 0.000000, 1.500000)
+[node name="SM_Env_Ceiling_03"  parent="." instance=ExtResource("12_daki0")]
+transform = Transform3D(-1.000000, -0.000011, -0.000001, 0.000011, -1.000000, 0.000002, -0.000001, 0.000002, 1.000000, 22.000000, 0.000000, 1.500000)
+[node name="SM_Env_Ceiling_Light_01"  parent="." instance=ExtResource("13_di2pl")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -5.000000, 1.000000, -0.000000)
+[node name="SM_Env_Ceiling_Light_02"  parent="." instance=ExtResource("14_di2pn")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 1.000000, 1.000000, -0.000000)
+[node name="SM_Env_Ceiling_Light_03"  parent="." instance=ExtResource("15_di2pm")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -2.000000, 1.000000, -0.000000)
+[node name="SM_Env_Ceiling_Light_04"  parent="." instance=ExtResource("16_di2po")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 3.500000, 1.000000, -0.000000)
+[node name="SM_Env_Ceiling_Light_05"  parent="." instance=ExtResource("17_di2pn")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000003, 0.000000, -0.000003, -1.000000, -2.000000, 0.000000, 1.500000)
+[node name="SM_Env_Ceiling_Sprinkler_01"  parent="." instance=ExtResource("18_c6wic")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 4.500000, 1.000000, -0.000000)
+[node name="SM_Env_Ceiling_Vents_01"  parent="." instance=ExtResource("19_cueil")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000004, 0.000000, -0.000004, -1.000000, -6.000000, 0.000000, 1.500000)
+[node name="SM_Env_Ceiling_Vents_02"  parent="." instance=ExtResource("20_cueim")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, -1.000000, -0.000001, 0.000000, 0.000001, -1.000000, -4.000000, 0.000000, 1.500000)
+[node name="SM_Env_Centrifuge_01"  parent="." instance=ExtResource("21_pele7")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 32.000000, -0.000000, -34.500000)
+[node name="SM_Env_Centrifuge_Center_01"  parent="." instance=ExtResource("22_cpnxy")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 10.500000, -0.000000, -15.000000)
+[node name="SM_Env_Consoles_01"  parent="." instance=ExtResource("23_dvgcd")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 25.000000, -0.000000, -12.500000)
+[node name="SM_Env_Consoles_Corner_01"  parent="." instance=ExtResource("24_do2pg")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 12.500000, -0.000000, -7.500000)
+[node name="SM_Env_Construction_Block_01"  parent="." instance=ExtResource("25_kkr4o")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 2.000000, -0.000000, -27.500000)
+[node name="SM_Env_Construction_Block_02"  parent="." instance=ExtResource("26_kkr2t")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 10.500000, -0.000000, -25.000000)
+[node name="SM_Env_Construction_Block_03"  parent="." instance=ExtResource("27_kkr3g")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 16.500000, -0.000000, -25.000000)
+[node name="SM_Env_Construction_Block_04"  parent="." instance=ExtResource("28_kkr1l")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 20.000000, -0.000000, -27.500000)
+[node name="SM_Env_Construction_Block_05"  parent="." instance=ExtResource("29_kkr17")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 26.000000, -0.000000, -27.500000)
+[node name="SM_Env_Construction_Block_06"  parent="." instance=ExtResource("30_kkr0d")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 32.000000, -0.000000, -27.500000)
+[node name="SM_Env_Construction_Block_07"  parent="." instance=ExtResource("31_kkr0y")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 38.000000, -0.000000, -27.500000)
+[node name="SM_Env_Construction_Block_08"  parent="." instance=ExtResource("32_kkrx4")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 44.000000, -0.000000, -27.500000)
+[node name="SM_Env_Construction_Floor_01"  parent="." instance=ExtResource("33_dy37g")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -20.000000, -0.000000, -10.000000)
+[node name="SM_Env_Construction_Floor_02"  parent="." instance=ExtResource("34_dy37i")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -8.000000, -0.000000, -10.000000)
+[node name="SM_Env_Construction_Panel_01"  parent="." instance=ExtResource("35_xqw1j")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 33.500000, -0.000000, -17.000000)
+[node name="SM_Env_Construction_Rail_01"  parent="." instance=ExtResource("36_cqfad")]
+transform = Transform3D(0.000000, -0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, 0.000000, 28.500000, -0.000000, -23.000000)
+[node name="SM_Env_Construction_Rail_02"  parent="." instance=ExtResource("37_cqfac")]
+transform = Transform3D(0.000000, -0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, 0.000000, 35.500000, -0.000000, -23.000000)
+[node name="SM_Env_Construction_Rail_03"  parent="." instance=ExtResource("38_cqfab")]
+transform = Transform3D(0.000000, -0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -1.000000, 0.000000, 0.000000, 34.500000, -0.000000, -23.000000)
+[node name="SM_Env_Construction_Roof_01"  parent="." instance=ExtResource("39_brab3")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, -1.000000, -0.000001, 0.000000, 0.000001, -1.000000, 28.000000, 0.000000, 1.500000)
+[node name="SM_Env_Construction_Stairs_01"  parent="." instance=ExtResource("40_dxw5u")]
+transform = Transform3D(-0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -0.000000, 41.500000, -0.000000, -18.000000)
+[node name="SM_Env_Construction_Wall_01"  parent="." instance=ExtResource("41_cx83o")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -0.500000, -0.000000, -23.000000)
+[node name="SM_Env_Construction_Wall_02"  parent="." instance=ExtResource("42_cx83n")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 11.500000, -0.000000, -23.000000)
+[node name="SM_Env_ControlRoom_Door_01"  parent="." instance=ExtResource("43_bpa06")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 38.914040, -0.000001, -10.000000)
+[node name="SM_Env_ControlRoom_Doorway_01"  parent="." instance=ExtResource("44_bgfgc")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 37.500000, -0.000000, -10.000000)
+[node name="SM_Env_ControlRoom_Wall_01"  parent="." instance=ExtResource("45_d0vox")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 37.000000, -0.000000, -10.000000)
+[node name="SM_Env_ControlRoom_Window_01"  parent="." instance=ExtResource("46_cpv0d")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 48.000000, -0.000000, -10.000000)
+[node name="SM_Env_CornerPanel_01"  parent="." instance=ExtResource("47_0wb0g")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 10.000000, -0.000000, -8.000000)
+[node name="SM_Env_Door_01"  parent="." instance=ExtResource("48_c1rig")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 11.500000, -0.000000, -12.500000)
+[node name="SM_Env_Floor_01"  parent="." instance=ExtResource("49_dbekv")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -1.500000, -0.000000, -20.000000)
+[node name="SM_Env_Floor_02"  parent="." instance=ExtResource("50_dbekv")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 4.500000, -0.000000, -20.000000)
+[node name="SM_Env_Floor_03"  parent="." instance=ExtResource("51_dbeku")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 4.500000, -0.000000, -14.000000)
+[node name="SM_Env_Floor_04"  parent="." instance=ExtResource("52_dbeky")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -1.500000, -0.000000, -15.000000)
+[node name="SM_Env_Large_Corner_01"  parent="." instance=ExtResource("53_cmdm0")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -35.000000, -0.000000, -15.000000)
+[node name="SM_Env_PlantWall_01"  parent="." instance=ExtResource("54_bobqu")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 40.000000, -0.000000, -15.000000)
+[node name="SM_Env_PlantWall_02"  parent="." instance=ExtResource("55_bobqv")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 46.500000, -0.000000, -15.000000)
+[node name="SM_Env_Space_Wall_01"  parent="." instance=ExtResource("56_86cjw")]
+transform = Transform3D(2.000000, 0.000000, 0.000000, 0.000000, 2.000000, -0.000000, 0.000000, 0.000000, 2.000000, 17.500000, -0.000001, -47.000000)
+[node name="SM_Env_Transition_Door_Curved_01"  parent="." instance=ExtResource("57_1jpfm")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 12.500000, -0.000000, -17.500000)
+[node name="SM_Env_Transition_Door_Square_01"  parent="." instance=ExtResource("58_bwohg")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 20.000000, -0.000000, -18.000000)
+[node name="SM_Env_Vents_01"  parent="." instance=ExtResource("59_c81r5")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 32.000000, 0.500000, -6.500000)
+[node name="SM_Env_Vents_02"  parent="." instance=ExtResource("60_c81r7")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 37.500000, 0.500000, -6.500000)
+[node name="SM_Env_Vents_03"  parent="." instance=ExtResource("61_c81r6")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 20.000000, 0.500000, -6.500000)
+[node name="SM_Env_Vents_04"  parent="." instance=ExtResource("62_c81r8")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 26.000000, 0.500000, -6.500000)
+[node name="SM_Env_Wall_01"  parent="." instance=ExtResource("63_c2t5f")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -37.500000, 0.000000, -0.000000)
+[node name="SM_Env_Wall_010"  parent="." instance=ExtResource("64_cg1g4")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -32.000000, 0.000000, 5.000000)
+[node name="SM_Env_Wall_011"  parent="." instance=ExtResource("65_cg1g4")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -26.500000, 0.000000, 5.000000)
+[node name="SM_Env_Wall_012"  parent="." instance=ExtResource("66_cg1g5")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -21.000000, 0.000000, 5.000000)
+[node name="SM_Env_Wall_013"  parent="." instance=ExtResource("67_cg1g5")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -15.500000, 0.000000, 5.000000)
+[node name="SM_Env_Wall_014"  parent="." instance=ExtResource("68_cg1g1")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -9.500000, 0.000000, 5.000000)
+[node name="SM_Env_Wall_015"  parent="." instance=ExtResource("69_cg1g2")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -43.000000, 0.000000, -0.000000)
+[node name="SM_Env_Wall_02"  parent="." instance=ExtResource("70_c2t5g")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -32.000000, 0.000000, -0.000000)
+[node name="SM_Env_Wall_03"  parent="." instance=ExtResource("71_c2t5g")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -26.500000, 0.000000, -0.000000)
+[node name="SM_Env_Wall_04"  parent="." instance=ExtResource("72_c2t5d")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -15.000000, -0.000000, -5.000000)
+[node name="SM_Env_Wall_05"  parent="." instance=ExtResource("73_c2t5c")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -21.000000, 0.000000, -0.000000)
+[node name="SM_Env_Wall_06"  parent="." instance=ExtResource("74_c2t5e")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -15.500000, 0.000000, -0.000000)
+[node name="SM_Env_Wall_07"  parent="." instance=ExtResource("75_c2t5d")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -10.000000, 0.000000, -0.000000)
+[node name="SM_Env_Wall_08"  parent="." instance=ExtResource("76_c2t5a")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -43.000000, 0.000000, 5.000000)
+[node name="SM_Env_Wall_09"  parent="." instance=ExtResource("77_c2t5a")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -37.500000, 0.000000, 5.000000)
+[node name="SM_Env_Wall_Curved_01"  parent="." instance=ExtResource("78_7pgi5")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -43.000000, -0.000000, -6.000000)
+[node name="SM_Env_Wall_Curved_02"  parent="." instance=ExtResource("79_7pgk0")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -37.500000, -0.000000, -6.000000)
+[node name="SM_Env_Wall_Curved_03"  parent="." instance=ExtResource("80_7pgke")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -32.000000, -0.000000, -6.000000)
+[node name="SM_Env_Wall_Curved_04"  parent="." instance=ExtResource("81_7pgl8")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -26.500000, -0.000000, -6.000000)
+[node name="SM_Env_Wall_Curved_05"  parent="." instance=ExtResource("82_7pglm")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -21.000000, -0.000000, -6.000000)
+[node name="SM_Env_Window_01"  parent="." instance=ExtResource("83_d0rny")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 8.500000, -0.000000, -13.000000)
+[node name="SM_Env_Window_02"  parent="." instance=ExtResource("84_d0rn1")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 10.000000, -0.000000, -13.000000)
+[node name="SM_Env_Window_03"  parent="." instance=ExtResource("85_d0rn0")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 8.500000, -0.000000, -12.000000)
+[node name="SM_Env_Window_End"  parent="." instance=ExtResource("86_buoma")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -6.500000, -0.000000, -5.000000)
+[node name="SM_Env_WorldMap_01"  parent="." instance=ExtResource("87_ci3qk")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -18.000000, -0.000000, -22.000000)
+[node name="SM_Env_WorldMap_02"  parent="." instance=ExtResource("88_ci3qj")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -4.500000, -0.000000, -25.000000)
+[node name="SkyLight" type="Node3D" parent="." ]
+
+
+[node name="SM_Item_Book_01"  parent="." instance=ExtResource("89_h6h6c")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -24.000000, 0.000000, 19.500000)
+[node name="SM_Item_Book_02"  parent="." instance=ExtResource("90_h6h6x")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -23.000000, 0.000000, 19.500000)
+[node name="SM_Item_Book_03"  parent="." instance=ExtResource("91_h6h7k")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -22.000000, 0.000000, 19.500000)
+[node name="SM_Item_Book_04"  parent="." instance=ExtResource("92_h6h28")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -21.000000, 0.000000, 19.500000)
+[node name="SM_Item_Book_05"  parent="." instance=ExtResource("93_h6h3u")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -19.500000, 0.000000, 19.500000)
+[node name="SM_Item_Book_06"  parent="." instance=ExtResource("94_h6h4h")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -18.000000, 0.000000, 19.500000)
+[node name="SM_Item_Camera_01"  parent="." instance=ExtResource("95_b0buo")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -16.000000, 0.000000, 19.500000)
+[node name="SM_Item_Cups_01"  parent="." instance=ExtResource("96_cwd41")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -21.000000, 0.000000, 21.000000)
+[node name="SM_Item_Drill_01"  parent="." instance=ExtResource("97_cv5ee")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -20.000000, 0.000000, 21.000000)
+[node name="SM_Item_Drink_01"  parent="." instance=ExtResource("98_bl4ol")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -7.500000, 0.000000, 21.000000)
+[node name="SM_Item_Extinguisher_01"  parent="." instance=ExtResource("99_g062o")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -25.000000, 0.000000, 21.000000)
+[node name="SM_Item_Flag_01"  parent="." instance=ExtResource("100_cv582")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -26.000000, 0.000000, 21.000000)
+[node name="SM_Item_FloatingBook_01"  parent="." instance=ExtResource("101_dt6c0")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -16.000000, 0.000000, 21.000000)
+[node name="SM_Item_Food_01"  parent="." instance=ExtResource("102_bavot")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -14.500000, 0.000000, 21.000000)
+[node name="SM_Item_Food_02"  parent="." instance=ExtResource("103_bavov")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -13.000000, 0.000000, 21.000000)
+[node name="SM_Item_Food_03"  parent="." instance=ExtResource("104_bavou")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -11.500000, 0.000000, 21.000000)
+[node name="SM_Item_Food_04"  parent="." instance=ExtResource("105_bavow")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -10.000000, 0.000000, 21.000000)
+[node name="SM_Item_Food_05"  parent="." instance=ExtResource("106_bavov")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -9.000000, 0.000000, 21.000000)
+[node name="SM_Item_Hammer_01"  parent="." instance=ExtResource("107_k85qo")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -23.000000, 0.500000, 21.000000)
+[node name="SM_Item_Health_01"  parent="." instance=ExtResource("108_d3st8")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -5.500000, 0.000000, 21.500000)
+[node name="SM_Item_Lamp_01"  parent="." instance=ExtResource("109_btih4")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -22.000000, 0.000000, 21.000000)
+[node name="SM_Item_Saw_01"  parent="." instance=ExtResource("110_bbaeu")]
+transform = Transform3D(1.000000, -0.000000, -0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -19.000000, 0.500000, 20.500000)
+[node name="SM_Item_Scoop_01"  parent="." instance=ExtResource("111_5bduv")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -12.000000, 0.000000, 19.500000)
+[node name="SM_Item_Tether_01"  parent="." instance=ExtResource("112_hwqu8")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -18.000000, 0.000000, 21.000000)
+[node name="SM_Item_Wrench_01"  parent="." instance=ExtResource("113_d3wgm")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -24.000000, 1.000000, 21.000000)
+[node name="SM_Prop_Trolley_01"  parent="." instance=ExtResource("114_cj7fx")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -18.500000, 0.000000, 13.500000)
+[node name="SM_Prop_3DPrinter_01"  parent="." instance=ExtResource("115_dc46w")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 14.500000, 0.000000, 14.000000)
+[node name="SM_Prop_AirBalloon_01"  parent="." instance=ExtResource("116_b0ia8")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -30.000000, 0.000000, 11.000000)
+[node name="SM_Prop_Battery_01"  parent="." instance=ExtResource("117_b8gbs")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -20.500000, 0.000000, 16.500000)
+[node name="SM_Prop_Beaker_01"  parent="." instance=ExtResource("118_b0vfy")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 12.000000, 0.000000, 19.000000)
+[node name="SM_Prop_Bed_01"  parent="." instance=ExtResource("119_dkxkj")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -29.500000, 0.000000, 13.500000)
+[node name="SM_Prop_Bed_02"  parent="." instance=ExtResource("120_dkxkk")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -27.000000, 0.000000, 13.500000)
+[node name="SM_Prop_Button_01"  parent="." instance=ExtResource("121_b1jqu")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -3.500000, 0.000000, 21.000000)
+[node name="SM_Prop_Button_02"  parent="." instance=ExtResource("122_b1jqt")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -2.000000, 0.000000, 21.000000)
+[node name="SM_Prop_Button_03"  parent="." instance=ExtResource("123_b1jqt")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 21.000000)
+[node name="SM_Prop_Button_04"  parent="." instance=ExtResource("124_b1jqx")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 2.500000, 0.000000, 21.000000)
+[node name="SM_Prop_Button_05"  parent="." instance=ExtResource("125_b1jqw")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 5.000000, 0.000000, 21.000000)
+[node name="SM_Prop_Cabinets_01"  parent="." instance=ExtResource("126_b4nxa")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 44.000000, 0.000000, 2.500000)
+[node name="SM_Prop_Cabinets_02"  parent="." instance=ExtResource("127_b4nw7")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 44.000000, 0.000000, 4.500000)
+[node name="SM_Prop_Cables_01"  parent="." instance=ExtResource("128_bp2xy")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 33.000000, 0.000000, 4.000000)
+[node name="SM_Prop_Cables_02"  parent="." instance=ExtResource("129_bp2x1")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 35.000000, 0.000000, 4.000000)
+[node name="SM_Prop_Cables_03"  parent="." instance=ExtResource("130_bp2x1")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 38.000000, 0.000000, 4.000000)
+[node name="SM_Prop_Cart_01"  parent="." instance=ExtResource("131_jt1up")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -17.000000, 0.000000, 17.000000)
+[node name="SM_Prop_Computer_01"  parent="." instance=ExtResource("132_c2njd")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000, 16.500000)
+[node name="SM_Prop_Computer_02"  parent="." instance=ExtResource("133_c2njb")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -6.500000, 0.000000, 13.500000)
+[node name="SM_Prop_Computer_03"  parent="." instance=ExtResource("134_c2njc")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -4.500000, 0.000000, 13.500000)
+[node name="SM_Prop_Computer_04"  parent="." instance=ExtResource("135_c2nja")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 5.000000, 0.000000, 16.500000)
+[node name="SM_Prop_Console_01"  parent="." instance=ExtResource("136_c3o1u")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -11.000000, 0.000000, 17.000000)
+[node name="SM_Prop_Console_02"  parent="." instance=ExtResource("137_c3o1s")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -9.500000, 0.000000, 17.000000)
+[node name="SM_Prop_Console_03"  parent="." instance=ExtResource("138_c3o1t")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -8.000000, 0.000000, 17.000000)
+[node name="SM_Prop_Console_04"  parent="." instance=ExtResource("139_c3o1r")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -6.500000, 0.000000, 17.000000)
+[node name="SM_Prop_Console_05"  parent="." instance=ExtResource("140_c3o1s")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -5.000000, 0.000000, 17.000000)
+[node name="SM_Prop_Console_06"  parent="." instance=ExtResource("141_c3o1q")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -4.500000, 0.000000, 17.000000)
+[node name="SM_Prop_Console_07"  parent="." instance=ExtResource("142_c3o1q")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -2.000000, 0.000000, 17.000000)
+[node name="SM_Prop_Console_08"  parent="." instance=ExtResource("143_c3o1p")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -12.500000, 0.000000, 17.000000)
+[node name="SM_Prop_Container_01"  parent="." instance=ExtResource("144_1n6oc")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 9.000000, 0.000000, 19.000000)
+[node name="SM_Prop_Container_02"  parent="." instance=ExtResource("145_1n6ox")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 9.500000, 0.000000, 19.000000)
+[node name="SM_Prop_Container_03"  parent="." instance=ExtResource("146_1n6pk")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 8.500000, 0.000000, 19.000000)
+[node name="SM_Prop_Container_04"  parent="." instance=ExtResource("147_1n6p6")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 10.000000, 0.000000, 19.000000)
+[node name="SM_Prop_ControlDesk_01"  parent="." instance=ExtResource("148_dbgcf")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -11.000000, 0.000000, 9.000000)
+[node name="SM_Prop_ControlDesk_02"  parent="." instance=ExtResource("149_dbgce")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -2.500000, 0.000000, 9.000000)
+[node name="SM_Prop_ControlDesk_03"  parent="." instance=ExtResource("150_dbgce")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 6.000000, 0.000000, 9.000000)
+[node name="SM_Prop_ControlDesk_Vintage_01"  parent="." instance=ExtResource("151_byhci")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 14.000000, 0.000000, 9.500000)
+[node name="SM_Prop_ControlDesk_Vintage_02"  parent="." instance=ExtResource("152_byhcg")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 20.500000, 0.000000, 9.500000)
+[node name="SM_Prop_ControlDesk_Vintage_03"  parent="." instance=ExtResource("153_byhch")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 27.000000, 0.000000, 9.500000)
+[node name="SM_Prop_ControlDesk_Vintage_04"  parent="." instance=ExtResource("154_byhck")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 33.500000, 0.000000, 9.500000)
+[node name="SM_Prop_Desk_01"  parent="." instance=ExtResource("155_d3rmm")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 12.500000, 0.000000, 4.000000)
+[node name="SM_Prop_Desk_02"  parent="." instance=ExtResource("156_d3rmk")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 27.500000, 0.000000, 4.000000)
+[node name="SM_Prop_Desk_03"  parent="." instance=ExtResource("157_d3rml")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 22.500000, 0.000000, 4.000000)
+[node name="SM_Prop_Desk_04"  parent="." instance=ExtResource("158_d3rmj")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 17.500000, 0.000000, 4.000000)
+[node name="SM_Prop_Desk_Lab_01"  parent="." instance=ExtResource("159_cwo6f")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 4.500000, 0.000000, 13.500000)
+[node name="SM_Prop_Desk_Lab_02"  parent="." instance=ExtResource("160_cwo6d")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -0.500000, 0.000000, 13.500000)
+[node name="SM_Prop_Flightstick_01"  parent="." instance=ExtResource("161_cfp8a")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 7.000000, 0.000000, 20.000000)
+[node name="SM_Prop_Handle_01"  parent="." instance=ExtResource("162_c5nk4")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, -0.000002, 1.000000, 0.000000, -1.000000, -0.000002, 11.000000, 0.000000, 19.000000)
+[node name="SM_Prop_Hatch_01"  parent="." instance=ExtResource("163_bjvte")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 34.000000, 0.000000, 14.000000)
+[node name="SM_Prop_Hatch_02"  parent="." instance=ExtResource("164_bjvtg")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 21.000000, 0.000000, 14.000000)
+[node name="SM_Prop_Hatch_03"  parent="." instance=ExtResource("165_bjvtg")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 23.500000, 0.000000, 14.000000)
+[node name="SM_Prop_Ladder_01"  parent="." instance=ExtResource("166_wx6sj")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 17.500000, 0.000000, 14.000000)
+[node name="SM_Prop_Light_01"  parent="." instance=ExtResource("167_j66r0")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 37.500000, 6.000000, 14.500000)
+[node name="SM_Prop_Lockers_01"  parent="." instance=ExtResource("168_b1jem")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -41.500000, 0.000000, 11.000000)
+[node name="SM_Prop_Lockers_02"  parent="." instance=ExtResource("169_b1jek")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -39.500000, 0.000000, 11.000000)
+[node name="SM_Prop_Lockers_03"  parent="." instance=ExtResource("170_b1jel")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -37.500000, 0.000000, 11.000000)
+[node name="SM_Prop_Lockers_04"  parent="." instance=ExtResource("171_b1jeo")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -35.500000, 0.000000, 11.000000)
+[node name="SM_Prop_Lockers_05"  parent="." instance=ExtResource("172_b1jep")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -33.500000, 0.000000, 11.000000)
+[node name="SM_Prop_Microscope_01"  parent="." instance=ExtResource("173_d30qc")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -9.500000, 0.000000, 18.500000)
+[node name="SM_Prop_Monitor_01"  parent="." instance=ExtResource("174_c3w3a")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 8.000000, 0.000000, 17.000000)
+[node name="SM_Prop_Monitor_02"  parent="." instance=ExtResource("175_c3w3c")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 9.500000, 0.000000, 17.000000)
+[node name="SM_Prop_Monitor_03"  parent="." instance=ExtResource("176_c3w3c")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 11.000000, 0.000000, 17.000000)
+[node name="SM_Prop_Monitor_04"  parent="." instance=ExtResource("177_c3w3d")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 13.000000, 0.000000, 17.000000)
+[node name="SM_Prop_Panel_01"  parent="." instance=ExtResource("178_bqefc")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -3.000000, 0.000000, 19.000000)
+[node name="SM_Prop_Panel_02"  parent="." instance=ExtResource("179_bqefe")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -1.500000, 0.000000, 19.000000)
+[node name="SM_Prop_Panel_03"  parent="." instance=ExtResource("180_bqefd")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 19.000000)
+[node name="SM_Prop_Panel_04"  parent="." instance=ExtResource("181_bqeff")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 1.500000, 0.000000, 19.000000)
+[node name="SM_Prop_Panel_05"  parent="." instance=ExtResource("182_bqefe")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000, 19.000000)
+[node name="SM_Prop_Panel_06"  parent="." instance=ExtResource("183_bqefg")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 4.500000, 0.000000, 19.000000)
+[node name="SM_Prop_Panel_07"  parent="." instance=ExtResource("184_bqefg")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 6.000000, 0.000000, 19.000000)
+[node name="SM_Prop_Panel_Vintage_01"  parent="." instance=ExtResource("185_cr8q7")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -3.500000, 0.000000, 20.000000)
+[node name="SM_Prop_Panel_Vintage_02"  parent="." instance=ExtResource("186_cr8q7")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -2.000000, 0.000000, 20.000000)
+[node name="SM_Prop_Panel_Vintage_03"  parent="." instance=ExtResource("187_cr8q8")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 20.000000)
+[node name="SM_Prop_Panel_Vintage_04"  parent="." instance=ExtResource("188_cr8q4")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 2.500000, 0.000000, 20.000000)
+[node name="SM_Prop_Panel_Vintage_05"  parent="." instance=ExtResource("189_cr8q4")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 5.000000, 0.000000, 20.000000)
+[node name="SM_Prop_Phone_01"  parent="." instance=ExtResource("190_b3xmn")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 7.500000, 0.000000, 19.000000)
+[node name="SM_Prop_Pipe_01"  parent="." instance=ExtResource("191_deoq5")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -17.500000, 0.000000, 10.000000)
+[node name="SM_Prop_Pipe_02"  parent="." instance=ExtResource("192_deoq5")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -24.000000, 0.000000, 8.000000)
+[node name="SM_Prop_Plants_01"  parent="." instance=ExtResource("193_dt37i")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -43.000000, 0.000000, 11.000000)
+[node name="SM_Prop_Plants_02"  parent="." instance=ExtResource("194_dt37k")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -45.500000, 0.000000, 11.000000)
+[node name="SM_Prop_Plants_03"  parent="." instance=ExtResource("195_dt37j")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -43.000000, 0.000000, 7.000000)
+[node name="SM_Prop_Plants_04"  parent="." instance=ExtResource("196_dt37g")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -37.500000, 0.000000, 7.000000)
+[node name="SM_Prop_Plants_05"  parent="." instance=ExtResource("197_dt37g")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -32.000000, 0.000000, 8.000000)
+[node name="SM_Prop_Plants_06"  parent="." instance=ExtResource("198_dt37h")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -26.500000, 0.000000, 8.000000)
+[node name="SM_Prop_Pole_01"  parent="." instance=ExtResource("199_b77v6")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 2.500000, 0.000000, 4.000000)
+[node name="SM_Prop_Scales_01"  parent="." instance=ExtResource("200_bdgid")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 19.000000, 0.000000, 16.500000)
+[node name="SM_Prop_Seat_01"  parent="." instance=ExtResource("201_cpubo")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -23.000000, 0.000000, 16.500000)
+[node name="SM_Prop_Seat_02"  parent="." instance=ExtResource("202_cpubm")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -28.500000, 0.000000, 16.500000)
+[node name="SM_Prop_Seat_03"  parent="." instance=ExtResource("203_cpubn")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -26.500000, 0.000000, 16.500000)
+[node name="SM_Prop_Server_01"  parent="." instance=ExtResource("204_ddvku")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -14.000000, 0.000000, 13.500000)
+[node name="SM_Prop_Server_02"  parent="." instance=ExtResource("205_ddvkv")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -11.500000, 0.000000, 13.500000)
+[node name="SM_Prop_Server_03"  parent="." instance=ExtResource("206_ddvkw")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -9.000000, 0.000000, 13.500000)
+[node name="SM_Prop_ServerRack_01"  parent="." instance=ExtResource("207_dwq0n")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 0.500000, 0.000000, 16.500000)
+[node name="SM_Prop_Shuttle_01"  parent="." instance=ExtResource("208_mkyl5")]
+transform = Transform3D(-0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 1.000000, 0.000000, -0.000000, 33.000000, -0.000001, -44.000000)
+[node name="SM_Prop_Sign_01"  parent="." instance=ExtResource("209_ckrp1")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -6.000000, 0.000000, 18.500000)
+[node name="SM_Prop_Stairs_01"  parent="." instance=ExtResource("210_b71fd")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 40.000000, 0.000000, 9.000000)
+[node name="SM_Prop_StepLadder_01"  parent="." instance=ExtResource("211_cp6dh")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 16.500000, 0.000000, 17.000000)
+[node name="SM_Prop_SwivelChair_01"  parent="." instance=ExtResource("212_bwuqq")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -41.000000, 0.000000, 14.000000)
+[node name="SM_Prop_SwivelChair_02"  parent="." instance=ExtResource("213_bwuqp")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -39.000000, 0.000000, 14.000000)
+[node name="SM_Prop_SwivelChair_03"  parent="." instance=ExtResource("214_bwuqp")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -37.000000, 0.000000, 14.000000)
+[node name="SM_Prop_SwivelChair_04"  parent="." instance=ExtResource("215_bwuqn")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -35.000000, 0.000000, 14.000000)
+[node name="SM_Prop_Table_01"  parent="." instance=ExtResource("216_bhqjm")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -22.500000, 0.000000, 14.000000)
+[node name="SM_Prop_Tanks_01"  parent="." instance=ExtResource("217_dndvr")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 21.000000, 1.000000, 16.500000)
+[node name="SM_Prop_Tape_01"  parent="." instance=ExtResource("218_dgwj0")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 28.500000, 0.000000, 15.000000)
+[node name="SM_Prop_Tape_02"  parent="." instance=ExtResource("219_dgwj0")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 28.500000, 0.000000, 13.500000)
+[node name="SM_Prop_TestTube_01"  parent="." instance=ExtResource("220_dcklf")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -7.500000, 0.000000, 19.500000)
+[node name="SM_Prop_TestTube_02"  parent="." instance=ExtResource("221_dcklg")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -8.000000, 0.000000, 18.500000)
+[node name="SM_Prop_TestTube_03"  parent="." instance=ExtResource("222_dcklg")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -7.000000, 0.000000, 18.500000)
+[node name="SM_Prop_TestTube_04"  parent="." instance=ExtResource("223_dckli")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, -6.500000, 0.000000, 19.500000)
+[node name="SM_Prop_Treadmill_01"  parent="." instance=ExtResource("224_m0ujh")]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 1.000000, -0.000000, 0.000000, 0.000000, 1.000000, 10.500000, 0.000000, 13.500000)
+[node name="DefaultPhysicsVolume0" type="Node3D" parent="." ]
+
+
+[node name="GameplayDebuggerPlayerManager0" type="Node3D" parent="." ]
+
+
+[node name="Actor" type="Node3D" parent="." ]
+
+
+[node name="AbstractNavData-Default" type="Node3D" parent="." ]
+
+
+[node name="WorldEnvironment"  parent="." instance=ExtResource("225_dx7tv")]

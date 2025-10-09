@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://baky2sv0dmqbw"]
+
+[ext_resource type="PackedScene" uid="uid://beau18fg5fi2n" path="res://PolygonScifi/Meshes/Buildings/SM_Bld_Large_Part_06.glb" id="1_cor4n"]
+[ext_resource type="Material" uid="uid://djb7ux0q1am3u" path="res://PolygonScifi/Materials/Alternates/M_PolygonScifi_02_C.tres" id="2_cpp2s"]
+
+[node name = "SM_Bld_Large_Part_06_2" instance = ExtResource("1_cor4n")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_cpp2s")

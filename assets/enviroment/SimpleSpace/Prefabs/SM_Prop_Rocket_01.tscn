@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://dld3dc122xk5l"]
+
+[ext_resource type="PackedScene" uid="uid://bs8lpy2dvuvct" path="res://SimpleSpaceInteriors/Meshes/Props/SM_Prop_Rocket_01.glb" id="1_c53j8"]
+[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(0.924307, 0.860515, 13.231149)
+[sub_resource type="BoxShape3D" id="1_c31wp"]
+size = Vector3(2.877906, 2.528098, 18.059116)
+[sub_resource type="BoxShape3D" id="2_c31wn"]
+size = Vector3(2.877906, 2.528098, 18.059116)
+[sub_resource type="BoxShape3D" id="3_c31wo"]
+size = Vector3(0.389530, 6.939690, 7.807828)
+[sub_resource type="BoxShape3D" id="4_c31wm"]
+size = Vector3(0.389530, 8.969748, 1.786600)
+[sub_resource type="BoxShape3D" id="5_c31wm"]
+size = Vector3(0.389530, 6.939690, 7.807828)
+[sub_resource type="BoxShape3D" id="6_c31wl"]
+size = Vector3(0.389530, 8.969748, 1.786600)
+
+[node name = "SM_Prop_Rocket_01" instance = ExtResource("1_c53j8")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bqq6s")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 4.274921, 6.977749, 3.647812)
+shape = SubResource("0_c31wo")
+
+[node name="Box1" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(0.707111, -0.707103, -0.000000, 0.000000, 0.000000, -1.000000, 0.707103, 0.707111, 0.000000, -0.815342, 9.047145, -0.199911)
+shape = SubResource("1_c31wp")
+
+[node name="Box2" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(-0.000000, -1.000000, -0.000000, 0.000000, -0.000000, -1.000000, 1.000000, 0.000000, -0.000000, -0.806366, 9.047151, -0.190934)
+shape = SubResource("2_c31wn")
+
+[node name="Box3" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(0.919995, 0.391930, -0.000000, 0.000000, -0.000000, -1.000000, -0.391930, 0.919995, -0.000000, -0.852769, 3.990167, -0.303609)
+shape = SubResource("3_c31wo")
+
+[node name="Box4" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(0.927863, -0.372921, 0.000001, 0.000000, -0.000002, -1.000000, 0.372921, 0.927863, -0.000001, -0.798487, 3.284206, -0.165344)
+shape = SubResource("4_c31wm")
+
+[node name="Box5" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(-0.391910, 0.920004, 0.000000, 0.000000, 0.000000, -1.000000, -0.920004, -0.391910, -0.000000, -0.845012, 3.990165, -0.306914)
+shape = SubResource("5_c31wm")
+
+[node name="Box6" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(-0.387133, -0.922024, 0.000001, -0.000001, -0.000001, -1.000000, 0.922024, -0.387133, -0.000000, -0.838782, 3.284215, -0.181540)
+shape = SubResource("6_c31wl")
+

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfallf1pey41u"]
+
+[ext_resource type="PackedScene" uid="uid://corcxcsy1knl2" path="res://SimpleSpaceInteriors/Meshes/Environment/SM_Env_Space_Wall_01.glb" id="1_cdxwk"]
+[ext_resource type="Material" uid="uid://cgwc2jd713asi" path="res://SimpleSpaceInteriors/Materials/M_SpaceInteriors_Emmision.tres" id="2_dwtnr"]
+
+[node name = "SM_Env_Space_Wall_01" instance = ExtResource("1_cdxwk")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_dwtnr")

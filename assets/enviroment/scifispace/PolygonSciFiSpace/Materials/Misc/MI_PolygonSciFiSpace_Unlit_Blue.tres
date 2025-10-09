@@ -1,0 +1,8 @@
+[gd_resource type = "ShaderMaterial" load_steps=1 format=3 uid="uid://ccotw52fu54da"]
+
+[ext_resource type="Shader" uid="uid://dfhwx1xkayrad" path="res://assets/enviroment/scifispace/Shaders/MI_PolygonSciFiSpace_Unlit_Blue.tres" id="1_cbo14"]
+
+[resource]
+resource_name = "MI_PolygonSciFiSpace_Unlit_Blue"
+render_priority = 0
+shader = ExtResource("1_cbo14")

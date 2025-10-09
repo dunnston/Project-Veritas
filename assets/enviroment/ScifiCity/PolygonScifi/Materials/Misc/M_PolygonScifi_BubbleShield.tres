@@ -1,0 +1,8 @@
+[gd_resource type = "ShaderMaterial" load_steps=1 format=3 uid="uid://da0ws10kb46k3"]
+
+[ext_resource type="Shader" uid="uid://dtgwxx3o5b50q" path="res://assets/enviroment/ScifiCity/Shaders/M_PolygonScifi_BubbleShield.tres" id="1_dt5cn"]
+
+[resource]
+resource_name = "M_PolygonScifi_BubbleShield"
+render_priority = 0
+shader = ExtResource("1_dt5cn")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhd5ay3df3jd5"]
+
+[ext_resource type="PackedScene" uid="uid://cqaopwn6xmwup" path="res://PolygonScifi/Meshes/Props/SM_Prop_Sidewalk_Pipe_02.glb" id="1_dbn6q"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="CapsuleShape3D" id="0_c31wo"]
+radius = 0.189382
+height = 0.771656
+
+[node name = "SM_Prop_Sidewalk_Pipe_02" instance = ExtResource("1_dbn6q")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Capsule1" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.500012, -0.866018, 0.000000, 0.866018, 0.500012, 0.000005, 2.504957, 0.291065)
+shape = SubResource("0_c31wo")
+

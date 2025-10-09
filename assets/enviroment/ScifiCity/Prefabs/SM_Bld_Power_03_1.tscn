@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://su5l5osviaam"]
+
+[ext_resource type="PackedScene" uid="uid://pp74edt8f2c" path="res://PolygonScifi/Meshes/Buildings/SM_Bld_Power_03.glb" id="1_dnc0n"]
+[ext_resource type="Material" uid="uid://cyxfiljhdhqgt" path="res://PolygonScifi/Materials/Alternates/M_PolygonScifi_03_E.tres" id="2_bypqb"]
+
+[node name = "SM_Bld_Power_03_1" instance = ExtResource("1_dnc0n")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bypqb")

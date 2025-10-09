@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bv6ofv26p2j4r"]
+
+[ext_resource type="PackedScene" uid="uid://ckhnjc4aijfv5" path="res://PolygonScifi/Meshes/Characters/SK_Character_Rich_Female_01.glb" id="1_rv0pq"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SK_Character_Rich_Female_01" instance = ExtResource("1_rv0pq")]
+
+[node name="Skeleton3D" parent="Mesh" index="0"]
+
+[node name="Mesh" parent="Mesh/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

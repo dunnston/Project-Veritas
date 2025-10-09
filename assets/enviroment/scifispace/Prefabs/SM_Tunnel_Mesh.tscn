@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://li8caj7mm3ir"]
+
+[ext_resource type="PackedScene" uid="uid://j1rfoa74bxjs" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/FX/SM_Tunnel_Mesh.glb" id="1_8rxeg"]
+[ext_resource type="Material" uid="uid://boppnn3tuisf1" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/FX/M_FX_Warptunnel.tres" id="2_dlsp5"]
+
+[node name = "SM_Tunnel_Mesh" instance = ExtResource("1_8rxeg")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_dlsp5")

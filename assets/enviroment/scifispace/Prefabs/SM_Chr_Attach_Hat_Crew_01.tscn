@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://mrn6hirwj04e"]
+
+[ext_resource type="PackedScene" uid="uid://ciwtuku0kh5jw" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/CharacterAttachments/SM_Chr_Attach_Hat_Crew_01.glb" id="1_bns4g"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Chr_Attach_Hat_Crew_01" instance = ExtResource("1_bns4g")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

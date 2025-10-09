@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c58xjvq3mjoww"]
+
+[ext_resource type="PackedScene" uid="uid://ddehoplcqcb7i" path="res://PolygonScifi/Meshes/Vehicles/SK_Veh_Armored_Truck_Cannon_01.glb" id="1_bgovk"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SK_Veh_Armored_Truck_Cannon_01" instance = ExtResource("1_bgovk")]
+
+[node name="Skeleton3D" parent="Mesh" index="0"]
+
+[node name="Mesh" parent="Mesh/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

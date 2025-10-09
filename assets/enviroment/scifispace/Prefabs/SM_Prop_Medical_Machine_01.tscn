@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://gftronm5il1w"]
+
+[ext_resource type="PackedScene" uid="uid://cy2lexrntt44b" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_Medical_Machine_01.glb" id="1_dvw3a"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Prop_Medical_Machine_01" instance = ExtResource("1_dvw3a")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

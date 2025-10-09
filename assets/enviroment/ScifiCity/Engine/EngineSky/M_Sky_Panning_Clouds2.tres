@@ -1,0 +1,27 @@
+[gd_resource type = "ShaderMaterial" load_steps=4 format=3 uid="uid://cyis0rsvnxm66"]
+
+[ext_resource type="Shader" uid="uid://cr6nq5q0nmol3" path="res://assets/enviroment/ScifiCity/Shaders/M_Sky_Panning_Clouds2.tres" id="4_cwtfq"]
+[ext_resource type="Texture2D" uid="uid://b14tpecunc8nm" path="res://assets/enviroment/ScifiCity/Engine/EngineSky/T_Sky_Stars.png" id="1_6qqqq"]
+[ext_resource type="Texture2D" uid="uid://f6rclvlqskvb" path="res://assets/enviroment/ScifiCity/Engine/EngineSky/T_Sky_Blue.png" id="2_bpoiu"]
+[ext_resource type="Texture2D" uid="uid://d25kcd7t38tcr" path="res://assets/enviroment/ScifiCity/Engine/EngineSky/T_Sky_Clouds_M.png" id="3_ctnnq"]
+
+[resource]
+resource_name = "M_Sky_Panning_Clouds2"
+render_priority = 0
+shader = ExtResource("4_cwtfq")
+shader_parameter/Zenith_Color = Vector4(0.085, 0.154, 0.350, 1.000)
+shader_parameter/Stars_brightness = 0.100
+shader_parameter/Sun_height = 1.000
+shader_parameter/Horizon_color = Vector4(0.941, 1.000, 1.000, 1.000)
+shader_parameter/Horizon_Falloff = 3.000
+shader_parameter/Light_direction = Vector4(-2.000, 0.000, -1.000, 1.000)
+shader_parameter/Sun_Radius = 0.000
+shader_parameter/Sun_color = Vector4(1.000, 0.800, 0.400, 1.000)
+shader_parameter/Sun_brightness = 50.000
+shader_parameter/Cloud_color = Vector4(0.717, 0.782, 0.885, 0.000)
+shader_parameter/Cloud_speed = 0.100
+shader_parameter/ObjectRadius = Vector4(100.000, 100.000, 100.000, 0.000)
+shader_parameter/Cloud_opacity = 1.000
+shader_parameter/NoisePower1 = 1.000
+shader_parameter/NoisePower2 = 4.000
+shader_parameter/Overall_Color = Vector4(1.000, 1.000, 1.000, 1.000)

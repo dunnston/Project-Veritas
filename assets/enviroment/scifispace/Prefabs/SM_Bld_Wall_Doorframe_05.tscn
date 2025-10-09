@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0364oewvb8hs"]
+
+[ext_resource type="PackedScene" uid="uid://dji6hpwf15ido" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Wall_Doorframe_05.glb" id="1_ckc6o"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(5.000000, 0.685697, 1.085173)
+[sub_resource type="BoxShape3D" id="1_c31wp"]
+size = Vector3(5.000000, 0.685697, 1.509324)
+[sub_resource type="BoxShape3D" id="2_c31wn"]
+size = Vector3(0.919406, 0.685697, 4.990440)
+[sub_resource type="BoxShape3D" id="3_c31wo"]
+size = Vector3(0.919406, 0.685697, 4.990440)
+
+[node name = "SM_Bld_Wall_Doorframe_05" instance = ExtResource("1_ckc6o")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 2.500000, -0.448872, 0.000001)
+shape = SubResource("0_c31wo")
+
+[node name="Box1" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 2.500000, 3.242364, 0.000001)
+shape = SubResource("1_c31wp")
+
+[node name="Box2" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 0.457959, 1.505356, 0.000004)
+shape = SubResource("2_c31wn")
+
+[node name="Box3" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 4.540312, 1.505356, 0.000004)
+shape = SubResource("3_c31wo")
+

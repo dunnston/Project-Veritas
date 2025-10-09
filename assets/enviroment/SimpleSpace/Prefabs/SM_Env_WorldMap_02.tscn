@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcwxu222l3dbu"]
+
+[ext_resource type="PackedScene" uid="uid://bmlro8kefp5b8" path="res://SimpleSpaceInteriors/Meshes/Environment/SM_Env_WorldMap_02.glb" id="1_cydoo"]
+[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
+[ext_resource type="Material" uid="uid://c08o3p4iwuq4h" path="res://SimpleSpaceInteriors/Materials/M_SpaceInteriors_WorldMap.tres" id="3_6om6e"]
+
+[node name = "SM_Env_WorldMap_02" instance = ExtResource("1_cydoo")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bqq6s")
+surface_material_override/1 = ExtResource("3_6om6e")

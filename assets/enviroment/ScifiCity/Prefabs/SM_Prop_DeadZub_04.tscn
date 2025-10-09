@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmbybklyosbfi"]
+
+[ext_resource type="PackedScene" uid="uid://b5c4kvgon3ien" path="res://PolygonScifi/Meshes/Props/SM_Prop_DeadZub_04.glb" id="1_y4pw0"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Prop_DeadZub_04" instance = ExtResource("1_y4pw0")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

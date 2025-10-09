@@ -1,0 +1,8 @@
+[gd_resource type = "ShaderMaterial" load_steps=1 format=3 uid="uid://cimdlncb37vca"]
+
+[ext_resource type="Shader" uid="uid://cwfpkigm8nyqd" path="res://assets/enviroment/scifispace/Shaders/M_FX_Fire.tres" id="1_bpyia"]
+
+[resource]
+resource_name = "M_FX_Fire"
+render_priority = 0
+shader = ExtResource("1_bpyia")

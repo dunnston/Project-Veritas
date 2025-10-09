@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://uoinen1l5j1x"]
+
+[ext_resource type="PackedScene" uid="uid://clj5q5vpbp7wm" path="res://SimpleSpaceInteriors/Meshes/Environment/SM_Env_Centrifuge_Center_01.glb" id="1_chitm"]
+[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
+
+[node name = "SM_Env_Centrifuge_Center_01" instance = ExtResource("1_chitm")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bqq6s")

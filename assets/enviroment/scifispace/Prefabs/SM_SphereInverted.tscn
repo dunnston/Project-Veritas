@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://myy0um0b35er"]
+
+[ext_resource type="PackedScene" uid="uid://bby3qlkvbvgxk" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/FX/SM_SphereInverted.glb" id="1_y348l"]
+[ext_resource type="Material" uid="uid://be5ubfw111t47" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_Skybox_01.tres" id="2_bcp85"]
+
+[node name = "SM_SphereInverted" instance = ExtResource("1_y348l")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_bcp85")

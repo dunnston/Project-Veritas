@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://o2djfg067bli"]
+
+[ext_resource type="PackedScene" uid="uid://cdaor4xddyddg" path="res://PolygonScifi/Meshes/Vehicles/SK_Veh_Future_Cop_01.glb" id="1_byrnw"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="Material" uid="uid://dqekcef7kh735" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Vehicle_Glass.tres" id="3_34m03"]
+
+[node name = "SK_Veh_Future_Cop_01" instance = ExtResource("1_byrnw")]
+
+[node name="Skeleton3D" parent="Mesh" index="0"]
+
+[node name="Mesh" parent="Mesh/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+surface_material_override/1 = ExtResource("3_34m03")

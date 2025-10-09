@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwfj0mj067xe0"]
+
+[ext_resource type="PackedScene" uid="uid://2cbm75pgyu1f" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Veh_Beacon_01.glb" id="1_bi2rt"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Veh_Beacon_01" instance = ExtResource("1_bi2rt")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

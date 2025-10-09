@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn1ucxw8m5vud"]
+
+[ext_resource type="PackedScene" uid="uid://cj55fovb1gp4c" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_MapTable_01.glb" id="1_dpkc7"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Prop_MapTable_01" instance = ExtResource("1_dpkc7")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

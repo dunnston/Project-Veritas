@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2nqcucaoebdi"]
+
+[ext_resource type="PackedScene" uid="uid://enkfn8eexdo7" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Crew_Shower_01.glb" id="1_ns1mk"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Bld_Crew_Shower_01" instance = ExtResource("1_ns1mk")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

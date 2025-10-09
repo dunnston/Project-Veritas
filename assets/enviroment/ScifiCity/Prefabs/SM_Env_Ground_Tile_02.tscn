@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cra2oo4wpaqmn"]
+
+[ext_resource type="PackedScene" uid="uid://bt81q1rg3hlum" path="res://PolygonScifi/Meshes/Environments/SM_Env_Ground_Tile_02.glb" id="1_bjspn"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(5.000000, 5.000000, 0.047309)
+
+[node name = "SM_Env_Ground_Tile_02" instance = ExtResource("1_bjspn")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+
+[node name="StaticBody" type="StaticBody3D" parent="." ]
+
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" ]
+transform = Transform3D(1.000000, 0.000000, 0.000000, 0.000000, 0.000000, -1.000000, 0.000000, 1.000000, 0.000000, 2.500000, 0.023654, -2.500000)
+shape = SubResource("0_c31wo")
+

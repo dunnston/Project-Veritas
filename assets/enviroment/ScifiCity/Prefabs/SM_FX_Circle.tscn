@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://beldw3bj11iar"]
+
+[ext_resource type="PackedScene" uid="uid://d3r2ryudmei7c" path="res://PolygonScifi/Meshes/Misc/SM_FX_Circle.glb" id="1_bc07u"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_FX_Circle" instance = ExtResource("1_bc07u")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

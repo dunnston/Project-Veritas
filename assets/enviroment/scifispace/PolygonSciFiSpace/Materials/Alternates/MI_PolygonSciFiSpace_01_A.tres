@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://pmomklke5nxt"]
+
+[ext_resource type="Shader" uid="uid://ckp1qlu4388d" path="res://assets/enviroment/scifispace/Shaders/MI_PolygonSciFiSpace_01_A.tres" id="1_shader"]
+[ext_resource type="Texture2D" uid="uid://dpnlgj5kgvf1c" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Textures/T_PolygonSciFiSpace_01_A.png" id="2_base"]
+[ext_resource type="Texture2D" uid="uid://b8gqhbqvyqe8j" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Textures/T_PolygonSciFiSpace_Emissive_01.png" id="3_emissive"]
+
+[resource]
+resource_name = "MI_PolygonSciFiSpace_01_A"
+render_priority = 0
+shader = ExtResource("1_shader")
+shader_parameter/TriplanarDirt = false
+shader_parameter/DetailScale = 1.0
+shader_parameter/DetailOpacity = 1.0
+shader_parameter/DirtScale = 1000.0
+shader_parameter/Metallic = 0.0
+shader_parameter/Roughness = 0.8
+shader_parameter/Specular = 0.2
+shader_parameter/RimGlow = false
+shader_parameter/RimColour = Vector4(0.85248, 0.136735, 1, 0)
+shader_parameter/RimPower = 5.0
+shader_parameter/EmissiveTint = Vector4(1, 1, 1, 1)
+shader_parameter/BaseTexture = ExtResource("2_base")
+shader_parameter/EmissiveTexture = ExtResource("3_emissive")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvsnv1c2e2cmn"]
+
+[ext_resource type="PackedScene" uid="uid://fn8b5x3lymv7" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Characters/SK_Chr_SpaceSoldier_Female_Armored.glb" id="1_84ey5"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SK_Chr_SpaceSoldier_Female_Armored" instance = ExtResource("1_84ey5")]
+
+[node name="Skeleton3D" parent="Mesh" index="0"]
+
+[node name="Mesh" parent="Mesh/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4hfmdt7awmbi"]
+
+[ext_resource type="PackedScene" uid="uid://bms2n8axshxva" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Wall_01.glb" id="1_b1klt"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Bld_Wall_01" instance = ExtResource("1_b1klt")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

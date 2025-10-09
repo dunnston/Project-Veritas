@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvik0qs0182gb"]
+
+[ext_resource type="PackedScene" uid="uid://r125q81saj5f" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Vehicles/SM_Ship_Fighter_Heavy_01.glb" id="1_baiwj"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Ship_Fighter_Heavy_01" instance = ExtResource("1_baiwj")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

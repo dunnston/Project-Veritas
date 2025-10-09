@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://buyef5in2428s"]
+
+[ext_resource type="PackedScene" uid="uid://bo4o41yv2pyv" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_Medical_Tube_Glass_01.glb" id="1_4df6a"]
+[ext_resource type="Material" uid="uid://bj4yjf8ac36jj" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Glass_01.tres" id="2_de8t7"]
+
+[node name = "SM_Prop_Medical_Tube_Glass_01" instance = ExtResource("1_4df6a")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_de8t7")

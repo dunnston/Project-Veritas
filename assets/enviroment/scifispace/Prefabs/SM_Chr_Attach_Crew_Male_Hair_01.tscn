@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq1d20va5m36l"]
+
+[ext_resource type="PackedScene" uid="uid://c4okms8intupx" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/CharacterAttachments/SM_Chr_Attach_Crew_Male_Hair_01.glb" id="1_ctqwg"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Chr_Attach_Crew_Male_Hair_01" instance = ExtResource("1_ctqwg")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

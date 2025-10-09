@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfesls2hoeqgc"]
+
+[ext_resource type="PackedScene" uid="uid://dso4651ks5dpy" path="res://PolygonScifi/Meshes/Vehicles/SK_Veh_Armored_Truck_02_Hover.glb" id="1_btc1e"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="Material" uid="uid://dqekcef7kh735" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Vehicle_Glass.tres" id="3_34m03"]
+
+[node name = "SK_Veh_Armored_Truck_02_Hover" instance = ExtResource("1_btc1e")]
+
+[node name="Skeleton3D" parent="Mesh" index="0"]
+
+[node name="Mesh" parent="Mesh/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")
+surface_material_override/1 = ExtResource("3_34m03")

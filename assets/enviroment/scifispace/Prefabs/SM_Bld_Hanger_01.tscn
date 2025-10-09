@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk25kiptse65r"]
+
+[ext_resource type="PackedScene" uid="uid://ipvubdcop1ap" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Buildings/SM_Bld_Hanger_01.glb" id="1_bv5eg"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Bld_Hanger_01" instance = ExtResource("1_bv5eg")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckah8n8g0rkmb"]
+
+[ext_resource type="PackedScene" uid="uid://2yxcq7es2lic" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/Props/SM_Prop_Tank_01.glb" id="1_dsarp"]
+[ext_resource type="Material" uid="uid://pmomklke5nxt" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Alternates/MI_PolygonSciFiSpace_01_A.tres" id="2_detxf"]
+
+[node name = "SM_Prop_Tank_01" instance = ExtResource("1_dsarp")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_detxf")

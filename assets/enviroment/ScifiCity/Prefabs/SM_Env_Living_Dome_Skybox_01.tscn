@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://4qcwcph2sr5s"]
+
+[ext_resource type="PackedScene" uid="uid://csjn7opeoexv6" path="res://PolygonScifi/Meshes/Environments/SM_Env_Living_Dome_Skybox_01.glb" id="1_cwq1j"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+
+[node name = "SM_Env_Living_Dome_Skybox_01" instance = ExtResource("1_cwq1j")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_c1xru")

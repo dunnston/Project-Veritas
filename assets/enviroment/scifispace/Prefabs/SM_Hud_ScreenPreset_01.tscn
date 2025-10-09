@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://n454hatu11pc"]
+
+[ext_resource type="PackedScene" uid="uid://dshpm5pk448hv" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Meshes/FX/SM_Hud_ScreenPreset_01.glb" id="1_drd3n"]
+[ext_resource type="Material" uid="uid://ccotw52fu54da" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Unlit_Blue.tres" id="2_dxdpd"]
+[ext_resource type="Material" uid="uid://cxvtw3cqfk8er" path="res://assets/enviroment/scifispace/PolygonSciFiSpace/Materials/Misc/MI_PolygonSciFiSpace_Hud_Glass.tres" id="3_dxean"]
+
+[node name = "SM_Hud_ScreenPreset_01" instance = ExtResource("1_drd3n")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_dxdpd")
+surface_material_override/1 = ExtResource("3_dxean")
