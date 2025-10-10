@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://yht27cwitnki"]
 
-[ext_resource type="PackedScene" uid="uid://dy61m0n2xc4sx" path="res://PolygonScifi/Meshes/Props/SM_Prop_Shield_Bubble_01.glb" id="1_dkdik"]
-[ext_resource type="Material" uid="uid://da0ws10kb46k3" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_BubbleShield.tres" id="2_d3ne3"]
+[ext_resource type="PackedScene" uid="uid://dy61m0n2xc4sx" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_Shield_Bubble_01.glb" id="1_dkdik"]
+[ext_resource type="Material" uid="uid://da0ws10kb46k3" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/Misc/M_PolygonScifi_BubbleShield.tres" id="2_d3ne3"]
 
 [node name = "SM_Prop_Shield_Bubble_01" instance = ExtResource("1_dkdik")]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c4nv3vwg27bn8"]
 
-[ext_resource type="PackedScene" uid="uid://b786emvm84wlr" path="res://PolygonScifi/Meshes/Buildings/SM_Bld_Section_Corner_02.glb" id="1_q6jk7"]
-[ext_resource type="Material" uid="uid://dlks0f6v5pjmk" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Roads.tres" id="2_y3s7a"]
+[ext_resource type="PackedScene" uid="uid://b786emvm84wlr" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Buildings/SM_Bld_Section_Corner_02.glb" id="1_q6jk7"]
+[ext_resource type="Material" uid="uid://dlks0f6v5pjmk" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/Misc/M_PolygonScifi_Roads.tres" id="2_y3s7a"]
 
 [node name = "SM_Bld_Section_Corner_02_1" instance = ExtResource("1_q6jk7")]
 

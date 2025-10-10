@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bo4ladl8q1d4v"]
 
-[ext_resource type="PackedScene" uid="uid://rxuk347ehda" path="res://PolygonScifi/Meshes/Props/SM_Prop_Meat_01.glb" id="1_bm1fo"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://rxuk347ehda" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_Meat_01.glb" id="1_bm1fo"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Prop_Meat_01" instance = ExtResource("1_bm1fo")]
 

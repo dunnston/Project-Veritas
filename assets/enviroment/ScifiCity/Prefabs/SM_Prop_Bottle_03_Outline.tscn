@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cmpdxww3fhxun"]
 
-[ext_resource type="PackedScene" uid="uid://brdo13uoby7ng" path="res://PolygonScifi/Meshes/Props/SM_Prop_Bottle_03_Outline.glb" id="1_dir74"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://brdo13uoby7ng" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_Bottle_03_Outline.glb" id="1_dir74"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Prop_Bottle_03_Outline" instance = ExtResource("1_dir74")]
 

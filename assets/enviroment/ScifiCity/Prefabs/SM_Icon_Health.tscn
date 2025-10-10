@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://5b7wwmbcg6r5"]
 
-[ext_resource type="PackedScene" uid="uid://d4k0fdea8m7uj" path="res://PolygonScifi/Meshes/Misc/SM_Icon_Health.glb" id="1_dlocc"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://d4k0fdea8m7uj" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Misc/SM_Icon_Health.glb" id="1_dlocc"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Icon_Health" instance = ExtResource("1_dlocc")]
 

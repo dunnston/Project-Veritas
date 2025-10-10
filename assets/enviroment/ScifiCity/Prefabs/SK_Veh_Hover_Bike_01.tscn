@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://caxeicu2xfufu"]
 
-[ext_resource type="PackedScene" uid="uid://cdmt8sex0qj5y" path="res://PolygonScifi/Meshes/Vehicles/SK_Veh_Hover_Bike_01.glb" id="1_bfrv0"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
-[ext_resource type="Material" uid="uid://dqekcef7kh735" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Vehicle_Glass.tres" id="3_34m03"]
+[ext_resource type="PackedScene" uid="uid://cdmt8sex0qj5y" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Vehicles/SK_Veh_Hover_Bike_01.glb" id="1_bfrv0"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="Material" uid="uid://dqekcef7kh735" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/Misc/M_PolygonScifi_Vehicle_Glass.tres" id="3_34m03"]
 
 [node name = "SK_Veh_Hover_Bike_01" instance = ExtResource("1_bfrv0")]
 

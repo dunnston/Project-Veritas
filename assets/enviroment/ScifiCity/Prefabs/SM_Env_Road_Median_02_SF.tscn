@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cluf7fdp4p0f5"]
 
-[ext_resource type="PackedScene" uid="uid://b4qow0e837ntf" path="res://PolygonScifi/Meshes/Environments/SM_Env_Road_Median_02_SF.glb" id="1_gn6k0"]
-[ext_resource type="Material" uid="uid://dlks0f6v5pjmk" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Roads.tres" id="2_y3s7a"]
+[ext_resource type="PackedScene" uid="uid://b4qow0e837ntf" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Environments/SM_Env_Road_Median_02_SF.glb" id="1_gn6k0"]
+[ext_resource type="Material" uid="uid://dlks0f6v5pjmk" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/Misc/M_PolygonScifi_Roads.tres" id="2_y3s7a"]
 
 [sub_resource type="BoxShape3D" id="0_c31wo"]
 size = Vector3(5.000000, 5.000000, 0.075780)

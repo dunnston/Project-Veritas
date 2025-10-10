@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://c4yylrwf5r15e"]
 
-[ext_resource type="PackedScene" uid="uid://ihbjhwqurk8s" path="res://PolygonScifi/Meshes/Vehicles/SK_Veh_Classic_01.glb" id="1_df2mv"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
-[ext_resource type="Material" uid="uid://dqekcef7kh735" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Vehicle_Glass.tres" id="3_34m03"]
+[ext_resource type="PackedScene" uid="uid://ihbjhwqurk8s" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Vehicles/SK_Veh_Classic_01.glb" id="1_df2mv"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="Material" uid="uid://dqekcef7kh735" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/Misc/M_PolygonScifi_Vehicle_Glass.tres" id="3_34m03"]
 
 [node name = "SK_Veh_Classic_01" instance = ExtResource("1_df2mv")]
 

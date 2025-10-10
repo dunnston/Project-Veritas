@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dl3n1swpnkvkf"]
 
-[ext_resource type="PackedScene" uid="uid://cleh647pranls" path="res://PolygonScifi/Meshes/Props/SM_Prop_Pillar_04.glb" id="1_c0yv1"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://cleh647pranls" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_Pillar_04.glb" id="1_c0yv1"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Prop_Pillar_04" instance = ExtResource("1_c0yv1")]
 

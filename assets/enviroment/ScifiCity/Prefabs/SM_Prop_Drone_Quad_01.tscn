@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1x7qsg02guyu"]
 
-[ext_resource type="PackedScene" uid="uid://datxvubjw22wd" path="res://PolygonScifi/Meshes/Props/SM_Prop_Drone_Quad_01.glb" id="1_b75fh"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://datxvubjw22wd" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_Drone_Quad_01.glb" id="1_b75fh"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [sub_resource type="CapsuleShape3D" id="0_c31wo"]
 radius = 0.149698

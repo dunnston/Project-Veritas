@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://3x88qexfty74"]
 
-[ext_resource type="PackedScene" uid="uid://3ay8u0y4xojc" path="res://PolygonScifi/Meshes/Props/SM_Prop_Streetlight_01.glb" id="1_8v1g4"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://3ay8u0y4xojc" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_Streetlight_01.glb" id="1_8v1g4"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [sub_resource type="CapsuleShape3D" id="0_c31wo"]
 radius = 0.110240

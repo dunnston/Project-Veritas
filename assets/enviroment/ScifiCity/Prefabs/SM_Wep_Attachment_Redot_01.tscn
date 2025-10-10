@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://blar70rf5poq4"]
 
-[ext_resource type="PackedScene" uid="uid://b8mrw5133k15s" path="res://PolygonScifi/Meshes/Weapons/Accessories/SM_Wep_Attachment_Redot_01.glb" id="1_5la5o"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://b8mrw5133k15s" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Weapons/Accessories/SM_Wep_Attachment_Redot_01.glb" id="1_5la5o"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Wep_Attachment_Redot_01" instance = ExtResource("1_5la5o")]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2xmt440mu0kx"]
 
-[ext_resource type="PackedScene" uid="uid://cidj4ffksojwk" path="res://PolygonScifi/Meshes/New_Character/SK_Chr_Hacker_Female_01.glb" id="1_bm0dl"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://cidj4ffksojwk" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/New_Character/SK_Chr_Hacker_Female_01.glb" id="1_bm0dl"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SK_Chr_Hacker_Female_01" instance = ExtResource("1_bm0dl")]
 

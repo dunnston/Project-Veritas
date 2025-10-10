@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dovam0hr5546a"]
 
-[ext_resource type="PackedScene" uid="uid://yexmxbcbahhn" path="res://PolygonScifi/Meshes/Weapons/Accessories/SM_Wep_Attachment_Foregrip_02.glb" id="1_bvrqu"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://yexmxbcbahhn" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Weapons/Accessories/SM_Wep_Attachment_Foregrip_02.glb" id="1_bvrqu"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Wep_Attachment_Foregrip_02" instance = ExtResource("1_bvrqu")]
 

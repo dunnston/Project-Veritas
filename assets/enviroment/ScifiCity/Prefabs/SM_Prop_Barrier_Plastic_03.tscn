@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dieh7n8tfb0as"]
 
-[ext_resource type="PackedScene" uid="uid://dmbw3v85o4ne0" path="res://PolygonScifi/Meshes/Props/SM_Prop_Barrier_Plastic_03.glb" id="1_b3ls3"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://dmbw3v85o4ne0" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_Barrier_Plastic_03.glb" id="1_b3ls3"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Prop_Barrier_Plastic_03" instance = ExtResource("1_b3ls3")]
 

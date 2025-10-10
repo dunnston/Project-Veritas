@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c8kd7lh5rrfdf"]
 
-[ext_resource type="PackedScene" uid="uid://wfibo4oa5yoy" path="res://PolygonScifi/Meshes/Weapons/Accessories/SM_Wep_Shiv_01.glb" id="1_i5f6q"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://wfibo4oa5yoy" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Weapons/Accessories/SM_Wep_Shiv_01.glb" id="1_i5f6q"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Wep_Shiv_01" instance = ExtResource("1_i5f6q")]
 

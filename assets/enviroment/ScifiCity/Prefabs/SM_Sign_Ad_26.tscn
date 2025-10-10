@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://byx0q0ql3gy6o"]
 
-[ext_resource type="PackedScene" uid="uid://df83jn7oofdyl" path="res://PolygonScifi/Meshes/Signs/SM_Sign_Ad_26.glb" id="1_w3gol"]
-[ext_resource type="Material" uid="uid://bci4htinxlrjp" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Signs.tres" id="2_buhfh"]
+[ext_resource type="PackedScene" uid="uid://df83jn7oofdyl" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Signs/SM_Sign_Ad_26.glb" id="1_w3gol"]
+[ext_resource type="Material" uid="uid://bci4htinxlrjp" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/Misc/M_PolygonScifi_Signs.tres" id="2_buhfh"]
 
 [node name = "SM_Sign_Ad_26" instance = ExtResource("1_w3gol")]
 

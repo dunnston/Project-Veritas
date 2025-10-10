@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://m3y05r8nvjgc"]
 
-[ext_resource type="PackedScene" uid="uid://dkchc5jx0go62" path="res://PolygonScifi/Meshes/Props/SM_Prop_LargeSign_Noodles_01_Outline.glb" id="1_b1fnf"]
-[ext_resource type="Material" uid="uid://c3e6cxgjabnlq" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Hologram_Outlines.tres" id="2_deaqj"]
+[ext_resource type="PackedScene" uid="uid://dkchc5jx0go62" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_LargeSign_Noodles_01_Outline.glb" id="1_b1fnf"]
+[ext_resource type="Material" uid="uid://c3e6cxgjabnlq" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/Misc/M_PolygonScifi_Hologram_Outlines.tres" id="2_deaqj"]
 
 [node name = "SM_Prop_LargeSign_Noodles_01_Outline" instance = ExtResource("1_b1fnf")]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dyouj13uytlfx"]
 
-[ext_resource type="PackedScene" uid="uid://dd4ddidgx07f3" path="res://PolygonScifi/Meshes/Misc/SM_Planet_Background_01.glb" id="1_6qcqm"]
-[ext_resource type="Material" uid="uid://c2g1w3fv04xog" path="res://PolygonScifi/Materials/Misc/M_PolygonSciFi_Planet_Background.tres" id="2_ch6eb"]
+[ext_resource type="PackedScene" uid="uid://dd4ddidgx07f3" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Misc/SM_Planet_Background_01.glb" id="1_6qcqm"]
+[ext_resource type="Material" uid="uid://c2g1w3fv04xog" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/Misc/M_PolygonSciFi_Planet_Background.tres" id="2_ch6eb"]
 
 [node name = "SM_Planet_Background_01" instance = ExtResource("1_6qcqm")]
 

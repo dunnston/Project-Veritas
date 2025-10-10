@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dinexulowe1xa"]
 
-[ext_resource type="PackedScene" uid="uid://1ku5vsbbi4m0" path="res://PolygonScifi/Meshes/Props/SM_Prop_Drink_Glass_02.glb" id="1_dxmmo"]
-[ext_resource type="Material" uid="uid://bm3u4u4hp1n1x" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Glass.tres" id="2_bwuof"]
+[ext_resource type="PackedScene" uid="uid://1ku5vsbbi4m0" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_Drink_Glass_02.glb" id="1_dxmmo"]
+[ext_resource type="Material" uid="uid://bm3u4u4hp1n1x" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/Misc/M_PolygonScifi_Glass.tres" id="2_bwuof"]
 
 [node name = "SM_Prop_Drink_Glass_02" instance = ExtResource("1_dxmmo")]
 

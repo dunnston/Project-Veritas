@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cihidydovb1ai"]
 
-[ext_resource type="PackedScene" uid="uid://4inwnq4vw40d" path="res://PolygonScifi/Meshes/Misc/SM_Icon_Lightning.glb" id="1_boxw3"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://4inwnq4vw40d" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Misc/SM_Icon_Lightning.glb" id="1_boxw3"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Icon_Lightning" instance = ExtResource("1_boxw3")]
 

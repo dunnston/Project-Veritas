@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2r6oj24k35cx"]
 
-[ext_resource type="PackedScene" uid="uid://dabirytr2nc71" path="res://PolygonScifi/Meshes/Props/SM_Prop_Crate_Military_03_Lid.glb" id="1_biewl"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://dabirytr2nc71" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_Crate_Military_03_Lid.glb" id="1_biewl"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [sub_resource type="BoxShape3D" id="0_c31wo"]
 size = Vector3(0.789036, 0.519035, 0.066043)

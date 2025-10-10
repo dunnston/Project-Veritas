@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://3hr1u33yv44g"]
 
-[ext_resource type="PackedScene" uid="uid://chhy4qykchcmt" path="res://PolygonScifi/Meshes/Props/SM_Prop_Door_01.glb" id="1_bk2hu"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://chhy4qykchcmt" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_Door_01.glb" id="1_bk2hu"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [sub_resource type="BoxShape3D" id="0_c31wo"]
 size = Vector3(1.736006, 0.390454, 2.360867)
