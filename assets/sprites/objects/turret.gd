@@ -33,7 +33,7 @@ const IDLE_SWEEP_ANGLE: float = 45.0  # Degrees to sweep left/right
 
 @export_group("Targeting")
 @export var target_group: String = "animals"  # Which group to target (animals, player, enemies, etc.)
-@export var line_of_sight_required: bool = true  # Require clear line of sight to fire
+@export var line_of_sight_required: bool = false  # Require clear line of sight to fire
 
 @export_group("Line of Sight")
 @export_flags_3d_physics var los_collision_mask: int = 1  # Physics layers to check for obstacles
@@ -131,8 +131,7 @@ func _update_state() -> void:
 				_change_state(State.SEARCHING)
 			elif not _has_ammo():
 				_change_state(State.SEARCHING)  # Out of ammo
-			elif not _is_aimed_at_target(_get_direction_to_target()):
-				_change_state(State.SEARCHING)
+			# Don't check aim while firing - stay locked on target
 
 
 ## Processes behavior based on the current state
@@ -163,8 +162,20 @@ func _change_state(new_state: State) -> void:
 	var old_state := _current_state
 	_current_state = new_state
 
+	# DEBUG: Print state changes
+	print("Turret: State change: %s → %s" % [get_state_name(old_state), get_state_name(new_state)])
+
 	# Enter new state
 	_enter_state(new_state)
+
+
+func get_state_name(state: State) -> String:
+	match state:
+		State.IDLE: return "IDLE"
+		State.SEARCHING: return "SEARCHING"
+		State.AIMING: return "AIMING"
+		State.FIRING: return "FIRING"
+		_: return "UNKNOWN"
 
 
 ## Called when entering a new state
@@ -230,6 +241,15 @@ func _process_searching_state(delta: float) -> void:
 	_rotate_horizontal(direction_to_target, delta)
 	_rotate_vertical(target_pos, delta)
 
+	# DEBUG: Check aiming status
+	var is_aimed = _is_aimed_at_target(direction_to_target)
+	var has_los = _has_line_of_sight()
+	var forward_dir := -gun_pivot.global_transform.basis.z
+	var dot_product = forward_dir.dot(direction_to_target)
+
+	print("Turret SEARCHING: aimed=%s (dot=%.3f, need>%.2f), LOS=%s, ammo=%d" %
+		[is_aimed, dot_product, AIM_TOLERANCE, has_los, _get_ammo_count()])
+
 
 ## AIMING state: Locked onto target with clear LOS
 func _process_aiming_state(delta: float) -> void:
@@ -239,6 +259,10 @@ func _process_aiming_state(delta: float) -> void:
 
 	_rotate_horizontal(direction_to_target, delta)
 	_rotate_vertical(target_pos, delta)
+
+	# DEBUG: Check firing readiness
+	print("Turret AIMING: can_fire=%s, has_ammo=%s, has_LOS=%s" %
+		[_can_fire, _has_ammo(), _has_line_of_sight()])
 
 
 ## FIRING state: Actively shooting at target
@@ -413,9 +437,16 @@ func _get_direction_to_target() -> Vector3:
 
 ## Rotates the turret horizontally (yaw) to face the target
 func _rotate_horizontal(direction: Vector3, delta: float) -> void:
-	var look_at_horizontal := Transform3D().looking_at(direction, Vector3.UP)
-	turret_pivot.basis = turret_pivot.basis.slerp(
-		look_at_horizontal.basis,
+	# Project direction onto horizontal plane (ignore Y component)
+	var horizontal_direction = Vector3(direction.x, 0, direction.z).normalized()
+
+	# Calculate the target yaw angle
+	var target_angle = atan2(horizontal_direction.x, horizontal_direction.z)
+
+	# Smoothly interpolate to target angle
+	turret_pivot.rotation.y = lerp_angle(
+		turret_pivot.rotation.y,
+		target_angle,
 		delta * rotation_speed
 	)
 
