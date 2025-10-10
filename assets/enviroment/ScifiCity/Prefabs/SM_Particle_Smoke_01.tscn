@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bs5q5acn3i375"]
 
-[ext_resource type="PackedScene" uid="uid://cyskdikvngh8r" path="res://PolygonScifi/Meshes/Misc/SM_Particle_Smoke_01.glb" id="1_bqdhb"]
-[ext_resource type="Material" uid="uid://yfl1hxlhsb6t" path="res://PolygonScifi/Materials/Misc/M_FX_PolygonSciFi_Default.tres" id="2_be1fx"]
+[ext_resource type="PackedScene" uid="uid://cyskdikvngh8r" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Misc/SM_Particle_Smoke_01.glb" id="1_bqdhb"]
+[ext_resource type="Material" uid="uid://yfl1hxlhsb6t" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/Misc/M_FX_PolygonSciFi_Default.tres" id="2_be1fx"]
 
 [node name = "SM_Particle_Smoke_01" instance = ExtResource("1_bqdhb")]
 

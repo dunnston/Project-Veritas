@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dasayf7u5x6pt"]
 
-[ext_resource type="PackedScene" uid="uid://ck00dutfm6fsa" path="res://PolygonScifi/Meshes/New_Character/SK_Chr_Monk_Male_01.glb" id="1_cwhkn"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://ck00dutfm6fsa" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/New_Character/SK_Chr_Monk_Male_01.glb" id="1_cwhkn"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SK_Chr_Monk_Male_01" instance = ExtResource("1_cwhkn")]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dl1cnqtviim4k"]
 
-[ext_resource type="PackedScene" uid="uid://bhec7p6ti0p18" path="res://PolygonScifi/Meshes/Misc/SM_SphereInverted.glb" id="1_dtg68"]
-[ext_resource type="Material" uid="uid://yfl1hxlhsb6t" path="res://PolygonScifi/Materials/Misc/M_FX_PolygonSciFi_Default.tres" id="2_be1fx"]
+[ext_resource type="PackedScene" uid="uid://bhec7p6ti0p18" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Misc/SM_SphereInverted.glb" id="1_dtg68"]
+[ext_resource type="Material" uid="uid://yfl1hxlhsb6t" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/Misc/M_FX_PolygonSciFi_Default.tres" id="2_be1fx"]
 
 [node name = "SM_SphereInverted" instance = ExtResource("1_dtg68")]
 

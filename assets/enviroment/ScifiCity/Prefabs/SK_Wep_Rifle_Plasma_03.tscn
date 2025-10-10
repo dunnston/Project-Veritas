@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dduekw5p6aht7"]
 
-[ext_resource type="PackedScene" uid="uid://bu3wwuqr6xwyi" path="res://PolygonScifi/Meshes/Weapons/SK_Wep_Rifle_Plasma_03.glb" id="1_jmim7"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://bu3wwuqr6xwyi" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Weapons/SK_Wep_Rifle_Plasma_03.glb" id="1_jmim7"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SK_Wep_Rifle_Plasma_03" instance = ExtResource("1_jmim7")]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cuvpknmv55068"]
 
-[ext_resource type="PackedScene" uid="uid://css704f153jxi" path="res://PolygonScifi/Meshes/Props/SM_Prop_VendingMachine_Soda_01_Glass.glb" id="1_ry06p"]
-[ext_resource type="Material" uid="uid://bm3u4u4hp1n1x" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Glass.tres" id="2_bwuof"]
+[ext_resource type="PackedScene" uid="uid://css704f153jxi" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_VendingMachine_Soda_01_Glass.glb" id="1_ry06p"]
+[ext_resource type="Material" uid="uid://bm3u4u4hp1n1x" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/Misc/M_PolygonScifi_Glass.tres" id="2_bwuof"]
 
 [node name = "SM_Prop_VendingMachine_Soda_01_Glass" instance = ExtResource("1_ry06p")]
 

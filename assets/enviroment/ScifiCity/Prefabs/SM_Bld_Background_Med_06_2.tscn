@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c1v7aat5e3qce"]
 
-[ext_resource type="PackedScene" uid="uid://d1a2n7avklskh" path="res://PolygonScifi/Meshes/Buildings/SM_Bld_Background_Med_06.glb" id="1_dtw1d"]
-[ext_resource type="Material" uid="uid://bkkmq7xgm530l" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Bkgrnd_Bld_Emissive_02.tres" id="2_bmjv3"]
+[ext_resource type="PackedScene" uid="uid://d1a2n7avklskh" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Buildings/SM_Bld_Background_Med_06.glb" id="1_dtw1d"]
+[ext_resource type="Material" uid="uid://bkkmq7xgm530l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/Misc/M_PolygonScifi_Bkgrnd_Bld_Emissive_02.tres" id="2_bmjv3"]
 
 [node name = "SM_Bld_Background_Med_06_2" instance = ExtResource("1_dtw1d")]
 

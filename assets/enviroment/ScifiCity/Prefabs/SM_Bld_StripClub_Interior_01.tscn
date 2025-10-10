@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bc58cvdq6qcje"]
 
-[ext_resource type="PackedScene" uid="uid://s7cf107p2vs" path="res://PolygonScifi/Meshes/Buildings/SM_Bld_StripClub_Interior_01.glb" id="1_dvslk"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://s7cf107p2vs" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Buildings/SM_Bld_StripClub_Interior_01.glb" id="1_dvslk"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Bld_StripClub_Interior_01" instance = ExtResource("1_dvslk")]
 

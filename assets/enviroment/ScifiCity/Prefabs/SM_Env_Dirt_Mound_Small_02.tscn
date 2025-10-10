@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://rr5asdgbu60y"]
 
-[ext_resource type="PackedScene" uid="uid://bh4hkvmu1cfxh" path="res://PolygonScifi/Meshes/Environments/SM_Env_Dirt_Mound_Small_02.glb" id="1_b4xuk"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://bh4hkvmu1cfxh" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Environments/SM_Env_Dirt_Mound_Small_02.glb" id="1_b4xuk"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Env_Dirt_Mound_Small_02" instance = ExtResource("1_b4xuk")]
 

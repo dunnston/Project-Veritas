@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bkmxmngke1qov"]
 
-[ext_resource type="PackedScene" uid="uid://dv0ijrrv4x3eg" path="res://PolygonScifi/Meshes/Weapons/Accessories/SM_Wep_Crosshair_Sniper_01.glb" id="1_kpep0"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://dv0ijrrv4x3eg" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Weapons/Accessories/SM_Wep_Crosshair_Sniper_01.glb" id="1_kpep0"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Wep_Crosshair_Sniper_01" instance = ExtResource("1_kpep0")]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cd2bwmc2gxes2"]
 
-[ext_resource type="PackedScene" uid="uid://dfghqe7lfk8m6" path="res://PolygonScifi/Meshes/Buildings/SM_Bld_Advanced_01.glb" id="1_di8u3"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://dfghqe7lfk8m6" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Buildings/SM_Bld_Advanced_01.glb" id="1_di8u3"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [sub_resource type="BoxShape3D" id="0_c31wo"]
 size = Vector3(5.000000, 0.363535, 3.000000)

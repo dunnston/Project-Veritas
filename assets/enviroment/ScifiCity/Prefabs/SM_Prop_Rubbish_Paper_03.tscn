@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://byqoqns4ee5vw"]
 
-[ext_resource type="PackedScene" uid="uid://8368eg843red" path="res://PolygonScifi/Meshes/Props/SM_Prop_Rubbish_Paper_03.glb" id="1_ck86x"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://8368eg843red" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_Rubbish_Paper_03.glb" id="1_ck86x"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Prop_Rubbish_Paper_03" instance = ExtResource("1_ck86x")]
 

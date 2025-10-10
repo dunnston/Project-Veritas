@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://2yapw6s06a6w"]
 
-[ext_resource type="PackedScene" uid="uid://dq138am4ammb" path="res://PolygonScifi/Meshes/Weapons/Accessories/SM_Wep_Attachment_Silencer_01.glb" id="1_cdkoh"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://dq138am4ammb" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Weapons/Accessories/SM_Wep_Attachment_Silencer_01.glb" id="1_cdkoh"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Wep_Attachment_Silencer_01" instance = ExtResource("1_cdkoh")]
 

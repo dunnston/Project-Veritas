@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://h2wgrgrbwney"]
 
-[ext_resource type="PackedScene" uid="uid://blx0talmvcxxj" path="res://PolygonScifi/Meshes/Props/SM_Prop_Hologram_Bottle_01.glb" id="1_dew0p"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://blx0talmvcxxj" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_Hologram_Bottle_01.glb" id="1_dew0p"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SM_Prop_Hologram_Bottle_01" instance = ExtResource("1_dew0p")]
 

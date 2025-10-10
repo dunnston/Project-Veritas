@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://0g4ib2mx60gl"]
 
-[ext_resource type="PackedScene" uid="uid://cai2d7x5uftle" path="res://PolygonScifi/Meshes/New_Character/SK_Chr_CyberPunk_Male_01.glb" id="1_01ipt"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://cai2d7x5uftle" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/New_Character/SK_Chr_CyberPunk_Male_01.glb" id="1_01ipt"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SK_Chr_CyberPunk_Male_01" instance = ExtResource("1_01ipt")]
 

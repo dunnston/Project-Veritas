@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dxlrj8jxygi83"]
 
-[ext_resource type="PackedScene" uid="uid://b2x1cxc1pq1jg" path="res://PolygonScifi/Meshes/Weapons/SK_Wep_MachinePistol_Gen2_01.glb" id="1_bpsm0"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://b2x1cxc1pq1jg" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Weapons/SK_Wep_MachinePistol_Gen2_01.glb" id="1_bpsm0"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SK_Wep_MachinePistol_Gen2_01" instance = ExtResource("1_bpsm0")]
 

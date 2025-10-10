@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://db763ypcoaxw4"]
 
-[ext_resource type="PackedScene" uid="uid://1hl5kc0dpd7c" path="res://PolygonScifi/Meshes/Characters/SK_Character_Muscle_Male_01.glb" id="1_dql3w"]
-[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
+[ext_resource type="PackedScene" uid="uid://1hl5kc0dpd7c" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Characters/SK_Character_Muscle_Male_01.glb" id="1_dql3w"]
+[ext_resource type="Material" uid="uid://632cbjjn263l" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/M_PolygonScifi_01_A.tres" id="2_c1xru"]
 
 [node name = "SK_Character_Muscle_Male_01" instance = ExtResource("1_dql3w")]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dl3xd413fnw0r"]
 
-[ext_resource type="PackedScene" uid="uid://desswpfetae2e" path="res://PolygonScifi/Meshes/Props/SM_Prop_Door_03_Glass.glb" id="1_n8asu"]
-[ext_resource type="Material" uid="uid://bm3u4u4hp1n1x" path="res://PolygonScifi/Materials/Misc/M_PolygonScifi_Glass.tres" id="2_bwuof"]
+[ext_resource type="PackedScene" uid="uid://desswpfetae2e" path="res://assets/enviroment/ScifiCity/PolygonScifi/Meshes/Props/SM_Prop_Door_03_Glass.glb" id="1_n8asu"]
+[ext_resource type="Material" uid="uid://bm3u4u4hp1n1x" path="res://assets/enviroment/ScifiCity/PolygonScifi/Materials/Misc/M_PolygonScifi_Glass.tres" id="2_bwuof"]
 
 [node name = "SM_Prop_Door_03_Glass" instance = ExtResource("1_n8asu")]
 
