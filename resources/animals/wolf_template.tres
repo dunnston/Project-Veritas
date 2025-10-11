@@ -7,11 +7,14 @@
 [sub_resource type="Resource" id="Resource_wolf_meat"]
 script = ExtResource("3_wolf_drop")
 item_id = "raw_meat"
+min_amount = 1
+max_amount = 3
 drop_chance = 0.75
 
 [sub_resource type="Resource" id="Resource_wolf_hide"]
 script = ExtResource("3_wolf_drop")
 item_id = "leather"
+min_amount = 1
 max_amount = 2
 drop_chance = 0.7
 
@@ -20,6 +23,7 @@ script = ExtResource("1_wolf_template")
 animal_name = "Wolf"
 scene = ExtResource("2_wolf_scene")
 behavior_type = 2
+max_health = 100.0
 move_speed = 6.0
 run_speed = 11.0
 aggro_range = 15.0

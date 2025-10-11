@@ -1,4 +1,4 @@
-[gd_resource type = "ShaderMaterial" load_steps=1 format=3 uid="uid://yfl1hxlhsb6t"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://yfl1hxlhsb6t"]
 
 [ext_resource type="Shader" uid="uid://d4i6b1gwxec5d" path="res://assets/enviroment/ScifiCity/Shaders/M_FX_PolygonSciFi_Default.tres" id="1_b3br4"]
 

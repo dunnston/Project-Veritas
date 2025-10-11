@@ -1,8 +1,6 @@
-[gd_resource type = "ShaderMaterial" load_steps=3 format=3 uid="uid://cf3l537t4qe7o"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cf3l537t4qe7o"]
 
 [ext_resource type="Shader" uid="uid://dy71pnlkeqqf6" path="res://assets/enviroment/ScifiCity/Shaders/M_PolygonScifi_02_E.tres" id="3_n7vbb"]
-[ext_resource type="Texture2D" uid="uid://bxydfyfhdbnay" path="res://PolygonScifi/Textures/Alternates/T_PolygonScifi_Emissive_02.png" id="1_bb1df"]
-[ext_resource type="Texture2D" uid="uid://b3a6dyxtwr1hq" path="res://PolygonScifi/Textures/Alternates/T_PolygonScifi_02_E.png" id="2_du75q"]
 
 [resource]
 resource_name = "M_PolygonScifi_02_E"
