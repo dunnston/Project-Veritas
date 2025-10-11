@@ -458,9 +458,9 @@ func save_form_data() -> Dictionary:
 	# Get ingredients
 	if ingredients_container:
 		for row in ingredients_container.get_children():
-			var dropdown = row.find_child("IngredientDropdown")
-			var amount_spin = row.find_child("IngredientAmount")
-			
+			var dropdown = row.find_child("IngredientDropdown", true, false)
+			var amount_spin = row.find_child("IngredientAmount", true, false)
+
 			if dropdown and amount_spin and dropdown.selected >= 0:
 				var metadata = dropdown.get_item_metadata(dropdown.selected)
 				if metadata and metadata.has("id"):
