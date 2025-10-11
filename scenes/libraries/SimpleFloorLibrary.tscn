@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhan077ig17ve"]
+
+[ext_resource type="PackedScene" uid="uid://bvcr6i41qe5ql" path="res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Floor_01.tscn" id="1_vgoqq"]
+[ext_resource type="PackedScene" uid="uid://bmktrb2b36lls" path="res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Floor_02.tscn" id="2_to2tk"]
+[ext_resource type="PackedScene" uid="uid://chfgsqo1yqeh6" path="res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Floor_03.tscn" id="3_ylrn1"]
+
+[node name="SimpleFloorLibrary" type="Node3D"]
+
+[node name="SM_Env_Floor_01" parent="." instance=ExtResource("1_vgoqq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -3)
+
+[node name="SM_Env_Floor_02" parent="." instance=ExtResource("2_to2tk")]
+
+[node name="SM_Env_Floor_03" parent="." instance=ExtResource("3_ylrn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
