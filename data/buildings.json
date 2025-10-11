@@ -1,4 +1,25 @@
 {
+	"LARGE_OXYGEN_TANK": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "structure",
+		"description": "",
+		"icon": "",
+		"interactable": true,
+		"interaction_range": 64.0,
+		"is_crafting_station": false,
+		"max_health": 100.0,
+		"name": "Large Oxygen Tank",
+		"power_consumption": 100.0,
+		"refund": {
+
+		},
+		"scene_path": "res://assets/enviroment/scifispace/Prefabs/SM_Prop_Oxygen_Tank_Large.tscn",
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
 	"assembler": {
 		"blocks_movement": true,
 		"blocks_placement": true,
@@ -387,16 +408,16 @@
 		"category": "crafting",
 		"description": "Essential crafting station",
 		"icon": "pixellab-A-sci-fi-workbench-with-a-meta-1756949376631.png",
-		"interactable": false,
+		"interactable": true,
 		"interaction_range": 64.0,
 		"is_crafting_station": true,
 		"max_health": 75.0,
 		"name": "Workbench",
 		"power_consumption": 0.0,
 		"refund": {
-
+			"WOOD_SCRAPS": 2.0
 		},
-		"scene_path": "",
+		"scene_path": "res://scenes/buildings/workbench_3d.tscn",
 		"size": {
 			"x": 2.0,
 			"y": 1.0
