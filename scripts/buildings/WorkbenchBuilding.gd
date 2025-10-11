@@ -42,7 +42,9 @@ func load_crafting_recipes():
 			# Filter recipes that require workbench
 			for recipe_id in all_recipes.keys():
 				var recipe_data = all_recipes[recipe_id]
-				if recipe_data.get("workbench_required", false):
+				# Check new requires_building field OR legacy workbench_required field
+				var requires_workbench = recipe_data.get("requires_building", "") == "workbench" or recipe_data.get("workbench_required", false)
+				if requires_workbench:
 					# Convert ingredient names to match inventory system
 					var ingredients = recipe_data.get("ingredients", {})
 					var required_resources = {}
