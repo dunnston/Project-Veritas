@@ -24,10 +24,39 @@ func create_form_fields(form_container: VBoxContainer) -> void:
 	
 	# Craft time field
 	create_number_field(form_container, "Craft Time (seconds)", "CraftTimeField", 0.1, 3600, 10)
-	
-	# Required building field
-	create_text_field(form_container, "Required Building", "RequiredBuildingField", "workbench")
-	
+
+	# Required building dropdown (only crafting stations)
+	var building_label = Label.new()
+	building_label.text = "Required Building:"
+	form_container.add_child(building_label)
+
+	var building_dropdown = OptionButton.new()
+	building_dropdown.name = "RequiredBuildingDropdown"
+	populate_crafting_stations_dropdown(building_dropdown)
+	form_container.add_child(building_dropdown)
+
+	# Category dropdown (for build menu organization)
+	var category_label = Label.new()
+	category_label.text = "Category (for Build Menu tabs):"
+	form_container.add_child(category_label)
+
+	var category_dropdown = OptionButton.new()
+	category_dropdown.name = "CategoryDropdown"
+	populate_category_dropdown(category_dropdown)
+	form_container.add_child(category_dropdown)
+
+	# Include in build menu checkbox
+	var build_menu_container = HBoxContainer.new()
+	form_container.add_child(build_menu_container)
+
+	var build_menu_checkbox = CheckBox.new()
+	build_menu_checkbox.name = "IncludeInBuildMenuField"
+	build_menu_container.add_child(build_menu_checkbox)
+
+	var build_menu_label = Label.new()
+	build_menu_label.text = "Include in Build Menu (B key)"
+	build_menu_container.add_child(build_menu_label)
+
 	# Ingredients section
 	var ingredients_label = Label.new()
 	ingredients_label.text = "Ingredients:"
@@ -71,6 +100,51 @@ func create_form_fields(form_container: VBoxContainer) -> void:
 	output_amount.value = 1
 	output_amount.set_custom_minimum_size(Vector2(80, 0))
 	output_container.add_child(output_amount)
+
+func populate_category_dropdown(dropdown: OptionButton):
+	"""Populate dropdown with build menu categories"""
+	dropdown.clear()
+
+	# These categories match BuildMenu.gd line 258-276
+	var categories = [
+		{"name": "Crafting", "value": "crafting_station"},
+		{"name": "Building", "value": "building"},
+		{"name": "Emergency", "value": "emergency"},
+		{"name": "Power", "value": "power"},
+		{"name": "Production", "value": "production"},
+		{"name": "Storage", "value": "storage"},
+		{"name": "Tools", "value": "misc"}
+	]
+
+	for category in categories:
+		dropdown.add_item(category.name, -1)
+		dropdown.set_item_metadata(dropdown.get_item_count() - 1, category.value)
+
+func populate_crafting_stations_dropdown(dropdown: OptionButton):
+	"""Populate dropdown with buildings marked as crafting stations"""
+	dropdown.clear()
+
+	# Add "None (Portable/Build Menu)" as first option
+	dropdown.add_item("None (Portable/Build Menu)", -1)
+	dropdown.set_item_metadata(0, "")
+
+	# Load buildings from buildings.json
+	var buildings_file = FileAccess.open("res://data/buildings.json", FileAccess.READ)
+	if buildings_file:
+		var json_string = buildings_file.get_as_text()
+		buildings_file.close()
+		var json = JSON.new()
+		if json.parse(json_string) == OK:
+			var buildings_data = json.data
+
+			# Filter only crafting stations
+			for building_id in buildings_data:
+				var building = buildings_data[building_id]
+				# Only add buildings marked as crafting stations
+				if building.get("is_crafting_station", false):
+					var building_name = building.get("name", building_id)
+					dropdown.add_item(building_name, -1)
+					dropdown.set_item_metadata(dropdown.get_item_count() - 1, building_id)
 
 func populate_output_dropdown(dropdown: OptionButton):
 	dropdown.clear()
@@ -240,8 +314,35 @@ func load_item_into_form(item_id: String) -> void:
 	set_field_value("NameField", recipe_data.get("name", ""))
 	set_field_value("DescriptionField", recipe_data.get("description", ""))
 	set_field_value("CraftTimeField", recipe_data.get("craft_time", 10))
-	set_field_value("RequiredBuildingField", recipe_data.get("requires_building", "workbench"))
-	
+
+	# Load required building dropdown
+	var required_building = recipe_data.get("requires_building", "")
+	var building_dropdown = editor_container.find_child("RequiredBuildingDropdown", true, false)
+	if building_dropdown:
+		# Find the matching building in dropdown
+		for i in range(building_dropdown.get_item_count()):
+			var metadata = building_dropdown.get_item_metadata(i)
+			if metadata == required_building:
+				building_dropdown.selected = i
+				break
+
+	# Load category dropdown
+	var category = recipe_data.get("category", "misc")
+	var category_dropdown = editor_container.find_child("CategoryDropdown", true, false)
+	if category_dropdown:
+		# Find the matching category in dropdown
+		for i in range(category_dropdown.get_item_count()):
+			var metadata = category_dropdown.get_item_metadata(i)
+			if metadata == category:
+				category_dropdown.selected = i
+				break
+
+	# Load include_in_build_menu checkbox
+	var include_in_build_menu = recipe_data.get("include_in_build_menu", false)
+	var build_menu_checkbox = editor_container.find_child("IncludeInBuildMenuField", true, false)
+	if build_menu_checkbox:
+		build_menu_checkbox.button_pressed = include_in_build_menu
+
 	# Load output
 	var output = recipe_data.get("output", {})
 	print("LoadRecipe: Output data: ", output)
@@ -320,11 +421,31 @@ func clear_ingredients():
 		child.queue_free()
 
 func save_form_data() -> Dictionary:
+	# Get required building from dropdown
+	var required_building = ""
+	var building_dropdown = editor_container.find_child("RequiredBuildingDropdown", true, false)
+	if building_dropdown and building_dropdown.selected >= 0:
+		required_building = building_dropdown.get_item_metadata(building_dropdown.selected)
+
+	# Get category from dropdown
+	var category = "misc"
+	var category_dropdown = editor_container.find_child("CategoryDropdown", true, false)
+	if category_dropdown and category_dropdown.selected >= 0:
+		category = category_dropdown.get_item_metadata(category_dropdown.selected)
+
+	# Get include_in_build_menu checkbox
+	var include_in_build_menu = false
+	var build_menu_checkbox = editor_container.find_child("IncludeInBuildMenuField", true, false)
+	if build_menu_checkbox:
+		include_in_build_menu = build_menu_checkbox.button_pressed
+
 	var recipe_data = {
 		"name": get_field_value("NameField"),
 		"description": get_field_value("DescriptionField"),
 		"craft_time": get_field_value("CraftTimeField"),
-		"requires_building": get_field_value("RequiredBuildingField"),
+		"requires_building": required_building,
+		"category": category,
+		"include_in_build_menu": include_in_build_menu,
 		"ingredients": {},
 		"output": {}
 	}
@@ -337,9 +458,9 @@ func save_form_data() -> Dictionary:
 	# Get ingredients
 	if ingredients_container:
 		for row in ingredients_container.get_children():
-			var dropdown = row.find_child("IngredientDropdown")
-			var amount_spin = row.find_child("IngredientAmount")
-			
+			var dropdown = row.find_child("IngredientDropdown", true, false)
+			var amount_spin = row.find_child("IngredientAmount", true, false)
+
 			if dropdown and amount_spin and dropdown.selected >= 0:
 				var metadata = dropdown.get_item_metadata(dropdown.selected)
 				if metadata and metadata.has("id"):
@@ -362,8 +483,22 @@ func clear_form() -> void:
 	set_field_value("NameField", "")
 	set_field_value("DescriptionField", "")
 	set_field_value("CraftTimeField", 10)
-	set_field_value("RequiredBuildingField", "workbench")
-	
+
+	# Clear required building dropdown (select "None")
+	var building_dropdown = editor_container.find_child("RequiredBuildingDropdown", true, false)
+	if building_dropdown:
+		building_dropdown.selected = 0  # "None (Portable/Build Menu)"
+
+	# Clear category dropdown (select first)
+	var category_dropdown = editor_container.find_child("CategoryDropdown", true, false)
+	if category_dropdown:
+		category_dropdown.selected = 0  # First category
+
+	# Clear include_in_build_menu checkbox
+	var build_menu_checkbox = editor_container.find_child("IncludeInBuildMenuField", true, false)
+	if build_menu_checkbox:
+		build_menu_checkbox.button_pressed = false
+
 	# Clear output
 	var output_dropdown = editor_container.find_child("OutputDropdown", true, false)
 	var output_amount_field = editor_container.find_child("OutputAmountField", true, false)
