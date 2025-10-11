@@ -1,4 +1,18 @@
 {
+	"LARGE_OXYGEN_TANK": {
+		"category": "emergency",
+		"craft_time": 0.1,
+		"description": "",
+		"include_in_build_menu": true,
+		"ingredients": {
+
+		},
+		"name": "Large Oxygen Tank",
+		"output": {
+			"oxygen_tank": 5.0
+		},
+		"requires_building": ""
+	},
 	"TEST_RECIPIE": {
 		"craft_time": 10.1,
 		"description": "Testing",
@@ -103,12 +117,12 @@
 		"workbench_required": true
 	},
 	"crowbar": {
-		"category": "crafting_station",
+		"category": "tool",
 		"craft_time": 5.1,
 		"description": "Heavy prying tool for locked doors",
 		"include_in_build_menu": false,
 		"ingredients": {
-
+			"SCRAP_METAL": 5.0
 		},
 		"name": "Crowbar",
 		"output": {
