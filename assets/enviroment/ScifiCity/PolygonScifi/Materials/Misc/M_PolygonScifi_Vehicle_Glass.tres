@@ -1,7 +1,7 @@
-[gd_resource type = "ShaderMaterial" load_steps=2 format=3 uid="uid://dqekcef7kh735"]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dqekcef7kh735"]
 
+[ext_resource type="Texture2D" uid="uid://dmrvnmgv0a8sm" path="res://assets/enviroment/ScifiCity/PolygonScifi/Textures/T_PolygonSciFiCity_Normal.png" id="1_br8a6"]
 [ext_resource type="Shader" uid="uid://dfr45ju3gx87u" path="res://assets/enviroment/ScifiCity/Shaders/M_PolygonScifi_Vehicle_Glass.tres" id="2_bnctx"]
-[ext_resource type="Texture2D" uid="uid://dmrvnmgv0a8sm" path="res://PolygonScifi/Textures/T_PolygonSciFiCity_Normal.png" id="1_br8a6"]
 
 [resource]
 resource_name = "M_PolygonScifi_Vehicle_Glass"

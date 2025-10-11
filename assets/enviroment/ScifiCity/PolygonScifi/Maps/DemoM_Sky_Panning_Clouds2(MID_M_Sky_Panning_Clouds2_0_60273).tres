@@ -1,27 +1,24 @@
-[gd_resource type = "ShaderMaterial" load_steps=4 format=3 uid="uid://d04xf8qt54y40"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://d04xf8qt54y40"]
 
 [ext_resource type="Shader" uid="uid://bgdk5yn6t7y1i" path="res://assets/enviroment/ScifiCity/Shaders/M_Sky_Panning_Clouds2(MID_M_Sky_Panning_Clouds2_0_60273).tres" id="4_5um3c"]
-[ext_resource type="Texture2D" uid="uid://b14tpecunc8nm" path="res://assets/enviroment/ScifiCity/Engine/EngineSky/T_Sky_Stars.png" id="1_6qqqq"]
-[ext_resource type="Texture2D" uid="uid://f6rclvlqskvb" path="res://assets/enviroment/ScifiCity/Engine/EngineSky/T_Sky_Blue.png" id="2_bpoiu"]
-[ext_resource type="Texture2D" uid="uid://d25kcd7t38tcr" path="res://assets/enviroment/ScifiCity/Engine/EngineSky/T_Sky_Clouds_M.png" id="3_ctnnq"]
 
 [resource]
 resource_name = "M_Sky_Panning_Clouds2(MID_M_Sky_Panning_Clouds2_0_60273)"
 render_priority = 0
 shader = ExtResource("4_5um3c")
-shader_parameter/Zenith_Color = Vector4(0.295, 0.000, 0.257, 1.000)
-shader_parameter/Stars_brightness = 0.100
-shader_parameter/Sun_height = 0.000
-shader_parameter/Horizon_color = Vector4(1.980, 2.587, 3.000, 1.000)
-shader_parameter/Horizon_Falloff = 3.000
-shader_parameter/Light_direction = Vector4(0.380, -0.402, -0.833, 1.000)
-shader_parameter/Sun_Radius = 0.000
-shader_parameter/Sun_color = Vector4(1.000, 0.738, 0.181, 1.000)
-shader_parameter/Sun_brightness = 75.000
-shader_parameter/Cloud_color = Vector4(0.893, 0.000, 1.000, 1.000)
-shader_parameter/Cloud_speed = 2.000
-shader_parameter/ObjectRadius = Vector4(100.000, 100.000, 100.000, 0.000)
-shader_parameter/Cloud_opacity = 1.000
-shader_parameter/NoisePower1 = 1.000
-shader_parameter/NoisePower2 = 4.000
-shader_parameter/Overall_Color = Vector4(1.000, 0.393, 0.792, 1.000)
+shader_parameter/Zenith_Color = Vector4(0.295, 0, 0.257, 1)
+shader_parameter/Stars_brightness = 0.1
+shader_parameter/Sun_height = 0.0
+shader_parameter/Horizon_color = Vector4(1.98, 2.587, 3, 1)
+shader_parameter/Horizon_Falloff = 3.0
+shader_parameter/Light_direction = Vector4(0.38, -0.402, -0.833, 1)
+shader_parameter/Sun_Radius = 0.0
+shader_parameter/Sun_color = Vector4(1, 0.738, 0.181, 1)
+shader_parameter/Sun_brightness = 75.0
+shader_parameter/Cloud_color = Vector4(0.893, 0, 1, 1)
+shader_parameter/Cloud_speed = 2.0
+shader_parameter/ObjectRadius = Vector4(100, 100, 100, 0)
+shader_parameter/Cloud_opacity = 1.0
+shader_parameter/NoisePower1 = 1.0
+shader_parameter/NoisePower2 = 4.0
+shader_parameter/Overall_Color = Vector4(1, 0.393, 0.792, 1)

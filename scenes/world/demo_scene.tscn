@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://c7xvh2m4qgtjk"]
+[gd_scene load_steps=42 format=3 uid="uid://c7xvh2m4qgtjk"]
 
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
 [ext_resource type="PackedScene" uid="uid://cnw4osdfk8fec" path="res://scenes/environment/Desert/SM_Prop_Bones_04.tscn" id="2_v46yn"]
@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bgqpnrf0u5vw5" path="res://scenes/environment/Desert/SM_Prop_Solar_Panels_01.tscn" id="3_w4crh"]
 [ext_resource type="PackedScene" uid="uid://beb2sdugovcmy" path="res://scenes/environment/Desert/SM_Env_Bush_Bramble_01.tscn" id="4_25i1f"]
 [ext_resource type="PackedScene" uid="uid://c5qxr8jyf4kxm" path="res://scenes/ui/StorageUI.tscn" id="4_storage"]
-[ext_resource type="PackedScene" uid="uid://bvq8k3r7ml45w" path="res://scenes/ui/TurretUI.tscn" id="4_turret"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TurretUI.tscn" id="4_turret"]
 [ext_resource type="PackedScene" path="res://scenes/ui/CombatHUD.tscn" id="5_combathud"]
 [ext_resource type="PackedScene" uid="uid://bnsad6xuc765q" path="res://scenes/environment/Desert/SM_Env_Cactus_03.tscn" id="5_mykno"]
 [ext_resource type="PackedScene" uid="uid://b2rmw840g7mnp" path="res://scenes/environment/Desert/SM_Env_Grass_01.tscn" id="6_d857r"]
@@ -31,8 +31,8 @@
 [ext_resource type="Resource" uid="uid://dft8qw2nx4vbp" path="res://resources/animals/bear_template.tres" id="23_bear"]
 [ext_resource type="PackedScene" uid="uid://bifdxdevq18b6" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_01.tscn" id="24_347k4"]
 [ext_resource type="PackedScene" uid="uid://dkj2p2sy7ud5n" path="res://scenes/environment/Desert/SM_Env_Tree_Dead_02.tscn" id="25_pyxmy"]
-[ext_resource type="PackedScene" uid="uid://bf5cw7l5kluwu" path="res://assets/sprites/objects/turret.tscn" id="32_25i1f"]
-[ext_resource type="PackedScene" path="res://scenes/player/player_radiation_suit.tscn" id="32_w4crh"]
+[ext_resource type="PackedScene" uid="uid://d37hseaps25o8" path="res://assets/sprites/objects/turret.tscn" id="32_25i1f"]
+[ext_resource type="PackedScene" uid="uid://djyak4m7p8qrt" path="res://scenes/player/player_radiation_suit.tscn" id="32_w4crh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxywg"]
 sky_top_color = Color(0.0862745, 0.0392157, 0.117647, 1)
@@ -81,11 +81,15 @@ size = Vector3(100, 1, 100)
 [sub_resource type="Resource" id="Resource_kmphx"]
 script = ExtResource("17_8occt")
 item_id = "STONE"
+min_amount = 1
+max_amount = 3
+drop_chance = 1.0
 metadata/_custom_type_script = "uid://b5v7p3r1bhcci"
 
 [sub_resource type="Resource" id="Resource_lysxd"]
 script = ExtResource("17_8occt")
 item_id = "METAL_SCRAPS"
+min_amount = 1
 max_amount = 2
 drop_chance = 0.3
 metadata/_custom_type_script = "uid://b5v7p3r1bhcci"
@@ -330,4 +334,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.6377, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.91407, 0.654809, 23.9913)
 
 [node name="Turret" parent="." instance=ExtResource("32_25i1f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1694593, 1.5, -26.927353)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.16946, 1.5, -26.9274)
