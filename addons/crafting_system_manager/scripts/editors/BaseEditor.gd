@@ -51,18 +51,21 @@ func _ready():
 func create_ui():
 	var main_container = HSplitContainer.new()
 	main_container.name = "MainContainer"
+	main_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	main_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	add_child(main_container)
-	
+
 	# Left panel - items list
 	create_items_list_panel(main_container)
-	
+
 	# Right panel - editor
 	create_editor_panel(main_container)
 
 func create_items_list_panel(parent: Control):
 	var left_panel = VBoxContainer.new()
 	left_panel.name = "ItemsList"
-	left_panel.set_custom_minimum_size(Vector2(300, 0))
+	left_panel.set_custom_minimum_size(Vector2(600, 800))  # Much larger
+	left_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	parent.add_child(left_panel)
 	
 	# Search field
@@ -85,7 +88,9 @@ func create_items_list_panel(parent: Control):
 func create_editor_panel(parent: Control):
 	var right_panel = VBoxContainer.new()
 	right_panel.name = "Editor"
-	right_panel.set_custom_minimum_size(Vector2(400, 0))
+	right_panel.set_custom_minimum_size(Vector2(100, 1400))  
+	right_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	right_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	parent.add_child(right_panel)
 	
 	# Editor title
@@ -118,15 +123,23 @@ func create_editor_panel(parent: Control):
 	save_button.text = "Save Changes"
 	save_button.pressed.connect(_on_save_pressed)
 	buttons_container.add_child(save_button)
-	
+
+	# Form scroll container (for smaller screens)
+	var form_scroll = ScrollContainer.new()
+	form_scroll.name = "FormScroll"
+	form_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	form_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	right_panel.add_child(form_scroll)
+
 	# Form container
 	var form_container = VBoxContainer.new()
 	form_container.name = "FormContainer"
-	right_panel.add_child(form_container)
-	
+	form_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	form_scroll.add_child(form_container)
+
 	# Let child class create specific form fields
 	create_form_fields(form_container)
-	
+
 	editor_container = right_panel
 
 # CRUD operations
@@ -238,8 +251,12 @@ func load_data():
 func save_data():
 	var file_path = get_data_file_path()
 	if file_path == "":
+		print("ERROR: No data file path specified!")
 		return
-	
+
+	print("Saving data to: ", file_path)
+	print("Data size: ", data.size())
+
 	var output_data: Dictionary
 	# Handle different JSON structures based on file type
 	if file_path.ends_with("equipment.json"):
@@ -248,14 +265,17 @@ func save_data():
 		output_data = {"weapons": data, "ammo_items": {}}
 	else:
 		output_data = data
-	
+
 	var json_output = JSON.stringify(output_data, "\t")
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
 	if file:
 		file.store_string(json_output)
 		file.close()
+		print("SUCCESS: Data saved to ", file_path)
 	else:
-		pass
+		push_error("FAILED to open file for writing: " + file_path)
+		var error = FileAccess.get_open_error()
+		push_error("Error code: " + str(error))
 
 # Search functionality
 func _on_search_changed(search_text: String):
@@ -404,25 +424,30 @@ func _on_browse_file_pressed(field: LineEdit, file_filter: String):
 	
 	# Add to this control's scene tree
 	add_child(file_dialog)
-	
-	# Connect file selected signal
-	file_dialog.file_selected.connect(_on_file_selected.bind(field, file_dialog))
+
+	# Connect file selected signal (path comes from signal, then our bound params)
+	file_dialog.file_selected.connect(func(path): _on_file_selected(path, field, file_dialog))
 	file_dialog.canceled.connect(_on_file_dialog_canceled.bind(file_dialog))
-	
+
 	# Show dialog
 	file_dialog.popup_centered(Vector2i(800, 600))
 
-func _on_file_selected(field: LineEdit, file_dialog: FileDialog, path: String):
+func _on_file_selected(path: String, field: LineEdit, file_dialog: FileDialog):
 	# Convert absolute path to relative resource path
 	var resource_path = path
 	if path.begins_with(ProjectSettings.globalize_path("res://")):
 		var base_path = ProjectSettings.globalize_path("res://")
-		resource_path = "res://" + path.right(-base_path.length())
-	
-	# Get just the filename without extension for the icon field
-	var filename = resource_path.get_file().get_basename()
-	field.text = filename
-	
+		resource_path = "res://" + path.substr(base_path.length())
+
+	# Check if this is a scene_path field or an icon field
+	if field.name == "ScenePathField":
+		# For scene paths, store the full resource path
+		field.text = resource_path
+	else:
+		# For icon fields, store just the filename without extension
+		var filename = resource_path.get_file()
+		field.text = filename
+
 	file_dialog.queue_free()
 
 func _on_file_dialog_canceled(file_dialog: FileDialog):
@@ -451,7 +476,10 @@ func get_field_value(field_name: String):
 	elif field is OptionButton:
 		var value = field.get_item_text(field.selected) if field.selected >= 0 else ""
 		return value
-	
+	elif field is CheckBox:
+		var value = field.button_pressed
+		return value
+
 	return null
 
 func _find_child_recursive(parent: Node, child_name: String) -> Node:
@@ -482,3 +510,5 @@ func set_field_value(field_name: String, value):
 			if field.get_item_text(i) == text:
 				field.selected = i
 				break
+	elif field is CheckBox:
+		field.button_pressed = bool(value)

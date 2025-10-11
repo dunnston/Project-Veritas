@@ -10,20 +10,29 @@ func _ready():
 	create_ui()
 
 func create_ui():
+	# Set minimum size for the entire dock - VERY LARGE
+	custom_minimum_size = Vector2(1700, 1200)
+	size_flags_vertical = Control.SIZE_EXPAND_FILL
+	size_flags_horizontal = Control.SIZE_EXPAND_FILL
+
 	var main_vbox = VBoxContainer.new()
 	main_vbox.name = "MainContainer"
+	main_vbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	main_vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	add_child(main_vbox)
-	
+
 	# Title
 	var title = Label.new()
 	title.text = "Neon Wasteland Crafting Manager"
-	title.add_theme_font_size_override("font_size", 16)
+	title.add_theme_font_size_override("font_size", 20)  # Larger font
 	main_vbox.add_child(title)
-	
+
 	# Tab container
 	tab_container = TabContainer.new()
 	tab_container.name = "TabContainer"
 	tab_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	tab_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	tab_container.custom_minimum_size = Vector2(2400, 1150)  # 4x larger for maximum visibility
 	main_vbox.add_child(tab_container)
 	
 	# Create tabs - ITEMS AND RECIPES ENABLED

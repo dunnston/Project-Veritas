@@ -13,83 +13,8 @@ var current_building_cost: Dictionary = {}
 var building_to_move: Node3D = null  # Reference to building being moved
 var demolition_mode_label: Label = null  # UI indicator for demolition mode
 
-# 3D Building data
-var building_data: Dictionary = {
-	"workbench": {
-		"name": "Workbench",
-		"scene_path": "res://scenes/buildings/workbench_3d.tscn",
-		"size": Vector3(2, 1, 1),
-		"collision_shape": Vector3(2, 1, 1),
-		"icon_path": "res://assets/sprites/buildings/pixellab-A-sci-fi-workbench-with-a-meta-1756949376631.png"
-	},
-	"oxygen_tank": {
-		"name": "Oxygen Tank",
-		"size": Vector3(1, 1, 1),
-		"collision_shape": Vector3(1, 1, 1),
-		"icon_path": "res://assets/sprites/items/oxygentank.png"
-	},
-	"hand_crank_generator": {
-		"name": "Hand Crank Generator",
-		"size": Vector3(1.5, 1, 1),
-		"collision_shape": Vector3(1.5, 1, 1),
-		"icon_path": "res://assets/sprites/items/generator2.png"
-	},
-	"storage_box": {
-		"name": "Storage Box",
-		"size": Vector3(1, 1, 1),
-		"collision_shape": Vector3(1, 1, 1),
-		"icon_path": "res://assets/sprites/items/Chest.png"
-	},
-	# Shelter Building Components (3D) - 4m grid system
-	"basic_wall": {
-		"name": "Basic Wall",
-		"size": Vector3(4, 3, 0.2),  # 4m wide, 3m tall, 20cm thick
-		"collision_shape": Vector3(4, 3, 0.2),
-		"icon_path": ""
-	},
-	"basic_floor": {
-		"name": "Basic Floor",
-		"size": Vector3(4, 0.1, 4),  # 4m x 4m floor tile
-		"collision_shape": Vector3(4, 0.1, 4),
-		"icon_path": ""
-	},
-	"basic_roof": {
-		"name": "Basic Roof",
-		"size": Vector3(4, 0.1, 4),  # 4m x 4m roof tile
-		"collision_shape": Vector3(4, 0.1, 4),
-		"icon_path": ""
-	},
-	"door_frame": {
-		"name": "Door Frame",
-		"size": Vector3(4, 3, 0.2),  # Same as wall - 4m wide, 3m tall, 20cm thick
-		"collision_shape": Vector3(4, 3, 0.2),
-		"icon_path": ""
-	},
-	"door_frame_with_door": {
-		"name": "Door Frame with Door",
-		"size": Vector3(4, 3, 0.2),  # Same as wall - 4m wide, 3m tall, 20cm thick
-		"collision_shape": Vector3(4, 3, 0.2),
-		"icon_path": ""
-	},
-	"door": {
-		"name": "Door",
-		"size": Vector3(1.15, 2.35, 0.1),  # Slightly smaller to fit in frame (1.15m wide x 2.35m tall x 0.1m thick)
-		"collision_shape": Vector3(1.15, 2.35, 0.1),
-		"icon_path": ""
-	},
-	"reinforced_wall": {
-		"name": "Reinforced Wall",
-		"size": Vector3(1, 3, 0.3),
-		"collision_shape": Vector3(1, 3, 0.3),
-		"icon_path": ""
-	},
-	"reinforced_roof": {
-		"name": "Reinforced Roof",
-		"size": Vector3(1, 0.2, 1),
-		"collision_shape": Vector3(1, 0.2, 1),
-		"icon_path": ""
-	}
-}
+# Building data loaded from JSON (single source of truth)
+var building_data: Dictionary = {}
 
 var camera: Camera3D = null
 var raycast_layer_mask: int = 0x1  # Layer 1 - Ground/World collision layer
@@ -103,6 +28,9 @@ var door_states: Dictionary = {}
 var player_nearby_door: Area3D = null
 
 func _ready():
+	# Load building data from JSON
+	load_building_data()
+
 	# Connect to build menu
 	call_deferred("_connect_to_build_menu")
 
@@ -110,6 +38,66 @@ func _ready():
 	call_deferred("_find_camera")
 
 	print("3D BuildingSystem initialized")
+
+func load_building_data():
+	"""Load building data from buildings.json - single source of truth"""
+	var file_path = "res://data/buildings.json"
+	if not FileAccess.file_exists(file_path):
+		push_error("BuildingSystem: buildings.json not found at %s" % file_path)
+		return
+
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if not file:
+		push_error("BuildingSystem: Failed to open buildings.json")
+		return
+
+	var json_text = file.get_as_text()
+	file.close()
+
+	var json = JSON.new()
+	var parse_result = json.parse(json_text)
+	if parse_result != OK:
+		push_error("BuildingSystem: Failed to parse buildings.json: %s" % json.get_error_message())
+		return
+
+	var json_data = json.data
+	if typeof(json_data) != TYPE_DICTIONARY:
+		push_error("BuildingSystem: buildings.json root is not a dictionary")
+		return
+
+	# Convert JSON data to 3D building format
+	for building_id in json_data:
+		var building = json_data[building_id]
+
+		# Convert 2D size to 3D size (x, y from JSON becomes x, z in 3D; add default height)
+		var size_2d = building.get("size", {"x": 1, "y": 1})
+		var size_x = size_2d.get("x", 1)
+		var size_y = size_2d.get("y", 1)
+
+		# Determine 3D size based on building type
+		var size_3d: Vector3
+		if building_id.contains("wall") or building_id.contains("door"):
+			# Walls are vertical (width=size.x, height=3m, depth=0.2m)
+			size_3d = Vector3(size_x * 4.0, 3.0, 0.2)
+		elif building_id.contains("floor"):
+			# Floors are horizontal (width=size.x, height=0.1m, depth=size.y)
+			size_3d = Vector3(size_x * 4.0, 0.1, size_y * 4.0)
+		elif building_id.contains("roof"):
+			# Roofs are horizontal like floors
+			size_3d = Vector3(size_x * 4.0, 0.1, size_y * 4.0)
+		else:
+			# Other buildings use simple cube sizing
+			size_3d = Vector3(size_x, size_x, size_y)
+
+		building_data[building_id] = {
+			"name": building.get("name", building_id),
+			"scene_path": building.get("scene_path", ""),
+			"size": size_3d,
+			"collision_shape": size_3d,  # Use same as size by default
+			"icon_path": building.get("icon", "")
+		}
+
+	print("BuildingSystem: Loaded %d buildings from JSON" % building_data.size())
 
 func _find_camera():
 	var player = get_tree().get_first_node_in_group("player")

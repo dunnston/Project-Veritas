@@ -29,7 +29,10 @@ func create_form_fields(form_container: VBoxContainer) -> void:
 	
 	# Icon field (with file browser)
 	create_file_field(form_container, "Icon", "IconField", "*.png,*.jpg,*.jpeg,*.svg")
-	
+
+	# Scene path field (with file browser)
+	create_file_field(form_container, "Scene Path", "ScenePathField", "*.tscn,*.scn")
+
 	# Size section
 	var size_label = Label.new()
 	size_label.text = "Building Size:"
@@ -53,18 +56,10 @@ func create_form_fields(form_container: VBoxContainer) -> void:
 	# Movement/placement blocking
 	create_checkbox(form_container, "Blocks Movement", "BlocksMovementField")
 	create_checkbox(form_container, "Blocks Placement", "BlocksPlacementField")
-	
-	# Recipe reference section
-	var recipe_label = Label.new()
-	recipe_label.text = "Recipe Reference (for cost):"
-	recipe_label.add_theme_font_size_override("font_size", 12)
-	form_container.add_child(recipe_label)
-	
-	var recipe_dropdown = OptionButton.new()
-	recipe_dropdown.name = "RecipeField"
-	populate_recipe_dropdown(recipe_dropdown)
-	form_container.add_child(recipe_dropdown)
-	
+
+	# Crafting station checkbox
+	create_checkbox(form_container, "Is Crafting Station", "IsCraftingStationField")
+
 	# Refund section
 	var refund_label = Label.new()
 	refund_label.text = "Refund on Deconstruction:"
@@ -139,33 +134,6 @@ func add_resource_row(container: VBoxContainer, type: String, set_resource_id: S
 	remove_btn.pressed.connect(_on_remove_resource_pressed.bind(row))
 	row.add_child(remove_btn)
 
-func populate_recipe_dropdown(dropdown: OptionButton):
-	dropdown.clear()
-	dropdown.add_item("(No Recipe - Direct Cost)", -1)
-	dropdown.set_item_metadata(0, "")
-	
-	# Load recipes data
-	var recipes_data = {}
-	var recipes_editor = get_parent().get_parent().get_node_or_null("TabContainer/Recipes")
-	
-	if recipes_editor and recipes_editor.data:
-		recipes_data = recipes_editor.data
-	else:
-		# Fallback: load recipes data directly
-		var file = FileAccess.open("res://data/recipes.json", FileAccess.READ)
-		if file:
-			var json_string = file.get_as_text()
-			file.close()
-			var json = JSON.new()
-			if json.parse(json_string) == OK:
-				recipes_data = json.data
-	
-	# Add recipes to dropdown
-	for recipe_id in recipes_data:
-		var recipe_data = recipes_data[recipe_id]
-		dropdown.add_item(recipe_data.get("name", recipe_id) + " (Recipe)", -1)
-		dropdown.set_item_metadata(dropdown.get_item_count() - 1, recipe_id)
-
 func populate_resource_dropdown(dropdown: OptionButton):
 	dropdown.clear()
 	
@@ -208,7 +176,8 @@ func load_item_into_form(item_id: String) -> void:
 	set_field_value("DescriptionField", building_data.get("description", ""))
 	set_field_value("CategoryField", building_data.get("category", "structure"))
 	set_field_value("IconField", building_data.get("icon", ""))
-	
+	set_field_value("ScenePathField", building_data.get("scene_path", ""))
+
 	# Load size
 	var size = building_data.get("size", {"x": 1, "y": 1})
 	set_field_value("SizeXField", size.get("x", 1))
@@ -221,17 +190,8 @@ func load_item_into_form(item_id: String) -> void:
 	set_field_value("InteractionRangeField", building_data.get("interaction_range", 64))
 	set_field_value("BlocksMovementField", building_data.get("blocks_movement", true))
 	set_field_value("BlocksPlacementField", building_data.get("blocks_placement", true))
-	
-	# Load recipe reference
-	var recipe_id = building_data.get("recipe_id", "")
-	var recipe_dropdown = editor_container.find_child("RecipeField", true, false)
-	if recipe_dropdown:
-		for i in range(recipe_dropdown.get_item_count()):
-			var metadata = recipe_dropdown.get_item_metadata(i)
-			if metadata == recipe_id:
-				recipe_dropdown.selected = i
-				break
-	
+	set_field_value("IsCraftingStationField", building_data.get("is_crafting_station", false))
+
 	# Load refund
 	clear_resource_rows(refund_container)
 	var refund = building_data.get("refund", {})
@@ -244,6 +204,7 @@ func save_form_data() -> Dictionary:
 		"description": get_field_value("DescriptionField"),
 		"category": get_field_value("CategoryField"),
 		"icon": get_field_value("IconField"),
+		"scene_path": get_field_value("ScenePathField"),
 		"size": {
 			"x": get_field_value("SizeXField"),
 			"y": get_field_value("SizeYField")
@@ -254,20 +215,14 @@ func save_form_data() -> Dictionary:
 		"interaction_range": get_field_value("InteractionRangeField"),
 		"blocks_movement": get_field_value("BlocksMovementField"),
 		"blocks_placement": get_field_value("BlocksPlacementField"),
+		"is_crafting_station": get_field_value("IsCraftingStationField"),
 		"refund": {}
 	}
 	
 	# Validate required fields
 	if building_data["name"] == "" or building_data["name"] == null:
 		return {}
-	
-	# Get recipe reference
-	var recipe_dropdown = editor_container.find_child("RecipeField", true, false)
-	if recipe_dropdown and recipe_dropdown.selected >= 0:
-		var recipe_id = recipe_dropdown.get_item_metadata(recipe_dropdown.selected)
-		if recipe_id != "":
-			building_data["recipe_id"] = recipe_id
-	
+
 	# Get refund
 	if refund_container:
 		for row in refund_container.get_children():
@@ -286,6 +241,7 @@ func clear_form() -> void:
 	set_field_value("DescriptionField", "")
 	set_field_value("CategoryField", "structure")
 	set_field_value("IconField", "")
+	set_field_value("ScenePathField", "")
 	set_field_value("SizeXField", 1)
 	set_field_value("SizeYField", 1)
 	set_field_value("MaxHealthField", 100)
@@ -294,11 +250,7 @@ func clear_form() -> void:
 	set_field_value("InteractionRangeField", 64)
 	set_field_value("BlocksMovementField", true)
 	set_field_value("BlocksPlacementField", true)
-	
-	# Clear recipe reference
-	var recipe_dropdown = editor_container.find_child("RecipeField", true, false)
-	if recipe_dropdown:
-		recipe_dropdown.selected = 0  # Select "(No Recipe - Direct Cost)"
-	
+	set_field_value("IsCraftingStationField", false)
+
 	# Clear refund
 	clear_resource_rows(refund_container)
