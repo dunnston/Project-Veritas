@@ -124,17 +124,14 @@ class InventorySlotUI:
 				return
 
 			# Not dragging, handle as new action
-			# Check if storage is open - if so, transfer to storage instead of normal click
-			if StorageUI.instance and StorageUI.instance.visible:
-				InventoryUI.instance.transfer_item_to_storage(slot_index)
-			elif event.shift_pressed:
+			if event.shift_pressed:
 				# Shift+click to add to hotbar
 				InventoryUI.instance.add_item_to_hotbar(slot_index)
 			elif event.ctrl_pressed:
 				# Ctrl+click to try to equip item
 				InventoryUI.instance.try_equip_item_from_slot(slot_index)
 			else:
-				# Start drag on left-click
+				# Start drag on left-click (works for storage, equipment, hotbar)
 				InventoryUI.instance.start_drag_from_inventory(slot_index)
 
 		elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
@@ -455,7 +452,7 @@ func show_item_info(slot_index: int):
 	# Add interaction instructions - change based on storage state
 	if StorageUI.instance and StorageUI.instance.visible:
 		info_text += "\n\n[color=orange]Storage Mode:[/color]\n"
-		info_text += "[color=gray]Left-click: Transfer to storage[/color]\n"
+		info_text += "[color=gray]Left-click: Pick up item (drag to storage to store)[/color]\n"
 		info_text += "[color=gray]Item dropping disabled while storage open[/color]"
 	else:
 		# Check if item is consumable

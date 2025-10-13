@@ -142,32 +142,24 @@ func add_item_to_storage(item_id: String, quantity: int) -> int:
 	# Returns the amount that couldn't be stored
 	var remaining = quantity
 
-	# First try to stack with existing items
-	for slot_key in storage_inventory.keys():
-		var slot = storage_inventory[slot_key]
-		if slot["item_id"] == item_id and slot["quantity"] > 0:
-			var item_data = InventorySystem.get_item_data(item_id) if InventorySystem else {}
-			var max_stack = item_data.get("stack_size", 50)
-			var can_add = min(remaining, max_stack - slot["quantity"])
-			if can_add > 0:
-				slot["quantity"] += can_add
-				remaining -= can_add
-				if remaining <= 0:
-					return 0
-
-	# Then try to find empty slots
+	# First try to find an empty slot for the entire stack
 	for slot_key in storage_inventory.keys():
 		var slot = storage_inventory[slot_key]
 		if slot["item_id"] == "" or slot["quantity"] == 0:
-			var item_data = InventorySystem.get_item_data(item_id) if InventorySystem else {}
-			var max_stack = item_data.get("stack_size", 50)
-			var can_add = min(remaining, max_stack)
+			# Store the entire quantity in this slot (no splitting)
 			slot["item_id"] = item_id
-			slot["quantity"] = can_add
-			remaining -= can_add
-			if remaining <= 0:
-				return 0
+			slot["quantity"] = remaining
+			return 0  # All items stored successfully
 
+	# If no empty slots, try to stack with existing same items
+	for slot_key in storage_inventory.keys():
+		var slot = storage_inventory[slot_key]
+		if slot["item_id"] == item_id and slot["quantity"] > 0:
+			# Add to existing stack without enforcing max_stack limit
+			slot["quantity"] += remaining
+			return 0  # All items stacked successfully
+
+	# If we get here, storage is full
 	return remaining
 
 func remove_item_from_storage(slot_index: int, quantity: int) -> Dictionary:

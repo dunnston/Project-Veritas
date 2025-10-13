@@ -145,6 +145,9 @@ func try_drop_on_inventory(slot_index: int) -> bool:
 		"EQUIPMENT":
 			# Move from equipment to inventory (always allowed)
 			success = move_from_equipment_to_inventory(drag_source_type, slot_index)
+		"STORAGE":
+			# Move from storage to inventory
+			success = move_from_storage_to_inventory(drag_source_index, slot_index)
 		"TURRET":
 			# Move from turret to inventory
 			success = move_from_turret_to_inventory(slot_index)
@@ -207,6 +210,33 @@ func try_drop_on_equipment(slot_type: String) -> bool:
 
 	if success:
 		item_dropped.emit("EQUIPMENT", get_equipment_slot_index(slot_type))
+
+	end_drag(success)
+	return success
+
+func try_drop_on_storage(slot_index: int) -> bool:
+	if not is_dragging:
+		return false
+
+	var success = false
+
+	match drag_source_type:
+		"INVENTORY":
+			# Transfer from inventory to storage
+			success = move_from_inventory_to_storage(drag_source_index, slot_index)
+		"STORAGE":
+			# Can't drop on same source slot
+			if drag_source_index == slot_index:
+				cancel_drag()
+				return false
+			# Swap storage slots (future feature)
+			success = false
+		"HOTBAR", "EQUIPMENT":
+			# Can't directly move from hotbar/equipment to storage
+			success = false
+
+	if success:
+		item_dropped.emit("STORAGE", slot_index)
 
 	end_drag(success)
 	return success
@@ -498,6 +528,60 @@ func swap_equipment_slots(from_slot: String, to_slot: String) -> bool:
 	# Equipment swapping not implemented yet
 	# Would need to check slot compatibility
 	return false
+
+func move_from_inventory_to_storage(inventory_index: int, storage_index: int) -> bool:
+	if not InventorySystem or not StorageUI.instance or not StorageUI.instance.current_storage:
+		return false
+
+	var slot = InventorySystem.inventory_slots[inventory_index]
+	if slot.is_empty():
+		return false
+
+	var item_id = slot.item_id
+	var quantity = slot.quantity
+
+	# Try to add to storage
+	var storage = StorageUI.instance.current_storage
+	var remaining = storage.add_item_to_storage(item_id, quantity)
+	var transferred = quantity - remaining
+
+	if transferred > 0:
+		# Remove from the specific inventory slot being dragged from
+		slot.remove_items(transferred)
+
+		# Emit inventory changed signal to update UI
+		InventorySystem.inventory_changed.emit()
+
+		StorageUI.instance.refresh_display()
+		print("Transferred %d %s from inventory to storage" % [transferred, item_id])
+		return true
+	else:
+		print("Storage full, cannot transfer item")
+		return false
+
+func move_from_storage_to_inventory(storage_index: int, inventory_index: int) -> bool:
+	if not InventorySystem or not StorageUI.instance or not StorageUI.instance.current_storage:
+		return false
+
+	var storage = StorageUI.instance.current_storage
+	var slot_contents = storage.get_slot_contents(storage_index)
+
+	if slot_contents["item_id"] == "" or slot_contents["quantity"] <= 0:
+		return false
+
+	var item_id = slot_contents["item_id"]
+	var quantity = slot_contents["quantity"]
+
+	# Try to add to inventory
+	if InventorySystem.add_item(item_id, quantity):
+		# Remove from storage
+		storage.remove_item_from_storage(storage_index, quantity)
+		StorageUI.instance.refresh_display()
+		print("Transferred %d %s from storage to inventory" % [quantity, item_id])
+		return true
+	else:
+		print("Inventory full, cannot transfer item")
+		return false
 
 func get_equipment_slot_index(slot_type: String) -> int:
 	# Convert slot type to index for tracking
