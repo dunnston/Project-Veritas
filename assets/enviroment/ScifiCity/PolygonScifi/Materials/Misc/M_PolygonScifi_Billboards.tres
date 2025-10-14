@@ -1,7 +1,6 @@
-[gd_resource type = "ShaderMaterial" load_steps=2 format=3 uid="uid://b3hjhemnm3s7v"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b3hjhemnm3s7v"]
 
 [ext_resource type="Shader" uid="uid://h07l0i3m1kl0" path="res://assets/enviroment/ScifiCity/Shaders/M_PolygonScifi_Billboards.tres" id="2_do3gv"]
-[ext_resource type="Texture2D" uid="uid://q8fnc4hjgi50" path="res://PolygonScifi/Textures/T_Billboards.png" id="1_bx5fh"]
 
 [resource]
 resource_name = "M_PolygonScifi_Billboards"

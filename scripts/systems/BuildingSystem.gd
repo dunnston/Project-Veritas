@@ -128,6 +128,66 @@ func _ready():
 
 	print("3D BuildingSystem initialized")
 
+func load_building_data():
+	"""Load building data from buildings.json - single source of truth"""
+	var file_path = "res://data/buildings.json"
+	if not FileAccess.file_exists(file_path):
+		push_error("BuildingSystem: buildings.json not found at %s" % file_path)
+		return
+
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if not file:
+		push_error("BuildingSystem: Failed to open buildings.json")
+		return
+
+	var json_text = file.get_as_text()
+	file.close()
+
+	var json = JSON.new()
+	var parse_result = json.parse(json_text)
+	if parse_result != OK:
+		push_error("BuildingSystem: Failed to parse buildings.json: %s" % json.get_error_message())
+		return
+
+	var json_data = json.data
+	if typeof(json_data) != TYPE_DICTIONARY:
+		push_error("BuildingSystem: buildings.json root is not a dictionary")
+		return
+
+	# Convert JSON data to 3D building format
+	for building_id in json_data:
+		var building = json_data[building_id]
+
+		# Convert 2D size to 3D size (x, y from JSON becomes x, z in 3D; add default height)
+		var size_2d = building.get("size", {"x": 1, "y": 1})
+		var size_x = size_2d.get("x", 1)
+		var size_y = size_2d.get("y", 1)
+
+		# Determine 3D size based on building type
+		var size_3d: Vector3
+		if building_id.contains("wall") or building_id.contains("door"):
+			# Walls are vertical (width=size.x, height=3m, depth=0.2m)
+			size_3d = Vector3(size_x * 4.0, 3.0, 0.2)
+		elif building_id.contains("floor"):
+			# Floors are horizontal (width=size.x, height=0.1m, depth=size.y)
+			size_3d = Vector3(size_x * 4.0, 0.1, size_y * 4.0)
+		elif building_id.contains("roof"):
+			# Roofs are horizontal like floors
+			size_3d = Vector3(size_x * 4.0, 0.1, size_y * 4.0)
+		else:
+			# Other buildings use simple cube sizing
+			size_3d = Vector3(size_x, size_x, size_y)
+
+		building_data[building_id] = {
+			"name": building.get("name", building_id),
+			"scene_path": building.get("scene_path", ""),
+			"size": size_3d,
+			"collision_shape": size_3d,  # Use same as size by default
+			"icon_path": building.get("icon", "")
+		}
+
+	print("BuildingSystem: Loaded %d buildings from JSON" % building_data.size())
+
 func _find_camera():
 	var player = get_tree().get_first_node_in_group("player")
 	if player:

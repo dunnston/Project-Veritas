@@ -47,10 +47,6 @@ DoorSystem="*res://scripts/systems/DoorSystem.gd"
 EmergencySystem="*res://scripts/systems/EmergencySystem.gd"
 DragPreviewManager="*res://scripts/ui/DragPreviewManager.gd"
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/unidot/plugin.cfg")
-
 [input]
 
 move_forward={

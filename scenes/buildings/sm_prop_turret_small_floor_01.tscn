@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://yy41dd71e8tm"]
+
+[ext_resource type="PackedScene" uid="uid://dsko8vletp3ou" path="res://assets/enviroment/scifispace/Models/SM_Prop_Turret_Small_Floor_01.fbx" id="1_046um"]
+
+[node name="SM_Prop_Turret_Small_Floor_01" instance=ExtResource("1_046um")]

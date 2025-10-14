@@ -641,6 +641,16 @@ func check_placement_validity():
 			return
 
 	# For other buildings, use physics-based validation
+	# Check minimum distance from player to prevent placing on or too close to player
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		var distance_to_player = global_position.distance_to(player.global_position)
+		var min_safe_distance = 2.5  # 2.5 meters minimum distance
+		if distance_to_player < min_safe_distance:
+			print("Cannot place: too close to player (distance: %.2fm, min: %.2fm)" % [distance_to_player, min_safe_distance])
+			set_validity(false)
+			return
+
 	# Allow placement if only overlapping with other buildings (for connecting pieces)
 	# Only block if overlapping with non-building obstacles
 	var has_blocking_overlap = false
@@ -671,6 +681,16 @@ func can_place_here() -> bool:
 			return is_valid
 
 	# For other buildings, use physics-based validation
+	# Check minimum distance from player
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		var distance_to_player = global_position.distance_to(player.global_position)
+		var min_safe_distance = 2.5  # 2.5 meters minimum distance
+		if distance_to_player < min_safe_distance:
+			print("Cannot place: too close to player (distance: %.2fm, min: %.2fm)" % [distance_to_player, min_safe_distance])
+			return false
+
+	# Check if there are any blocking overlaps (non-building obstacles)
 	var has_blocking_overlap = false
 	for body in overlapping_bodies:
 		if not body.is_in_group("building"):
