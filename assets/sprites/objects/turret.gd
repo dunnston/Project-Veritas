@@ -247,8 +247,9 @@ func _process_searching_state(delta: float) -> void:
 	var forward_dir := -gun_pivot.global_transform.basis.z
 	var dot_product = forward_dir.dot(direction_to_target)
 
-	print("Turret SEARCHING: aimed=%s (dot=%.3f, need>%.2f), LOS=%s, ammo=%d" %
-		[is_aimed, dot_product, AIM_TOLERANCE, has_los, _get_ammo_count()])
+	# Commented out to reduce spam
+	# print("Turret SEARCHING: aimed=%s (dot=%.3f, need>%.2f), LOS=%s, ammo=%d" %
+	#	[is_aimed, dot_product, AIM_TOLERANCE, has_los, _get_ammo_count()])
 
 
 ## AIMING state: Locked onto target with clear LOS
@@ -260,9 +261,9 @@ func _process_aiming_state(delta: float) -> void:
 	_rotate_horizontal(direction_to_target, delta)
 	_rotate_vertical(target_pos, delta)
 
-	# DEBUG: Check firing readiness
-	print("Turret AIMING: can_fire=%s, has_ammo=%s, has_LOS=%s" %
-		[_can_fire, _has_ammo(), _has_line_of_sight()])
+	# Commented out to reduce spam
+	# print("Turret AIMING: can_fire=%s, has_ammo=%s, has_LOS=%s" %
+	#	[_can_fire, _has_ammo(), _has_line_of_sight()])
 
 
 ## FIRING state: Actively shooting at target

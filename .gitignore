@@ -69,6 +69,9 @@ desktop.ini
 # Auto-generated Godot files
 *.import
 
+# Exclude specific addons
+addons/unidot/
+
 # Keep important configuration files
 !.gitignore
 !README.md
