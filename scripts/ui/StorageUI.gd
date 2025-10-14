@@ -286,8 +286,21 @@ func _on_close_button_pressed():
 func _on_move_button_pressed():
 	print("Moving storage box...")
 	if current_storage:
-		current_storage.move_building()
+		# Save reference before closing (close_storage_interface sets current_storage to null)
+		var storage_to_move = current_storage
+
+		# Close both storage and inventory UIs before moving
+		var inventory_ui = get_inventory_ui()
+		if inventory_ui:
+			if inventory_ui.has_method("toggle_inventory"):
+				inventory_ui.toggle_inventory()
+			else:
+				inventory_ui.visible = false
+
 		close_storage_interface()
+
+		# Now start the move (this will enter building mode)
+		storage_to_move.move_building()
 
 func _on_destroy_button_pressed():
 	print("Destroying storage box...")

@@ -206,10 +206,9 @@ func move_building():
 	# Store in a temporary global location that the new storage box can access
 	if BuildingSystem:
 		BuildingSystem.pending_storage_data = inventory_backup
-		# Remove current storage box
-		queue_free()
-		# Start building mode for replacement
-		BuildingSystem.start_building_mode("storage_box")
+		# Start building MOVE mode (no resource cost, transfers the building)
+		BuildingSystem.start_building_mode_for_move("storage_box", self)
+		# Note: The building will be destroyed when the new one is placed
 
 func destroy_building():
 	print("Destroying storage box...")
