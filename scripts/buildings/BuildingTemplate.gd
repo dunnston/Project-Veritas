@@ -38,7 +38,11 @@ func setup_template_material():
 func initialize_template(id: String, pos: Vector3, rotation_deg: float, cost: Dictionary, data: Dictionary):
 	"""Initialize the template with building data"""
 	building_id = id
-	global_position = pos
+
+	# Apply height offset if the building has one (e.g., to raise floors above ground)
+	var height_offset = data.get("height_offset", 0.0)
+	global_position = pos + Vector3(0, height_offset, 0)
+
 	rotation_degrees = Vector3(0, rotation_deg, 0)
 	building_rotation_degrees = rotation_deg
 	building_cost = cost
