@@ -142,32 +142,24 @@ func add_item_to_storage(item_id: String, quantity: int) -> int:
 	# Returns the amount that couldn't be stored
 	var remaining = quantity
 
-	# First try to stack with existing items
-	for slot_key in storage_inventory.keys():
-		var slot = storage_inventory[slot_key]
-		if slot["item_id"] == item_id and slot["quantity"] > 0:
-			var item_data = InventorySystem.get_item_data(item_id) if InventorySystem else {}
-			var max_stack = item_data.get("stack_size", 50)
-			var can_add = min(remaining, max_stack - slot["quantity"])
-			if can_add > 0:
-				slot["quantity"] += can_add
-				remaining -= can_add
-				if remaining <= 0:
-					return 0
-
-	# Then try to find empty slots
+	# First try to find an empty slot for the entire stack
 	for slot_key in storage_inventory.keys():
 		var slot = storage_inventory[slot_key]
 		if slot["item_id"] == "" or slot["quantity"] == 0:
-			var item_data = InventorySystem.get_item_data(item_id) if InventorySystem else {}
-			var max_stack = item_data.get("stack_size", 50)
-			var can_add = min(remaining, max_stack)
+			# Store the entire quantity in this slot (no splitting)
 			slot["item_id"] = item_id
-			slot["quantity"] = can_add
-			remaining -= can_add
-			if remaining <= 0:
-				return 0
+			slot["quantity"] = remaining
+			return 0  # All items stored successfully
 
+	# If no empty slots, try to stack with existing same items
+	for slot_key in storage_inventory.keys():
+		var slot = storage_inventory[slot_key]
+		if slot["item_id"] == item_id and slot["quantity"] > 0:
+			# Add to existing stack without enforcing max_stack limit
+			slot["quantity"] += remaining
+			return 0  # All items stacked successfully
+
+	# If we get here, storage is full
 	return remaining
 
 func remove_item_from_storage(slot_index: int, quantity: int) -> Dictionary:
@@ -214,20 +206,29 @@ func move_building():
 	# Store in a temporary global location that the new storage box can access
 	if BuildingSystem:
 		BuildingSystem.pending_storage_data = inventory_backup
-		# Remove current storage box
-		queue_free()
-		# Start building mode for replacement
-		BuildingSystem.start_building_mode("storage_box")
+		# Start building MOVE mode (no resource cost, transfers the building)
+		BuildingSystem.start_building_mode_for_move("storage_box", self)
+		# Note: The building will be destroyed when the new one is placed
 
 func destroy_building():
 	print("Destroying storage box...")
 
 	# Drop all stored items on the ground
-	for slot_key in storage_inventory.keys():
-		var slot = storage_inventory[slot_key]
-		if slot["item_id"] != "" and slot["quantity"] > 0:
-			# TODO: Create item drops at this location
-			print("Would drop %d %s" % [slot["quantity"], slot["item_id"]])
+	if ItemDropManager:
+		for slot_key in storage_inventory.keys():
+			var slot = storage_inventory[slot_key]
+			if slot["item_id"] != "" and slot["quantity"] > 0:
+				print("Dropping %d %s at position %s" % [slot["quantity"], slot["item_id"], global_position])
+				# Spawn item pickup at storage box position with slight upward offset
+				var drop_position = global_position + Vector3(0, 1.0, 0)
+				ItemDropManager.spawn_item_pickup_3d(
+					ItemDropManager.GENERIC_PICKUP_3D_SCENE,
+					drop_position,
+					slot["item_id"],
+					slot["quantity"]
+				)
+	else:
+		print("ERROR: ItemDropManager not found!")
 
 	# Return some materials to inventory (50% refund like other buildings)
 	if InventorySystem:
