@@ -1,4 +1,25 @@
 {
+	"LARGE_OXYGEN_TANK": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "structure",
+		"description": "",
+		"icon": "",
+		"interactable": true,
+		"interaction_range": 64.0,
+		"is_crafting_station": false,
+		"max_health": 100.0,
+		"name": "Large Oxygen Tank",
+		"power_consumption": 100.0,
+		"refund": {
+
+		},
+		"scene_path": "res://assets/enviroment/scifispace/Prefabs/SM_Prop_Oxygen_Tank_Large.tscn",
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
 	"assembler": {
 		"blocks_movement": true,
 		"blocks_placement": true,
@@ -47,6 +68,29 @@
 			"y": 1.0
 		}
 	},
+	"basic_roof": {
+		"blocks_movement": false,
+		"blocks_placement": false,
+		"category": "structure",
+		"cost": {
+			"METAL_SHEETS": 2.0,
+			"SCRAP_METAL": 4.0
+		},
+		"description": "Metal roof plating for overhead protection",
+		"icon": "basic_roof.png",
+		"interactable": false,
+		"max_health": 80.0,
+		"name": "Basic Roof",
+		"provides_shelter": true,
+		"refund": {
+			"METAL_SHEETS": 1.0,
+			"SCRAP_METAL": 2.0
+		},
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
 	"basic_wall": {
 		"blocks_movement": true,
 		"blocks_placement": true,
@@ -56,10 +100,10 @@
 		},
 		"description": "Simple metal wall for protection",
 		"icon": "basic_wall.png",
-		"provides_shelter": true,
 		"interactable": false,
 		"max_health": 100.0,
 		"name": "Basic Wall",
+		"provides_shelter": true,
 		"refund": {
 			"SCRAP_METAL": 2.0
 		},
@@ -181,6 +225,84 @@
 			"y": 1.0
 		}
 	},
+	"reinforced_roof": {
+		"blocks_movement": false,
+		"blocks_placement": false,
+		"category": "structure",
+		"cost": {
+			"CONCRETE": 2.0,
+			"METAL_SHEETS": 4.0,
+			"SCRAP_METAL": 6.0
+		},
+		"description": "Heavy-duty roof with superior storm protection",
+		"icon": "reinforced_roof.png",
+		"interactable": false,
+		"max_health": 150.0,
+		"name": "Reinforced Roof",
+		"provides_shelter": true,
+		"refund": {
+			"CONCRETE": 1.0,
+			"METAL_SHEETS": 2.0,
+			"SCRAP_METAL": 3.0
+		},
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"reinforced_wall": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "structure",
+		"cost": {
+			"CONCRETE": 3.0,
+			"METAL_SHEETS": 2.0,
+			"SCRAP_METAL": 8.0
+		},
+		"description": "Heavy-duty wall with superior storm protection",
+		"icon": "reinforced_wall.png",
+		"interactable": false,
+		"max_health": 200.0,
+		"name": "Reinforced Wall",
+		"provides_shelter": true,
+		"refund": {
+			"CONCRETE": 1.0,
+			"METAL_SHEETS": 1.0,
+			"SCRAP_METAL": 4.0
+		},
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"repair_bench": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "crafting",
+		"cost": {
+			"ELECTRONICS": 5.0,
+			"GEARS": 3.0,
+			"METAL_ROD": 2.0,
+			"SCRAP_METAL": 15.0
+		},
+		"description": "Specialized workstation for repairing damaged equipment and weapons",
+		"icon": "repair_bench.png",
+		"interactable": true,
+		"interaction_range": 64.0,
+		"max_health": 80.0,
+		"name": "Repair Bench",
+		"power_consumption": 0.0,
+		"refund": {
+			"ELECTRONICS": 2.0,
+			"GEARS": 1.0,
+			"METAL_ROD": 1.0,
+			"SCRAP_METAL": 7.0
+		},
+		"size": {
+			"x": 2.0,
+			"y": 2.0
+		}
+	},
 	"solar_panel": {
 		"blocks_movement": true,
 		"blocks_placement": true,
@@ -227,6 +349,31 @@
 			"y": 1.0
 		}
 	},
+	"turret": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "defense",
+		"description": "Automated defense turret that targets hostile entities. Requires rifle ammo to function. Can be accessed to load ammunition.",
+		"icon": "turret.png",
+		"interactable": true,
+		"interaction_range": 64.0,
+		"is_crafting_station": false,
+		"max_health": 150.0,
+		"name": "Auto Turret",
+		"power_consumption": 5.0,
+		"refund": {
+			"COPPER_WIRE": 1.0,
+			"ELECTRONICS": 5.0,
+			"GEARS": 2.0,
+			"METAL_SHEETS": 4.0,
+			"SCRAP_METAL": 12.0
+		},
+		"scene_path": "res://assets/sprites/objects/turret.tscn",
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
 	"water_purifier": {
 		"blocks_movement": true,
 		"blocks_placement": true,
@@ -256,125 +403,24 @@
 		}
 	},
 	"workbench": {
-		"blocks_movement": null,
-		"blocks_placement": null,
+		"blocks_movement": false,
+		"blocks_placement": false,
 		"category": "crafting",
 		"description": "Essential crafting station",
 		"icon": "pixellab-A-sci-fi-workbench-with-a-meta-1756949376631.png",
-		"provides_shelter": true,
-		"interactable": null,
+		"interactable": true,
 		"interaction_range": 64.0,
+		"is_crafting_station": true,
 		"max_health": 75.0,
 		"name": "Workbench",
 		"power_consumption": 0.0,
-		"recipe_id": "workbench",
 		"refund": {
-
+			"WOOD_SCRAPS": 2.0
 		},
+		"scene_path": "res://scenes/buildings/workbench_3d.tscn",
 		"size": {
 			"x": 2.0,
 			"y": 1.0
-		}
-	},
-	"basic_roof": {
-		"blocks_movement": false,
-		"blocks_placement": false,
-		"category": "structure",
-		"cost": {
-			"SCRAP_METAL": 4.0,
-			"METAL_SHEETS": 2.0
-		},
-		"description": "Metal roof plating for overhead protection",
-		"icon": "basic_roof.png",
-		"provides_shelter": true,
-		"interactable": false,
-		"max_health": 80.0,
-		"name": "Basic Roof",
-		"refund": {
-			"SCRAP_METAL": 2.0,
-			"METAL_SHEETS": 1.0
-		},
-		"size": {
-			"x": 1.0,
-			"y": 1.0
-		}
-	},
-	"reinforced_wall": {
-		"blocks_movement": true,
-		"blocks_placement": true,
-		"category": "structure",
-		"cost": {
-			"SCRAP_METAL": 8.0,
-			"METAL_SHEETS": 2.0,
-			"CONCRETE": 3.0
-		},
-		"description": "Heavy-duty wall with superior storm protection",
-		"icon": "reinforced_wall.png",
-		"provides_shelter": true,
-		"interactable": false,
-		"max_health": 200.0,
-		"name": "Reinforced Wall",
-		"refund": {
-			"SCRAP_METAL": 4.0,
-			"METAL_SHEETS": 1.0,
-			"CONCRETE": 1.0
-		},
-		"size": {
-			"x": 1.0,
-			"y": 1.0
-		}
-	},
-	"reinforced_roof": {
-		"blocks_movement": false,
-		"blocks_placement": false,
-		"category": "structure",
-		"cost": {
-			"SCRAP_METAL": 6.0,
-			"METAL_SHEETS": 4.0,
-			"CONCRETE": 2.0
-		},
-		"description": "Heavy-duty roof with superior storm protection",
-		"icon": "reinforced_roof.png",
-		"provides_shelter": true,
-		"interactable": false,
-		"max_health": 150.0,
-		"name": "Reinforced Roof",
-		"refund": {
-			"SCRAP_METAL": 3.0,
-			"METAL_SHEETS": 2.0,
-			"CONCRETE": 1.0
-		},
-		"size": {
-			"x": 1.0,
-			"y": 1.0
-		}
-	},
-	"repair_bench": {
-		"blocks_movement": true,
-		"blocks_placement": true,
-		"category": "crafting",
-		"cost": {
-			"SCRAP_METAL": 15.0,
-			"ELECTRONICS": 5.0,
-			"GEARS": 3.0,
-			"METAL_ROD": 2.0
-		},
-		"description": "Specialized workstation for repairing damaged equipment and weapons",
-		"icon": "repair_bench.png",
-		"interactable": true,
-		"interaction_range": 64.0,
-		"max_health": 80.0,
-		"name": "Repair Bench",
-		"power_consumption": 0.0,
-		"refund": {
-			"SCRAP_METAL": 7.0,
-			"ELECTRONICS": 2.0,
-			"GEARS": 1.0,
-			"METAL_ROD": 1.0
-		},
-		"size": {
-			"x": 2.0,
-			"y": 2.0
 		}
 	}
 }
