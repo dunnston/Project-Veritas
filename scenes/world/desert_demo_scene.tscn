@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=3 uid="uid://cowdyxaa0m4vf"]
+[gd_scene load_steps=103 format=3 uid="uid://cowdyxaa0m4vf"]
 
 [ext_resource type="Script" uid="uid://dro765f4xjskh" path="res://scripts/world/AddCollisionsRuntime.gd" id="1_collision"]
 [ext_resource type="PackedScene" uid="uid://djyak4m7p8qrt" path="res://scenes/player/player_radiation_suit.tscn" id="1_player"]
@@ -93,6 +93,9 @@
 [ext_resource type="Resource" uid="uid://b8mq3xnv7ht2p" path="res://resources/animals/wolf_template.tres" id="90_2lpym"]
 [ext_resource type="Resource" uid="uid://dft8qw2nx4vbp" path="res://resources/animals/bear_template.tres" id="91_3q2ld"]
 [ext_resource type="PackedScene" uid="uid://bf5cw7l5kluwu" path="res://assets/sprites/objects/turret.tscn" id="92_l14a3"]
+[ext_resource type="PackedScene" uid="uid://0rleq0l0dceq" path="res://scenes/ui/BuildProgressUI.tscn" id="93_buildprogress"]
+[ext_resource type="PackedScene" uid="uid://c8cv1as4t6dr5" path="res://scenes/ui/InteractionPromptUI.tscn" id="94_interactionprompt"]
+[ext_resource type="PackedScene" uid="uid://rdpvns3utega" path="res://scenes/ui/NotificationUI.tscn" id="95_notification"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_desert"]
 sky_top_color = Color(0.4, 0.6, 0.9, 1)
@@ -765,11 +768,12 @@ grow_vertical = 2
 
 [node name="WorkbenchCraftingMenu" parent="UI" instance=ExtResource("13_workbench")]
 
-[node name="BuildProgressUI" parent="UI" instance=ExtResource("14_buildprogress")]
+[node name="BuildProgressUI" parent="UI" instance=ExtResource("93_buildprogress")]
 
-[node name="InteractionPromptUI" parent="UI" instance=ExtResource("15_interactionprompt")]
+[node name="InteractionPromptUI" parent="UI" instance=ExtResource("94_interactionprompt")]
 
-[node name="NotificationUI" parent="UI" instance=ExtResource("16_notification")]
+[node name="NotificationUI" parent="UI" instance=ExtResource("95_notification")]
+offset_bottom = -200.0
 
 [node name="HotbarLayer" type="CanvasLayer" parent="."]
 layer = 10

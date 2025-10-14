@@ -94,20 +94,19 @@ func set_validity(is_valid: bool):
 	placement_validity_changed.emit(is_valid)
 
 func update_position(world_pos: Vector3):
-	# Determine grid size based on building type
+	# Different grid snapping based on building type
 	var grid_size = 4.0
-	if building_id in ["basic_wall", "basic_floor", "basic_roof", "door_frame", "door_frame_with_door", "door"]:
-		grid_size = 5.0
-	elif building_id.contains("wall") or building_id.contains("door_frame"):
-		grid_size = 2.0
-
 	var grid_pos: Vector3
 
-	# Walls and door frames snap to tile EDGES, not centers
-	if building_id.contains("wall") or building_id.contains("door"):
-		grid_pos = snap_to_tile_edge_preview(world_pos, grid_size)
+	if building_id.contains("wall") or building_id.contains("door_frame"):
+		# Walls and door frames use 2m grid (half-grid) to sit on floor edges
+		var half_grid = grid_size / 2.0
+		grid_pos = snap_wall_to_floor_edge(world_pos, half_grid)
+	elif building_id == "door":
+		# Doors snap to door_frame openings
+		grid_pos = snap_door_to_frame(world_pos)
 	else:
-		# Floors, roofs, etc. snap to tile centers
+		# Floors, roofs use full 4m grid
 		grid_pos = Vector3(
 			round(world_pos.x / grid_size) * grid_size,
 			world_pos.y,
@@ -116,16 +115,22 @@ func update_position(world_pos: Vector3):
 
 	# Get mesh size for calculations
 	var mesh_height = 1.0
+	print("DEBUG %s: mesh_instance exists: %s" % [building_id, mesh_instance != null])
 
 	# Try to get height from mesh_instance first
 	if mesh_instance and mesh_instance.mesh and mesh_instance.mesh is BoxMesh:
 		var box_mesh = mesh_instance.mesh as BoxMesh
 		mesh_height = box_mesh.size.y
+		print("DEBUG %s: Detected mesh size from mesh_instance: %s (height=%.2f)" % [building_id, box_mesh.size, mesh_height])
 	else:
 		# Check for CSG-based preview (like door_frame)
 		var csg_node = get_node_or_null("CSGBox3D")
+		print("DEBUG %s: Looking for CSG node, found: %s" % [building_id, csg_node != null])
 		if csg_node and csg_node is CSGBox3D:
 			mesh_height = csg_node.size.y
+			print("DEBUG %s: Detected mesh size from CSG: %s (height=%.2f)" % [building_id, csg_node.size, mesh_height])
+		else:
+			print("DEBUG %s: No mesh or CSG - using default height 1.0" % building_id)
 
 	# Perform downward raycast to find the actual ground below this position
 	var ground_y = find_ground_below(grid_pos)
@@ -140,6 +145,8 @@ func update_position(world_pos: Vector3):
 			# This means bottom will be slightly below ground_y (by 0.05m)
 			# and top will be slightly above (by 0.05m) - this creates a flush floor surface
 			grid_pos.y = ground_y
+			print("DEBUG Floor: ground_y=%.3f, mesh_height=%.3f, final_y=%.3f (bottom at %.3f, top at %.3f)" %
+				[ground_y, mesh_height, grid_pos.y, grid_pos.y - mesh_height * 0.5, grid_pos.y + mesh_height * 0.5])
 		elif building_id.contains("roof"):
 			# Roofs: MUST have walls below to be placeable
 			var wall_height = detect_wall_height_at_position(grid_pos)
@@ -160,6 +167,8 @@ func update_position(world_pos: Vector3):
 			# Walls, doors, etc.: Place bottom flush with ground, just like floors
 			# Center = ground_y + half_height (no clearance - we want flush placement)
 			grid_pos.y = ground_y + (mesh_height * 0.5)
+			print("DEBUG Wall: ground_y=%.3f, mesh_height=%.3f, final_y=%.3f (bottom at %.3f, top at %.3f)" %
+				[ground_y, mesh_height, grid_pos.y, grid_pos.y - mesh_height * 0.5, grid_pos.y + mesh_height * 0.5])
 	else:
 		# No ground found - use the original Y position from mouse raycast
 		grid_pos.y = world_pos.y + (mesh_height * 0.5) + ground_clearance
@@ -197,6 +206,7 @@ func recheck_validity():
 		overlapping_bodies.clear()
 		var all_body_overlaps = collision_area.get_overlapping_bodies()
 		var all_area_overlaps = collision_area.get_overlapping_areas()
+		print("DEBUG: Rechecking validity - found %d bodies, %d areas" % [all_body_overlaps.size(), all_area_overlaps.size()])
 
 		# ALSO check with a physics shape query for more accuracy
 		var space_state = get_world_3d().direct_space_state
@@ -217,56 +227,74 @@ func recheck_validity():
 					query.exclude = [player.get_rid()]
 
 				var shape_results = space_state.intersect_shape(query)
+				print("DEBUG: Shape query found %d intersections" % shape_results.size())
 
 				for result in shape_results:
 					var collider = result.collider
+					print("  Shape query found: %s (type: %s)" % [collider.name, collider.get_class()])
 
 					# Skip ground
 					if collider.name == "Ground" or collider.is_in_group("terrain"):
+						print("    -> Skipped: ground/terrain")
 						continue
 					# Skip ground-like
 					if _is_ground_like(collider):
+						print("    -> Skipped: ground-like")
 						continue
 					# SPECIAL CASE: Walls can overlap with roofs
 					if building_id.contains("wall") and collider.name.contains("roof"):
+						print("    -> Skipped: wall can overlap with roof")
 						continue
 					# SPECIAL CASE: Walls can overlap with door_frame_with_door
 					if building_id.contains("wall") and collider.name.contains("door_frame_with_door"):
+						print("    -> Skipped: wall can overlap with door_frame_with_door")
 						continue
 					# SPECIAL CASE: Doors can overlap with door_frames
 					if building_id == "door" and collider.name.contains("door_frame"):
+						print("    -> Skipped: door can overlap with door_frame")
 						continue
 					# SPECIAL CASE: Door frames can overlap with doors
 					if building_id.contains("door_frame") and collider.name.contains("door"):
+						print("    -> Skipped: door_frame can overlap with door")
 						continue
 
+					print("    -> ADDED from shape query")
 					if not overlapping_bodies.has(collider):
 						overlapping_bodies.append(collider)
 
 		# Check body overlaps from Area3D
 		for body in all_body_overlaps:
+			print("  Checking body: %s (type: %s)" % [body.name, body.get_class()])
 			# Skip player and pickups
 			if body.is_in_group("player") or body.is_in_group("item_pickup"):
+				print("    -> Skipped: player/pickup")
 				continue
 			# Skip ground
 			if body.name == "Ground" or body.is_in_group("terrain"):
+				print("    -> Skipped: ground/terrain")
 				continue
 			# Skip large flat surfaces (likely ground)
 			if _is_ground_like(body):
+				print("    -> Skipped: ground-like")
 				continue
 			# SPECIAL CASE: Walls can overlap with roofs
 			if building_id.contains("wall") and body.name.contains("roof"):
+				print("    -> Skipped: wall can overlap with roof")
 				continue
 			# SPECIAL CASE: Walls can overlap with door_frame_with_door
 			if building_id.contains("wall") and body.name.contains("door_frame_with_door"):
+				print("    -> Skipped: wall can overlap with door_frame_with_door")
 				continue
 			# SPECIAL CASE: Doors can overlap with door_frames
 			if building_id == "door" and body.name.contains("door_frame"):
+				print("    -> Skipped: door can overlap with door_frame")
 				continue
 			# SPECIAL CASE: Door frames can overlap with doors
 			if building_id.contains("door_frame") and body.name.contains("door"):
+				print("    -> Skipped: door_frame can overlap with door")
 				continue
 
+			print("    -> ADDED body to overlapping_bodies")
 			if not overlapping_bodies.has(body):
 				overlapping_bodies.append(body)
 
@@ -274,9 +302,12 @@ func recheck_validity():
 		for area in all_area_overlaps:
 			var parent = area.get_parent()
 			if parent and parent.is_in_group("building"):
+				print("  Found building area: %s" % parent.name)
+				print("    -> ADDED building from area overlap")
 				if not overlapping_bodies.has(parent):
 					overlapping_bodies.append(parent)
 
+		print("DEBUG: Final overlapping_bodies count: %d" % overlapping_bodies.size())
 		# Update validity based on current overlaps
 		check_placement_validity()
 	else:
@@ -303,6 +334,8 @@ func find_ground_below(position: Vector3) -> Variant:
 
 	if result:
 		# Return the Y coordinate where we hit
+		print("DEBUG find_ground_below: hit '%s' at Y=%.3f (ray from %.3f to %.3f)" %
+			[result.collider.name if result.collider else "unknown", result.position.y, ray_start.y, ray_end.y])
 		return result.position.y
 
 	# No ground found
@@ -361,45 +394,6 @@ func snap_to_grid_3d(pos: Vector3, grid_size: float = 1.0) -> Vector3:
 		pos.y,  # Keep Y position (height)
 		round(pos.z / grid_size) * grid_size
 	)
-
-func snap_to_tile_edge_preview(pos: Vector3, grid_size: float) -> Vector3:
-	# First, find the nearest tile center
-	var tile_center = Vector3(
-		round(pos.x / grid_size) * grid_size,
-		pos.y,
-		round(pos.z / grid_size) * grid_size
-	)
-
-	# Then offset to the appropriate edge based on preview rotation
-	var half_grid = grid_size / 2.0
-	var edge_dir = get_edge_direction_from_rotation_preview(int(rotation_degrees.y))
-
-	match edge_dir:
-		"N":  # North edge (+Z)
-			return Vector3(tile_center.x, tile_center.y, tile_center.z + half_grid)
-		"E":  # East edge (+X)
-			return Vector3(tile_center.x + half_grid, tile_center.y, tile_center.z)
-		"S":  # South edge (-Z)
-			return Vector3(tile_center.x, tile_center.y, tile_center.z - half_grid)
-		"W":  # West edge (-X)
-			return Vector3(tile_center.x - half_grid, tile_center.y, tile_center.z)
-		_:
-			return tile_center
-
-func get_edge_direction_from_rotation_preview(rotation: int) -> String:
-	# Convert rotation to cardinal direction (matches BuildingSystem logic)
-	var normalized = int(rotation) % 360
-	if normalized < 0:
-		normalized += 360
-
-	if normalized >= 315 or normalized < 45:
-		return "N"  # North (0°)
-	elif normalized >= 45 and normalized < 135:
-		return "E"  # East (90°)
-	elif normalized >= 135 and normalized < 225:
-		return "S"  # South (180°)
-	else:
-		return "W"  # West (270°)
 
 func snap_wall_to_floor_edge(wall_pos: Vector3, half_grid: float) -> Vector3:
 	# Wall snapping logic:
@@ -629,18 +623,16 @@ func _on_area_exited(area: Area3D):
 		check_placement_validity()
 
 func check_placement_validity():
-	# For walls/doors, use key-based validation from BuildingSystem
-	if building_id.contains("wall") or building_id.contains("door"):
-		var building_system = get_tree().get_first_node_in_group("building_system")
-		if not building_system:
-			building_system = get_node_or_null("/root/BuildingSystem")
-
-		if building_system and building_system.has_method("is_valid_building_position"):
-			var is_valid = building_system.is_valid_building_position(global_position, building_id, int(rotation_degrees.y))
-			set_validity(is_valid)
+	# Check minimum distance from player to prevent placing on or too close to player
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		var distance_to_player = global_position.distance_to(player.global_position)
+		var min_safe_distance = 2.5  # 2.5 meters minimum distance
+		if distance_to_player < min_safe_distance:
+			print("Cannot place: too close to player (distance: %.2fm, min: %.2fm)" % [distance_to_player, min_safe_distance])
+			set_validity(false)
 			return
 
-	# For other buildings, use physics-based validation
 	# Allow placement if only overlapping with other buildings (for connecting pieces)
 	# Only block if overlapping with non-building obstacles
 	var has_blocking_overlap = false
@@ -656,21 +648,16 @@ func check_placement_validity():
 	set_validity(is_valid)
 
 func can_place_here() -> bool:
-	# For walls/doors, use key-based validation from BuildingSystem
-	# This prevents false rejections at corners where walls should touch
-	if building_id.contains("wall") or building_id.contains("door"):
-		# Get BuildingSystem to check if this edge is occupied
-		var building_system = get_tree().get_first_node_in_group("building_system")
-		if not building_system:
-			building_system = get_node_or_null("/root/BuildingSystem")
+	# Check minimum distance from player
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		var distance_to_player = global_position.distance_to(player.global_position)
+		var min_safe_distance = 2.5  # 2.5 meters minimum distance
+		if distance_to_player < min_safe_distance:
+			print("Cannot place: too close to player (distance: %.2fm, min: %.2fm)" % [distance_to_player, min_safe_distance])
+			return false
 
-		if building_system and building_system.has_method("is_valid_building_position"):
-			var is_valid = building_system.is_valid_building_position(global_position, building_id, int(rotation_degrees.y))
-			if not is_valid:
-				print("Preview: Edge key validation failed")
-			return is_valid
-
-	# For other buildings, use physics-based validation
+	# Check if there are any blocking overlaps (non-building obstacles)
 	var has_blocking_overlap = false
 	for body in overlapping_bodies:
 		if not body.is_in_group("building"):
