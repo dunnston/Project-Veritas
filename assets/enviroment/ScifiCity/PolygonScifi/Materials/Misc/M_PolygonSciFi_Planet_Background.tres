@@ -1,7 +1,6 @@
-[gd_resource type = "ShaderMaterial" load_steps=2 format=3 uid="uid://c2g1w3fv04xog"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c2g1w3fv04xog"]
 
 [ext_resource type="Shader" uid="uid://dl2tybeur8j8g" path="res://assets/enviroment/ScifiCity/Shaders/M_PolygonSciFi_Planet_Background.tres" id="2_cae2f"]
-[ext_resource type="Texture2D" uid="uid://cehuf6studah1" path="res://PolygonScifi/Textures/T_Planet_02.png" id="1_dwxsp"]
 
 [resource]
 resource_name = "M_PolygonSciFi_Planet_Background"

@@ -1,4 +1,4 @@
-[gd_resource type = "ShaderMaterial" load_steps=1 format=3 uid="uid://c3e6cxgjabnlq"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c3e6cxgjabnlq"]
 
 [ext_resource type="Shader" uid="uid://dcn71kdt2ylxk" path="res://assets/enviroment/ScifiCity/Shaders/M_PolygonScifi_Hologram_Outlines.tres" id="1_bvq8n"]
 

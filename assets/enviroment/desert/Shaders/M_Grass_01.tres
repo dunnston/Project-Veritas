@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=12 format=3 uid="uid://b5g1detoj0u5g"]
 
-[ext_resource type="Texture2D" uid="uid://ba1m4577yv4rs" path="res://assets/enviroment/desert/Biomes/PNB_Core/Textures/T_Grass_01.png" id="1_jsa4t"]
+[ext_resource type="Texture2D" uid="uid://xcfudhj3e15g" path="res://assets/enviroment/desert/Biomes/PNB_Core/Textures/T_Grass_01.png" id="1_jsa4t"]
 
 [sub_resource type="VisualShaderNodeMultiplyAdd" id="VisualShaderNodeMultiplyAdd_dbqdc4krgj0h3"]
 default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(0.5, 0.5, 0.5), 2, Vector3(0.5, 0.5, 0.5)]
@@ -104,7 +104,7 @@ return 2.0 * fract(fract(p)*4375.55) -1.;
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
 
 uniform sampler2D tex_frg_2 : source_color;
 uniform float Metallic = 0.0;

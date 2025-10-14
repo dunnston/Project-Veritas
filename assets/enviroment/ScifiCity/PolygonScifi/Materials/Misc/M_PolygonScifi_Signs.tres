@@ -1,7 +1,6 @@
-[gd_resource type = "ShaderMaterial" load_steps=2 format=3 uid="uid://bci4htinxlrjp"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bci4htinxlrjp"]
 
 [ext_resource type="Shader" uid="uid://dqwnt2xrrb63l" path="res://assets/enviroment/ScifiCity/Shaders/M_PolygonScifi_Signs.tres" id="2_cmjlt"]
-[ext_resource type="Texture2D" uid="uid://dq7he4s0m0in4" path="res://PolygonScifi/Textures/T_Signs.png" id="1_b5a35"]
 
 [resource]
 resource_name = "M_PolygonScifi_Signs"
