@@ -12,9 +12,98 @@ var building_rotation: int = 0  # 0, 90, 180, 270 degrees
 var current_building_cost: Dictionary = {}
 var building_to_move: Node3D = null  # Reference to building being moved
 var demolition_mode_label: Label = null  # UI indicator for demolition mode
+var is_building_from_template: bool = false  # Skip re-snapping when building from template
 
-# Building data loaded from JSON (single source of truth)
-var building_data: Dictionary = {}
+# 3D Building data
+var building_data: Dictionary = {
+	"workbench": {
+		"name": "Workbench",
+		"scene_path": "res://scenes/buildings/workbench_3d.tscn",
+		"size": Vector3(2, 1, 1),
+		"collision_shape": Vector3(2, 1, 1),
+		"icon_path": "res://assets/sprites/buildings/pixellab-A-sci-fi-workbench-with-a-meta-1756949376631.png"
+	},
+	"oxygen_tank": {
+		"name": "Oxygen Tank",
+		"size": Vector3(1, 1, 1),
+		"collision_shape": Vector3(1, 1, 1),
+		"icon_path": "res://assets/sprites/items/oxygentank.png"
+	},
+	"hand_crank_generator": {
+		"name": "Hand Crank Generator",
+		"size": Vector3(1.5, 1, 1),
+		"collision_shape": Vector3(1.5, 1, 1),
+		"icon_path": "res://assets/sprites/items/generator2.png"
+	},
+	"storage_box": {
+		"name": "Storage Box",
+		"size": Vector3(1, 1, 1),
+		"collision_shape": Vector3(1, 1, 1),
+		"icon_path": "res://assets/sprites/items/Chest.png"
+	},
+	# Shelter Building Components (3D) - Using SimpleSpace/SciFiSpace prefabs (5x5 grid)
+	"basic_wall": {
+		"name": "Basic Wall",
+		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Wall_02.tscn",
+		"size": Vector3(5, 5, 0.1),  # 5m x 5m wall (actual prefab size)
+		"collision_shape": Vector3(5, 5, 0.1),
+		"scene_offset": Vector3(2.5, -2.5, 0.04),  # Compensate for prefab internal offset
+		"icon_path": ""
+	},
+	"basic_floor": {
+		"name": "Basic Floor",
+		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Floor_01.tscn",
+		"size": Vector3(5, 0.1, 5),  # 5m x 5m floor (actual prefab size)
+		"collision_shape": Vector3(5, 0.1, 5),
+		"height_offset": 0.02,  # Raise slightly to avoid z-fighting with ground
+		"scene_offset": Vector3(2.5, 0, -2.5),  # Compensate for internal prefab offset
+		"icon_path": ""
+	},
+	"basic_roof": {
+		"name": "Basic Roof",
+		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Ceiling_01.tscn",
+		"size": Vector3(5, 0.1, 5),  # 5m x 5m ceiling (actual prefab size)
+		"collision_shape": Vector3(5, 0.1, 5),
+		"scene_offset": Vector3(2.5, 0, -2.5),  # Compensate for internal prefab offset
+		"icon_path": ""
+	},
+	"door_frame": {
+		"name": "Door Frame",
+		"scene_path": "res://assets/enviroment/scifispace/Prefabs/SM_Bld_Wall_Doorframe_01.tscn",
+		"size": Vector3(5, 5, 0.1),  # 5m x 5m wall with doorframe
+		"collision_shape": Vector3(5, 5, 0.1),
+		"scene_offset": Vector3(2.5, -2.5, 0.04),  # Match wall offset (prefab mesh offset)
+		"icon_path": ""
+	},
+	"door_frame_with_door": {
+		"name": "Door Frame with Door",
+		"scene_path": "res://assets/enviroment/scifispace/Prefabs/SM_Bld_Wall_Door_06.tscn",
+		"size": Vector3(5, 5, 0.1),  # 5m x 5m wall with door
+		"collision_shape": Vector3(5, 5, 0.1),
+		"scene_offset": Vector3(2.5, -2.5, 0.04),  # Match wall offset (prefab mesh offset)
+		"icon_path": ""
+	},
+	"door": {
+		"name": "Door",
+		"scene_path": "res://assets/enviroment/scifispace/Prefabs/SM_Bld_Wall_Door_06.tscn",
+		"size": Vector3(5, 5, 0.1),  # Using full wall size for now
+		"collision_shape": Vector3(5, 5, 0.1),
+		"scene_offset": Vector3(2.5, -2.5, 0.04),  # Match wall offset (prefab mesh offset)
+		"icon_path": ""
+	},
+	"reinforced_wall": {
+		"name": "Reinforced Wall",
+		"size": Vector3(1, 3, 0.3),
+		"collision_shape": Vector3(1, 3, 0.3),
+		"icon_path": ""
+	},
+	"reinforced_roof": {
+		"name": "Reinforced Roof",
+		"size": Vector3(1, 0.2, 1),
+		"collision_shape": Vector3(1, 0.2, 1),
+		"icon_path": ""
+	}
+}
 
 var camera: Camera3D = null
 var raycast_layer_mask: int = 0x1  # Layer 1 - Ground/World collision layer
@@ -28,8 +117,8 @@ var door_states: Dictionary = {}
 var player_nearby_door: Area3D = null
 
 func _ready():
-	# Load building data from JSON
-	load_building_data()
+	# Add to group so preview can find us
+	add_to_group("building_system")
 
 	# Connect to build menu
 	call_deferred("_connect_to_build_menu")
@@ -311,23 +400,47 @@ func update_preview_position():
 		default_pos.y = 0.5  # Slightly above ground level
 		building_preview.update_position(default_pos)
 
-func is_valid_building_position(pos: Vector3) -> bool:
-	# Check if player has resources
-	if not can_afford_building():
-		return false
+func is_valid_building_position(pos: Vector3, building_id: String = "", rotation: int = -1) -> bool:
+	# Allow external callers (like preview) to specify building_id and rotation
+	var check_building_id = building_id if building_id != "" else current_building_id
+	var check_rotation = rotation if rotation != -1 else building_rotation
+
+	# NEW WORKFLOW: Don't check affordability since we're placing templates
+	# Templates can be placed even if player can't afford them yet
+	# Player will find out if they can't afford it when trying to build the template
 
 	# Check for collisions with other buildings
-	var building_info = building_data[current_building_id]
+	if not building_data.has(check_building_id):
+		print("is_valid_building_position: Unknown building_id '%s'" % check_building_id)
+		return false
+
+	var building_info = building_data[check_building_id]
 	var size = building_info.get("size", Vector3(1, 1, 1))
 
 	# Simple grid position check using building-specific snapping
-	var grid_pos = get_grid_snapped_position(pos, current_building_id)
-	var pos_key = grid_pos_to_key(grid_pos)
+	var grid_pos = get_grid_snapped_position(pos, check_building_id, check_rotation)
+	var pos_key = grid_pos_to_key(grid_pos, check_building_id, check_rotation)
 
+	print("DEBUG validation for %s: pos=%s, rotation=%d, grid_pos=%s, key=%s" % [check_building_id, pos, check_rotation, grid_pos, pos_key])
+
+	# Check if spot is occupied by a completed building
 	if pos_key in placed_buildings:
-		print("Position validation failed: spot already occupied at key %s" % pos_key)
+		print("Position validation failed: spot already occupied by building at key %s" % pos_key)
 		return false
 
+	# Check if spot is occupied by an existing template
+	var templates = get_tree().get_nodes_in_group("building_template")
+	for template in templates:
+		if template is Node3D and "building_id" in template:
+			# Use the template's own building_id and rotation to snap with correct grid size
+			var template_rotation = int(template.building_rotation_degrees) if "building_rotation_degrees" in template else 0
+			var template_grid_pos = get_grid_snapped_position(template.global_position, template.building_id, template_rotation)
+			var template_pos_key = grid_pos_to_key(template_grid_pos, template.building_id, template_rotation)
+			if template_pos_key == pos_key:
+				print("Position validation failed: spot already occupied by template at key %s" % pos_key)
+				return false
+
+	print("DEBUG validation PASSED for key %s" % pos_key)
 	return true
 
 func can_afford_building() -> bool:
@@ -356,11 +469,47 @@ func attempt_place_building():
 		print("Cannot place building here")
 		return
 
-	if not consume_building_resources():
-		print("Cannot afford building")
-		return
+	# NEW WORKFLOW: Place template instead of real building
+	# No resource consumption yet - that happens when player builds the template
+	place_building_template(building_preview.global_position)
 
-	place_building(building_preview.global_position)
+	# Keep building mode active so player can place more templates
+	# Don't call finish_building_mode() here
+
+func place_building_template(pos: Vector3):
+	"""Place a building template that can be built later"""
+	var building_info = building_data[current_building_id]
+
+	# Create template instance
+	var template_script = load("res://scripts/buildings/BuildingTemplate.gd")
+	var template = template_script.new()
+
+	# Initialize template with building data
+	template.initialize_template(
+		current_building_id,
+		pos,
+		building_rotation,
+		current_building_cost,
+		building_info
+	)
+
+	# Add to scene
+	var buildings_container = get_tree().current_scene.get_node_or_null("Buildings3D")
+	if not buildings_container:
+		buildings_container = Node3D.new()
+		buildings_container.name = "Buildings3D"
+		get_tree().current_scene.add_child(buildings_container)
+
+	buildings_container.add_child(template)
+
+	# Connect template signals
+	template.construction_completed.connect(_on_template_construction_completed)
+	template.construction_cancelled.connect(_on_template_construction_cancelled)
+
+	print("Placed building template: %s at %s" % [current_building_id, pos])
+
+	# Play a placement sound/feedback if desired
+	# building_placed.emit(current_building_id, pos)  # Don't emit yet - only when actually built
 
 func place_building(pos: Vector3):
 	var building_info = building_data[current_building_id]
@@ -474,9 +623,25 @@ func place_building(pos: Vector3):
 	if not placed_building.is_in_group("building"):
 		placed_building.add_to_group("building")
 
+	# Calculate grid-snapped position (edge-based for walls/doors, center for floors)
+	# Skip re-snapping when building from template - template position is already correct
+	var grid_snapped_pos: Vector3
+	if is_building_from_template:
+		grid_snapped_pos = pos  # Template position is already snapped
+	else:
+		grid_snapped_pos = get_grid_snapped_position(pos, current_building_id, building_rotation)
+
 	# Position and add to scene
-	# Use the preview's position directly - it already has correct height adjustment for floors/walls
-	placed_building.global_position = pos
+	# Apply height offset if the building has one (e.g., to raise floors above ground)
+	var height_offset = building_info.get("height_offset", 0.0)
+	# Apply scene offset if the prefab has internal mesh offset (e.g., SimpleSpace/SciFiSpace prefabs)
+	var scene_offset = building_info.get("scene_offset", Vector3.ZERO)
+
+	# Apply scene offset with rotation for all buildings
+	# The prefab's internal mesh offset needs to rotate with the building
+	var final_offset = scene_offset.rotated(Vector3.UP, deg_to_rad(building_rotation))
+
+	placed_building.global_position = grid_snapped_pos + Vector3(0, height_offset, 0) + final_offset
 
 	# For doors, use the preview's rotation (which may have been set by snap_door_to_frame)
 	# For other buildings, use building_rotation
@@ -514,16 +679,15 @@ func place_building(pos: Vector3):
 		print("WARNING: Building is not in interactable group!")
 
 	# Track placed building
-	# Use building-specific grid snapping for the tracking key
-	var grid_snapped_pos = get_grid_snapped_position(pos, current_building_id)
-	var pos_key = grid_pos_to_key(grid_snapped_pos)
+	# Use grid-snapped position for the tracking key (already calculated above)
+	var pos_key = grid_pos_to_key(grid_snapped_pos, current_building_id, building_rotation)
 	placed_buildings[pos_key] = {
 		"id": current_building_id,
-		"position": pos,
+		"position": grid_snapped_pos,
 		"rotation": building_rotation,
 		"node": placed_building
 	}
-	print("Tracking building with key: %s (snapped from %s)" % [pos_key, pos])
+	print("Tracking building with key: %s at grid position: %s" % [pos_key, grid_snapped_pos])
 
 	# Add door functionality if needed
 	if current_building_id == "door" or current_building_id == "door_frame_with_door":
@@ -572,18 +736,74 @@ func snap_to_grid_3d(pos: Vector3, grid_size: float = 4.0) -> Vector3:
 		round(pos.z / grid_size) * grid_size
 	)
 
-func get_grid_snapped_position(pos: Vector3, building_id: String) -> Vector3:
-	# Snap position using the correct grid size for this building type
-	# Walls and door_frames use 2m grid, everything else uses 4m grid
-	if building_id.contains("wall") or building_id.contains("door_frame"):
-		# Use 2m grid for walls/door_frames
-		return snap_to_grid_3d(pos, 2.0)
-	else:
-		# Use 4m grid for floors, roofs, etc.
-		return snap_to_grid_3d(pos, 4.0)
+func get_grid_snapped_position(pos: Vector3, building_id: String, rotation_deg: int = 0) -> Vector3:
+	# Determine grid size for this building type
+	var grid_size = 4.0
+	if building_id in ["basic_wall", "basic_floor", "basic_roof", "door_frame", "door_frame_with_door", "door"]:
+		grid_size = 5.0
+	elif building_id.contains("wall") or building_id.contains("door_frame"):
+		grid_size = 2.0
 
-func grid_pos_to_key(grid_pos: Vector3) -> String:
+	# Walls and door frames snap to tile EDGES, not centers
+	if building_id.contains("wall") or building_id.contains("door"):
+		return snap_to_tile_edge(pos, grid_size, rotation_deg)
+	else:
+		# Floors, roofs, etc. snap to tile centers
+		return snap_to_grid_3d(pos, grid_size)
+
+func snap_to_tile_edge(pos: Vector3, grid_size: float, rotation_deg: int) -> Vector3:
+	# First, find the nearest tile center
+	var tile_center = Vector3(
+		round(pos.x / grid_size) * grid_size,
+		pos.y,
+		round(pos.z / grid_size) * grid_size
+	)
+
+	# Then offset to the appropriate edge based on rotation
+	var half_grid = grid_size / 2.0
+	var edge_dir = get_edge_direction_from_rotation(rotation_deg)
+
+	match edge_dir:
+		"N":  # North edge (+Z)
+			return Vector3(tile_center.x, tile_center.y, tile_center.z + half_grid)
+		"E":  # East edge (+X)
+			return Vector3(tile_center.x + half_grid, tile_center.y, tile_center.z)
+		"S":  # South edge (-Z)
+			return Vector3(tile_center.x, tile_center.y, tile_center.z - half_grid)
+		"W":  # West edge (-X)
+			return Vector3(tile_center.x - half_grid, tile_center.y, tile_center.z)
+		_:
+			return tile_center
+
+func grid_pos_to_key(grid_pos: Vector3, building_id: String = "", rotation: int = 0) -> String:
+	# Edge-based buildings (walls, door frames) get edge-specific keys
+	# This prevents walls from blocking each other on different edges of the same tile
+	if building_id.contains("wall") or building_id.contains("door"):
+		var edge_dir = get_edge_direction_from_rotation(rotation)
+		return "%d,%d,%d-%s" % [grid_pos.x, grid_pos.y, grid_pos.z, edge_dir]
+	# Floors, roofs, and other buildings use tile-center keys
 	return "%d,%d,%d" % [grid_pos.x, grid_pos.y, grid_pos.z]
+
+func get_building_data(id: String) -> Dictionary:
+	"""Get building data for a specific building ID"""
+	if building_data.has(id):
+		return building_data[id]
+	return {}
+
+func get_edge_direction_from_rotation(rotation: int) -> String:
+	# Convert rotation to cardinal direction
+	var normalized = int(rotation) % 360
+	if normalized < 0:
+		normalized += 360
+
+	if normalized >= 315 or normalized < 45:
+		return "N"  # North (0°)
+	elif normalized >= 45 and normalized < 135:
+		return "E"  # East (90°)
+	elif normalized >= 135 and normalized < 225:
+		return "S"  # South (180°)
+	else:
+		return "W"  # West (270°)
 
 func key_to_grid_pos(key: String) -> Vector3:
 	var parts = key.split(",")
@@ -905,3 +1125,56 @@ func snap_to_grid(pos, grid_size = 1.0):
 		# Convert 2D to 3D, place on ground level
 		return Vector3(pos.x, 0, pos.y)
 	return Vector3.ZERO
+
+# ============================================================================
+# TEMPLATE BUILDING SYSTEM
+# ============================================================================
+
+func _on_template_construction_completed(template: BuildingTemplate):
+	"""Called when a template finishes construction"""
+	print("Template construction completed: %s" % template.building_id)
+
+	# Check if player can still afford it (in case resources were spent elsewhere)
+	if not template.can_afford():
+		print("ERROR: Cannot afford to complete this building anymore!")
+		return
+
+	# Consume resources
+	for resource_id in template.building_cost.keys():
+		var required_amount = template.building_cost[resource_id]
+		var success = InventorySystem.remove_item(resource_id, required_amount)
+		if not success:
+			print("ERROR: Failed to consume resource %s" % resource_id)
+			return
+
+	# Place the real building at the template's position
+	var template_pos = template.global_position
+	var template_rotation = template.building_rotation_degrees
+
+	# Store the template's building_id before removing it
+	var building_id = template.building_id
+
+	# Remove the template
+	template.queue_free()
+
+	# Place the real building using existing logic
+	# Temporarily set current_building_id and building_rotation for place_building()
+	var old_building_id = current_building_id
+	var old_rotation = building_rotation
+
+	current_building_id = building_id
+	building_rotation = int(template_rotation)
+	is_building_from_template = true  # Skip re-snapping - template position is already correct
+
+	place_building(template_pos)
+
+	# Restore old values
+	current_building_id = old_building_id
+	building_rotation = old_rotation
+	is_building_from_template = false
+
+	print("Real building placed from template at %s" % template_pos)
+
+func _on_template_construction_cancelled(template: BuildingTemplate):
+	"""Called when a template is cancelled/removed"""
+	print("Template construction cancelled: %s" % template.building_id)

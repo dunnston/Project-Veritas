@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://c7xvh2m4qgtjk"]
+[gd_scene load_steps=45 format=3 uid="uid://c7xvh2m4qgtjk"]
 
 [ext_resource type="PackedScene" uid="uid://undps3vqfdyu" path="res://scenes/ui/Hotbar.tscn" id="2_hotbar"]
 [ext_resource type="PackedScene" uid="uid://cnw4osdfk8fec" path="res://scenes/environment/Desert/SM_Prop_Bones_04.tscn" id="2_v46yn"]
@@ -31,8 +31,11 @@
 [ext_resource type="Resource" uid="uid://dft8qw2nx4vbp" path="res://resources/animals/bear_template.tres" id="23_bear"]
 [ext_resource type="PackedScene" uid="uid://bifdxdevq18b6" path="res://scenes/environment/Desert/SM_Env_Rock_Cliff_01.tscn" id="24_347k4"]
 [ext_resource type="PackedScene" uid="uid://dkj2p2sy7ud5n" path="res://scenes/environment/Desert/SM_Env_Tree_Dead_02.tscn" id="25_pyxmy"]
-[ext_resource type="PackedScene" uid="uid://d37hseaps25o8" path="res://assets/sprites/objects/turret.tscn" id="32_25i1f"]
+[ext_resource type="PackedScene" uid="uid://bf5cw7l5kluwu" path="res://assets/sprites/objects/turret.tscn" id="32_25i1f"]
 [ext_resource type="PackedScene" uid="uid://djyak4m7p8qrt" path="res://scenes/player/player_radiation_suit.tscn" id="32_w4crh"]
+[ext_resource type="Script" uid="uid://cckjhbi5pilq6" path="res://scripts/ui/BuildProgressUI.gd" id="BuildProgressUI"]
+[ext_resource type="Script" uid="uid://obwg53qyn38l" path="res://scripts/ui/InteractionPromptUI.gd" id="InteractionPromptUI"]
+[ext_resource type="Script" uid="uid://cw3727suqc8bj" path="res://scripts/ui/NotificationUI.gd" id="NotificationUI"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxywg"]
 sky_top_color = Color(0.0862745, 0.0392157, 0.117647, 1)
@@ -254,6 +257,93 @@ visible = false
 visible = false
 
 [node name="WorkbenchCraftingMenu" parent="UI" instance=ExtResource("12_kmphx")]
+
+[node name="InteractionPromptUI" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -400.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("InteractionPromptUI")
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/InteractionPromptUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PromptLabel" type="RichTextLabel" parent="UI/InteractionPromptUI/CenterContainer"]
+custom_minimum_size = Vector2(600, 80)
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="BuildProgressUI" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("BuildProgressUI")
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/BuildProgressUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/BuildProgressUI/CenterContainer"]
+layout_mode = 2
+
+[node name="BuildingLabel" type="Label" parent="UI/BuildProgressUI/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Building: Basic Floor"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/BuildProgressUI/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+show_percentage = false
+
+[node name="NotificationUI" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 150.0
+grow_horizontal = 2
+script = ExtResource("NotificationUI")
+
+[node name="NotificationLabel" type="Label" parent="UI/NotificationUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -40.0
+offset_right = 300.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="HotbarLayer" type="CanvasLayer" parent="."]
 layer = 10
