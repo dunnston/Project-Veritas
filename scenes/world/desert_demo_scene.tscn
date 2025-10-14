@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://cowdyxaa0m4vf"]
+[gd_scene load_steps=97 format=3 uid="uid://cowdyxaa0m4vf"]
 
 [ext_resource type="Script" uid="uid://dro765f4xjskh" path="res://scripts/world/AddCollisionsRuntime.gd" id="1_collision"]
 [ext_resource type="PackedScene" uid="uid://djyak4m7p8qrt" path="res://scenes/player/player_radiation_suit.tscn" id="1_player"]
@@ -89,13 +89,7 @@
 [ext_resource type="PackedScene" uid="uid://c6hjdabnarjm0" path="res://assets/enviroment/desert_demo/Prefabs/SM_Env_Tree_Dead_01.tscn" id="82_n200d"]
 [ext_resource type="PackedScene" uid="uid://cpva7pjw03ei1" path="res://assets/enviroment/desert_demo/Prefabs/SM_Env_Tree_Dead_02.tscn" id="83_ve10h"]
 [ext_resource type="PackedScene" uid="uid://bfl5rvy786abv" path="res://assets/enviroment/desert_demo/Prefabs/SM_Prop_Survey_Level_Camera_01.tscn" id="84_cqqr6"]
-[ext_resource type="Script" uid="uid://c72syhu85ya17" path="res://scripts/world/EntitySpawner.gd" id="86_ifutr"]
-[ext_resource type="Resource" uid="uid://cpf8vx5h4y2bk" path="res://resources/animals/rabbit_template.tres" id="87_l14a3"]
-[ext_resource type="Resource" uid="uid://cn3qw8ry5x7mh" path="res://resources/animals/deer_template.tres" id="88_vj2tm"]
-[ext_resource type="Resource" uid="uid://dnb8wx4ky2pvj" path="res://resources/animals/boar_template.tres" id="89_sknf5"]
-[ext_resource type="Resource" uid="uid://b8mq3xnv7ht2p" path="res://resources/animals/wolf_template.tres" id="90_2lpym"]
-[ext_resource type="Resource" uid="uid://dft8qw2nx4vbp" path="res://resources/animals/bear_template.tres" id="91_3q2ld"]
-[ext_resource type="PackedScene" uid="uid://d37hseaps25o8" path="res://assets/sprites/objects/turret.tscn" id="92_l14a3"]
+[ext_resource type="PackedScene" uid="uid://bf5cw7l5kluwu" path="res://assets/sprites/objects/turret.tscn" id="92_l14a3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_desert"]
 sky_top_color = Color(0.4, 0.6, 0.9, 1)
@@ -862,39 +856,6 @@ layer = 10
 
 [node name="SM_Prop_Survey_Level_Camera_01" parent="." instance=ExtResource("84_cqqr6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.2306, 0, 76.0559)
-
-[node name="AnimalSpawners" type="Node3D" parent="."]
-
-[node name="PassiveSpawner" type="Node3D" parent="AnimalSpawners"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 10)
-script = ExtResource("86_ifutr")
-spawn_templates = Array[Resource]([ExtResource("87_l14a3"), ExtResource("88_vj2tm")])
-max_entities = 8
-spawn_frequency_min = 8.0
-spawn_frequency_max = 20.0
-spawn_radius = 25.0
-min_spawn_distance = 8.0
-
-[node name="NeutralSpawner" type="Node3D" parent="AnimalSpawners"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -15)
-script = ExtResource("86_ifutr")
-spawn_templates = Array[Resource]([ExtResource("89_sknf5")])
-max_entities = 5
-spawn_frequency_min = 10.0
-spawn_frequency_max = 25.0
-min_spawn_distance = 10.0
-debug_color = Color(1, 1, 0, 0.3)
-
-[node name="AggressiveSpawner" type="Node3D" parent="AnimalSpawners"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 20)
-script = ExtResource("86_ifutr")
-spawn_templates = Array[Resource]([ExtResource("90_2lpym"), ExtResource("91_3q2ld")])
-max_entities = 4
-spawn_frequency_min = 15.0
-spawn_frequency_max = 35.0
-spawn_radius = 30.0
-min_spawn_distance = 15.0
-debug_color = Color(1, 0, 0, 0.3)
 
 [node name="Turret" parent="." instance=ExtResource("92_l14a3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.97976, 1, 3.91759)
