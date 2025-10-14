@@ -14,96 +14,8 @@ var building_to_move: Node3D = null  # Reference to building being moved
 var demolition_mode_label: Label = null  # UI indicator for demolition mode
 var is_building_from_template: bool = false  # Skip re-snapping when building from template
 
-# 3D Building data
-var building_data: Dictionary = {
-	"workbench": {
-		"name": "Workbench",
-		"scene_path": "res://scenes/buildings/workbench_3d.tscn",
-		"size": Vector3(2, 1, 1),
-		"collision_shape": Vector3(2, 1, 1),
-		"icon_path": "res://assets/sprites/buildings/pixellab-A-sci-fi-workbench-with-a-meta-1756949376631.png"
-	},
-	"oxygen_tank": {
-		"name": "Oxygen Tank",
-		"size": Vector3(1, 1, 1),
-		"collision_shape": Vector3(1, 1, 1),
-		"icon_path": "res://assets/sprites/items/oxygentank.png"
-	},
-	"hand_crank_generator": {
-		"name": "Hand Crank Generator",
-		"size": Vector3(1.5, 1, 1),
-		"collision_shape": Vector3(1.5, 1, 1),
-		"icon_path": "res://assets/sprites/items/generator2.png"
-	},
-	"storage_box": {
-		"name": "Storage Box",
-		"size": Vector3(1, 1, 1),
-		"collision_shape": Vector3(1, 1, 1),
-		"icon_path": "res://assets/sprites/items/Chest.png"
-	},
-	# Shelter Building Components (3D) - Using SimpleSpace/SciFiSpace prefabs (5x5 grid)
-	"basic_wall": {
-		"name": "Basic Wall",
-		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Wall_02.tscn",
-		"size": Vector3(5, 5, 0.1),  # 5m x 5m wall (actual prefab size)
-		"collision_shape": Vector3(5, 5, 0.1),
-		"scene_offset": Vector3(2.5, -2.5, 0.04),  # Compensate for prefab internal offset
-		"icon_path": ""
-	},
-	"basic_floor": {
-		"name": "Basic Floor",
-		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Floor_01.tscn",
-		"size": Vector3(5, 0.1, 5),  # 5m x 5m floor (actual prefab size)
-		"collision_shape": Vector3(5, 0.1, 5),
-		"height_offset": 0.02,  # Raise slightly to avoid z-fighting with ground
-		"scene_offset": Vector3(2.5, 0, -2.5),  # Compensate for internal prefab offset
-		"icon_path": ""
-	},
-	"basic_roof": {
-		"name": "Basic Roof",
-		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Ceiling_01.tscn",
-		"size": Vector3(5, 0.1, 5),  # 5m x 5m ceiling (actual prefab size)
-		"collision_shape": Vector3(5, 0.1, 5),
-		"scene_offset": Vector3(2.5, 0, -2.5),  # Compensate for internal prefab offset
-		"icon_path": ""
-	},
-	"door_frame": {
-		"name": "Door Frame",
-		"scene_path": "res://assets/enviroment/scifispace/Prefabs/SM_Bld_Wall_Doorframe_01.tscn",
-		"size": Vector3(5, 5, 0.1),  # 5m x 5m wall with doorframe
-		"collision_shape": Vector3(5, 5, 0.1),
-		"scene_offset": Vector3(2.5, -2.5, 0.04),  # Match wall offset (prefab mesh offset)
-		"icon_path": ""
-	},
-	"door_frame_with_door": {
-		"name": "Door Frame with Door",
-		"scene_path": "res://assets/enviroment/scifispace/Prefabs/SM_Bld_Wall_Door_06.tscn",
-		"size": Vector3(5, 5, 0.1),  # 5m x 5m wall with door
-		"collision_shape": Vector3(5, 5, 0.1),
-		"scene_offset": Vector3(2.5, -2.5, 0.04),  # Match wall offset (prefab mesh offset)
-		"icon_path": ""
-	},
-	"door": {
-		"name": "Door",
-		"scene_path": "res://assets/enviroment/scifispace/Prefabs/SM_Bld_Wall_Door_06.tscn",
-		"size": Vector3(5, 5, 0.1),  # Using full wall size for now
-		"collision_shape": Vector3(5, 5, 0.1),
-		"scene_offset": Vector3(2.5, -2.5, 0.04),  # Match wall offset (prefab mesh offset)
-		"icon_path": ""
-	},
-	"reinforced_wall": {
-		"name": "Reinforced Wall",
-		"size": Vector3(1, 3, 0.3),
-		"collision_shape": Vector3(1, 3, 0.3),
-		"icon_path": ""
-	},
-	"reinforced_roof": {
-		"name": "Reinforced Roof",
-		"size": Vector3(1, 0.2, 1),
-		"collision_shape": Vector3(1, 0.2, 1),
-		"icon_path": ""
-	}
-}
+# Building data loaded from JSON (single source of truth)
+var building_data: Dictionary = {}
 
 var camera: Camera3D = null
 var raycast_layer_mask: int = 0x1  # Layer 1 - Ground/World collision layer
@@ -117,6 +29,9 @@ var door_states: Dictionary = {}
 var player_nearby_door: Area3D = null
 
 func _ready():
+	# Load building data from JSON
+	load_building_data()
+
 	# Add to group so preview can find us
 	add_to_group("building_system")
 
@@ -165,25 +80,56 @@ func load_building_data():
 
 		# Determine 3D size based on building type
 		var size_3d: Vector3
-		if building_id.contains("wall") or building_id.contains("door"):
-			# Walls are vertical (width=size.x, height=3m, depth=0.2m)
+		var scene_offset: Vector3 = Vector3.ZERO
+		var height_offset: float = 0.0
+
+		# Special handling for SimpleSpace/SciFiSpace prefabs (5x5 grid)
+		if building_id == "basic_wall":
+			size_3d = Vector3(5, 5, 0.1)
+			scene_offset = Vector3(2.5, -2.5, 0.04)
+		elif building_id == "basic_floor":
+			size_3d = Vector3(5, 0.1, 5)
+			scene_offset = Vector3(2.5, 0, -2.5)
+			height_offset = 0.02
+		elif building_id == "basic_roof":
+			size_3d = Vector3(5, 0.1, 5)
+			scene_offset = Vector3(2.5, 0, -2.5)
+		elif building_id == "door_frame":
+			size_3d = Vector3(5, 5, 0.1)
+			scene_offset = Vector3(2.5, -2.5, 0.04)
+		elif building_id == "door_frame_with_door" or building_id == "door":
+			size_3d = Vector3(5, 5, 0.1)
+			scene_offset = Vector3(2.5, -2.5, 0.04)
+		elif building_id == "reinforced_wall":
+			size_3d = Vector3(1, 3, 0.3)
+		elif building_id == "reinforced_roof":
+			size_3d = Vector3(1, 0.2, 1)
+		elif building_id.contains("wall"):
+			# Generic walls are vertical
 			size_3d = Vector3(size_x * 4.0, 3.0, 0.2)
-		elif building_id.contains("floor"):
-			# Floors are horizontal (width=size.x, height=0.1m, depth=size.y)
-			size_3d = Vector3(size_x * 4.0, 0.1, size_y * 4.0)
-		elif building_id.contains("roof"):
-			# Roofs are horizontal like floors
+		elif building_id.contains("floor") or building_id.contains("roof"):
+			# Generic floors/roofs are horizontal
 			size_3d = Vector3(size_x * 4.0, 0.1, size_y * 4.0)
 		else:
 			# Other buildings use simple cube sizing
 			size_3d = Vector3(size_x, size_x, size_y)
 
+		# Get scene path - prioritize scene_path, fall back to empty string
+		var scene_path = building.get("scene_path", "")
+
+		# Get icon path - try to resolve from JSON icon field
+		var icon_path = ""
+		if building.has("icon") and not building.icon.is_empty():
+			icon_path = "res://assets/sprites/buildings/" + building.icon
+
 		building_data[building_id] = {
 			"name": building.get("name", building_id),
-			"scene_path": building.get("scene_path", ""),
+			"scene_path": scene_path,
 			"size": size_3d,
 			"collision_shape": size_3d,  # Use same as size by default
-			"icon_path": building.get("icon", "")
+			"scene_offset": scene_offset,
+			"height_offset": height_offset,
+			"icon_path": icon_path
 		}
 
 	print("BuildingSystem: Loaded %d buildings from JSON" % building_data.size())

@@ -21,6 +21,9 @@
 [ext_resource type="PackedScene" uid="uid://dd2xhpgk2eax2" path="res://scenes/ui/SkillDebugUI.tscn" id="11_8occt"]
 [ext_resource type="PackedScene" uid="uid://cwco3dupc62jn" path="res://scenes/ui/HUD.tscn" id="12_6j8p0"]
 [ext_resource type="PackedScene" uid="uid://cfeodp70flpq1" path="res://scenes/ui/WorkbenchCraftingMenu.tscn" id="12_kmphx"]
+[ext_resource type="PackedScene" path="res://scenes/ui/BuildProgressUI.tscn" id="13_buildprogress"]
+[ext_resource type="PackedScene" path="res://scenes/ui/InteractionPromptUI.tscn" id="14_interactionprompt"]
+[ext_resource type="PackedScene" uid="uid://rdpvns3utega" path="res://scenes/ui/NotificationUI.tscn" id="15_notification"]
 [ext_resource type="PackedScene" uid="uid://bxn3k4p7m8qwe" path="res://scenes/world/nodes/SandstoneNode.tscn" id="16_0dfus"]
 [ext_resource type="Script" uid="uid://b5v7p3r1bhcci" path="res://scripts/world/ResourceDrop.gd" id="17_8occt"]
 [ext_resource type="Script" uid="uid://c72syhu85ya17" path="res://scripts/world/EntitySpawner.gd" id="18_spawner"]
@@ -33,9 +36,6 @@
 [ext_resource type="PackedScene" uid="uid://dkj2p2sy7ud5n" path="res://scenes/environment/Desert/SM_Env_Tree_Dead_02.tscn" id="25_pyxmy"]
 [ext_resource type="PackedScene" uid="uid://bf5cw7l5kluwu" path="res://assets/sprites/objects/turret.tscn" id="32_25i1f"]
 [ext_resource type="PackedScene" uid="uid://djyak4m7p8qrt" path="res://scenes/player/player_radiation_suit.tscn" id="32_w4crh"]
-[ext_resource type="Script" uid="uid://cckjhbi5pilq6" path="res://scripts/ui/BuildProgressUI.gd" id="BuildProgressUI"]
-[ext_resource type="Script" uid="uid://obwg53qyn38l" path="res://scripts/ui/InteractionPromptUI.gd" id="InteractionPromptUI"]
-[ext_resource type="Script" uid="uid://cw3727suqc8bj" path="res://scripts/ui/NotificationUI.gd" id="NotificationUI"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxywg"]
 sky_top_color = Color(0.0862745, 0.0392157, 0.117647, 1)
@@ -258,92 +258,12 @@ visible = false
 
 [node name="WorkbenchCraftingMenu" parent="UI" instance=ExtResource("12_kmphx")]
 
-[node name="InteractionPromptUI" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -400.0
-grow_horizontal = 2
-grow_vertical = 0
-script = ExtResource("InteractionPromptUI")
+[node name="BuildProgressUI" parent="UI" instance=ExtResource("13_buildprogress")]
 
-[node name="CenterContainer" type="CenterContainer" parent="UI/InteractionPromptUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="InteractionPromptUI" parent="UI" instance=ExtResource("14_interactionprompt")]
+offset_bottom = -100.0
 
-[node name="PromptLabel" type="RichTextLabel" parent="UI/InteractionPromptUI/CenterContainer"]
-custom_minimum_size = Vector2(600, 80)
-layout_mode = 2
-theme_override_colors/default_color = Color(1, 1, 0, 1)
-theme_override_font_sizes/normal_font_size = 24
-bbcode_enabled = true
-fit_content = true
-scroll_active = false
-
-[node name="BuildProgressUI" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("BuildProgressUI")
-
-[node name="CenterContainer" type="CenterContainer" parent="UI/BuildProgressUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/BuildProgressUI/CenterContainer"]
-layout_mode = 2
-
-[node name="BuildingLabel" type="Label" parent="UI/BuildProgressUI/CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 20
-text = "Building: Basic Floor"
-horizontal_alignment = 1
-
-[node name="ProgressBar" type="ProgressBar" parent="UI/BuildProgressUI/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(400, 30)
-layout_mode = 2
-show_percentage = false
-
-[node name="NotificationUI" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 150.0
-grow_horizontal = 2
-script = ExtResource("NotificationUI")
-
-[node name="NotificationLabel" type="Label" parent="UI/NotificationUI"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -40.0
-offset_right = 300.0
-offset_bottom = 40.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 28
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
+[node name="NotificationUI" parent="UI" instance=ExtResource("15_notification")]
 
 [node name="HotbarLayer" type="CanvasLayer" parent="."]
 layer = 10
