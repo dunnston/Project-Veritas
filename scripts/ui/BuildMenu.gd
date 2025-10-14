@@ -331,21 +331,20 @@ func get_icon_path_for_recipe(recipe_id: String) -> String:
 func _on_build_button_pressed():
 	if selected_item_id.is_empty():
 		return
-	
+
 	var item_data = get_item_data_by_id(selected_item_id)
 	if item_data.is_empty():
 		return
-	
-	# Check if we can afford the item
-	if not can_afford_item(item_data):
-		print("Cannot afford to build: %s" % selected_item_id)
-		return
-	
-	# Don't consume resources yet - pass the item data to building system
+
+	# NEW WORKFLOW: Allow placing templates even without materials
+	# The affordability check happens when player tries to BUILD the template (hold E)
+	# Not when placing the template preview
+
+	# Start building placement mode - no resource check needed
 	print("Starting building placement mode for: %s" % selected_item_id)
-	
+
 	# Emit signal with both item ID and cost data
 	item_to_build_selected.emit(selected_item_id)
-	
+
 	# Close the build menu
 	visible = false

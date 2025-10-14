@@ -84,6 +84,13 @@ var mining_timer: Timer = null
 var interact_hold_time: float = 0.0
 const INTERACT_HOLD_THRESHOLD: float = 0.3  # Hold E for 0.3s to mine
 
+# Building template construction system
+var is_building_template: bool = false
+var current_building_template: Node3D = null  # BuildingTemplate reference
+var build_progress: float = 0.0
+const BUILD_TIME: float = 5.0  # Hold E for 5 seconds to build
+signal build_progress_changed(progress: float, template_name: String)
+
 # Survival stat depletion timers
 var hunger_timer: Timer
 var thirst_timer: Timer
@@ -397,19 +404,38 @@ func _physics_process(delta: float):
 		rotate_character()
 		update_collision_shape(delta)
 
-		# Handle mining - hold E to mine (after threshold)
+		# Handle interactions - hold E for different actions
 		if Input.is_action_pressed("interact"):
 			interact_hold_time += delta
 
-			# Start mining after holding for threshold duration
-			if interact_hold_time >= INTERACT_HOLD_THRESHOLD:
+			# Priority: Building templates > Mining
+			# Check if we're near a building template first
+			var nearest_template = find_nearest_building_template()
+			if nearest_template:
+				# Build template (immediate hold, no threshold)
+				if not is_building_template:
+					print("DEBUG: Found template, starting build: %s" % nearest_template.name)
+					start_building_template(nearest_template)
+				else:
+					# Continue building
+					build_progress += delta
+					var template_name = nearest_template.get_display_name() if nearest_template.has_method("get_display_name") else "Building"
+					build_progress_changed.emit(build_progress / BUILD_TIME, template_name)
+
+					# Check if building is complete
+					if build_progress >= BUILD_TIME:
+						complete_building_template()
+			# If no template, try mining after threshold
+			elif interact_hold_time >= INTERACT_HOLD_THRESHOLD:
 				var nearest_node = find_nearest_resource_node()
 				if nearest_node and not is_mining:
 					start_mining()
 				elif not nearest_node and is_mining:
 					stop_mining()
 		else:
-			# Stop mining when E is released
+			# Stop building/mining when E is released
+			if is_building_template:
+				stop_building_template()
 			if is_mining:
 				stop_mining()
 			interact_hold_time = 0.0
@@ -1160,6 +1186,101 @@ func get_equipped_tool_level() -> int:
 				return equipment_data.tool_level
 
 	return 0
+
+# ============================================================================
+# BUILDING TEMPLATE SYSTEM
+# ============================================================================
+
+func find_nearest_building_template() -> Node3D:
+	"""Find the nearest building template within interact range"""
+	var nearest: Node3D = null
+	var min_distance = interact_range * 2.0  # Interaction range for building templates (4m with default 2.0 interact_range)
+
+	# Check all nodes in the building_template group
+	var templates = get_tree().get_nodes_in_group("building_template")
+
+	for template in templates:
+		if template is Node3D:
+			var distance = global_position.distance_to(template.global_position)
+			if distance < min_distance:
+				nearest = template
+				min_distance = distance
+
+	return nearest
+
+func start_building_template(template: Node3D):
+	"""Start building a template"""
+	if is_building_template:
+		return
+
+	# Check if player can afford it
+	if template.has_method("can_afford") and not template.can_afford():
+		print("Cannot afford to build this template!")
+		show_cant_afford_message(template)
+		return
+
+	is_building_template = true
+	current_building_template = template
+	build_progress = 0.0
+
+	var template_name = template.get_display_name() if template.has_method("get_display_name") else "Building"
+	print("Started building template: %s" % template_name)
+	build_progress_changed.emit(0.0, template_name)
+
+func show_cant_afford_message(template: Node3D):
+	"""Show a message when player can't afford to build"""
+	var missing_items = []
+
+	if "building_cost" in template:
+		var building_cost = template.building_cost
+		for resource_id in building_cost.keys():
+			var required = building_cost[resource_id]
+			var current = InventorySystem.get_item_count(resource_id) if InventorySystem else 0
+
+			if current < required:
+				var missing = required - current
+				var item_data = InventorySystem.get_item_data(resource_id) if InventorySystem else {}
+				var item_name = item_data.get("name", resource_id)
+				missing_items.append("%s (%d more needed)" % [item_name, missing])
+
+	var message = "Not enough materials!\nMissing: " + ", ".join(missing_items)
+	print("CANT_AFFORD_MESSAGE: %s" % message)
+
+	# Emit a signal that UI can pick up
+	# For now just print - you can connect this to a notification UI later
+	EventBus.emit_signal("show_notification", message, Color.RED) if EventBus.has_signal("show_notification") else null
+
+func stop_building_template():
+	"""Stop building the current template"""
+	if not is_building_template:
+		return
+
+	is_building_template = false
+	build_progress = 0.0
+	current_building_template = null
+
+	# Emit 0 progress to hide UI
+	build_progress_changed.emit(0.0, "")
+	print("Stopped building template")
+
+func complete_building_template():
+	"""Complete the construction of the current template"""
+	if not is_building_template or not current_building_template:
+		return
+
+	print("Completing building template construction!")
+
+	# Call the template's complete_construction method
+	if current_building_template.has_method("complete_construction"):
+		current_building_template.complete_construction()
+
+	# Reset building state
+	is_building_template = false
+	build_progress = 0.0
+	current_building_template = null
+
+	# Emit 0 progress to hide UI
+	build_progress_changed.emit(0.0, "")
 
 # ============================================================================
 # GRAPPLING HOOK SYSTEM

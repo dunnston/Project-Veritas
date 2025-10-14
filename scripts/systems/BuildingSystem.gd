@@ -324,9 +324,9 @@ func update_preview_position():
 		building_preview.update_position(default_pos)
 
 func is_valid_building_position(pos: Vector3) -> bool:
-	# Check if player has resources
-	if not can_afford_building():
-		return false
+	# NEW WORKFLOW: Don't check affordability since we're placing templates
+	# Templates can be placed even if player can't afford them yet
+	# Player will find out if they can't afford it when trying to build the template
 
 	# Check for collisions with other buildings
 	var building_info = building_data[current_building_id]
@@ -368,11 +368,47 @@ func attempt_place_building():
 		print("Cannot place building here")
 		return
 
-	if not consume_building_resources():
-		print("Cannot afford building")
-		return
+	# NEW WORKFLOW: Place template instead of real building
+	# No resource consumption yet - that happens when player builds the template
+	place_building_template(building_preview.global_position)
 
-	place_building(building_preview.global_position)
+	# Keep building mode active so player can place more templates
+	# Don't call finish_building_mode() here
+
+func place_building_template(pos: Vector3):
+	"""Place a building template that can be built later"""
+	var building_info = building_data[current_building_id]
+
+	# Create template instance
+	var template_script = load("res://scripts/buildings/BuildingTemplate.gd")
+	var template = template_script.new()
+
+	# Initialize template with building data
+	template.initialize_template(
+		current_building_id,
+		pos,
+		building_rotation,
+		current_building_cost,
+		building_info
+	)
+
+	# Add to scene
+	var buildings_container = get_tree().current_scene.get_node_or_null("Buildings3D")
+	if not buildings_container:
+		buildings_container = Node3D.new()
+		buildings_container.name = "Buildings3D"
+		get_tree().current_scene.add_child(buildings_container)
+
+	buildings_container.add_child(template)
+
+	# Connect template signals
+	template.construction_completed.connect(_on_template_construction_completed)
+	template.construction_cancelled.connect(_on_template_construction_cancelled)
+
+	print("Placed building template: %s at %s" % [current_building_id, pos])
+
+	# Play a placement sound/feedback if desired
+	# building_placed.emit(current_building_id, pos)  # Don't emit yet - only when actually built
 
 func place_building(pos: Vector3):
 	var building_info = building_data[current_building_id]
@@ -917,3 +953,54 @@ func snap_to_grid(pos, grid_size = 1.0):
 		# Convert 2D to 3D, place on ground level
 		return Vector3(pos.x, 0, pos.y)
 	return Vector3.ZERO
+
+# ============================================================================
+# TEMPLATE BUILDING SYSTEM
+# ============================================================================
+
+func _on_template_construction_completed(template: BuildingTemplate):
+	"""Called when a template finishes construction"""
+	print("Template construction completed: %s" % template.building_id)
+
+	# Check if player can still afford it (in case resources were spent elsewhere)
+	if not template.can_afford():
+		print("ERROR: Cannot afford to complete this building anymore!")
+		return
+
+	# Consume resources
+	for resource_id in template.building_cost.keys():
+		var required_amount = template.building_cost[resource_id]
+		var success = InventorySystem.remove_item(resource_id, required_amount)
+		if not success:
+			print("ERROR: Failed to consume resource %s" % resource_id)
+			return
+
+	# Place the real building at the template's position
+	var template_pos = template.global_position
+	var template_rotation = template.building_rotation_degrees
+
+	# Store the template's building_id before removing it
+	var building_id = template.building_id
+
+	# Remove the template
+	template.queue_free()
+
+	# Place the real building using existing logic
+	# Temporarily set current_building_id and building_rotation for place_building()
+	var old_building_id = current_building_id
+	var old_rotation = building_rotation
+
+	current_building_id = building_id
+	building_rotation = int(template_rotation)
+
+	place_building(template_pos)
+
+	# Restore old values
+	current_building_id = old_building_id
+	building_rotation = old_rotation
+
+	print("Real building placed from template at %s" % template_pos)
+
+func _on_template_construction_cancelled(template: BuildingTemplate):
+	"""Called when a template is cancelled/removed"""
+	print("Template construction cancelled: %s" % template.building_id)

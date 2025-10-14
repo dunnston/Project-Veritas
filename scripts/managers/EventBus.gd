@@ -19,6 +19,8 @@ signal equipment_ui_toggle_requested()
 # Skill progression signals (emitted by SkillSystem, used by UI components)
 signal skill_xp_gained(skill: String, amount: int)
 signal skill_level_up(skill: String, new_level: int)
+# UI notification signal
+signal show_notification(message: String, color: Color)
 
 func _ready() -> void:
 	print("EventBus initialized")
@@ -70,3 +72,6 @@ func emit_skill_xp_gained(skill: String, amount: int) -> void:
 
 func emit_skill_level_up(skill: String, new_level: int) -> void:
 	skill_level_up.emit(skill, new_level)
+
+func emit_show_notification(message: String, color: Color = Color.WHITE) -> void:
+	show_notification.emit(message, color)
