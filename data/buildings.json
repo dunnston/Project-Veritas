@@ -63,6 +63,7 @@
 		"refund": {
 			"SCRAP_METAL": 1.0
 		},
+		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Floor_01.tscn",
 		"size": {
 			"x": 1.0,
 			"y": 1.0
@@ -86,6 +87,7 @@
 			"METAL_SHEETS": 1.0,
 			"SCRAP_METAL": 2.0
 		},
+		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Floor_01.tscn",
 		"size": {
 			"x": 1.0,
 			"y": 1.0
@@ -107,6 +109,7 @@
 		"refund": {
 			"SCRAP_METAL": 2.0
 		},
+		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Wall_02.tscn",
 		"size": {
 			"x": 1.0,
 			"y": 1.0
@@ -153,6 +156,53 @@
 		"refund": {
 			"SCRAP_METAL": 3.0
 		},
+		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Door_01.tscn",
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"door_frame": {
+		"blocks_movement": false,
+		"blocks_placement": true,
+		"category": "structure",
+		"cost": {
+			"SCRAP_METAL": 4.0
+		},
+		"description": "Door frame opening for walls",
+		"icon": "door_frame.png",
+		"interactable": false,
+		"max_health": 80.0,
+		"name": "Door Frame",
+		"provides_shelter": false,
+		"refund": {
+			"SCRAP_METAL": 2.0
+		},
+		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Transition_Door_Square_01.tscn",
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"door_frame_with_door": {
+		"blocks_movement": false,
+		"blocks_placement": true,
+		"can_open": true,
+		"category": "structure",
+		"cost": {
+			"ELECTRONICS": 1.0,
+			"SCRAP_METAL": 8.0
+		},
+		"description": "Door frame with integrated door",
+		"icon": "door_frame_with_door.png",
+		"interactable": true,
+		"max_health": 100.0,
+		"name": "Door Frame with Door",
+		"provides_shelter": false,
+		"refund": {
+			"SCRAP_METAL": 4.0
+		},
+		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Transition_Door_Square_01.tscn",
 		"size": {
 			"x": 1.0,
 			"y": 1.0
