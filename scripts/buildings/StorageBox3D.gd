@@ -214,11 +214,21 @@ func destroy_building():
 	print("Destroying storage box...")
 
 	# Drop all stored items on the ground
-	for slot_key in storage_inventory.keys():
-		var slot = storage_inventory[slot_key]
-		if slot["item_id"] != "" and slot["quantity"] > 0:
-			# TODO: Create item drops at this location
-			print("Would drop %d %s" % [slot["quantity"], slot["item_id"]])
+	if ItemDropManager:
+		for slot_key in storage_inventory.keys():
+			var slot = storage_inventory[slot_key]
+			if slot["item_id"] != "" and slot["quantity"] > 0:
+				print("Dropping %d %s at position %s" % [slot["quantity"], slot["item_id"], global_position])
+				# Spawn item pickup at storage box position with slight upward offset
+				var drop_position = global_position + Vector3(0, 1.0, 0)
+				ItemDropManager.spawn_item_pickup_3d(
+					ItemDropManager.GENERIC_PICKUP_3D_SCENE,
+					drop_position,
+					slot["item_id"],
+					slot["quantity"]
+				)
+	else:
+		print("ERROR: ItemDropManager not found!")
 
 	# Return some materials to inventory (50% refund like other buildings)
 	if InventorySystem:
