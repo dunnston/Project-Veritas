@@ -771,9 +771,9 @@ grow_vertical = 2
 [node name="BuildProgressUI" parent="UI" instance=ExtResource("93_buildprogress")]
 
 [node name="InteractionPromptUI" parent="UI" instance=ExtResource("94_interactionprompt")]
+offset_bottom = -100.0
 
 [node name="NotificationUI" parent="UI" instance=ExtResource("95_notification")]
-offset_bottom = -200.0
 
 [node name="HotbarLayer" type="CanvasLayer" parent="."]
 layer = 10
