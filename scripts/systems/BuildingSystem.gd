@@ -977,6 +977,17 @@ func find_nearest_door_frame(world_pos: Vector3, max_distance: float) -> Node3D:
 
 	return nearest
 
+## Rotate a Vector3 offset around the Y axis (Phase 4)
+## Used to rotate geometry offsets to match building rotation
+## @param offset: The offset vector to rotate
+## @param rotation_deg: Rotation in degrees
+## @returns: Rotated offset vector
+func rotate_offset(offset: Vector3, rotation_deg: int) -> Vector3:
+	var rotation_rad = deg_to_rad(rotation_deg)
+	var transform = Transform3D()
+	transform = transform.rotated(Vector3.UP, rotation_rad)
+	return transform.basis * offset
+
 # 3D Grid functions (LEGACY - will be replaced by grid coordinate system)
 func snap_to_grid_3d(pos: Vector3, grid_size: float = 4.0) -> Vector3:
 	return Vector3(
