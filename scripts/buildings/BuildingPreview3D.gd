@@ -318,7 +318,7 @@ func find_ground_below(position: Vector3) -> Variant:
 
 func detect_wall_height_at_position(position: Vector3) -> float:
 	# Check for walls at this grid position
-	# Walls are 3m tall, so check if there's a building node that's wall-like
+	# SimpleSpace walls are 5m tall, generic walls default to 3m
 	var buildings = get_tree().get_nodes_in_group("building")
 	var highest_wall_top = 0.0
 
@@ -334,13 +334,25 @@ func detect_wall_height_at_position(position: Vector3) -> float:
 		var building_pos = building.global_position
 		var distance_xz = Vector2(position.x - building_pos.x, position.z - building_pos.z).length()
 
-		# If within 2m (half grid), consider it as "at this position"
+		# If within 2.5m (half grid), consider it as "at this position"
 		if distance_xz < 2.5:
-			# Get the actual wall mesh size if possible
-			var wall_height = 3.0  # Default wall height
-			var mesh_instance = building.get_node_or_null("MeshInstance3D")
-			if mesh_instance and mesh_instance.mesh and mesh_instance.mesh is BoxMesh:
-				wall_height = (mesh_instance.mesh as BoxMesh).size.y
+			# Get the actual wall mesh size
+			var wall_height = 5.0  # Default to SimpleSpace wall height
+
+			# Try to find the mesh node - GLB prefabs use "Mesh", regular use "MeshInstance3D"
+			var mesh_instance = building.get_node_or_null("Mesh")
+			if not mesh_instance:
+				mesh_instance = building.get_node_or_null("MeshInstance3D")
+
+			if mesh_instance and mesh_instance is MeshInstance3D:
+				# For BoxMesh, get size directly
+				if mesh_instance.mesh and mesh_instance.mesh is BoxMesh:
+					wall_height = (mesh_instance.mesh as BoxMesh).size.y
+				# For GLB meshes, calculate from AABB
+				elif mesh_instance.mesh:
+					var aabb = mesh_instance.mesh.get_aabb()
+					if aabb.size.y > 0:
+						wall_height = aabb.size.y
 
 			# Wall top = wall center Y + half wall height
 			var wall_top = building_pos.y + (wall_height * 0.5)
