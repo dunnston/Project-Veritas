@@ -317,32 +317,41 @@ func find_ground_below(position: Vector3) -> Variant:
 	return null
 
 func detect_wall_height_at_position(position: Vector3) -> float:
-	# Check for walls at this grid position
+	# Check for walls at this grid position (both actual buildings and templates)
 	# SimpleSpace walls are 5m tall, generic walls default to 3m
 	var buildings = get_tree().get_nodes_in_group("building")
+	var templates = get_tree().get_nodes_in_group("building_template")
+	var all_structures = buildings + templates
 	var highest_wall_top = 0.0
 
-	for building in buildings:
-		if not building is Node3D:
+	for structure in all_structures:
+		if not structure is Node3D:
 			continue
 
-		# Check if building name contains "wall"
-		if not building.name.contains("wall"):
+		# Check if structure name OR building_id contains "wall"
+		var is_wall = structure.name.contains("wall")
+		if not is_wall and structure.has_method("get"):
+			# For templates, check building_id property
+			var building_id = structure.get("building_id")
+			if building_id and building_id is String and building_id.contains("wall"):
+				is_wall = true
+
+		if not is_wall:
 			continue
 
-		# Check if building is at approximately the same X,Z position
-		var building_pos = building.global_position
-		var distance_xz = Vector2(position.x - building_pos.x, position.z - building_pos.z).length()
+		# Check if structure is at approximately the same X,Z position
+		var structure_pos = structure.global_position
+		var distance_xz = Vector2(position.x - structure_pos.x, position.z - structure_pos.z).length()
 
 		# If within 2.5m (half grid), consider it as "at this position"
 		if distance_xz < 2.5:
 			# Get the actual wall mesh size
 			var wall_height = 5.0  # Default to SimpleSpace wall height
 
-			# Try to find the mesh node - GLB prefabs use "Mesh", regular use "MeshInstance3D"
-			var mesh_instance = building.get_node_or_null("Mesh")
+			# Try to find the mesh node - GLB prefabs use "Mesh", templates/regular use "MeshInstance3D"
+			var mesh_instance = structure.get_node_or_null("Mesh")
 			if not mesh_instance:
-				mesh_instance = building.get_node_or_null("MeshInstance3D")
+				mesh_instance = structure.get_node_or_null("MeshInstance3D")
 
 			if mesh_instance and mesh_instance is MeshInstance3D:
 				# For BoxMesh, get size directly
@@ -353,9 +362,14 @@ func detect_wall_height_at_position(position: Vector3) -> float:
 					var aabb = mesh_instance.mesh.get_aabb()
 					if aabb.size.y > 0:
 						wall_height = aabb.size.y
+			else:
+				# Check for CSG-based structures (door frames with cutouts)
+				var csg_node = structure.get_node_or_null("CSGBox3D")
+				if csg_node and csg_node is CSGBox3D:
+					wall_height = csg_node.size.y
 
 			# Wall top = wall center Y + half wall height
-			var wall_top = building_pos.y + (wall_height * 0.5)
+			var wall_top = structure_pos.y + (wall_height * 0.5)
 			highest_wall_top = max(highest_wall_top, wall_top)
 
 	return highest_wall_top
