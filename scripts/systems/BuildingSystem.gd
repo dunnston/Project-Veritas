@@ -17,6 +17,9 @@ var is_building_from_template: bool = false  # Skip re-snapping when building fr
 # Building data loaded from JSON (single source of truth)
 var building_data: Dictionary = {}
 
+# Cache for GLB geometry data (lazy-loaded on first use)
+var glb_geometry_cache: Dictionary = {}
+
 var camera: Camera3D = null
 var raycast_layer_mask: int = 0x1  # Layer 1 - Ground/World collision layer
 var placed_buildings: Dictionary = {}
@@ -70,7 +73,10 @@ func _ready():
 	print("3D BuildingSystem initialized")
 
 func load_building_data():
-	"""Load building data from buildings.json - single source of truth"""
+	"""Load building data from buildings.json - single source of truth
+
+	GLB geometry is lazy-loaded on first use via get_building_geometry()
+	"""
 	var file_path = "res://data/buildings.json"
 	if not FileAccess.file_exists(file_path):
 		push_error("BuildingSystem: buildings.json not found at %s" % file_path)
@@ -148,10 +154,48 @@ func load_building_data():
 			"size": size_3d,
 			"collision_shape": size_3d,  # Use same as size by default
 			"height_offset": height_offset,
+			"geometry_offset": Vector3.ZERO,  # Will be populated by get_building_geometry() if GLB exists
 			"icon_path": icon_path
 		}
 
 	print("BuildingSystem: Loaded %d buildings from JSON" % building_data.size())
+
+## Get building geometry data, extracting from GLB on first access (lazy-load)
+## @param building_id: The building ID to get geometry for
+## @returns: Dictionary with size, geometry_offset, and other AABB data
+func get_building_geometry(building_id: String) -> Dictionary:
+	# Return cached data if available
+	if glb_geometry_cache.has(building_id):
+		return glb_geometry_cache[building_id]
+
+	# Get building data
+	if not building_data.has(building_id):
+		push_warning("BuildingSystem: Unknown building_id '%s'" % building_id)
+		return {}
+
+	var building_info = building_data[building_id]
+	var scene_path = building_info.get("scene_path", "")
+
+	# Try to extract from GLB if path exists
+	if not scene_path.is_empty() and ResourceLoader.exists(scene_path):
+		var mesh_info = MeshInspector.inspect_mesh(scene_path)
+		if mesh_info.has("has_mesh") and mesh_info.has_mesh:
+			# Cache the geometry data
+			glb_geometry_cache[building_id] = mesh_info
+
+			# Update building_data with extracted values
+			building_data[building_id].size = mesh_info.aabb_size
+			building_data[building_id].geometry_offset = mesh_info.geometry_offset
+
+			print("BuildingSystem: Lazy-loaded GLB geometry for '%s'" % building_id)
+			return mesh_info
+
+	# Return existing building_data as fallback
+	return {
+		"size": building_info.get("size", Vector3.ONE),
+		"geometry_offset": building_info.get("geometry_offset", Vector3.ZERO),
+		"has_mesh": false
+	}
 
 func _find_camera():
 	var player = get_tree().get_first_node_in_group("player")
@@ -229,6 +273,9 @@ func start_building_mode(building_id: String):
 	building_rotation = 0
 	current_building_cost = get_building_recipe_cost(building_id)
 	building_to_move = null  # Not a move operation
+
+	# Lazy-load GLB geometry if not already cached
+	get_building_geometry(building_id)
 
 	# Set mouse to visible for building placement
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
