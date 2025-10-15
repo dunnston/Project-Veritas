@@ -158,8 +158,6 @@ func update_position(world_pos: Vector3):
 				var overlap = 0.01
 				grid_pos.y = wall_height + (mesh_height * 0.5) - overlap
 				var roof_bottom = grid_pos.y - (mesh_height * 0.5)
-				print("Roof placement: wall_top=%.3f, roof_center=%.3f, roof_bottom=%.3f (overlap=%.3fm)" %
-					[wall_height, grid_pos.y, roof_bottom, wall_height - roof_bottom])
 			else:
 				# No wall found - show roof at ground level but mark as invalid
 				# This keeps the preview visible so player can see where they're trying to place
@@ -343,8 +341,9 @@ func detect_wall_height_at_position(position: Vector3) -> float:
 		var structure_pos = structure.global_position
 		var distance_xz = Vector2(position.x - structure_pos.x, position.z - structure_pos.z).length()
 
-		# If within 2.5m (half grid), consider it as "at this position"
-		if distance_xz < 2.5:
+		# For 5m grid: max distance between floor center and wall edge = 2.6m (corner case)
+		# Use 3.0m to be safe and catch all walls on the same tile
+		if distance_xz < 3.0:
 			# Get the actual wall mesh size
 			var wall_height = 5.0  # Default to SimpleSpace wall height
 
