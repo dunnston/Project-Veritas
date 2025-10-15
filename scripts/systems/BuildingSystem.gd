@@ -652,9 +652,10 @@ func place_building(pos: Vector3):
 		elif current_building_id == "basic_roof":
 			local_visual_center = Vector3(-5, 0, -5)  # Roof has different Z offset!
 
-		# SciFiSpace doorframe: Visual center at local (2.5, 1.5, 0)
+		# SciFiSpace doorframe: Visual center at local (2.5, 1.5, 0.25)
+		# Z offset of 0.25 moves the building forward by -0.25 to align with SimpleSpace walls
 		elif current_building_id == "door_frame":
-			local_visual_center = Vector3(2.5, 1.5, 0)
+			local_visual_center = Vector3(2.5, 1.5, 0.25)
 
 		# Other door-related buildings (if using SimpleSpace)
 		elif current_building_id in ["door_frame_with_door", "door"]:
