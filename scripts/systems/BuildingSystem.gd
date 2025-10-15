@@ -425,9 +425,6 @@ func is_valid_building_position(pos: Vector3, building_id: String = "", rotation
 	var check_building_id = building_id if building_id != "" else current_building_id
 	var check_rotation = rotation if rotation != -1 else building_rotation
 
-	# Ensure geometry data is loaded (Medium Issue #5 fix)
-	get_building_geometry(check_building_id)
-
 	# NEW WORKFLOW: Don't check affordability since we're placing templates
 	# Templates can be placed even if player can't afford them yet
 	# Player will find out if they can't afford it when trying to build the template
@@ -440,16 +437,8 @@ func is_valid_building_position(pos: Vector3, building_id: String = "", rotation
 	var building_info = building_data[check_building_id]
 	var size = building_info.get("size", Vector3(1, 1, 1))
 
-	# Use Phase 3 snapping functions (Critical Issue #1 fix - same as BuildingPreview3D)
-	var grid_pos: Vector3
-	if check_building_id.contains("wall") or check_building_id.contains("door_frame"):
-		grid_pos = snap_wall_to_edge(pos, check_rotation, check_building_id)
-	elif check_building_id == "door":
-		var result = snap_door_to_frame(pos)
-		grid_pos = result.position
-	else:
-		grid_pos = snap_floor_to_grid(pos)
-
+	# Simple grid position check using building-specific snapping
+	var grid_pos = get_grid_snapped_position(pos, check_building_id, check_rotation)
 	var pos_key = grid_pos_to_key(grid_pos, check_building_id, check_rotation)
 
 	# Check if spot is occupied by a completed building
@@ -538,9 +527,6 @@ func place_building_template(pos: Vector3):
 	# building_placed.emit(current_building_id, pos)  # Don't emit yet - only when actually built
 
 func place_building(pos: Vector3):
-	# Ensure geometry data is loaded (Critical Issue #2 fix + Medium Issue #5 fix)
-	get_building_geometry(current_building_id)
-
 	var building_info = building_data[current_building_id]
 	var scene_path = building_info.get("scene_path", "")
 
@@ -654,25 +640,37 @@ func place_building(pos: Vector3):
 	# Calculate grid-snapped position (edge-based for walls/doors, center for floors)
 	var grid_snapped_pos: Vector3
 	if is_building_from_template:
-		# Use extracted geometry offset from Phase 2 MeshInspector (Critical Issue #2 fix)
-		# geometry_offset was populated by get_building_geometry() at start of this function
-		var geometry_offset = building_info.get("geometry_offset", Vector3.ZERO)
+		# GLB mesh geometry offsets vary by asset pack
+		# These represent where the VISUAL center is in LOCAL space relative to the root
+		var local_visual_center = Vector3.ZERO
 
-		# Rotate geometry offset to match building orientation
-		var rotated_offset = rotate_offset(geometry_offset, building_rotation)
+		# SimpleSpace prefabs: Visual centers based on actual AABB measurements
+		# Floor/Wall: Mesh(-2.5,0,-2.5) + AABB_center(-2.5,0,2.5) = Visual(-5,0,0)
+		# Roof: Mesh(-2.5,0,-2.5) + AABB_center(-2.5,0,-2.5) = Visual(-5,0,-5)
+		if current_building_id in ["basic_floor", "basic_wall"]:
+			local_visual_center = Vector3(-5, 0, 0)
+		elif current_building_id == "basic_roof":
+			local_visual_center = Vector3(-5, 0, -5)  # Roof has different Z offset!
 
-		# Position root so VISUAL appears at template position
-		# Template position is where player placed it, offset is where mesh actually is
-		grid_snapped_pos = pos - rotated_offset
+		# SciFiSpace doorframe: Visual center at local (2.5, 1.5, 0)
+		elif current_building_id == "door_frame":
+			local_visual_center = Vector3(2.5, 1.5, 0)
+
+		# Other door-related buildings (if using SimpleSpace)
+		elif current_building_id in ["door_frame_with_door", "door"]:
+			local_visual_center = Vector3(-5, 0, 0)
+
+		# Rotate the local visual center to world space
+		var rotation_transform = Transform3D()
+		rotation_transform = rotation_transform.rotated(Vector3.UP, deg_to_rad(building_rotation))
+		var world_visual_center = rotation_transform.basis * local_visual_center
+
+		# To make visual appear at template position, offset root by negative of world visual center
+		var geometry_offset = -world_visual_center
+
+		grid_snapped_pos = pos + geometry_offset
 	else:
-		# Use Phase 3 snapping functions (Critical Issue #1 fix - same as BuildingPreview3D)
-		if current_building_id.contains("wall") or current_building_id.contains("door_frame"):
-			grid_snapped_pos = snap_wall_to_edge(pos, building_rotation, current_building_id)
-		elif current_building_id == "door":
-			var result = snap_door_to_frame(pos)
-			grid_snapped_pos = result.position
-		else:
-			grid_snapped_pos = snap_floor_to_grid(pos)
+		grid_snapped_pos = get_grid_snapped_position(pos, current_building_id, building_rotation)
 
 	# Position and add to scene
 	# Apply height offset if the building has one (e.g., to raise floors above ground)
