@@ -855,6 +855,46 @@ func get_grid_position_with_rotation(world_pos: Vector3, width: int, height: int
 	return grid_pos - offset
 
 # ============================================================================
+# ROTATION OFFSET SYSTEM (Phase 5)
+# ============================================================================
+
+## Calculate world position for a building with rotation offset (Unity pattern)
+## Used for multi-tile buildings (2x1, 3x2, etc.) to ensure proper grid alignment
+## @param grid_origin: Grid coordinates (bottom-left corner) as Vector2i
+## @param building_id: Building ID to look up dimensions
+## @param rotation: Rotation in degrees (0, 90, 180, 270)
+## @param grid_size: Size of grid cell in world units
+## @returns: World position (Vector3) with rotation offset applied
+func calculate_building_world_position(grid_origin: Vector2i, building_id: String, rotation: int, grid_size: float = GRID_CELL_SIZE) -> Vector3:
+	# Get base world position at grid cell center
+	var base_world = grid_to_world(grid_origin.x, grid_origin.y, grid_size)
+
+	# Get building dimensions from building_data
+	if not building_data.has(building_id):
+		push_warning("BuildingSystem: Unknown building_id '%s' for rotation offset" % building_id)
+		return base_world
+
+	var data = building_data[building_id]
+	var size_3d = data.get("size", Vector3.ONE)
+
+	# Convert 3D size to grid dimensions (x = width, z = height/depth)
+	# Grid size is in cells, so divide world size by cell size
+	var width = max(1, int(round(size_3d.x / grid_size)))
+	var height = max(1, int(round(size_3d.z / grid_size)))
+
+	# Convert rotation to Direction enum
+	var dir = degrees_to_direction(rotation)
+
+	# Get rotation offset for this direction
+	var rotation_offset = get_rotation_offset(dir, width, height)
+
+	# Apply rotation offset (Unity pattern: grid_world_pos + rotation_offset * cell_size)
+	base_world.x += rotation_offset.x * grid_size
+	base_world.z += rotation_offset.y * grid_size
+
+	return base_world
+
+# ============================================================================
 # EDGE-BASED PLACEMENT SYSTEM (Phase 3)
 # ============================================================================
 
