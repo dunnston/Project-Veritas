@@ -341,7 +341,7 @@ return 2.0 * fract(fract(p)*4375.55) -1.;
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
 
 uniform bool TriplanarDirt;
 uniform sampler2D BaseTexture : source_color, filter_linear_mipmap_anisotropic;
@@ -732,7 +732,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-523.783, 120.943)
 flags/depth_prepass_alpha = true
 nodes/vertex/0/position = Vector2(0, 0)
 nodes/vertex/79/node = SubResource("VisualShaderNodeGlobalExpression_jmxteqobbdxl")

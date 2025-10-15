@@ -162,9 +162,6 @@ func _change_state(new_state: State) -> void:
 	var old_state := _current_state
 	_current_state = new_state
 
-	# DEBUG: Print state changes
-	print("Turret: State change: %s → %s" % [get_state_name(old_state), get_state_name(new_state)])
-
 	# Enter new state
 	_enter_state(new_state)
 
@@ -576,8 +573,6 @@ func _fire() -> void:
 
 ## Called when a body enters the detection area
 func _on_body_entered(body: Node3D) -> void:
-	print("Turret: Body entered detection area - %s (groups: %s)" % [body.name, body.get_groups()])
-
 	if body.is_in_group(target_group):
 		# Update target to closest animal
 		_update_closest_target()
@@ -587,7 +582,6 @@ func _on_body_entered(body: Node3D) -> void:
 func _on_body_exited(body: Node3D) -> void:
 	if body == _target:
 		_target = null
-		print("Turret: Target lost - %s" % body.name)
 		# Find new closest target
 		_update_closest_target()
 
@@ -610,10 +604,6 @@ func _update_closest_target() -> void:
 
 	if closest_body != _target:
 		_target = closest_body
-		if _target:
-			print("Turret: Target acquired (closest) - %s at %.1fm" % [_target.name, closest_distance])
-		else:
-			print("Turret: No targets in range")
 
 
 ## Called when the fire rate timer times out
@@ -655,7 +645,6 @@ func _on_interaction_area_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		_player_in_range = true
 		_show_interaction_prompt()
-		print("Turret: Player in range - Press E to load ammo")
 
 
 ## Called when a player exits the interaction area
@@ -663,7 +652,6 @@ func _on_interaction_area_exited(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		_player_in_range = false
 		_hide_interaction_prompt()
-		print("Turret: Player out of range")
 
 
 ## Called by player when pressing E near the turret

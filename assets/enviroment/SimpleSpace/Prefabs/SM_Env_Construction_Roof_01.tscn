@@ -1,9 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://cehsdms0sjbev"]
+[gd_scene load_steps=4 format=3 uid="uid://cehsdms0sjbev"]
 
 [ext_resource type="PackedScene" uid="uid://csfc6gembu6g1" path="res://SimpleSpaceInteriors/Meshes/Environment/SM_Env_Construction_Roof_01.glb" id="1_djv01"]
 [ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
 
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(5, 0.1, 5)
+
 [node name = "SM_Env_Construction_Roof_01" instance = ExtResource("1_djv01")]
 
 [node name="Mesh" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -2.5)
 surface_material_override/0 = ExtResource("2_bqq6s")
+
+[node name="StaticBody" type="StaticBody3D" parent="." index="1"]
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("0_c31wo")

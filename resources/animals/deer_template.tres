@@ -14,7 +14,6 @@ drop_chance = 0.9
 [sub_resource type="Resource" id="Resource_deer_hide"]
 script = ExtResource("3_deer_drop")
 item_id = "leather"
-min_amount = 1
 max_amount = 2
 drop_chance = 0.6
 
@@ -26,8 +25,6 @@ behavior_type = 0
 max_health = 60.0
 move_speed = 7.0
 run_speed = 12.0
-aggro_range = 10.0
-flee_range = 15.0
 attack_range = 1.5
 attack_damage = 8.0
 attack_cooldown = 1.2
