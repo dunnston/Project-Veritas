@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=3 uid="uid://cowdyxaa0m4vf"]
+[gd_scene load_steps=103 format=3 uid="uid://cowdyxaa0m4vf"]
 
 [ext_resource type="Script" uid="uid://dro765f4xjskh" path="res://scripts/world/AddCollisionsRuntime.gd" id="1_collision"]
 [ext_resource type="PackedScene" uid="uid://djyak4m7p8qrt" path="res://scenes/player/player_radiation_suit.tscn" id="1_player"]
@@ -90,6 +90,8 @@
 [ext_resource type="Resource" uid="uid://cpf8vx5h4y2bk" path="res://resources/animals/rabbit_template.tres" id="87_l14a3"]
 [ext_resource type="Resource" uid="uid://cn3qw8ry5x7mh" path="res://resources/animals/deer_template.tres" id="88_vj2tm"]
 [ext_resource type="Resource" uid="uid://dnb8wx4ky2pvj" path="res://resources/animals/boar_template.tres" id="89_sknf5"]
+[ext_resource type="Resource" uid="uid://b8mq3xnv7ht2p" path="res://resources/animals/wolf_template.tres" id="90_2lpym"]
+[ext_resource type="Resource" uid="uid://dft8qw2nx4vbp" path="res://resources/animals/bear_template.tres" id="91_3q2ld"]
 [ext_resource type="PackedScene" uid="uid://bf5cw7l5kluwu" path="res://assets/sprites/objects/turret.tscn" id="92_l14a3"]
 [ext_resource type="PackedScene" uid="uid://0rleq0l0dceq" path="res://scenes/ui/BuildProgressUI.tscn" id="93_buildprogress"]
 [ext_resource type="PackedScene" uid="uid://c8cv1as4t6dr5" path="res://scenes/ui/InteractionPromptUI.tscn" id="94_interactionprompt"]
