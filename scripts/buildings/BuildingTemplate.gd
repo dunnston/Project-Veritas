@@ -68,6 +68,7 @@ func create_template_mesh():
 		# Create CSG-based template with door cutout
 		var csg_wall = CSGBox3D.new()
 		csg_wall.size = size
+		# CSG is centered like BoxMesh - no offset needed
 		csg_wall.material = template_material
 		csg_wall.use_collision = false  # Templates are walkthrough
 
@@ -88,6 +89,7 @@ func create_template_mesh():
 		add_child(csg_wall)
 	else:
 		# Standard box mesh for other buildings
+		# BoxMesh is ALREADY CENTERED - no offset needed!
 		mesh_instance = MeshInstance3D.new()
 		var box_mesh = BoxMesh.new()
 		box_mesh.size = size
@@ -119,12 +121,10 @@ func setup_interaction_area():
 func _on_body_entered(body: Node3D):
 	if body.is_in_group("player"):
 		is_player_nearby = true
-		print("Player entered template area: %s" % building_id)
 
 func _on_body_exited(body: Node3D):
 	if body.is_in_group("player"):
 		is_player_nearby = false
-		print("Player left template area: %s" % building_id)
 
 func interact():
 	"""Called when player presses E near this template - does nothing (hold-to-build instead)"""

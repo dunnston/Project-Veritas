@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://di3x5m3vh300b"]
 
-[ext_resource type="PackedScene" uid="uid://f3fkmauqdwns" path="res://SimpleSpaceInteriors/Meshes/Environment/SM_Env_Door_01.glb" id="1_cbugf"]
-[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
+[ext_resource type="PackedScene" uid="uid://f3fkmauqdwns" path="res://assets/enviroment/SimpleSpace/SimpleSpaceInteriors/Meshes/Environment/SM_Env_Door_01.glb" id="1_cbugf"]
+[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://assets/enviroment/SimpleSpace/SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
 
 [node name = "SM_Env_Door_01" instance = ExtResource("1_cbugf")]
 

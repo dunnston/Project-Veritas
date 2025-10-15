@@ -87,7 +87,7 @@
 			"METAL_SHEETS": 1.0,
 			"SCRAP_METAL": 2.0
 		},
-		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Floor_01.tscn",
+		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Ceiling_01.tscn",
 		"size": {
 			"x": 1.0,
 			"y": 1.0
@@ -178,7 +178,7 @@
 		"refund": {
 			"SCRAP_METAL": 2.0
 		},
-		"scene_path": "res://assets/enviroment/SimpleSpace/Prefabs/SM_Env_Transition_Door_Square_01.tscn",
+		"scene_path": "res://assets/enviroment/scifispace/Prefabs/SM_Bld_Wall_Doorframe_01.tscn",
 		"size": {
 			"x": 1.0,
 			"y": 1.0
