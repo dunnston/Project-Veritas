@@ -97,30 +97,26 @@ func set_validity(is_valid: bool):
 	placement_validity_changed.emit(is_valid)
 
 func update_position(world_pos: Vector3):
-	# Different grid snapping based on building type
-	# Match BuildingSystem.gd grid size logic
-	var grid_size = 4.0
-	if building_id in ["basic_wall", "basic_floor", "basic_roof", "door_frame", "door_frame_with_door", "door"]:
-		grid_size = 5.0
-	elif building_id.contains("wall") or building_id.contains("door_frame"):
-		grid_size = 2.0
+	# Use BuildingSystem's new grid-based snapping functions (Phase 4)
+	var building_system = get_tree().get_first_node_in_group("building_system")
+	if not building_system:
+		push_error("BuildingPreview: BuildingSystem not found!")
+		return
 
 	var grid_pos: Vector3
 
+	# Use Phase 3 snapping functions from BuildingSystem
 	if building_id.contains("wall") or building_id.contains("door_frame"):
-		# Walls and door frames use half-grid to sit on floor edges
-		var half_grid = grid_size / 2.0
-		grid_pos = snap_wall_to_floor_edge(world_pos, half_grid)
+		# Walls and door frames snap to tile edges
+		grid_pos = building_system.snap_wall_to_edge(world_pos, rotation_degrees.y, building_id)
 	elif building_id == "door":
-		# Doors snap to door_frame openings
-		grid_pos = snap_door_to_frame(world_pos)
+		# Doors snap to nearest door frame or fall back to edge snapping
+		var result = building_system.snap_door_to_frame(world_pos)
+		grid_pos = result.position
+		rotation_degrees.y = result.rotation  # Match frame rotation
 	else:
-		# Floors, roofs use full grid
-		grid_pos = Vector3(
-			round(world_pos.x / grid_size) * grid_size,
-			world_pos.y,
-			round(world_pos.z / grid_size) * grid_size
-		)
+		# Floors, roofs snap to grid cell centers
+		grid_pos = building_system.snap_floor_to_grid(world_pos)
 
 	# Get mesh size for calculations
 	var mesh_height = 1.0

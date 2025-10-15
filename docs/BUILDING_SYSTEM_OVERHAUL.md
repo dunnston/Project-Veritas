@@ -695,7 +695,512 @@ root_pos = grid_world_pos - rotate(geometry_offset, rotation)
 
 ## 🐛 Known Issues & Workarounds
 
-*To be filled in during implementation*
+### After Phase 5 Implementation (2025-10-14)
+
+**Implementation Status**: Phases 1-5 completed with 5 commits on `feature/building-grid-system` branch. Code review revealed critical issues that must be resolved before Phase 6 testing.
+
+---
+
+#### 🔴 Critical Issue #1: Dual Snapping Systems
+
+**Problem**: Two parallel snapping systems exist and produce different results, causing position mismatches between preview and actual placement.
+
+**Location**:
+- `BuildingPreview3D.gd:398-443` uses new `snap_wall_to_edge()` (Phase 3)
+- `BuildingSystem.gd:is_valid_building_position()` uses legacy `snap_to_tile_edge()`
+
+**Technical Details**:
+```gdscript
+// BuildingPreview3D shows preview at:
+grid_pos = building_system.snap_wall_to_edge(world_pos, rotation)
+// = tile_center + (half_tile + thickness/2)
+// Example: tile_center(0,0,0) + (2.5 + 0.05) = (0, 0, 2.55)
+
+// But is_valid_building_position() checks collision at:
+grid_pos = get_grid_snapped_position(pos, building_id, rotation)
+// which calls snap_to_tile_edge() = tile_center + half_tile
+// Example: tile_center(0,0,0) + 2.5 = (0, 0, 2.5)
+
+// These are DIFFERENT positions! (off by thickness/2 = 0.05m)
+```
+
+**Impact**:
+- Preview shows building at position A (e.g., 2.55m)
+- Collision check validates position B (e.g., 2.5m)
+- Actual placement happens at position B
+- Result: Building doesn't appear where preview showed
+
+**Root Cause**:
+- `snap_to_tile_edge()` places walls AT the tile edge (inner and outer faces both wrong)
+- `snap_wall_to_edge()` places walls so inner face is flush with tile edge (correct)
+- Both functions are being called in different parts of the code
+
+**Resolution Required**:
+1. **Update `is_valid_building_position()`** to use Phase 3 snapping functions:
+   ```gdscript
+   # Replace this:
+   var grid_pos = get_grid_snapped_position(pos, building_id, rotation)
+
+   # With this:
+   var grid_pos: Vector3
+   if building_id.contains("wall") or building_id.contains("door_frame"):
+       grid_pos = snap_wall_to_edge(pos, rotation, building_id)
+   else:
+       grid_pos = snap_floor_to_grid(pos)
+   ```
+
+2. **Update `place_building()`** to use same snapping:
+   ```gdscript
+   # Apply same logic as preview system
+   if current_building_id.contains("wall"):
+       grid_pos = snap_wall_to_edge(template_pos, building_rotation, current_building_id)
+   else:
+       grid_pos = snap_floor_to_grid(template_pos)
+   ```
+
+3. **Deprecate legacy functions**:
+   - Mark `snap_to_tile_edge()` as deprecated
+   - Mark `get_grid_snapped_position()` as deprecated
+   - Add comments redirecting to Phase 3 functions
+
+**Files to Modify**:
+- `BuildingSystem.gd:is_valid_building_position()` (uses legacy snap)
+- `BuildingSystem.gd:place_building()` (uses legacy snap)
+- `BuildingSystem.gd:snap_to_tile_edge()` (mark deprecated)
+- `BuildingSystem.gd:get_grid_snapped_position()` (mark deprecated)
+
+---
+
+#### 🔴 Critical Issue #2: Hardcoded Geometry Offsets Not Utilized
+
+**Problem**: `place_building()` uses hardcoded geometry offsets instead of extracted data from MeshInspector, defeating the purpose of Phase 2.
+
+**Location**: `BuildingSystem.gd:642-671`
+
+**Current Code**:
+```gdscript
+if is_building_from_template:
+    var local_visual_center = Vector3.ZERO
+
+    # HARDCODED VALUES - ignoring building_data!
+    if current_building_id in ["basic_floor", "basic_wall"]:
+        local_visual_center = Vector3(-5, 0, 0)
+    elif current_building_id == "basic_roof":
+        local_visual_center = Vector3(-5, 0, -5)
+    # ... more hardcoded cases
+```
+
+**What Should Happen**:
+```gdscript
+if is_building_from_template:
+    # Use extracted geometry offset from building_data
+    var data = building_data.get(current_building_id, {})
+    var geometry_offset = data.get("geometry_offset", Vector3.ZERO)
+
+    # Rotate offset to match building orientation
+    var rotated_offset = rotate_offset(geometry_offset, building_rotation)
+
+    # Position root so VISUAL appears at template_pos
+    placed_building.global_position = template_pos - rotated_offset
+```
+
+**Impact**:
+- Phase 2 lazy-loading system extracts correct offsets but they're never used
+- New buildings added to the game must manually add hardcoded offsets
+- Changes to GLB files require code updates instead of automatic detection
+- The extracted `geometry_offset` field in `building_data` is completely ignored
+
+**Root Cause**:
+- Legacy placement code written before Phase 2 implementation
+- Hardcoded values were temporary until geometry extraction was available
+- Never replaced with actual extracted data after MeshInspector was integrated
+
+**Resolution Required**:
+1. **Replace entire hardcoded section** (lines 642-671):
+   ```gdscript
+   # OLD: Hardcoded offsets
+   if current_building_id in ["basic_floor", "basic_wall"]:
+       local_visual_center = Vector3(-5, 0, 0)
+
+   # NEW: Use extracted geometry offset
+   var data = building_data.get(current_building_id, {})
+   var geometry_offset = data.get("geometry_offset", Vector3.ZERO)
+   var rotated_offset = rotate_offset(geometry_offset, building_rotation)
+   placed_building.global_position = template_pos - rotated_offset
+   ```
+
+2. **Ensure geometry offset is available**:
+   - Phase 2 lazy-loading should have already extracted it
+   - If not loaded yet, trigger `get_building_geometry(current_building_id)`
+
+3. **Test with all building types**:
+   - Verify floors appear at correct position
+   - Verify walls appear at correct position
+   - Verify roofs appear at correct position
+   - Check rotations don't break positioning
+
+**Files to Modify**:
+- `BuildingSystem.gd:place_building()` lines 642-671 (remove hardcoded offsets)
+
+---
+
+#### 🟡 Medium Issue #3: Mixed Coordinate Systems
+
+**Problem**: Legacy grid functions and new grid functions coexist, using different coordinate systems (Vector3 vs Vector2i).
+
+**Location**: Various locations in `BuildingSystem.gd`
+
+**Technical Details**:
+- **Legacy system**: Uses `Vector3` for grid positions (3D world-like coordinates)
+  - `snap_to_tile_edge()` returns `Vector3`
+  - `get_grid_snapped_position()` returns `Vector3`
+  - Stored in `placed_buildings` dictionary with Vector3 keys
+
+- **New system**: Uses `Vector2i` for grid positions (true 2D grid coordinates)
+  - `world_to_grid()` returns `Vector2i`
+  - `grid_to_world()` takes `Vector2i`
+  - `grid_objects` dictionary uses Vector2i-based string keys
+
+**Impact**:
+- Code is confusing - unclear which system to use
+- Risk of mixing coordinate systems causing position errors
+- Dictionary lookups might fail if keys are inconsistent
+- Future developers won't know which functions to use
+
+**Resolution Required**:
+1. **Standardize on Vector2i for grid coordinates**:
+   - Grid coordinates should always be `Vector2i(x, z)` (Y omitted for 2D grid)
+   - World positions should always be `Vector3(x, y, z)`
+   - Functions should never mix these types
+
+2. **Update legacy functions**:
+   ```gdscript
+   # Mark as deprecated, redirect to new functions
+   func snap_to_tile_edge(pos: Vector3, rotation: int) -> Vector3:
+       push_warning("snap_to_tile_edge() is deprecated. Use snap_wall_to_edge() instead.")
+       return snap_wall_to_edge(pos, rotation, current_building_id)
+
+   func get_grid_snapped_position(pos: Vector3, building_id: String, rotation: int) -> Vector3:
+       push_warning("get_grid_snapped_position() is deprecated. Use snap_floor_to_grid() or snap_wall_to_edge().")
+       if building_id.contains("wall"):
+           return snap_wall_to_edge(pos, rotation, building_id)
+       else:
+           return snap_floor_to_grid(pos)
+   ```
+
+3. **Document coordinate system rules**:
+   - Add comments explaining Vector2i vs Vector3 usage
+   - Document which functions use which coordinate system
+   - Add type hints to all function signatures
+
+**Files to Modify**:
+- `BuildingSystem.gd` (add deprecation warnings to legacy functions)
+- `BuildingSystem.gd` (add documentation comments)
+
+---
+
+#### Resolution Priority
+
+**🔴 Must Fix Before Phase 6 Testing (BLOCKING)**:
+1. Critical Issue #1 - Dual snapping systems (breaks placement accuracy)
+2. Critical Issue #2 - Hardcoded geometry offsets (defeats Phase 2 purpose)
+3. Critical Issue #4 - grid_objects dictionary never used (Phase 1 incomplete)
+4. Critical Issue #5 - calculate_building_world_position() never called (Phase 5 incomplete)
+
+**🟡 Should Fix During Phase 6 Implementation**:
+5. Medium Issue #3 - Mixed coordinate systems (causes confusion)
+6. Medium Issue #4 - grid_pos_to_key() type mismatch (Vector3 vs Vector2i)
+7. Medium Issue #5 - Lazy-loading not triggered before use (race condition)
+8. Medium Issue #6 - Mixed edge direction systems (String vs enum)
+
+**Summary**:
+- **5 Critical Issues** - Phases 1-5 have incomplete integration
+- **4 Medium Issues** - Technical debt and consistency problems
+- **Estimated Fix Time**: 3-4 hours for all critical issues
+
+---
+
+#### Original Issue Resolution Status
+
+After Phase 5 implementation, reviewing against the original 4 issues from "Current Godot Issues":
+
+**✅ Issue 4 (No True Grid) - FULLY RESOLVED**:
+- Implemented `Vector2i` grid coordinates with `world_to_grid()` / `grid_to_world()`
+- Grid tracking dictionary `grid_objects` with grid coordinate keys
+- Edge-specific keys: `"x,y,z-NORTH"` format for walls
+- Grid-based collision detection possible
+
+**✅ Issue 3 (Wall Snapping) - RESOLVED**:
+- `snap_wall_to_edge()` uses actual building thickness from `building_data`
+- `get_edge_world_position()` calculates: `tile_edge + (thickness/2)` outward
+- Inner face sits flush with tile edge as intended
+- ⚠️ BUT: Not being used everywhere (see Critical Issue #1)
+
+**⚠️ Issue 1 (Size Inconsistency) - MOSTLY RESOLVED**:
+- Phase 2 MeshInspector extracts actual AABB dimensions from GLB files
+- Lazy-loading architecture updates `building_data` with real world size
+- Works correctly after first use of each building type
+- ⚠️ BUT: Initial load still uses hardcoded sizes from JSON until GLB is inspected
+
+**❌ Issue 2 (Geometry Offset) - EXTRACTED BUT NOT UTILIZED**:
+- Phase 2 MeshInspector successfully extracts `geometry_offset` from GLB files
+- Data is stored in `building_data[building_id].geometry_offset`
+- ❌ BUT: `place_building()` still uses hardcoded offsets (see Critical Issue #2)
+- This is a **regression** - we have the data but aren't using it!
+
+---
+
+#### 🔴 Critical Issue #4: grid_objects Dictionary Never Used
+
+**Problem**: Phase 1 added `grid_objects` dictionary for Vector2i-based grid tracking, but the code still uses legacy `placed_buildings` dictionary throughout.
+
+**Location**:
+- `BuildingSystem.gd:66` - `var grid_objects: Dictionary = {}` (declared but never used)
+- `BuildingSystem.gd:445` - `is_valid_building_position()` checks `placed_buildings`
+- `BuildingSystem.gd:719` - `place_building()` stores in `placed_buildings`
+- `BuildingSystem.gd:1292` - `demolish_building_direct()` removes from `placed_buildings`
+
+**Technical Details**:
+```gdscript
+# Phase 1 added this new dictionary:
+var grid_objects: Dictionary = {}  # Replaces placed_buildings with grid-based keys
+
+# But all code still uses the old dictionary:
+if pos_key in placed_buildings:  # Should use grid_objects!
+    return false
+
+placed_buildings[pos_key] = { ... }  # Should use grid_objects!
+```
+
+**Impact**:
+- `grid_objects` was intended to use Vector2i-based keys for true grid tracking
+- `placed_buildings` uses Vector3-based keys, maintaining the old world-space system
+- This defeats the entire purpose of Phase 1's grid coordinate system
+- Two tracking dictionaries exist but only the old one is used
+
+**Root Cause**:
+- Phase 1 created the new dictionary but didn't migrate the code to use it
+- All placement/validation logic still references the old `placed_buildings`
+
+**Resolution Required**:
+1. **Find and replace all `placed_buildings` references**:
+   ```gdscript
+   # Replace everywhere:
+   placed_buildings → grid_objects
+   ```
+
+2. **Update key generation to use Vector2i**:
+   - `grid_pos_to_key()` should accept Vector2i instead of Vector3
+   - Keys should be based on grid coordinates, not world positions
+
+3. **Migrate existing data** (if buildings already placed):
+   - Add migration function to convert `placed_buildings` → `grid_objects` on load
+
+**Files to Modify**:
+- `BuildingSystem.gd:445` - Update validation
+- `BuildingSystem.gd:719-724` - Update placement tracking
+- `BuildingSystem.gd:1292-1295` - Update demolition
+- `BuildingSystem.gd:1000-1006` - Update `find_nearest_door_frame()`
+
+---
+
+#### 🔴 Critical Issue #5: calculate_building_world_position() Never Called
+
+**Problem**: Phase 5 rotation offset function exists but is never used anywhere in the codebase.
+
+**Location**: `BuildingSystem.gd:868-895` (function definition only)
+
+**Technical Details**:
+```gdscript
+# Function exists and looks correct:
+func calculate_building_world_position(grid_origin: Vector2i, building_id: String, rotation: int) -> Vector3:
+    var base_world = grid_to_world(grid_origin.x, grid_origin.y, grid_size)
+    # ... rotation offset calculation ...
+    return base_world
+
+# But it's NEVER CALLED anywhere!
+# Search results: 0 references in BuildingSystem.gd
+```
+
+**Impact**:
+- Multi-tile buildings (2x1, 3x2, etc.) won't have proper rotation offsets
+- When a 2x1 building rotates 90°, it becomes 1x2 - without this function, it won't stay grid-aligned
+- This is especially important for future buildings like workbenches (2x1), assemblers (3x2)
+
+**Root Cause**:
+- Phase 5 implemented the function but didn't integrate it into placement logic
+- `place_building()` doesn't call it
+- `is_valid_building_position()` doesn't call it
+
+**Resolution Required**:
+1. **Update `place_building()` to use rotation offsets**:
+   ```gdscript
+   # Instead of direct grid_to_world, use:
+   var grid_origin = world_to_grid(pos)
+   var grid_pos = calculate_building_world_position(grid_origin, current_building_id, building_rotation)
+   ```
+
+2. **Update validation to account for multi-tile occupancy**:
+   - Check all grid cells occupied by a multi-tile building
+   - Use rotation offset to determine which cells are occupied
+
+3. **Test with multi-tile buildings**:
+   - Workbench (2x1), Assembler (3x2), Food Processor (2x1), Water Purifier (2x1)
+
+**Files to Modify**:
+- `BuildingSystem.gd:place_building()` - Use for final position calculation
+- `BuildingSystem.gd:is_valid_building_position()` - Check all occupied cells
+
+---
+
+#### 🟡 Medium Issue #4: grid_pos_to_key() Type Mismatch
+
+**Problem**: `grid_pos_to_key()` expects `Vector3` but Phase 1 introduced `Vector2i` for grid coordinates.
+
+**Location**: `BuildingSystem.gd:1078`
+
+**Technical Details**:
+```gdscript
+# Current signature:
+func grid_pos_to_key(grid_pos: Vector3, building_id: String = "", rotation: int = 0) -> String:
+    return "%d,%d,%d-%s" % [grid_pos.x, grid_pos.y, grid_pos.z, edge_name]
+
+# Should be:
+func grid_pos_to_key(grid_pos: Vector2i, building_id: String = "", rotation: int = 0) -> String:
+    return "%d,%d-%s" % [grid_pos.x, grid_pos.y, edge_name]
+```
+
+**Impact**:
+- Inconsistent type usage throughout codebase
+- Vector3 implies 3D world positions, but grid is 2D (x, z only)
+- Y component is always 0 for ground-level buildings, wasting memory in keys
+
+**Resolution Required**:
+1. **Update function signature**:
+   - Change parameter from `Vector3` to `Vector2i`
+   - Update key format to use 2 integers instead of 3
+
+2. **Update all callers**:
+   - Convert Vector3 to Vector2i before calling: `world_to_grid(world_pos)`
+   - Remove Y coordinate from key generation
+
+**Files to Modify**:
+- `BuildingSystem.gd:1078` - Update function signature
+- `BuildingSystem.gd:442` - Update caller in `is_valid_building_position()`
+- `BuildingSystem.gd:718` - Update caller in `place_building()`
+
+---
+
+#### 🟡 Medium Issue #5: Lazy-Loading Not Triggered Before Validation/Placement
+
+**Problem**: `get_building_geometry()` is only called in `start_building_mode()`, but not before validation or placement operations.
+
+**Location**:
+- `BuildingSystem.gd:286` - Only call to `get_building_geometry()`
+- `BuildingSystem.gd:423` - `is_valid_building_position()` doesn't trigger lazy-load
+- `BuildingSystem.gd:529` - `place_building()` doesn't trigger lazy-load
+
+**Technical Details**:
+If a building is placed without preview (e.g., from template construction), the geometry data might not be loaded yet:
+
+```gdscript
+# Template construction path:
+func _on_template_construction_completed(template):
+    # ...
+    place_building(template_pos)  # Geometry might not be loaded!
+
+# place_building uses:
+var building_info = building_data[current_building_id]
+var geometry_offset = building_info.get("geometry_offset", Vector3.ZERO)
+# If lazy-load didn't run, geometry_offset will be Vector3.ZERO (wrong!)
+```
+
+**Impact**:
+- Buildings placed from templates might use wrong geometry offsets
+- Buildings placed without opening build menu first would fail
+- Race condition: geometry data availability depends on whether preview was created
+
+**Resolution Required**:
+1. **Add lazy-load trigger at start of critical functions**:
+   ```gdscript
+   func is_valid_building_position(pos: Vector3, building_id: String = "", rotation: int = -1) -> bool:
+       var check_building_id = building_id if building_id != "" else current_building_id
+
+       # Ensure geometry is loaded
+       get_building_geometry(check_building_id)
+
+       # ... rest of function
+   ```
+
+2. **Same for `place_building()`**:
+   ```gdscript
+   func place_building(pos: Vector3):
+       # Ensure geometry is loaded before using geometry_offset
+       get_building_geometry(current_building_id)
+
+       var building_info = building_data[current_building_id]
+       # Now safe to use geometry_offset
+   ```
+
+**Files to Modify**:
+- `BuildingSystem.gd:is_valid_building_position()` - Add lazy-load trigger
+- `BuildingSystem.gd:place_building()` - Add lazy-load trigger
+
+---
+
+#### 🟡 Medium Issue #6: Mixed Edge Direction Systems
+
+**Problem**: Two parallel systems for edge directions - TileEdge enum (new) and String directions (old).
+
+**Location**:
+- `BuildingSystem.gd:58-63` - `TileEdge enum` (NORTH, EAST, SOUTH, WEST)
+- `BuildingSystem.gd:1094-1107` - `get_edge_direction_from_rotation()` returns String ("N", "E", "S", "W")
+- `BuildingSystem.gd:904` - `get_edge_from_rotation()` returns `TileEdge` enum
+
+**Technical Details**:
+```gdscript
+# New Phase 3 system:
+enum TileEdge {
+    NORTH = 0,
+    EAST = 1,
+    SOUTH = 2,
+    WEST = 3
+}
+func get_edge_from_rotation(rotation_deg: int) -> TileEdge
+
+# Old legacy system:
+func get_edge_direction_from_rotation(rotation: int) -> String:
+    return "N"  # or "E", "S", "W"
+```
+
+**Impact**:
+- Confusing which function to use
+- String-based system is error-prone (typos, case sensitivity)
+- Enum system is type-safe and consistent with Phase 3 design
+- Legacy code might still use strings while new code uses enums
+
+**Resolution Required**:
+1. **Deprecate string-based function**:
+   ```gdscript
+   func get_edge_direction_from_rotation(rotation: int) -> String:
+       push_warning("get_edge_direction_from_rotation() is deprecated. Use get_edge_from_rotation() instead.")
+       # Convert enum to string for backward compatibility
+       var edge = get_edge_from_rotation(rotation)
+       match edge:
+           TileEdge.NORTH: return "N"
+           TileEdge.EAST: return "E"
+           TileEdge.SOUTH: return "S"
+           TileEdge.WEST: return "W"
+       return "N"
+   ```
+
+2. **Update all callers to use enum**:
+   - Search for `get_edge_direction_from_rotation` calls
+   - Replace with `get_edge_from_rotation`
+
+**Files to Modify**:
+- `BuildingSystem.gd:1094` - Add deprecation warning
+- `BuildingSystem.gd:1054-1076` - Update `snap_to_tile_edge()` to use enum if still needed
 
 ---
 

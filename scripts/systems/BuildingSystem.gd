@@ -17,6 +17,9 @@ var is_building_from_template: bool = false  # Skip re-snapping when building fr
 # Building data loaded from JSON (single source of truth)
 var building_data: Dictionary = {}
 
+# Cache for GLB geometry data (lazy-loaded on first use)
+var glb_geometry_cache: Dictionary = {}
+
 var camera: Camera3D = null
 var raycast_layer_mask: int = 0x1  # Layer 1 - Ground/World collision layer
 var placed_buildings: Dictionary = {}
@@ -27,6 +30,40 @@ var pending_storage_data: Dictionary = {}
 # Door functionality for 3D doors
 var door_states: Dictionary = {}
 var player_nearby_door: Area3D = null
+
+# ============================================================================
+# GRID COORDINATE SYSTEM (Phase 1)
+# ============================================================================
+
+# Direction enum for rotation handling (Unity pattern)
+enum Direction {
+	DOWN = 0,   # 0° rotation (facing -Z in Godot, South)
+	LEFT = 1,   # 90° rotation (facing -X in Godot, West)
+	UP = 2,     # 180° rotation (facing +Z in Godot, North)
+	RIGHT = 3   # 270° rotation (facing +X in Godot, East)
+}
+
+# Grid size constants (world units per grid cell)
+const GRID_CELL_SIZE: float = 5.0  # SimpleSpace prefabs use 5m grid
+const LEGACY_GRID_SIZE: float = 4.0  # Fallback for generic buildings
+
+# Building type classification for grid behavior
+enum BuildingType {
+	GRID_OBJECT,   # Snaps to grid cell centers (floors, roofs, furniture)
+	EDGE_OBJECT,   # Snaps to grid cell edges (walls, doors, windows)
+	LOOSE_OBJECT   # Free placement (decorations, props)
+}
+
+# Tile edge enum for edge-based placement (Phase 3)
+enum TileEdge {
+	NORTH = 0,  # +Z edge
+	EAST = 1,   # +X edge
+	SOUTH = 2,  # -Z edge
+	WEST = 3    # -X edge
+}
+
+# Grid tracking dictionary: Vector2i grid coords -> building info
+var grid_objects: Dictionary = {}  # Replaces placed_buildings with grid-based keys
 
 func _ready():
 	# Load building data from JSON
@@ -44,7 +81,10 @@ func _ready():
 	print("3D BuildingSystem initialized")
 
 func load_building_data():
-	"""Load building data from buildings.json - single source of truth"""
+	"""Load building data from buildings.json - single source of truth
+
+	GLB geometry is lazy-loaded on first use via get_building_geometry()
+	"""
 	var file_path = "res://data/buildings.json"
 	if not FileAccess.file_exists(file_path):
 		push_error("BuildingSystem: buildings.json not found at %s" % file_path)
@@ -122,10 +162,48 @@ func load_building_data():
 			"size": size_3d,
 			"collision_shape": size_3d,  # Use same as size by default
 			"height_offset": height_offset,
+			"geometry_offset": Vector3.ZERO,  # Will be populated by get_building_geometry() if GLB exists
 			"icon_path": icon_path
 		}
 
 	print("BuildingSystem: Loaded %d buildings from JSON" % building_data.size())
+
+## Get building geometry data, extracting from GLB on first access (lazy-load)
+## @param building_id: The building ID to get geometry for
+## @returns: Dictionary with size, geometry_offset, and other AABB data
+func get_building_geometry(building_id: String) -> Dictionary:
+	# Return cached data if available
+	if glb_geometry_cache.has(building_id):
+		return glb_geometry_cache[building_id]
+
+	# Get building data
+	if not building_data.has(building_id):
+		push_warning("BuildingSystem: Unknown building_id '%s'" % building_id)
+		return {}
+
+	var building_info = building_data[building_id]
+	var scene_path = building_info.get("scene_path", "")
+
+	# Try to extract from GLB if path exists
+	if not scene_path.is_empty() and ResourceLoader.exists(scene_path):
+		var mesh_info = MeshInspector.inspect_mesh(scene_path)
+		if mesh_info.has("has_mesh") and mesh_info.has_mesh:
+			# Cache the geometry data
+			glb_geometry_cache[building_id] = mesh_info
+
+			# Update building_data with extracted values
+			building_data[building_id].size = mesh_info.aabb_size
+			building_data[building_id].geometry_offset = mesh_info.geometry_offset
+
+			print("BuildingSystem: Lazy-loaded GLB geometry for '%s'" % building_id)
+			return mesh_info
+
+	# Return existing building_data as fallback
+	return {
+		"size": building_info.get("size", Vector3.ONE),
+		"geometry_offset": building_info.get("geometry_offset", Vector3.ZERO),
+		"has_mesh": false
+	}
 
 func _find_camera():
 	var player = get_tree().get_first_node_in_group("player")
@@ -203,6 +281,9 @@ func start_building_mode(building_id: String):
 	building_rotation = 0
 	current_building_cost = get_building_recipe_cost(building_id)
 	building_to_move = null  # Not a move operation
+
+	# Lazy-load GLB geometry if not already cached
+	get_building_geometry(building_id)
 
 	# Set mouse to visible for building placement
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -682,7 +763,272 @@ func finish_building_mode():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	print("Restored mouse capture for camera control")
 
-# 3D Grid functions
+# ============================================================================
+# GRID COORDINATE CONVERSION FUNCTIONS (Phase 1)
+# ============================================================================
+
+## Convert grid coordinates to world position (Unity pattern)
+## @param grid_x: Grid X coordinate (integer)
+## @param grid_z: Grid Z coordinate (integer - Godot Z, not Y!)
+## @param grid_size: Size of grid cell in world units
+## @returns: World position (Vector3) at the CENTER of the grid cell
+func grid_to_world(grid_x: int, grid_z: int, grid_size: float = GRID_CELL_SIZE) -> Vector3:
+	return Vector3(
+		grid_x * grid_size + grid_size * 0.5,  # Center of cell
+		0,  # Ground level (Y = 0)
+		grid_z * grid_size + grid_size * 0.5   # Center of cell
+	)
+
+## Convert world position to grid coordinates
+## @param world_pos: World position (Vector3)
+## @param grid_size: Size of grid cell in world units
+## @returns: Grid coordinates as Vector2i (x, z)
+func world_to_grid(world_pos: Vector3, grid_size: float = GRID_CELL_SIZE) -> Vector2i:
+	return Vector2i(
+		int(floor(world_pos.x / grid_size)),
+		int(floor(world_pos.z / grid_size))
+	)
+
+## Get rotation offset for building placement (Unity pattern)
+## Different rotations need different offsets to keep buildings grid-aligned
+## @param dir: Direction enum value
+## @param width: Building width in grid cells
+## @param height: Building height in grid cells (depth in 3D)
+## @returns: Offset as Vector2i (x, z)
+func get_rotation_offset(dir: Direction, width: int, height: int) -> Vector2i:
+	match dir:
+		Direction.DOWN:   # 0° - no offset
+			return Vector2i(0, 0)
+		Direction.LEFT:   # 90° - offset by width
+			return Vector2i(0, width)
+		Direction.UP:     # 180° - offset by width and height
+			return Vector2i(width, height)
+		Direction.RIGHT:  # 270° - offset by height
+			return Vector2i(height, 0)
+		_:
+			return Vector2i.ZERO
+
+## Convert rotation degrees to Direction enum
+## @param rotation_deg: Rotation in degrees (0, 90, 180, 270)
+## @returns: Direction enum value
+func degrees_to_direction(rotation_deg: int) -> Direction:
+	var normalized = int(rotation_deg) % 360
+	if normalized < 0:
+		normalized += 360
+
+	if normalized >= 315 or normalized < 45:
+		return Direction.DOWN   # 0°
+	elif normalized >= 45 and normalized < 135:
+		return Direction.RIGHT  # 90°
+	elif normalized >= 135 and normalized < 225:
+		return Direction.UP     # 180°
+	else:
+		return Direction.LEFT   # 270°
+
+## Convert Direction enum to rotation degrees
+## @param dir: Direction enum value
+## @returns: Rotation in degrees
+func direction_to_degrees(dir: Direction) -> int:
+	match dir:
+		Direction.DOWN:
+			return 0
+		Direction.RIGHT:
+			return 90
+		Direction.UP:
+			return 180
+		Direction.LEFT:
+			return 270
+		_:
+			return 0
+
+## Get grid coordinates for a building at a world position with rotation
+## Handles rotation offset automatically
+## @param world_pos: World position where building is being placed
+## @param width: Building width in grid cells
+## @param height: Building height in grid cells (depth)
+## @param dir: Direction/rotation
+## @param grid_size: Size of grid cell
+## @returns: Grid coordinates (bottom-left corner) as Vector2i
+func get_grid_position_with_rotation(world_pos: Vector3, width: int, height: int, dir: Direction, grid_size: float = GRID_CELL_SIZE) -> Vector2i:
+	var grid_pos = world_to_grid(world_pos, grid_size)
+	var offset = get_rotation_offset(dir, width, height)
+	return grid_pos - offset
+
+# ============================================================================
+# ROTATION OFFSET SYSTEM (Phase 5)
+# ============================================================================
+
+## Calculate world position for a building with rotation offset (Unity pattern)
+## Used for multi-tile buildings (2x1, 3x2, etc.) to ensure proper grid alignment
+## @param grid_origin: Grid coordinates (bottom-left corner) as Vector2i
+## @param building_id: Building ID to look up dimensions
+## @param rotation: Rotation in degrees (0, 90, 180, 270)
+## @param grid_size: Size of grid cell in world units
+## @returns: World position (Vector3) with rotation offset applied
+func calculate_building_world_position(grid_origin: Vector2i, building_id: String, rotation: int, grid_size: float = GRID_CELL_SIZE) -> Vector3:
+	# Get base world position at grid cell center
+	var base_world = grid_to_world(grid_origin.x, grid_origin.y, grid_size)
+
+	# Get building dimensions from building_data
+	if not building_data.has(building_id):
+		push_warning("BuildingSystem: Unknown building_id '%s' for rotation offset" % building_id)
+		return base_world
+
+	var data = building_data[building_id]
+	var size_3d = data.get("size", Vector3.ONE)
+
+	# Convert 3D size to grid dimensions (x = width, z = height/depth)
+	# Grid size is in cells, so divide world size by cell size
+	var width = max(1, int(round(size_3d.x / grid_size)))
+	var height = max(1, int(round(size_3d.z / grid_size)))
+
+	# Convert rotation to Direction enum
+	var dir = degrees_to_direction(rotation)
+
+	# Get rotation offset for this direction
+	var rotation_offset = get_rotation_offset(dir, width, height)
+
+	# Apply rotation offset (Unity pattern: grid_world_pos + rotation_offset * cell_size)
+	base_world.x += rotation_offset.x * grid_size
+	base_world.z += rotation_offset.y * grid_size
+
+	return base_world
+
+# ============================================================================
+# EDGE-BASED PLACEMENT SYSTEM (Phase 3)
+# ============================================================================
+
+## Convert rotation degrees to TileEdge enum
+## @param rotation_deg: Rotation in degrees (0, 90, 180, 270)
+## @returns: TileEdge enum value
+func get_edge_from_rotation(rotation_deg: int) -> TileEdge:
+	var normalized = int(rotation_deg) % 360
+	if normalized < 0:
+		normalized += 360
+
+	if normalized >= 315 or normalized < 45:
+		return TileEdge.NORTH  # 0° - facing +Z
+	elif normalized >= 45 and normalized < 135:
+		return TileEdge.EAST   # 90° - facing +X
+	elif normalized >= 135 and normalized < 225:
+		return TileEdge.SOUTH  # 180° - facing -Z
+	else:
+		return TileEdge.WEST   # 270° - facing -X
+
+## Get world position for a wall center on specified edge of a tile
+## Positions wall so INNER face sits flush with tile edge
+## @param tile_grid_pos: Grid coordinates of the tile (Vector2i for x,z)
+## @param edge: Which edge of the tile (NORTH/SOUTH/EAST/WEST)
+## @param thickness: Wall thickness in world units
+## @param grid_size: Size of grid cell in world units
+## @returns: World position (Vector3) for wall center
+func get_edge_world_position(tile_grid_pos: Vector2i, edge: TileEdge, thickness: float, grid_size: float = GRID_CELL_SIZE) -> Vector3:
+	# Get tile center position
+	var tile_center = grid_to_world(tile_grid_pos.x, tile_grid_pos.y, grid_size)
+	var half_tile = grid_size / 2.0
+
+	# Position wall so inner face is flush with tile edge
+	# Wall center = tile_edge_position + (thickness/2) outward
+	var offset = half_tile + (thickness / 2.0)
+
+	match edge:
+		TileEdge.NORTH:  # +Z edge
+			return tile_center + Vector3(0, 0, offset)
+		TileEdge.SOUTH:  # -Z edge
+			return tile_center + Vector3(0, 0, -offset)
+		TileEdge.EAST:   # +X edge
+			return tile_center + Vector3(offset, 0, 0)
+		TileEdge.WEST:   # -X edge
+			return tile_center + Vector3(-offset, 0, 0)
+		_:
+			return tile_center
+
+## Snap floor/roof to grid center
+## @param world_pos: World position to snap
+## @param grid_size: Size of grid cell
+## @returns: World position at grid cell center
+func snap_floor_to_grid(world_pos: Vector3, grid_size: float = GRID_CELL_SIZE) -> Vector3:
+	var grid_pos = world_to_grid(world_pos, grid_size)
+	return grid_to_world(grid_pos.x, grid_pos.y, grid_size)
+
+## Snap wall/door frame to nearest tile edge
+## @param world_pos: World position to snap
+## @param rotation: Building rotation in degrees
+## @param building_id: Building ID to get thickness
+## @param grid_size: Size of grid cell
+## @returns: World position at edge
+func snap_wall_to_edge(world_pos: Vector3, rotation: int, building_id: String = "", grid_size: float = GRID_CELL_SIZE) -> Vector3:
+	var nearest_tile = world_to_grid(world_pos, grid_size)
+	var edge = get_edge_from_rotation(rotation)
+
+	# Get wall thickness from building data
+	var thickness = 0.1  # Default SimpleSpace wall thickness
+	if not building_id.is_empty() and building_data.has(building_id):
+		var data = building_data[building_id]
+		# Thickness is the Z component of the size for walls
+		thickness = data.get("size", Vector3(5, 5, 0.1)).z
+
+	return get_edge_world_position(Vector2i(nearest_tile.x, nearest_tile.y), edge, thickness, grid_size)
+
+## Snap door to nearest door frame, or fall back to edge snapping
+## @param world_pos: World position to snap
+## @param search_radius: How far to search for door frames
+## @returns: Dictionary with position and rotation
+func snap_door_to_frame(world_pos: Vector3, search_radius: float = 3.0) -> Dictionary:
+	var nearest_frame = find_nearest_door_frame(world_pos, search_radius)
+	if nearest_frame:
+		return {
+			"position": nearest_frame.global_position,
+			"rotation": nearest_frame.rotation_degrees.y
+		}
+	else:
+		# Fallback to wall-like edge snapping
+		return {
+			"position": snap_wall_to_edge(world_pos, building_rotation, current_building_id),
+			"rotation": building_rotation
+		}
+
+## Find nearest door frame to a position
+## @param world_pos: Position to search from
+## @param max_distance: Maximum search radius
+## @returns: Node3D of nearest frame, or null
+func find_nearest_door_frame(world_pos: Vector3, max_distance: float) -> Node3D:
+	var nearest: Node3D = null
+	var nearest_dist = max_distance
+
+	# Search placed buildings
+	for key in placed_buildings:
+		var building_entry = placed_buildings[key]
+		if building_entry.id == "door_frame" or building_entry.id == "door_frame_with_door":
+			var dist = building_entry.node.global_position.distance_to(world_pos)
+			if dist < nearest_dist:
+				nearest = building_entry.node
+				nearest_dist = dist
+
+	# Also search templates
+	var templates = get_tree().get_nodes_in_group("building_template")
+	for template in templates:
+		if template is Node3D and "building_id" in template:
+			if template.building_id == "door_frame" or template.building_id == "door_frame_with_door":
+				var dist = template.global_position.distance_to(world_pos)
+				if dist < nearest_dist:
+					nearest = template
+					nearest_dist = dist
+
+	return nearest
+
+## Rotate a Vector3 offset around the Y axis (Phase 4)
+## Used to rotate geometry offsets to match building rotation
+## @param offset: The offset vector to rotate
+## @param rotation_deg: Rotation in degrees
+## @returns: Rotated offset vector
+func rotate_offset(offset: Vector3, rotation_deg: int) -> Vector3:
+	var rotation_rad = deg_to_rad(rotation_deg)
+	var transform = Transform3D()
+	transform = transform.rotated(Vector3.UP, rotation_rad)
+	return transform.basis * offset
+
+# 3D Grid functions (LEGACY - will be replaced by grid coordinate system)
 func snap_to_grid_3d(pos: Vector3, grid_size: float = 4.0) -> Vector3:
 	return Vector3(
 		round(pos.x / grid_size) * grid_size,
@@ -733,8 +1079,9 @@ func grid_pos_to_key(grid_pos: Vector3, building_id: String = "", rotation: int 
 	# Edge-based buildings (walls, door frames) get edge-specific keys
 	# This prevents walls from blocking each other on different edges of the same tile
 	if building_id.contains("wall") or building_id.contains("door"):
-		var edge_dir = get_edge_direction_from_rotation(rotation)
-		return "%d,%d,%d-%s" % [grid_pos.x, grid_pos.y, grid_pos.z, edge_dir]
+		var edge = get_edge_from_rotation(rotation)
+		var edge_name = TileEdge.keys()[edge]
+		return "%d,%d,%d-%s" % [grid_pos.x, grid_pos.y, grid_pos.z, edge_name]
 	# Floors, roofs, and other buildings use tile-center keys
 	return "%d,%d,%d" % [grid_pos.x, grid_pos.y, grid_pos.z]
 

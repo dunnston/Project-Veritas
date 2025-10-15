@@ -1,7 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(do echo \"=== $file ===\")"
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Phase 5 - Implement rotation offset calculation for multi-tile buildings\n\nAdded calculate_building_world_position() function to support multi-tile building\nplacement with proper rotation handling (Unity GridBuildingSystem3D pattern):\n\n**New Function:**\n- calculate_building_world_position(grid_origin, building_id, rotation, grid_size)\n  - Looks up building dimensions from building_data\n  - Converts world size to grid cells (width/height)\n  - Uses existing get_rotation_offset() from Phase 1\n  - Applies offset: base_world + rotation_offset * cell_size\n  - Returns world position with rotation offset applied\n\n**Purpose:**\nEnables proper placement of multi-tile buildings (2x1, 3x2, etc.) at all rotations.\nWhen a 2x1 building rotates 90°, it becomes 1x2 in grid space - the rotation offset\nensures it stays grid-aligned.\n\n**Integration:**\nReady for use in future multi-tile building implementation (workbenches, assemblers).\nCurrent 1x1 buildings (walls, floors) work without needing this function.\n\nRefs: docs/BUILDING_SYSTEM_OVERHAUL.md Phase 5\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []
