@@ -527,6 +527,9 @@ func place_building_template(pos: Vector3):
 	# building_placed.emit(current_building_id, pos)  # Don't emit yet - only when actually built
 
 func place_building(pos: Vector3):
+	# Ensure geometry data is loaded (Critical Issue #2 fix + Medium Issue #5 fix)
+	get_building_geometry(current_building_id)
+
 	var building_info = building_data[current_building_id]
 	var scene_path = building_info.get("scene_path", "")
 
@@ -640,35 +643,17 @@ func place_building(pos: Vector3):
 	# Calculate grid-snapped position (edge-based for walls/doors, center for floors)
 	var grid_snapped_pos: Vector3
 	if is_building_from_template:
-		# GLB mesh geometry offsets vary by asset pack
-		# These represent where the VISUAL center is in LOCAL space relative to the root
-		var local_visual_center = Vector3.ZERO
+		# Use extracted geometry offset from Phase 2 MeshInspector (Critical Issue #2 fix)
+		# geometry_offset was populated by get_building_geometry() at start of this function
+		# It's already negative (offset = -visual_center), so we ADD it
+		var geometry_offset = building_info.get("geometry_offset", Vector3.ZERO)
 
-		# SimpleSpace prefabs: Visual centers based on actual AABB measurements
-		# Floor/Wall: Mesh(-2.5,0,-2.5) + AABB_center(-2.5,0,2.5) = Visual(-5,0,0)
-		# Roof: Mesh(-2.5,0,-2.5) + AABB_center(-2.5,0,-2.5) = Visual(-5,0,-5)
-		if current_building_id in ["basic_floor", "basic_wall"]:
-			local_visual_center = Vector3(-5, 0, 0)
-		elif current_building_id == "basic_roof":
-			local_visual_center = Vector3(-5, 0, -5)  # Roof has different Z offset!
+		# Rotate geometry offset to match building orientation
+		var rotated_offset = rotate_offset(geometry_offset, building_rotation)
 
-		# SciFiSpace doorframe: Visual center at local (2.5, 1.5, 0)
-		elif current_building_id == "door_frame":
-			local_visual_center = Vector3(2.5, 1.5, 0)
-
-		# Other door-related buildings (if using SimpleSpace)
-		elif current_building_id in ["door_frame_with_door", "door"]:
-			local_visual_center = Vector3(-5, 0, 0)
-
-		# Rotate the local visual center to world space
-		var rotation_transform = Transform3D()
-		rotation_transform = rotation_transform.rotated(Vector3.UP, deg_to_rad(building_rotation))
-		var world_visual_center = rotation_transform.basis * local_visual_center
-
-		# To make visual appear at template position, offset root by negative of world visual center
-		var geometry_offset = -world_visual_center
-
-		grid_snapped_pos = pos + geometry_offset
+		# Position root so VISUAL appears at template position
+		# Template position is where player placed it, offset is where mesh actually is
+		grid_snapped_pos = pos + rotated_offset  # ADD (not subtract!)
 	else:
 		grid_snapped_pos = get_grid_snapped_position(pos, current_building_id, building_rotation)
 
