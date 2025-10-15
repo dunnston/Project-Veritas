@@ -531,6 +531,7 @@ func place_building(pos: Vector3):
 	var scene_path = building_info.get("scene_path", "")
 
 	var placed_building: Node3D = null
+	var is_glb_building = false  # Track if building was loaded from GLB prefab
 
 	# Try to load building scene
 	if not scene_path.is_empty() and ResourceLoader.exists(scene_path):
@@ -538,6 +539,7 @@ func place_building(pos: Vector3):
 		var building_scene = load(scene_path)
 		if building_scene:
 			placed_building = building_scene.instantiate()
+			is_glb_building = true  # GLB buildings already have collision built-in
 		else:
 			print("Failed to load building scene: ", scene_path)
 	else:
@@ -624,14 +626,18 @@ func place_building(pos: Vector3):
 			mesh_instance.material_override = material
 			placed_building.add_child(mesh_instance)
 
-		# Only add collision shape for non-CSG buildings
+		# Only add collision shape for procedurally generated buildings
+		# GLB buildings already have collision built into their prefab
 		# CSG buildings handle their own collision via use_collision = true
-		if current_building_id != "door_frame":
+		if not is_glb_building and current_building_id != "door_frame":
 			var collision_shape = CollisionShape3D.new()
 			var box_shape = BoxShape3D.new()
 			box_shape.size = building_info.get("collision_shape", Vector3(1, 1, 1))
 			collision_shape.shape = box_shape
 			placed_building.add_child(collision_shape)
+			print("Added procedural collision for non-GLB building: %s" % current_building_id)
+		elif is_glb_building:
+			print("Skipping duplicate collision - GLB already has built-in collision: %s" % current_building_id)
 
 	# Ensure building is in the building group
 	if not placed_building.is_in_group("building"):
@@ -652,9 +658,10 @@ func place_building(pos: Vector3):
 		elif current_building_id == "basic_roof":
 			local_visual_center = Vector3(-5, 0, -5)  # Roof has different Z offset!
 
-		# SciFiSpace doorframe: Visual center at local (2.5, 1.5, 0)
+		# SciFiSpace doorframe: Visual center at local (2.5, 1.5, 0.25)
+		# Z offset of 0.25 moves the building forward by -0.25 to align with SimpleSpace walls
 		elif current_building_id == "door_frame":
-			local_visual_center = Vector3(2.5, 1.5, 0)
+			local_visual_center = Vector3(2.5, 1.5, 0.25)
 
 		# Other door-related buildings (if using SimpleSpace)
 		elif current_building_id in ["door_frame_with_door", "door"]:

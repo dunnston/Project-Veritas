@@ -1,19 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://de62bt4fqtoy1"]
 
-[ext_resource type="PackedScene" uid="uid://bjtr1aape72i" path="res://assets/enviroment/SimpleSpace/SimpleSpaceInteriors/Meshes/Environment/SM_Env_Ceiling_01.glb" id="1_cpx5p"]
+[ext_resource type="PackedScene" uid="uid://cgpgx6ipmbyel" path="res://assets/enviroment/SimpleSpace/SimpleSpaceInteriors/Meshes/Environment/SM_Env_Ceiling_01.glb" id="1_cpx5p"]
 [ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://assets/enviroment/SimpleSpace/SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
 
 [sub_resource type="BoxShape3D" id="0_c31wo"]
 size = Vector3(5, 0.1, 5)
 
-[node name = "SM_Env_Ceiling_01" instance = ExtResource("1_cpx5p")]
+[node name="SM_Env_Ceiling_01" instance=ExtResource("1_cpx5p")]
 
 [node name="Mesh" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -2.5)
 surface_material_override/0 = ExtResource("2_bqq6s")
 
 [node name="StaticBody" type="StaticBody3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
 
 [node name="Box0" type="CollisionShape3D" parent="StaticBody" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("0_c31wo")
