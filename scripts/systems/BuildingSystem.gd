@@ -563,9 +563,13 @@ func place_building(pos: Vector3):
 		# These represent where the VISUAL center is in LOCAL space relative to the root
 		var local_visual_center = Vector3.ZERO
 
-		# SimpleSpace prefabs: Visual center at local (-5, 0, 0)
-		if current_building_id in ["basic_floor", "basic_roof", "basic_wall"]:
+		# SimpleSpace prefabs: Visual centers based on actual AABB measurements
+		# Floor/Wall: Mesh(-2.5,0,-2.5) + AABB_center(-2.5,0,2.5) = Visual(-5,0,0)
+		# Roof: Mesh(-2.5,0,-2.5) + AABB_center(-2.5,0,-2.5) = Visual(-5,0,-5)
+		if current_building_id in ["basic_floor", "basic_wall"]:
 			local_visual_center = Vector3(-5, 0, 0)
+		elif current_building_id == "basic_roof":
+			local_visual_center = Vector3(-5, 0, -5)  # Roof has different Z offset!
 
 		# SciFiSpace doorframe: Visual center at local (2.5, 1.5, 0)
 		elif current_building_id == "door_frame":
