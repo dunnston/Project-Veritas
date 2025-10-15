@@ -54,6 +54,14 @@ enum BuildingType {
 	LOOSE_OBJECT   # Free placement (decorations, props)
 }
 
+# Tile edge enum for edge-based placement (Phase 3)
+enum TileEdge {
+	NORTH = 0,  # +Z edge
+	EAST = 1,   # +X edge
+	SOUTH = 2,  # -Z edge
+	WEST = 3    # -X edge
+}
+
 # Grid tracking dictionary: Vector2i grid coords -> building info
 var grid_objects: Dictionary = {}  # Replaces placed_buildings with grid-based keys
 
@@ -846,6 +854,129 @@ func get_grid_position_with_rotation(world_pos: Vector3, width: int, height: int
 	var offset = get_rotation_offset(dir, width, height)
 	return grid_pos - offset
 
+# ============================================================================
+# EDGE-BASED PLACEMENT SYSTEM (Phase 3)
+# ============================================================================
+
+## Convert rotation degrees to TileEdge enum
+## @param rotation_deg: Rotation in degrees (0, 90, 180, 270)
+## @returns: TileEdge enum value
+func get_edge_from_rotation(rotation_deg: int) -> TileEdge:
+	var normalized = int(rotation_deg) % 360
+	if normalized < 0:
+		normalized += 360
+
+	if normalized >= 315 or normalized < 45:
+		return TileEdge.NORTH  # 0° - facing +Z
+	elif normalized >= 45 and normalized < 135:
+		return TileEdge.EAST   # 90° - facing +X
+	elif normalized >= 135 and normalized < 225:
+		return TileEdge.SOUTH  # 180° - facing -Z
+	else:
+		return TileEdge.WEST   # 270° - facing -X
+
+## Get world position for a wall center on specified edge of a tile
+## Positions wall so INNER face sits flush with tile edge
+## @param tile_grid_pos: Grid coordinates of the tile (Vector2i for x,z)
+## @param edge: Which edge of the tile (NORTH/SOUTH/EAST/WEST)
+## @param thickness: Wall thickness in world units
+## @param grid_size: Size of grid cell in world units
+## @returns: World position (Vector3) for wall center
+func get_edge_world_position(tile_grid_pos: Vector2i, edge: TileEdge, thickness: float, grid_size: float = GRID_CELL_SIZE) -> Vector3:
+	# Get tile center position
+	var tile_center = grid_to_world(tile_grid_pos.x, tile_grid_pos.y, grid_size)
+	var half_tile = grid_size / 2.0
+
+	# Position wall so inner face is flush with tile edge
+	# Wall center = tile_edge_position + (thickness/2) outward
+	var offset = half_tile + (thickness / 2.0)
+
+	match edge:
+		TileEdge.NORTH:  # +Z edge
+			return tile_center + Vector3(0, 0, offset)
+		TileEdge.SOUTH:  # -Z edge
+			return tile_center + Vector3(0, 0, -offset)
+		TileEdge.EAST:   # +X edge
+			return tile_center + Vector3(offset, 0, 0)
+		TileEdge.WEST:   # -X edge
+			return tile_center + Vector3(-offset, 0, 0)
+		_:
+			return tile_center
+
+## Snap floor/roof to grid center
+## @param world_pos: World position to snap
+## @param grid_size: Size of grid cell
+## @returns: World position at grid cell center
+func snap_floor_to_grid(world_pos: Vector3, grid_size: float = GRID_CELL_SIZE) -> Vector3:
+	var grid_pos = world_to_grid(world_pos, grid_size)
+	return grid_to_world(grid_pos.x, grid_pos.y, grid_size)
+
+## Snap wall/door frame to nearest tile edge
+## @param world_pos: World position to snap
+## @param rotation: Building rotation in degrees
+## @param building_id: Building ID to get thickness
+## @param grid_size: Size of grid cell
+## @returns: World position at edge
+func snap_wall_to_edge(world_pos: Vector3, rotation: int, building_id: String = "", grid_size: float = GRID_CELL_SIZE) -> Vector3:
+	var nearest_tile = world_to_grid(world_pos, grid_size)
+	var edge = get_edge_from_rotation(rotation)
+
+	# Get wall thickness from building data
+	var thickness = 0.1  # Default SimpleSpace wall thickness
+	if not building_id.is_empty() and building_data.has(building_id):
+		var data = building_data[building_id]
+		# Thickness is the Z component of the size for walls
+		thickness = data.get("size", Vector3(5, 5, 0.1)).z
+
+	return get_edge_world_position(Vector2i(nearest_tile.x, nearest_tile.y), edge, thickness, grid_size)
+
+## Snap door to nearest door frame, or fall back to edge snapping
+## @param world_pos: World position to snap
+## @param search_radius: How far to search for door frames
+## @returns: Dictionary with position and rotation
+func snap_door_to_frame(world_pos: Vector3, search_radius: float = 3.0) -> Dictionary:
+	var nearest_frame = find_nearest_door_frame(world_pos, search_radius)
+	if nearest_frame:
+		return {
+			"position": nearest_frame.global_position,
+			"rotation": nearest_frame.rotation_degrees.y
+		}
+	else:
+		# Fallback to wall-like edge snapping
+		return {
+			"position": snap_wall_to_edge(world_pos, building_rotation, current_building_id),
+			"rotation": building_rotation
+		}
+
+## Find nearest door frame to a position
+## @param world_pos: Position to search from
+## @param max_distance: Maximum search radius
+## @returns: Node3D of nearest frame, or null
+func find_nearest_door_frame(world_pos: Vector3, max_distance: float) -> Node3D:
+	var nearest: Node3D = null
+	var nearest_dist = max_distance
+
+	# Search placed buildings
+	for key in placed_buildings:
+		var building_entry = placed_buildings[key]
+		if building_entry.id == "door_frame" or building_entry.id == "door_frame_with_door":
+			var dist = building_entry.node.global_position.distance_to(world_pos)
+			if dist < nearest_dist:
+				nearest = building_entry.node
+				nearest_dist = dist
+
+	# Also search templates
+	var templates = get_tree().get_nodes_in_group("building_template")
+	for template in templates:
+		if template is Node3D and "building_id" in template:
+			if template.building_id == "door_frame" or template.building_id == "door_frame_with_door":
+				var dist = template.global_position.distance_to(world_pos)
+				if dist < nearest_dist:
+					nearest = template
+					nearest_dist = dist
+
+	return nearest
+
 # 3D Grid functions (LEGACY - will be replaced by grid coordinate system)
 func snap_to_grid_3d(pos: Vector3, grid_size: float = 4.0) -> Vector3:
 	return Vector3(
@@ -897,8 +1028,9 @@ func grid_pos_to_key(grid_pos: Vector3, building_id: String = "", rotation: int 
 	# Edge-based buildings (walls, door frames) get edge-specific keys
 	# This prevents walls from blocking each other on different edges of the same tile
 	if building_id.contains("wall") or building_id.contains("door"):
-		var edge_dir = get_edge_direction_from_rotation(rotation)
-		return "%d,%d,%d-%s" % [grid_pos.x, grid_pos.y, grid_pos.z, edge_dir]
+		var edge = get_edge_from_rotation(rotation)
+		var edge_name = TileEdge.keys()[edge]
+		return "%d,%d,%d-%s" % [grid_pos.x, grid_pos.y, grid_pos.z, edge_name]
 	# Floors, roofs, and other buildings use tile-center keys
 	return "%d,%d,%d" % [grid_pos.x, grid_pos.y, grid_pos.z]
 
