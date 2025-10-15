@@ -1110,7 +1110,7 @@ return 2.0 * fract(fract(p)*4375.55) -1.;
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
 
 uniform float Tiling_VS = 200.0;
 uniform sampler2D Bottom_Texture_VS : source_color, filter_linear_mipmap_anisotropic;

@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bnsad6xuc765q" path="res://scenes/environment/Desert/SM_Env_Cactus_03.tscn" id="4_a85wv"]
 [ext_resource type="PackedScene" uid="uid://b2rmw840g7mnp" path="res://scenes/environment/Desert/SM_Env_Grass_01.tscn" id="4_qk5pi"]
 [ext_resource type="PackedScene" uid="uid://c5qxr8jyf4kxm" path="res://scenes/ui/StorageUI.tscn" id="4_storage"]
-[ext_resource type="PackedScene" path="res://scenes/ui/TurretUI.tscn" id="4_turret"]
+[ext_resource type="PackedScene" uid="uid://bvq8k3r7ml45w" path="res://scenes/ui/TurretUI.tscn" id="4_turret"]
 [ext_resource type="PackedScene" path="res://scenes/ui/CombatHUD.tscn" id="5_combathud"]
 [ext_resource type="PackedScene" uid="uid://baedaktxqlplp" path="res://scenes/environment/Desert/SM_Env_GroundCover_01.tscn" id="5_j7bxh"]
 [ext_resource type="PackedScene" uid="uid://fk0l6kgg8vyb" path="res://scenes/environment/Desert/SM_Env_Crater_03.tscn" id="5_w46yq"]
@@ -804,17 +804,6 @@ spawn_frequency_min = 10.0
 spawn_frequency_max = 25.0
 min_spawn_distance = 10.0
 debug_color = Color(1, 1, 0, 0.3)
-
-[node name="AggressiveSpawner" type="Node3D" parent="AnimalSpawners"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 20)
-script = ExtResource("86_ifutr")
-spawn_templates = Array[Resource]([ExtResource("90_2lpym"), ExtResource("91_3q2ld")])
-max_entities = 4
-spawn_frequency_min = 15.0
-spawn_frequency_max = 35.0
-spawn_radius = 30.0
-min_spawn_distance = 15.0
-debug_color = Color(1, 0, 0, 0.3)
 
 [node name="Turret" parent="." instance=ExtResource("92_l14a3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.97976, 0.0111486, 3.91759)

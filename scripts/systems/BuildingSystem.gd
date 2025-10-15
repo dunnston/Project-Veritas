@@ -80,26 +80,20 @@ func load_building_data():
 
 		# Determine 3D size based on building type
 		var size_3d: Vector3
-		var scene_offset: Vector3 = Vector3.ZERO
 		var height_offset: float = 0.0
 
 		# Special handling for SimpleSpace/SciFiSpace prefabs (5x5 grid)
 		if building_id == "basic_wall":
 			size_3d = Vector3(5, 5, 0.1)
-			scene_offset = Vector3(2.5, -2.5, 0.04)
 		elif building_id == "basic_floor":
 			size_3d = Vector3(5, 0.1, 5)
-			scene_offset = Vector3(2.5, 0, -2.5)
 			height_offset = 0.02
 		elif building_id == "basic_roof":
 			size_3d = Vector3(5, 0.1, 5)
-			scene_offset = Vector3(2.5, 0, -2.5)
 		elif building_id == "door_frame":
 			size_3d = Vector3(5, 5, 0.1)
-			scene_offset = Vector3(2.5, -2.5, 0.04)
 		elif building_id == "door_frame_with_door" or building_id == "door":
 			size_3d = Vector3(5, 5, 0.1)
-			scene_offset = Vector3(2.5, -2.5, 0.04)
 		elif building_id == "reinforced_wall":
 			size_3d = Vector3(1, 3, 0.3)
 		elif building_id == "reinforced_roof":
@@ -127,7 +121,6 @@ func load_building_data():
 			"scene_path": scene_path,
 			"size": size_3d,
 			"collision_shape": size_3d,  # Use same as size by default
-			"scene_offset": scene_offset,
 			"height_offset": height_offset,
 			"icon_path": icon_path
 		}
@@ -252,8 +245,8 @@ func create_building_preview():
 		# Create CSG-based preview with door cutout
 		var csg_wall = CSGBox3D.new()
 		csg_wall.size = size
+		# CSG is centered like BoxMesh, no offset needed
 		csg_wall.name = "CSGBox3D"  # Named so preview can find it
-		print("DEBUG: Creating %s preview with size: %s" % [current_building_id, size])
 
 		var csg_cutout = CSGBox3D.new()
 		csg_cutout.size = Vector3(1.2, 2.4, 0.3)
@@ -269,12 +262,12 @@ func create_building_preview():
 			csg_wall.add_child(door_mesh)
 
 		building_preview.add_child(csg_wall)
-		building_preview.setup_preview(current_building_id, null)  # No mesh, using CSG
+		building_preview.setup_preview(current_building_id, null, Vector3.ZERO)
 	else:
-		# Standard box mesh preview
+		# Standard box mesh preview - BoxMesh is already centered, no offset needed
 		var box_mesh = BoxMesh.new()
 		box_mesh.size = size
-		building_preview.setup_preview(current_building_id, box_mesh)
+		building_preview.setup_preview(current_building_id, box_mesh, Vector3.ZERO)
 
 	# Add to scene
 	get_tree().current_scene.add_child(building_preview)
@@ -367,11 +360,8 @@ func is_valid_building_position(pos: Vector3, building_id: String = "", rotation
 	var grid_pos = get_grid_snapped_position(pos, check_building_id, check_rotation)
 	var pos_key = grid_pos_to_key(grid_pos, check_building_id, check_rotation)
 
-	print("DEBUG validation for %s: pos=%s, rotation=%d, grid_pos=%s, key=%s" % [check_building_id, pos, check_rotation, grid_pos, pos_key])
-
 	# Check if spot is occupied by a completed building
 	if pos_key in placed_buildings:
-		print("Position validation failed: spot already occupied by building at key %s" % pos_key)
 		return false
 
 	# Check if spot is occupied by an existing template
@@ -383,10 +373,8 @@ func is_valid_building_position(pos: Vector3, building_id: String = "", rotation
 			var template_grid_pos = get_grid_snapped_position(template.global_position, template.building_id, template_rotation)
 			var template_pos_key = grid_pos_to_key(template_grid_pos, template.building_id, template_rotation)
 			if template_pos_key == pos_key:
-				print("Position validation failed: spot already occupied by template at key %s" % pos_key)
 				return false
 
-	print("DEBUG validation PASSED for key %s" % pos_key)
 	return true
 
 func can_afford_building() -> bool:
@@ -469,7 +457,6 @@ func place_building(pos: Vector3):
 		var building_scene = load(scene_path)
 		if building_scene:
 			placed_building = building_scene.instantiate()
-			print("Successfully instantiated building: ", placed_building.name)
 		else:
 			print("Failed to load building scene: ", scene_path)
 	else:
@@ -570,24 +557,45 @@ func place_building(pos: Vector3):
 		placed_building.add_to_group("building")
 
 	# Calculate grid-snapped position (edge-based for walls/doors, center for floors)
-	# Skip re-snapping when building from template - template position is already correct
 	var grid_snapped_pos: Vector3
 	if is_building_from_template:
-		grid_snapped_pos = pos  # Template position is already snapped
+		# GLB mesh geometry offsets vary by asset pack
+		# These represent where the VISUAL center is in LOCAL space relative to the root
+		var local_visual_center = Vector3.ZERO
+
+		# SimpleSpace prefabs: Visual centers based on actual AABB measurements
+		# Floor/Wall: Mesh(-2.5,0,-2.5) + AABB_center(-2.5,0,2.5) = Visual(-5,0,0)
+		# Roof: Mesh(-2.5,0,-2.5) + AABB_center(-2.5,0,-2.5) = Visual(-5,0,-5)
+		if current_building_id in ["basic_floor", "basic_wall"]:
+			local_visual_center = Vector3(-5, 0, 0)
+		elif current_building_id == "basic_roof":
+			local_visual_center = Vector3(-5, 0, -5)  # Roof has different Z offset!
+
+		# SciFiSpace doorframe: Visual center at local (2.5, 1.5, 0)
+		elif current_building_id == "door_frame":
+			local_visual_center = Vector3(2.5, 1.5, 0)
+
+		# Other door-related buildings (if using SimpleSpace)
+		elif current_building_id in ["door_frame_with_door", "door"]:
+			local_visual_center = Vector3(-5, 0, 0)
+
+		# Rotate the local visual center to world space
+		var rotation_transform = Transform3D()
+		rotation_transform = rotation_transform.rotated(Vector3.UP, deg_to_rad(building_rotation))
+		var world_visual_center = rotation_transform.basis * local_visual_center
+
+		# To make visual appear at template position, offset root by negative of world visual center
+		var geometry_offset = -world_visual_center
+
+		grid_snapped_pos = pos + geometry_offset
 	else:
 		grid_snapped_pos = get_grid_snapped_position(pos, current_building_id, building_rotation)
 
 	# Position and add to scene
 	# Apply height offset if the building has one (e.g., to raise floors above ground)
 	var height_offset = building_info.get("height_offset", 0.0)
-	# Apply scene offset if the prefab has internal mesh offset (e.g., SimpleSpace/SciFiSpace prefabs)
-	var scene_offset = building_info.get("scene_offset", Vector3.ZERO)
 
-	# Apply scene offset with rotation for all buildings
-	# The prefab's internal mesh offset needs to rotate with the building
-	var final_offset = scene_offset.rotated(Vector3.UP, deg_to_rad(building_rotation))
-
-	placed_building.global_position = grid_snapped_pos + Vector3(0, height_offset, 0) + final_offset
+	placed_building.global_position = grid_snapped_pos + Vector3(0, height_offset, 0)
 
 	# For doors, use the preview's rotation (which may have been set by snap_door_to_frame)
 	# For other buildings, use building_rotation
@@ -611,7 +619,7 @@ func place_building(pos: Vector3):
 	if placed_building.has_method("set_physics_process"):
 		placed_building.set_physics_process(true)
 
-	print("Placed building at position: ", pos)
+	print("Placed building at position: ", placed_building.global_position)
 	print("Building name: ", placed_building.name)
 	print("Building type: ", placed_building.get_class())
 	if placed_building.has_method("interact"):

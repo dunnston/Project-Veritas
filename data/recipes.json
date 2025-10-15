@@ -5,7 +5,7 @@
 		"description": "",
 		"include_in_build_menu": true,
 		"ingredients": {
-
+			"METAL_SCRAPS": 6.0
 		},
 		"name": "Large Oxygen Tank",
 		"output": {

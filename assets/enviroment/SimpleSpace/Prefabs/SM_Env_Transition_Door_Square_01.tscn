@@ -1,9 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://cb5hfhd12b5or"]
+[gd_scene load_steps=4 format=3 uid="uid://cb5hfhd12b5or"]
 
-[ext_resource type="PackedScene" uid="uid://dxk61obqt6weg" path="res://SimpleSpaceInteriors/Meshes/Environment/SM_Env_Transition_Door_Square_01.glb" id="1_bxtpo"]
-[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
+[ext_resource type="PackedScene" uid="uid://dxk61obqt6weg" path="res://assets/enviroment/SimpleSpace/SimpleSpaceInteriors/Meshes/Environment/SM_Env_Transition_Door_Square_01.glb" id="1_bxtpo"]
+[ext_resource type="Material" uid="uid://bga3l4bxy2xi" path="res://assets/enviroment/SimpleSpace/SimpleSpaceInteriors/Materials/M_SimpleSpaceInteriors.tres" id="2_bqq6s"]
+
+[sub_resource type="BoxShape3D" id="0_c31wo"]
+size = Vector3(5, 5, 0.1)
 
 [node name = "SM_Env_Transition_Door_Square_01" instance = ExtResource("1_bxtpo")]
 
 [node name="Mesh" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, -2.5, 0)
 surface_material_override/0 = ExtResource("2_bqq6s")
+
+[node name="StaticBody" type="StaticBody3D" parent="." index="1"]
+
+[node name="Box0" type="CollisionShape3D" parent="StaticBody" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("0_c31wo")

@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=8 format=3 uid="uid://cbexp4slb2dmj"]
 
-[ext_resource type="Texture2D" uid="uid://bgwjj34wy03bm" path="res://assets/enviroment/SimpleSpace/SimpleSpaceInteriors/Textures/T_SpaceInteriors.png" id="1_dcg1n"]
+[ext_resource type="Texture2D" uid="uid://dhjxcnlwep8qp" path="res://assets/enviroment/SimpleSpace/SimpleSpaceInteriors/Textures/T_SpaceInteriors.png" id="1_dcg1n"]
 
 [sub_resource type="VisualShaderNodeClamp" id="VisualShaderNodeClamp_bsl5etqaae7ft"]
 
@@ -74,7 +74,7 @@ return 2.0 * fract(fract(p)*4375.55) -1.;
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
 
 uniform sampler2D tex_frg_2 : source_color;
 
@@ -165,7 +165,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-523.783, 120.943)
 modes/cull = 2
 flags/depth_prepass_alpha = true
 nodes/vertex/0/position = Vector2(0, 0)

@@ -8,7 +8,7 @@ extends CharacterBody3D
 
 @export_group("Interaction Settings")
 @export var drop_distance: float = 2.0
-@export var interact_range: float = 2.0  # Reduced from 3.0 to 2.0
+@export var interact_range: float = 6.0  # Increased to reach tall buildings like roofs
 
 @export_group("Mining Settings")
 @export var mining_damage_per_hit: float = 10.0

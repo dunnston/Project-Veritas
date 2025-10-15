@@ -94,9 +94,7 @@ func _find_animation_player(node: Node) -> AnimationPlayer:
 func _list_available_animations() -> void:
 	if not animation_player:
 		return
-	var anims = animation_player.get_animation_list()
-	if anims.size() > 0:
-		print("[" + animal_name + "] Animations ready (" + str(anims.size()) + " animations loaded)")
+	# Animations are available, but don't print to reduce console spam
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity
