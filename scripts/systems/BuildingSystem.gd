@@ -28,6 +28,32 @@ var pending_storage_data: Dictionary = {}
 var door_states: Dictionary = {}
 var player_nearby_door: Area3D = null
 
+# ============================================================================
+# GRID COORDINATE SYSTEM (Phase 1)
+# ============================================================================
+
+# Direction enum for rotation handling (Unity pattern)
+enum Direction {
+	DOWN = 0,   # 0° rotation (facing -Z in Godot, South)
+	LEFT = 1,   # 90° rotation (facing -X in Godot, West)
+	UP = 2,     # 180° rotation (facing +Z in Godot, North)
+	RIGHT = 3   # 270° rotation (facing +X in Godot, East)
+}
+
+# Grid size constants (world units per grid cell)
+const GRID_CELL_SIZE: float = 5.0  # SimpleSpace prefabs use 5m grid
+const LEGACY_GRID_SIZE: float = 4.0  # Fallback for generic buildings
+
+# Building type classification for grid behavior
+enum BuildingType {
+	GRID_OBJECT,   # Snaps to grid cell centers (floors, roofs, furniture)
+	EDGE_OBJECT,   # Snaps to grid cell edges (walls, doors, windows)
+	LOOSE_OBJECT   # Free placement (decorations, props)
+}
+
+# Grid tracking dictionary: Vector2i grid coords -> building info
+var grid_objects: Dictionary = {}  # Replaces placed_buildings with grid-based keys
+
 func _ready():
 	# Load building data from JSON
 	load_building_data()
@@ -682,7 +708,98 @@ func finish_building_mode():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	print("Restored mouse capture for camera control")
 
-# 3D Grid functions
+# ============================================================================
+# GRID COORDINATE CONVERSION FUNCTIONS (Phase 1)
+# ============================================================================
+
+## Convert grid coordinates to world position (Unity pattern)
+## @param grid_x: Grid X coordinate (integer)
+## @param grid_z: Grid Z coordinate (integer - Godot Z, not Y!)
+## @param grid_size: Size of grid cell in world units
+## @returns: World position (Vector3) at the CENTER of the grid cell
+func grid_to_world(grid_x: int, grid_z: int, grid_size: float = GRID_CELL_SIZE) -> Vector3:
+	return Vector3(
+		grid_x * grid_size + grid_size * 0.5,  # Center of cell
+		0,  # Ground level (Y = 0)
+		grid_z * grid_size + grid_size * 0.5   # Center of cell
+	)
+
+## Convert world position to grid coordinates
+## @param world_pos: World position (Vector3)
+## @param grid_size: Size of grid cell in world units
+## @returns: Grid coordinates as Vector2i (x, z)
+func world_to_grid(world_pos: Vector3, grid_size: float = GRID_CELL_SIZE) -> Vector2i:
+	return Vector2i(
+		int(floor(world_pos.x / grid_size)),
+		int(floor(world_pos.z / grid_size))
+	)
+
+## Get rotation offset for building placement (Unity pattern)
+## Different rotations need different offsets to keep buildings grid-aligned
+## @param dir: Direction enum value
+## @param width: Building width in grid cells
+## @param height: Building height in grid cells (depth in 3D)
+## @returns: Offset as Vector2i (x, z)
+func get_rotation_offset(dir: Direction, width: int, height: int) -> Vector2i:
+	match dir:
+		Direction.DOWN:   # 0° - no offset
+			return Vector2i(0, 0)
+		Direction.LEFT:   # 90° - offset by width
+			return Vector2i(0, width)
+		Direction.UP:     # 180° - offset by width and height
+			return Vector2i(width, height)
+		Direction.RIGHT:  # 270° - offset by height
+			return Vector2i(height, 0)
+		_:
+			return Vector2i.ZERO
+
+## Convert rotation degrees to Direction enum
+## @param rotation_deg: Rotation in degrees (0, 90, 180, 270)
+## @returns: Direction enum value
+func degrees_to_direction(rotation_deg: int) -> Direction:
+	var normalized = int(rotation_deg) % 360
+	if normalized < 0:
+		normalized += 360
+
+	if normalized >= 315 or normalized < 45:
+		return Direction.DOWN   # 0°
+	elif normalized >= 45 and normalized < 135:
+		return Direction.RIGHT  # 90°
+	elif normalized >= 135 and normalized < 225:
+		return Direction.UP     # 180°
+	else:
+		return Direction.LEFT   # 270°
+
+## Convert Direction enum to rotation degrees
+## @param dir: Direction enum value
+## @returns: Rotation in degrees
+func direction_to_degrees(dir: Direction) -> int:
+	match dir:
+		Direction.DOWN:
+			return 0
+		Direction.RIGHT:
+			return 90
+		Direction.UP:
+			return 180
+		Direction.LEFT:
+			return 270
+		_:
+			return 0
+
+## Get grid coordinates for a building at a world position with rotation
+## Handles rotation offset automatically
+## @param world_pos: World position where building is being placed
+## @param width: Building width in grid cells
+## @param height: Building height in grid cells (depth)
+## @param dir: Direction/rotation
+## @param grid_size: Size of grid cell
+## @returns: Grid coordinates (bottom-left corner) as Vector2i
+func get_grid_position_with_rotation(world_pos: Vector3, width: int, height: int, dir: Direction, grid_size: float = GRID_CELL_SIZE) -> Vector2i:
+	var grid_pos = world_to_grid(world_pos, grid_size)
+	var offset = get_rotation_offset(dir, width, height)
+	return grid_pos - offset
+
+# 3D Grid functions (LEGACY - will be replaced by grid coordinate system)
 func snap_to_grid_3d(pos: Vector3, grid_size: float = 4.0) -> Vector3:
 	return Vector3(
 		round(pos.x / grid_size) * grid_size,
