@@ -1,9 +1,9 @@
 [gd_resource type="VisualShader" load_steps=18 format=3 uid="uid://dxgauj6p4tfra"]
 
-[ext_resource type="Texture2D" uid="uid://dxa3undycnm4x" path="res://assets/enviroment/ScifiCity/PolygonScifi/Textures/T_PolygonScifi_01_A.png" id="1_bh5op"]
-[ext_resource type="Texture2D" uid="uid://booe4pg7yv7br" path="res://assets/enviroment/ScifiCity/PolygonScifi/Textures/T_PolygonScifi_Emissive_01.png" id="2_dn6i1"]
-[ext_resource type="Texture2D" uid="uid://cnacnibjvo7b7" path="res://assets/enviroment/ScifiCity/PolygonScifi/Textures/T_PolygonSciFiCity_Metallic.png" id="4_boca0"]
-[ext_resource type="Texture2D" uid="uid://djsmpmwjropkf" path="res://assets/enviroment/ScifiCity/PolygonScifi/Textures/T_PolygonSciFiCity_Roughness.png" id="5_bjyaq"]
+[ext_resource type="Texture2D" uid="uid://b30idxs8opfcq" path="res://assets/enviroment/ScifiCity/PolygonScifi/Textures/T_PolygonScifi_01_A.png" id="1_bh5op"]
+[ext_resource type="Texture2D" uid="uid://0ia72yrnxkpq" path="res://assets/enviroment/ScifiCity/PolygonScifi/Textures/T_PolygonScifi_Emissive_01.png" id="2_dn6i1"]
+[ext_resource type="Texture2D" uid="uid://b08sgslo8e45p" path="res://assets/enviroment/ScifiCity/PolygonScifi/Textures/T_PolygonSciFiCity_Metallic.png" id="4_boca0"]
+[ext_resource type="Texture2D" uid="uid://b0btpyqd86urk" path="res://assets/enviroment/ScifiCity/PolygonScifi/Textures/T_PolygonSciFiCity_Roughness.png" id="5_bjyaq"]
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_c26o5xsix7327"]
 expanded_output_ports = [0]
@@ -121,7 +121,7 @@ return 2.0 * fract(fract(p)*4375.55) -1.;
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
 
 uniform sampler2D tex_frg_2 : source_color;
 uniform sampler2D tex_frg_8 : source_color;
@@ -270,7 +270,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-523.783, 120.943)
 modes/cull = 2
 flags/depth_prepass_alpha = true
 nodes/vertex/0/position = Vector2(0, 0)

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bs0vvda7hed72"]
+
+[ext_resource type="PackedScene" uid="uid://bsny7kjncx4qs" path="res://assets/Building/kit_doorway.glb" id="1_y17lt"]
+[ext_resource type="Material" uid="uid://c2a0khfr3vt5e" path="res://assets/Building/Textures/mat_metal_siding.tres" id="2_7wfhv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_doorway"]
+size = Vector3(5, 5, 0.1)
+
+[node name="metal_doorway" type="StaticBody3D"]
+
+[node name="Model" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.108745, 0.994070, 0, -0.994070, -0.108745, 0, 0, 0)
+
+[node name="kit_doorway" parent="Model" instance=ExtResource("1_y17lt")]
+
+[node name="geometry_0" parent="Model/kit_doorway/world" index="0"]
+material_override = ExtResource("2_7wfhv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_doorway")

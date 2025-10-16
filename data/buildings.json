@@ -472,5 +472,114 @@
 			"x": 2.0,
 			"y": 1.0
 		}
+	},
+	"metal_floor": {
+		"blocks_movement": false,
+		"blocks_placement": false,
+		"category": "structure",
+		"cost": {
+			"SCRAP_METAL": 4.0
+		},
+		"description": "Industrial metal floor plating",
+		"icon": "metal_floor.png",
+		"interactable": false,
+		"max_health": 75.0,
+		"name": "Metal Floor",
+		"refund": {
+			"SCRAP_METAL": 2.0
+		},
+		"scene_path": "res://assets/Building/metal_floor.tscn",
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"metal_wall": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "structure",
+		"cost": {
+			"SCRAP_METAL": 6.0
+		},
+		"description": "Reinforced metal wall plating",
+		"icon": "metal_wall.png",
+		"interactable": false,
+		"max_health": 120.0,
+		"name": "Metal Wall",
+		"provides_shelter": true,
+		"refund": {
+			"SCRAP_METAL": 3.0
+		},
+		"scene_path": "res://assets/Building/metal_wall.tscn",
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"metal_ceiling": {
+		"blocks_movement": false,
+		"blocks_placement": false,
+		"category": "structure",
+		"cost": {
+			"SCRAP_METAL": 5.0
+		},
+		"description": "Metal ceiling plating for overhead cover",
+		"icon": "metal_ceiling.png",
+		"interactable": false,
+		"max_health": 90.0,
+		"name": "Metal Ceiling",
+		"provides_shelter": true,
+		"refund": {
+			"SCRAP_METAL": 2.0
+		},
+		"scene_path": "res://assets/Building/metal_ceiling.tscn",
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"metal_doorway": {
+		"blocks_movement": false,
+		"blocks_placement": true,
+		"category": "structure",
+		"cost": {
+			"SCRAP_METAL": 5.0
+		},
+		"description": "Metal door frame for wall openings",
+		"icon": "metal_doorway.png",
+		"interactable": false,
+		"max_health": 100.0,
+		"name": "Metal Doorway",
+		"provides_shelter": false,
+		"refund": {
+			"SCRAP_METAL": 2.0
+		},
+		"scene_path": "res://assets/Building/metal_doorway.tscn",
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
+	},
+	"metal_window_wall": {
+		"blocks_movement": true,
+		"blocks_placement": true,
+		"category": "structure",
+		"cost": {
+			"SCRAP_METAL": 7.0
+		},
+		"description": "Metal wall with reinforced window opening",
+		"icon": "metal_window_wall.png",
+		"interactable": false,
+		"max_health": 110.0,
+		"name": "Metal Window Wall",
+		"provides_shelter": true,
+		"refund": {
+			"SCRAP_METAL": 3.0
+		},
+		"scene_path": "res://assets/Building/metal_window_wall.tscn",
+		"size": {
+			"x": 1.0,
+			"y": 1.0
+		}
 	}
 }

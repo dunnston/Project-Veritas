@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dog6ntapbrxhp"]
+
+[ext_resource type="PackedScene" uid="uid://mgbee0e3mxnx" path="res://assets/Building/bbkit_window_wall.glb" id="1_bbypv"]
+[ext_resource type="Material" uid="uid://c2a0khfr3vt5e" path="res://assets/Building/Textures/mat_metal_siding.tres" id="2_xuapq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_window_wall"]
+size = Vector3(5, 5, 0.1)
+
+[node name="metal_window_wall" type="StaticBody3D"]
+
+[node name="Model" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+
+[node name="bbkit_window_wall" parent="Model" instance=ExtResource("1_bbypv")]
+
+[node name="geometry_0" parent="Model/bbkit_window_wall/world" index="0"]
+material_override = ExtResource("2_xuapq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_window_wall")

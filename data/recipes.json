@@ -460,5 +460,75 @@
 			"workbench": 1.0
 		},
 		"workbench_required": false
+	},
+	"metal_floor": {
+		"category": "building",
+		"craft_time": 1.5,
+		"description": "Industrial metal floor plating",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 4.0
+		},
+		"name": "Metal Floor",
+		"output": {
+			"metal_floor": 1.0
+		},
+		"workbench_required": false
+	},
+	"metal_wall": {
+		"category": "building",
+		"craft_time": 2.0,
+		"description": "Reinforced metal wall plating",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 6.0
+		},
+		"name": "Metal Wall",
+		"output": {
+			"metal_wall": 1.0
+		},
+		"workbench_required": false
+	},
+	"metal_ceiling": {
+		"category": "building",
+		"craft_time": 2.0,
+		"description": "Metal ceiling plating for overhead cover",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 5.0
+		},
+		"name": "Metal Ceiling",
+		"output": {
+			"metal_ceiling": 1.0
+		},
+		"workbench_required": false
+	},
+	"metal_doorway": {
+		"category": "building",
+		"craft_time": 2.5,
+		"description": "Metal door frame for wall openings",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 5.0
+		},
+		"name": "Metal Doorway",
+		"output": {
+			"metal_doorway": 1.0
+		},
+		"workbench_required": false
+	},
+	"metal_window_wall": {
+		"category": "building",
+		"craft_time": 2.5,
+		"description": "Metal wall with reinforced window opening",
+		"include_in_build_menu": true,
+		"ingredients": {
+			"SCRAP_METAL": 7.0
+		},
+		"name": "Metal Window Wall",
+		"output": {
+			"metal_window_wall": 1.0
+		},
+		"workbench_required": false
 	}
 }
