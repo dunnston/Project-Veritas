@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dog6ntapbrxhp"]
+
+[ext_resource type="PackedScene" uid="uid://mgbee0e3mxnx" path="res://assets/Building/bbkit_window_wall.glb" id="1_bbypv"]
+[ext_resource type="Material" uid="uid://c2a0khfr3vt5e" path="res://assets/Building/Textures/mat_metal_siding.tres" id="2_xuapq"]
+
+[node name="metal_window_wall" instance=ExtResource("1_bbypv")]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0)
+
+[node name="geometry_0" parent="world" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0)
+material_override = ExtResource("2_xuapq")

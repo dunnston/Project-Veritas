@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnogt74dwh5to"]
+
+[ext_resource type="PackedScene" uid="uid://clbug4giaqlcr" path="res://assets/Building/kit_floor.glb" id="1_mjy3n"]
+[ext_resource type="Material" uid="uid://bws00p4blhsgp" path="res://assets/Building/Textures/metal_grid.tres" id="2_mfcth"]
+
+[node name="metal_floor" instance=ExtResource("1_mjy3n")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+
+[node name="geometry_0" parent="world" index="0"]
+material_override = ExtResource("2_mfcth")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6q317wecc0l8"]
+
+[ext_resource type="PackedScene" uid="uid://brfe7283soi7w" path="res://assets/Building/kit_ceiling.glb" id="1_5pg7l"]
+[ext_resource type="Material" uid="uid://c2a0khfr3vt5e" path="res://assets/Building/Textures/mat_metal_siding.tres" id="2_wrg8b"]
+
+[node name="metal_ceiling" instance=ExtResource("1_5pg7l")]
+transform = Transform3D(1, 0, 0, 0, -0.018185372, -0.99983466, 0, 0.99983466, -0.018185372, 0, 0, 0)
+
+[node name="geometry_0" parent="world" index="0"]
+material_override = ExtResource("2_wrg8b")

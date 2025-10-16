@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs0vvda7hed72"]
+
+[ext_resource type="PackedScene" uid="uid://bsny7kjncx4qs" path="res://assets/Building/kit_doorway.glb" id="1_y17lt"]
+[ext_resource type="Material" uid="uid://c2a0khfr3vt5e" path="res://assets/Building/Textures/mat_metal_siding.tres" id="2_7wfhv"]
+
+[node name="metal_doorway" instance=ExtResource("1_y17lt")]
+transform = Transform3D(1, 0, 0, 0, -0.10874543, 0.99406964, 0, -0.99406964, -0.10874543, 0, 0, 0)
+
+[node name="geometry_0" parent="world" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99406964, 0.10874543)
+material_override = ExtResource("2_7wfhv")

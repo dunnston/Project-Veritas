@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://pdttn6eyxsb4"]
+
+[ext_resource type="PackedScene" uid="uid://d3u1i5jn1nj4o" path="res://assets/Building/kit_door.glb" id="1_vycyg"]
+
+[node name="metal_door" instance=ExtResource("1_vycyg")]
+transform = Transform3D(1, 0, 0, 0, 0.022303414, -0.9997513, 0, 0.9997513, 0.022303414, 0, 0, 0)

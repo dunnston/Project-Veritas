@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=4 uid="uid://b0jhrioo23ium"]
+
+[ext_resource type="PackedScene" uid="uid://c6awkfdolimpq" path="res://assets/Building/bbkit_wall.glb" id="1_k0rv0"]
+[ext_resource type="Material" uid="uid://c2a0khfr3vt5e" path="res://assets/Building/Textures/mat_metal_siding.tres" id="2_brb13"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_lhc1y"]
+_surfaces = [{
+"aabb": AABB(-1, -0.05, -1, 2, 0.1, 2),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAAACAAQAAgADAAQABQABAAAAAwABAAUABgAFAAAABgAAAAQABwADAAUABwAFAAYAAwAHAAQABAAHAAYA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AACAv83MTL0AAIA/AACAv83MTL0AAIC/AACAv83MTD0AAIA/AACAv83MTD0AAIC/AACAP83MTD0AAIA/AACAP83MTL0AAIC/AACAP83MTL0AAIA/AACAP83MTD0AAIC/")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_n2uvm"]
+resource_name = "bbkit_wall_geometry_0"
+_surfaces = [{
+"aabb": AABB(-1, -0.05, -1, 2, 0.1, 2),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAAACAAQAAgADAAQABQABAAAAAwABAAUABgAFAAAABgAAAAQABwADAAUABwAFAAYAAwAHAAQABAAHAAYA"),
+"material": ExtResource("2_brb13"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AACAv83MTL0AAIA/AACAv83MTL0AAIC/AACAv83MTD0AAIA/AACAv83MTD0AAIC/AACAP83MTD0AAIA/AACAP83MTL0AAIC/AACAP83MTL0AAIA/AACAP83MTD0AAIC/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_lhc1y")
+
+[node name="Metal Wall" instance=ExtResource("1_k0rv0")]
+
+[node name="geometry_0" parent="world" index="0"]
+transform = Transform3D(1, 0, 0, 0, -0.021762485, -0.9997632, 0, 0.9997632, -0.021762485, 0, 0, 0)
+material_override = ExtResource("2_brb13")
+mesh = SubResource("ArrayMesh_n2uvm")
