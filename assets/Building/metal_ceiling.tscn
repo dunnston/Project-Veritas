@@ -1,10 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6q317wecc0l8"]
+[gd_scene load_steps=4 format=3 uid="uid://c6q317wecc0l8"]
 
 [ext_resource type="PackedScene" uid="uid://brfe7283soi7w" path="res://assets/Building/kit_ceiling.glb" id="1_5pg7l"]
 [ext_resource type="Material" uid="uid://c2a0khfr3vt5e" path="res://assets/Building/Textures/mat_metal_siding.tres" id="2_wrg8b"]
 
-[node name="metal_ceiling" instance=ExtResource("1_5pg7l")]
-transform = Transform3D(1, 0, 0, 0, -0.018185372, -0.99983466, 0, 0.99983466, -0.018185372, 0, 0, 0)
+[sub_resource type="BoxShape3D" id="BoxShape3D_ceiling"]
+size = Vector3(5, 0.1, 5)
 
-[node name="geometry_0" parent="world" index="0"]
+[node name="metal_ceiling" type="StaticBody3D"]
+
+[node name="Model" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0181854, -0.999835, 0, 0.999835, -0.0181854, 0, 0, 0)
+
+[node name="kit_ceiling" parent="Model" instance=ExtResource("1_5pg7l")]
+
+[node name="geometry_0" parent="Model/kit_ceiling/world" index="0"]
 material_override = ExtResource("2_wrg8b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ceiling")
